@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BitArray2D
+public class New_New_BitArray2D
 {
 
     //z=0x=0 z=0x=1
@@ -20,7 +20,7 @@ public class BitArray2D
     private float schiebZ;
     private const float spacearound = 2f;
 
-    public BitArray2D( Bounds b, Transform child, float aR, int p) { 
+    public New_New_BitArray2D( Bounds b, Transform child, float aR, int p) { 
         childT = child;
 
         agentRadius = aR * spacearound;

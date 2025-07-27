@@ -289,7 +289,7 @@ public class RadicalSelection : MonoBehaviour
     {
         if (selectedBude != null)
         {
-            selectedBude.increaseAttraktivität();
+            selectedBude.increaseAttraktivitaet();
         }
     }
 
@@ -297,7 +297,7 @@ public class RadicalSelection : MonoBehaviour
     {
         if (selectedBude != null)
         {
-            selectedBude.decreaseAttraktivität();
+            selectedBude.decreaseAttraktivitaet();
         }
     }
 

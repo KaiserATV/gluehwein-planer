@@ -135,7 +135,7 @@ public class AgentManager : MonoBehaviour
         {
             if(b != null)
             {
-                maxKapazitaet += b.kapazität;
+                maxKapazitaet += b.kapazitaet;
                 allBudenWeigth += b.attraktivitaet;
             }
         }

@@ -25,7 +25,7 @@ public class AgentController : MonoBehaviour
     private Vector2Int bitarrayCells;
     private Vector2Int positionCells;
     private Vector2 goal;
-    private BitArray2D bude;
+    private New_New_BitArray2D bude;
     private AgentManager sm;
     private List<int> visitedGoalNumbers =  new List<int>();
     
@@ -222,7 +222,7 @@ public class AgentController : MonoBehaviour
     {
         goal = g;
     }
-    public void SetBude(BitArray2D b)
+    public void SetBude(New_New_BitArray2D b)
     {
         bude = b;
     }

@@ -7,7 +7,7 @@ public class Buden : MonoBehaviour
     public int waitTime = 10;
 
     public int attraktivitaet = 5;
-    public int kapazität;
+    public int kapazitaet;
     public float delayBeforeNotBusy = 5f;
     private float timeGoneBy = 0f;
     public bool busy = false;
@@ -17,10 +17,10 @@ public class Buden : MonoBehaviour
     public int attrakIncr=10;
     public int waitIncr = 5;
 
-    private BitArray2D wait_B;
-    private BitArray2D wait_L;
-    private BitArray2D wait_R;
-    private BitArray2D ziel;
+    private New_New_BitArray2D wait_B;
+    private New_New_BitArray2D wait_L;
+    private New_New_BitArray2D wait_R;
+    private New_New_BitArray2D ziel;
 
     public void Start()
     {
@@ -32,22 +32,22 @@ public class Buden : MonoBehaviour
         //ziel Array
         Transform child = this.transform.GetChild(4);
         Bounds bound = child.GetComponent<MeshRenderer>().localBounds;
-        ziel = new BitArray2D(bound, child, agentRadius, 0);
+        ziel = new New_New_BitArray2D(bound, child, agentRadius, 0);
 
         //Wait_B Array
         child = this.transform.GetChild(1);
         bound = child.GetComponent<MeshRenderer>().localBounds;
-        wait_B = new BitArray2D(bound, child, agentRadius, 0);
+        wait_B = new New_New_BitArray2D(bound, child, agentRadius, 0);
 
         //Wait_L Array
         child = this.transform.GetChild(2);
         bound = child.GetComponent<MeshRenderer>().localBounds;
-        wait_L = new BitArray2D(bound, child, agentRadius, 1);
+        wait_L = new New_New_BitArray2D(bound, child, agentRadius, 1);
 
         //Wait_R Array
         child = this.transform.GetChild(3);
         bound = child.GetComponent<MeshRenderer>().localBounds;
-        wait_R = new BitArray2D(bound, child, agentRadius, 2);
+        wait_R = new New_New_BitArray2D(bound, child, agentRadius, 2);
 
         CalcKapa();
     }
@@ -75,7 +75,7 @@ public class Buden : MonoBehaviour
 
     private void CalcKapa()
     {
-        kapazität = ziel.GetKapa() + wait_B.GetKapa() + wait_L.GetKapa() + wait_R.GetKapa();
+        kapazitaet = ziel.GetKapa() + wait_B.GetKapa() + wait_L.GetKapa() + wait_R.GetKapa();
     }
 
     public void Reset()
@@ -124,12 +124,12 @@ public class Buden : MonoBehaviour
         return ziel.IsFull() && wait_B.IsFull() && wait_L.IsFull() && wait_R.IsFull();
     }
 
-    public void increaseAttraktivität()
+    public void increaseAttraktivitaet()
     {
         attraktivitaet++;
 
     }
-    public void decreaseAttraktivität()
+    public void decreaseAttraktivitaet()
     {
         if (attraktivitaet - attrakIncr > 0)
         {
