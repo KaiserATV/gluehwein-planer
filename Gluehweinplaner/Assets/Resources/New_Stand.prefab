@@ -420,6 +420,10 @@ PrefabInstance:
       value: Bude
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: acfe8c22fd6e3f3449447499b70c4029, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: acfe8c22fd6e3f3449447499b70c4029, type: 3}
       propertyPath: m_TagString
       value: Bude
       objectReference: {fileID: 0}

@@ -1,25 +1,29 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 #nullable enable
 
 public class New_NPC : MonoBehaviour
 {
-    public New_GoalNode? currentGoalNode;
-    public New_GoalNode? prevGoalNode;
+    //public bool showBudeDebug = true;
+    //public bool showTilesDebug = true;
+    public int shownTiles = -1;
+
+    public New_GoalNode? currentGoalNode = null;
+    public New_GoalNode? prevGoalNode = null;
     public Vector3 waitingSpot;
     public Vector3 nextWayPoint;
     public Vector3 exit;
     private Vector2Int bitarrayCells;
-    private New_Bude? bude;
-    private New_SceneManager? sm;
+    private New_Bude? bude = null;
+    private New_SceneManager? sm = null;
 
     public Queue<Vector3> moveList = new Queue<Vector3>();
     private Queue<New_Bude> budenToVisit = new Queue<New_Bude>();
     
-    
     public const float patience = 120f;
     public const float waitingTolerance = 0.2f;
-    public const float goalDistanceTolerance = 1f;
+    public const float goalDistanceTolerance = 0.1f;
     
     public float speed = 0.01f;
     public float patienceLost;
@@ -35,11 +39,11 @@ public class New_NPC : MonoBehaviour
     public bool onWayToPrevGoalNode = false;
 
 
-    
     void Start()
     {
         sm = GameObject.Find("SceneManager").GetComponent<New_SceneManager>();//prob better way to do this
-        goalsBeforeExit = UnityEngine.Random.Range(0, sm.GetGoalNoteCount()+1);//In future mayy goal here
+        //goalsBeforeExit = UnityEngine.Random.Range(0, sm.GetGoalNoteCount()+1);//In future mayy goal here
+        goalsBeforeExit = 1;
         if (goalsBeforeExit>0)
         {
             budenToVisit = sm.GetNewBuden(goalsBeforeExit);
@@ -74,7 +78,7 @@ public class New_NPC : MonoBehaviour
                 {
                     if (Vector3.Distance(this.transform.position, nextWayPoint) > goalDistanceTolerance)
                     {
-                        this.transform.position = Vector3.MoveTowards(this.transform.position, nextWayPoint, speed);
+                        this.transform.position = Vector3.MoveTowards(this.transform.position, nextWayPoint, speed*Time.deltaTime);
                         patienceLost -= Time.deltaTime;
                         if (patienceLost <= 0)
                         {
@@ -86,7 +90,7 @@ public class New_NPC : MonoBehaviour
                                 currentGoalNode = null;
                                 moveList = sm!.HandlePathRequest(GetPosition(), exit);
                                 nextWayPoint = moveList.Dequeue();
-                                this.transform.position = Vector3.MoveTowards(this.transform.position, nextWayPoint, speed);
+                                this.transform.position = Vector3.MoveTowards(this.transform.position, nextWayPoint, speed * Time.deltaTime);
                             }
                             else
                             {
@@ -105,9 +109,9 @@ public class New_NPC : MonoBehaviour
                 else
                 {
                     if (onWayToPrevGoalNode) { 
-                        if(Vector3.Distance(this.transform.position, waitingSpot) > goalDistanceTolerance)
+                        if(Vector3.Distance(this.transform.position, prevGoalNode!.Position) > goalDistanceTolerance)
                         {
-                            this.transform.position = Vector3.MoveTowards(this.transform.position, prevGoalNode!.Position, speed);
+                            this.transform.position = Vector3.MoveTowards(this.transform.position, prevGoalNode!.Position, speed * Time.deltaTime);
                         }
                         else
                         {
@@ -118,7 +122,7 @@ public class New_NPC : MonoBehaviour
                                 currentGoalNode = null;
                                 moveList = sm!.HandlePathRequest(GetPosition(), exit);
                                 nextWayPoint = moveList.Dequeue();
-                                this.transform.position = Vector3.MoveTowards(this.transform.position, nextWayPoint, speed);
+                                this.transform.position = Vector3.MoveTowards(this.transform.position, nextWayPoint, speed * Time.deltaTime);
                             }
                             else
                             {
@@ -136,7 +140,7 @@ public class New_NPC : MonoBehaviour
                             waitingSpot = holder!.Value;
                             onWayToBude = true;
                             timeLeftWaiting = bude.WaitTime;
-                            this.transform.position = Vector3.MoveTowards(this.transform.position, waitingSpot, speed);
+                            this.transform.position = Vector3.MoveTowards(this.transform.position, waitingSpot, speed * Time.deltaTime);
                         }
                         else
                         {
@@ -146,8 +150,15 @@ public class New_NPC : MonoBehaviour
                                 exiting = true;
                                 currentGoalNode = null;
                                 moveList = sm!.HandlePathRequest(GetPosition(), exit);
-                                nextWayPoint = moveList.Dequeue();
-                                this.transform.position = Vector3.MoveTowards(this.transform.position, nextWayPoint, speed);
+                                if(moveList.Count == 0)
+                                {
+
+                                }
+                                else
+                                {
+                                    nextWayPoint = moveList.Dequeue();
+                                }
+                                this.transform.position = Vector3.MoveTowards(this.transform.position, nextWayPoint, speed * Time.deltaTime);
                             }
                             else
                             {
@@ -161,22 +172,22 @@ public class New_NPC : MonoBehaviour
                     {
                         if (Vector3.Distance(this.transform.position, waitingSpot) > waitingTolerance)
                         {
-                            this.transform.position = Vector3.MoveTowards(this.transform.position, waitingSpot, speed);
+                            this.transform.position = Vector3.MoveTowards(this.transform.position, waitingSpot, speed * Time.deltaTime);
                         }
                         else
                         {
                             waiting = true;
+                            prevGoalNode = currentGoalNode;
                         }
                     }
                     else if (exiting)
                     {
                         if (Vector3.Distance(this.transform.position, exit) > goalDistanceTolerance)
                         {
-                            this.transform.position = Vector3.MoveTowards(this.transform.position, exit, speed);
+                            this.transform.position = Vector3.MoveTowards(this.transform.position, exit, speed * Time.deltaTime);
                         }
                         else
                         {
-                            sm!.removePlayer(this);
                             Respawn();
                         }
                     }
@@ -207,7 +218,12 @@ public class New_NPC : MonoBehaviour
 
     public void Respawn()
     {
-        this.transform.position = sm!.GetNewSpawnPoint();
+        Vector3? pos = sm!.GetNewSpawnPoint();
+        if (pos == null)
+        {
+            return;
+        }
+        this.transform.position = pos!.Value;
 
         randomExitGoalNumber = true;
         inactive = false;
@@ -219,8 +235,6 @@ public class New_NPC : MonoBehaviour
 
         timeLeftWaiting = 0.0f;
 
-        sm.addPlayer(this); 
-        
         if (goalsBeforeExit > 0)
         {
             budenToVisit = sm.GetNewBuden(goalsBeforeExit);

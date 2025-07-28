@@ -43,7 +43,7 @@ public class New_CrowdGeneration : MonoBehaviour
             }
             else if (sm.CanAddPlayer())
             {
-                Vector3 position = GenerateRandomPosition();
+                Vector3? position = GenerateRandomPosition();
                 Quaternion rotation = Quaternion.Euler(0, 0, 0);
                 if (iac.GetStoredCount()>0)
                 {
@@ -54,9 +54,11 @@ public class New_CrowdGeneration : MonoBehaviour
                 }
                 else 
                 {
-                    GameObject agent = Instantiate(prop, position, rotation);
-                    agent.transform.parent = transform;
-                    sm.playerCount++;
+                    if (position != null) {
+                        GameObject agent = Instantiate(prop, position!.Value, rotation);
+                        agent.transform.parent = transform;
+                        sm.playerCount++;
+                    }
                 }
                     zeitVergangen = spawnTime;
             }
@@ -64,18 +66,21 @@ public class New_CrowdGeneration : MonoBehaviour
         }
     }
 
-    public Vector3 GenerateRandomPosition()
+    public Vector3? GenerateRandomPosition()
     {
-        Vector3 position;
-        do
+        int maxTrys = 3;
+        Vector3? position = null;
+        while (maxTrys != 0)
         {
             float cellX = Random.Range(minWorldLimitX, maxWorldLimitX);
             float cellZ = Random.Range(minWorldLimitZ, maxWorldLimitZ);
-            position = new Vector3(cellX, col.bounds.min.y + 1, cellZ);
-
-
-        } while (Physics.CheckSphere(position,agentradius));
-
+            position = new Vector3(cellX, -1, cellZ);
+            if (!Physics.Raycast(position!.Value, new Vector3(0,1,0),2, New_GenerateMatrix.ObstacleLayer))
+            {
+                position = null;
+            }
+            maxTrys--;
+        }
         return position;
     }
 

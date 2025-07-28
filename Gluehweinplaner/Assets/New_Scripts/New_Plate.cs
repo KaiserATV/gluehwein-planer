@@ -23,13 +23,10 @@ public class New_Plate
 
     public List<New_GoalNode> AllContainedGoalNodes = new List<New_GoalNode>();
 
-    public List<ExitDirection> InvalidExist = new List<ExitDirection> { ExitDirection.North,ExitDirection.East,ExitDirection.West,ExitDirection.South};
-
     public Dictionary<New_GoalNode, int[,]> AllGoalNodeAndDistanceFields = new Dictionary<New_GoalNode, int[,]>();
 
-    public Dictionary<ExitDirection, Vector2Int> ExitAndCorespondingExitpoint = new Dictionary<ExitDirection, Vector2Int>();
+    public List<ExitDirection> CanExit = new List<ExitDirection>();
 
-    public Dictionary<ExitDirection, int[,]> AllExitsAndDistanceFields = new Dictionary<ExitDirection, int[,]>();
 
     public void AddContainedGoalNode(New_GoalNode node)
     {
@@ -55,69 +52,103 @@ public class New_Plate
         AllGoalNodeAndDistanceFields.Add(goalNode, distance);
     }
 
-    /// <param name="exitDirection"></param>
-    /// <returns>An int[,] for the corresponding Direction of exit.</returns>
-    public int[,] GetDistanceFieldForExit(ExitDirection exitDirection)
-    {
-        return AllExitsAndDistanceFields[exitDirection];
-    }
-
-    /// <summary>
-    /// Adds an Distance Field to an Exit direction
-    /// </summary>
-    /// <param name="exitDirection">the Exit enum should be used</param>
-    /// <param name="distance">the coressponding distance field</param>
-    public void AddDistanceFieldToExit(ExitDirection exitDirection, int[,] distance)
-    {
-        AllExitsAndDistanceFields.Add(exitDirection, distance);
-    }
-
-    public Vector3 GenerateAndAddExitPointVector3(ExitDirection exit)
-    {
-        return GetSubTileCenterWorldCoordinates(GenerateAndAddExitPointVector2(exit));
-    }
-
-    public Vector3 GetExitPointV3(ExitDirection exit)
-    {
-        return GetSubTileCenterWorldCoordinates(ExitAndCorespondingExitpoint[exit]);
-    }
-
 
     //          North (-X)
     //  West (-Z)        East (+Z)
     //          South (+X)
     //
-    public Vector2Int GenerateAndAddExitPointVector2(ExitDirection exit)
+    public void FindAllExitableDirections()
     {
+        if (CanExitInDirection(ExitDirection.North))
+        {
+            CanExit.Add(ExitDirection.North);
+        }
+        if (CanExitInDirection(ExitDirection.West))
+        {
+            CanExit.Add(ExitDirection.West);
+        }
+        if (CanExitInDirection(ExitDirection.East))
+        {
+            CanExit.Add(ExitDirection.East);
+        }
+        if (CanExitInDirection(ExitDirection.South))
+        {
+            CanExit.Add(ExitDirection.South);
+        }
+        if (New_SceneManager.pathDiagonal)
+        {
+            if (CanExitInDirection(ExitDirection.NorthEast))
+            {
+                CanExit.Add(ExitDirection.NorthEast);
+            }
+            if (CanExitInDirection(ExitDirection.SouthEast))
+            {
+                CanExit.Add(ExitDirection.SouthEast);
+            }
+            if (CanExitInDirection(ExitDirection.SouthWest))
+            {
+                CanExit.Add(ExitDirection.SouthWest);
+            }
+            if (CanExitInDirection(ExitDirection.NorthWest))
+            {
+                CanExit.Add(ExitDirection.NorthWest);
+            }
+        }
+    }
+
+
+    public bool CanExitInDirection(ExitDirection exit)
+    { 
+        Vector2Int startPos = new Vector2Int();
+        Vector2Int endPos = new Vector2Int();
+
         switch (exit)
         {
             case ExitDirection.North:
-                Vector2Int exitPoint = new Vector2Int(0,Mathf.FloorToInt((Columns-1)/2));
-                if (BaseCostMatrix[exitPoint.x, exitPoint.y] == New_GenerateMatrix.MatrixObstacleValue) { return new Vector2Int(-1, -1); }
-                ExitAndCorespondingExitpoint.Add(ExitDirection.North, exitPoint);
-                InvalidExist.Remove(ExitDirection.North);
-                return ExitAndCorespondingExitpoint[ExitDirection.North];
+                startPos = new Vector2Int(0, 0);
+                endPos = new Vector2Int(0, Columns - 1);
+                break;
+            case ExitDirection.NorthEast:
+                return BaseCostMatrix[0,Columns-1] != New_GenerateMatrix.MatrixObstacleValue;
             case ExitDirection.East:
-                exitPoint = new Vector2Int(Mathf.FloorToInt((Rows-1)/2), Columns-1);
-                if (BaseCostMatrix[exitPoint.x, exitPoint.y] == New_GenerateMatrix.MatrixObstacleValue) { return new Vector2Int(-1, -1); }
-                ExitAndCorespondingExitpoint.Add(ExitDirection.East, exitPoint);
-                InvalidExist.Remove(ExitDirection.East);
-                return ExitAndCorespondingExitpoint[ExitDirection.East];
-            case ExitDirection.West:
-                exitPoint = new Vector2Int(Mathf.FloorToInt((Rows-1) / 2),0);
-                if (BaseCostMatrix[exitPoint.x, exitPoint.y] == New_GenerateMatrix.MatrixObstacleValue) { return new Vector2Int(-1, -1); }
-                ExitAndCorespondingExitpoint.Add(ExitDirection.West, exitPoint);
-                InvalidExist.Remove(ExitDirection.West);
-                return ExitAndCorespondingExitpoint[ExitDirection.West];
+                startPos = new Vector2Int(0, Columns - 1);
+                endPos = new Vector2Int(Rows - 1, Columns - 1);
+                break;
+            case ExitDirection.SouthEast:
+                return BaseCostMatrix[Rows-1, Columns - 1] != New_GenerateMatrix.MatrixObstacleValue;
             case ExitDirection.South:
-                exitPoint = new Vector2Int(Rows-1, Mathf.FloorToInt((Columns-1) / 2));
-                if (BaseCostMatrix[exitPoint.x, exitPoint.y] == New_GenerateMatrix.MatrixObstacleValue) { return new Vector2Int(-1, -1); }
-                ExitAndCorespondingExitpoint.Add(ExitDirection.South, exitPoint);
-                InvalidExist.Remove(ExitDirection.South);
-                return ExitAndCorespondingExitpoint[ExitDirection.South];
+                startPos = new Vector2Int(Rows - 1, 0);
+                endPos = new Vector2Int(Rows - 1, Columns - 1);
+                break;
+            case ExitDirection.SouthWest:
+                return BaseCostMatrix[Rows-1, 0] != New_GenerateMatrix.MatrixObstacleValue;
+            case ExitDirection.West:
+                startPos = new Vector2Int(0, 0);
+                endPos = new Vector2Int(Rows - 1, 0);
+                break;
+            case ExitDirection.NorthWest:
+                return BaseCostMatrix[0, 0] != New_GenerateMatrix.MatrixObstacleValue;
         }
-        return new Vector2Int(-1, -1);
+
+
+        Vector2Int diff = endPos - startPos;
+        int stepsIndirection = Math.Max(diff.x, diff.y);
+        int invalidTiles = stepsIndirection+1;
+        diff.x = diff.x / stepsIndirection;
+        diff.y = diff.y / stepsIndirection;
+
+        while (stepsIndirection >= 0)
+        {
+            if (BaseCostMatrix[startPos.x, startPos.y] == New_GenerateMatrix.MatrixObstacleValue)
+            {
+                invalidTiles--;
+            }
+            stepsIndirection--;
+            startPos += diff;
+        }
+        return !(invalidTiles == 0);
     }
+
 
 
 
@@ -137,12 +168,19 @@ public class New_Plate
     {
         if (HasNoObstacles)
         {
-            return New_GenerateMatrix.InterpolateArray<int>(GetPositionInArray(start), exit);
+            if (New_SceneManager.pathDiagonal)
+            {
+                return New_GenerateMatrix.PathDiagonal(GetPositionInArray(start), exit);
+            }
+            else
+            {
+                return New_GenerateMatrix.InterpolateArray(GetPositionInArray(start), exit);
+            }
         }
         else if (!HasNoObstacles && !HasOnlyObstacles)
         {
             //ToDo: Cache this shit
-            int[,] distance = New_GenerateMatrix.GenerateDistanceField(BaseCostMatrix, Rows, Columns, exit);
+            int[,] distance = New_GenerateMatrix.GenerateDistanceField(BaseCostMatrix, Rows, Columns, exit,null);
             return New_GenerateMatrix.GetBestPathInDistanceMatrix(distance, Rows, Columns, GetPositionInArray(start));
         }
         return new List<Vector2Int>();
@@ -151,22 +189,22 @@ public class New_Plate
     //needs to handle values that are negative
     public Vector3 GetSubTileCenterWorldCoordinates(Vector2Int pos)
     {
-        return new Vector3((New_GenerateMatrix.tileSizeX * pos.x) + (Center.x - Size.x / 2) + (New_GenerateMatrix.tileSizeX / 2), 0, New_GenerateMatrix.tileSizeZ * pos.y + (Center.z - Size.z / 2) + New_GenerateMatrix.tileSizeZ / 2);
+        return new Vector3((New_GenerateMatrix.TileSizeX * pos.x) + (Center.x - Size.x / 2) + (New_GenerateMatrix.TileSizeX / 2), 0, New_GenerateMatrix.TileSizeZ * pos.y + (Center.z - Size.z / 2) + New_GenerateMatrix.TileSizeZ / 2);
     }
     public Vector3 GetSubTileCenterWorldCoordinates(int rows, int cols)
     {
-        return new Vector3((New_GenerateMatrix.tileSizeX * rows) + (Center.x - Size.x / 2) + (New_GenerateMatrix.tileSizeX / 2), 0, New_GenerateMatrix.tileSizeZ * cols + (Center.z - Size.z / 2) + New_GenerateMatrix.tileSizeZ / 2);
+        return new Vector3((New_GenerateMatrix.TileSizeX * rows) + (Center.x - Size.x / 2) + (New_GenerateMatrix.TileSizeX / 2), 0, New_GenerateMatrix.TileSizeZ * cols + (Center.z - Size.z / 2) + New_GenerateMatrix.TileSizeZ / 2);
     }
     public Vector2Int GetPositionInArray(Vector3 positionVector3)
     {
-        return new Vector2Int(Math.Clamp(Mathf.FloorToInt((positionVector3.x - (Center.x - (Rows * New_GenerateMatrix.tileSizeX) / 2)) / New_GenerateMatrix.tileSizeX) , 0, Rows-1), Math.Clamp(Mathf.FloorToInt((positionVector3.z - (Center.z - (Columns * New_GenerateMatrix.tileSizeZ) / 2)) / New_GenerateMatrix.tileSizeZ), 0, Columns-1));
+        return new Vector2Int(Math.Clamp(Mathf.FloorToInt((positionVector3.x - (Center.x - (Rows * New_GenerateMatrix.TileSizeX) / 2)) / New_GenerateMatrix.TileSizeX) , 0, Rows-1), Math.Clamp(Mathf.FloorToInt((positionVector3.z - (Center.z - (Columns * New_GenerateMatrix.TileSizeZ) / 2)) / New_GenerateMatrix.TileSizeZ), 0, Columns-1));
     }
 
 
     public int GetValueAtPosition(Vector3 position)
     {
         Vector3 diff = new Vector3(Center.x - Size.x / 2, 0, Center.z - Size.z / 2) - position;
-        return BaseCostMatrix[Mathf.FloorToInt(diff.x / (New_GenerateMatrix.tileSizeX)), Mathf.FloorToInt(diff.z / (New_GenerateMatrix.tileSizeZ))];
+        return BaseCostMatrix[Mathf.FloorToInt(diff.x / (New_GenerateMatrix.TileSizeX)), Mathf.FloorToInt(diff.z / (New_GenerateMatrix.TileSizeZ))];
     }
 
     public int GetValueAtPosition(int row, int column)
@@ -181,7 +219,11 @@ public class New_Plate
 public enum ExitDirection
 {
     North,
+    NorthEast,
     East,
+    SouthEast,
+    South,
+    SouthWest,
     West,
-    South
+    NorthWest
 }

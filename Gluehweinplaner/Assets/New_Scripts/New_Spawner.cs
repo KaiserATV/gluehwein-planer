@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class New_Spawner : MonoBehaviour
 {
-     private GameObject prop;
+    private GameObject prop;
     public float minWorldLimitX = 0;
     public float maxWorldLimitX = 0;
     public float minWorldLimitZ = 0;
@@ -13,15 +13,13 @@ public class New_Spawner : MonoBehaviour
     private New_SceneManager sc;
     private MeshCollider col;
     private New_InactiveAgentsContainer iac;
-    private Transform playerParentTransform;
     public Vector2Int onPlate { get; set; }
 
-  void Start()
+    void Start()
     {
         zeitVergangen = spawnTime;
         sc = GameObject.Find("SceneManager").GetComponent<New_SceneManager>();
         iac = GameObject.Find("InactiveAgentHolder").GetComponent<New_InactiveAgentsContainer>();
-        playerParentTransform = GameObject.Find("AgentHolder").GetComponent<Transform>();
 
         prop = Resources.Load("New_agent") as GameObject;
         col = GetComponent<MeshCollider>();
@@ -44,7 +42,7 @@ public class New_Spawner : MonoBehaviour
             }
             else if (sc.CanAddPlayer())
             {
-                Vector3 position = GenerateRandomPosition();
+                Vector3? position = GenerateRandomPosition();
                 Quaternion rotation = Quaternion.Euler(0, 0, 0);
                 if (iac.GetStoredCount() > 0)
                 {
@@ -55,31 +53,37 @@ public class New_Spawner : MonoBehaviour
                 }
                 else
                 {
-                    GameObject agent = Instantiate(prop, position, rotation);
-                    agent.transform.parent = playerParentTransform;
-                    sc.playerCount++;
+                    if (position != null)
+                    {
+                        GameObject agent = Instantiate(prop, position!.Value, rotation);
+                        agent.transform.parent = transform;
+                        sc.playerCount++;
+                    }
                 }
                 zeitVergangen = spawnTime;
             }
+
         }
     }
 
-    public Vector3 GenerateRandomPosition()
+    public Vector3? GenerateRandomPosition()
     {
-        Vector3 position;
-        do
+        int maxTrys = 3;
+        Vector3? position = null;
+        while (maxTrys != 0)
         {
             float cellX = Random.Range(minWorldLimitX, maxWorldLimitX);
             float cellZ = Random.Range(minWorldLimitZ, maxWorldLimitZ);
-            position = new Vector3(cellX, col.bounds.min.y + 1, cellZ);
-        } while (!Physics.CheckSphere(position,agentradius));
+            position = new Vector3(cellX, -1, cellZ);
+            if (Physics.Raycast(position!.Value,new Vector3(0,1f,0),2, New_GenerateMatrix.ObstacleLayer))
+            {
+                position = null;
+            }
+            maxTrys--;
+        }
         return position;
     }
-
-
-
-
-
+    
 
 
     public Vector3 GetPosition()

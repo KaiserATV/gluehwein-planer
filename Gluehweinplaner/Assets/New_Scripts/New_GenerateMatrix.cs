@@ -2,22 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 #nullable enable
 
 public static class New_GenerateMatrix
 {
 
-    public static float tileSizeX = 1f;//breite der spalte
-    public static float tileSizeZ = 1f;//höhe der zeile
+    public static float TileSizeX = 1f;//breite der spalte
+    public static float TileSizeZ = 1f;//höhe der zeile
     public static int MatrixObstacleValue = 999;
     public static int MatrixIsPathableValue = 1001;
-    public static int MatrixHasNoObstacles = 55555;
-    public static int MatrixHasOnlyObstacles = 666666;
-
+    public static int ObstacleLayer = LayerMask.GetMask("nichtWakable");
 
 
     //The base cost matrix contains, the base values of the costs to travel to a certain square in the tile. it is at first only boolean, walkable or not, where 1 represents wakable and 256 not wakable
-    public static int[,] GenerateBaseCostMatrix(int rowCount, int colCount, Func<int, int, bool> isPathable)
+    public static int[,] GenerateBaseCostMatrix(int rowCount, int colCount, Func<int, int, bool> isPathable, out bool onlyObstacles, out bool noObstacles)
     {
         int[,] baseCostHolder = new int[rowCount, colCount];
 
@@ -41,28 +40,36 @@ public static class New_GenerateMatrix
                 }
             }
         }
-
         if (clearTiles == rowCount * colCount)
         {
-            baseCostHolder[rowCount - 1, colCount - 1] = MatrixHasNoObstacles; //Warning number
+            noObstacles = true;
+        }
+        else
+        {
+            noObstacles = false;
         }
         if (obstacleTiles == rowCount * colCount)
         {
-            baseCostHolder[rowCount - 1, colCount - 1] = MatrixHasOnlyObstacles; //Warning number
+            onlyObstacles = true;
         }
-
+        else
+        {
+            onlyObstacles = false;
+        }
         return baseCostHolder;
     }
 
-    public static int[,] GenerateDistanceField(New_Plate plate, Vector3 start)
+    public static int[,] GenerateDistanceField(New_Plate plate, Vector3 start,Func<Vector2Int, Vector2Int, bool>? canGoToNext)
     {
         Vector2Int startPosition = plate.GetPositionInArray(start);
-        return GenerateDistanceField(plate.BaseCostMatrix, plate.Rows, plate.Columns, startPosition);
+        return GenerateDistanceField(plate.BaseCostMatrix, plate.Rows, plate.Columns, startPosition,canGoToNext);
     }
 
-    public static int[,] GenerateDistanceField(int[,] baseCost, int rows, int cols, Vector2Int startPosition)
+    public static int[,] GenerateDistanceField(int[,] baseCost, int rows, int cols, Vector2Int startPosition,Func<Vector2Int, Vector2Int, bool>? canGoToNext)
     {
         int[,] distanceMatrix = (int[,])baseCost.Clone();
+        
+        bool checkDirection = canGoToNext != null;
 
         Queue<Vector2Int> nextNodeToBeExpanded = new Queue<Vector2Int>();
         nextNodeToBeExpanded.Enqueue(startPosition);
@@ -73,54 +80,186 @@ public static class New_GenerateMatrix
             Vector2Int node = nextNodeToBeExpanded.Dequeue();
             if (rows - node.x > 1)
             {
-                if (distanceMatrix[node.x + 1, node.y] > 1000)
+                Vector2Int nodeToBeChecked = new Vector2Int(node.x + 1, node.y);
+                if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] > 1000)
                 {
-                    distanceMatrix[node.x + 1, node.y] = distanceMatrix[node.x, node.y] + 1;
-                    nextNodeToBeExpanded.Enqueue(new Vector2Int(node.x + 1, node.y));
+                    if (checkDirection)
+                    {
+                        if (canGoToNext!(node, nodeToBeChecked - node))
+                        {
+                            distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] = distanceMatrix[node.x, node.y] + 1;
+                            nextNodeToBeExpanded.Enqueue(nodeToBeChecked);
+                        }
+                    }
+                    else
+                    {
+                        distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] = distanceMatrix[node.x, node.y] + 1;
+                        nextNodeToBeExpanded.Enqueue(nodeToBeChecked);
+                    }
                 }
             }
             if (node.x != 0)
             {
-                if (distanceMatrix[node.x - 1, node.y] == MatrixIsPathableValue)
+                Vector2Int nodeToBeChecked = new Vector2Int(node.x - 1, node.y);
+                if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] > 1000)
                 {
-                    distanceMatrix[node.x - 1, node.y] = distanceMatrix[node.x, node.y] + 1;
-                    nextNodeToBeExpanded.Enqueue(new Vector2Int(node.x - 1, node.y));
+                    if (checkDirection)
+                    {
+                        if (canGoToNext!(node, nodeToBeChecked - node))
+                        {
+                            distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] = distanceMatrix[node.x, node.y] + 1;
+                            nextNodeToBeExpanded.Enqueue(nodeToBeChecked);
+                        }
+                    }
+                    else
+                    {
+                        distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] = distanceMatrix[node.x, node.y] + 1;
+                        nextNodeToBeExpanded.Enqueue(nodeToBeChecked);
+                    }
                 }
             }
-            if (cols - node.y > 1)
+
+            if(node.y != 0)
             {
-                if (distanceMatrix[node.x, node.y + 1] == MatrixIsPathableValue)
+
+                Vector2Int nodeToBeChecked = new Vector2Int(node.x, node.y - 1);
+                if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] > 1000)
                 {
-                    distanceMatrix[node.x, node.y + 1] = distanceMatrix[node.x, node.y] + 1;
-                    nextNodeToBeExpanded.Enqueue(new Vector2Int(node.x, node.y + 1));
+                    if (checkDirection)
+                    {
+                        if (canGoToNext!(node, nodeToBeChecked - node))
+                        {
+                            distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] = distanceMatrix[node.x, node.y] + 1;
+                            nextNodeToBeExpanded.Enqueue(nodeToBeChecked);
+                        }
+                    }
+                    else
+                    {
+                        distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] = distanceMatrix[node.x, node.y] + 1;
+                        nextNodeToBeExpanded.Enqueue(nodeToBeChecked);
+                    }
+                }
+
+
+                if (New_SceneManager.pathDiagonal)
+                {
+                    if (node.x > 0)
+                    {
+                        nodeToBeChecked = new Vector2Int(node.x - 1, node.y - 1);
+                        if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] > 1000)
+                        {
+                            if (checkDirection)
+                            {
+                                if (canGoToNext!(node, nodeToBeChecked - node))
+                                {
+                                    distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] = distanceMatrix[node.x, node.y] + 1;
+                                    nextNodeToBeExpanded.Enqueue(nodeToBeChecked);
+                                }
+                            }
+                            else
+                            {
+                                distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] = distanceMatrix[node.x, node.y] + 1;
+                                nextNodeToBeExpanded.Enqueue(nodeToBeChecked);
+                            }
+                        }
+                    }
+                    if (rows - node.x > 1)
+                    {
+                        nodeToBeChecked = new Vector2Int(node.x + 1, node.y - 1);
+                        if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] > 1000)
+                        {
+                            if (checkDirection)
+                            {
+                                if (canGoToNext!(node, nodeToBeChecked - node))
+                                {
+                                    distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] = distanceMatrix[node.x, node.y] + 1;
+                                    nextNodeToBeExpanded.Enqueue(nodeToBeChecked);
+                                }
+                            }
+                            else
+                            {
+                                distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] = distanceMatrix[node.x, node.y] + 1;
+                                nextNodeToBeExpanded.Enqueue(nodeToBeChecked);
+                            }
+                        }
+                    }
                 }
             }
-            if (node.y != 0)
+
+
+
+            if(cols - node.y > 1)
             {
-                if (distanceMatrix[node.x, node.y - 1] == MatrixIsPathableValue)
+
+                Vector2Int nodeToBeChecked = new Vector2Int(node.x, node.y + 1);
+                if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] > 1000)
                 {
-                    distanceMatrix[node.x, node.y - 1] = distanceMatrix[node.x, node.y] + 1;
-                    nextNodeToBeExpanded.Enqueue(new Vector2Int(node.x, node.y - 1));
+                    if (checkDirection)
+                    {
+                        if (canGoToNext!(node, nodeToBeChecked - node))
+                        {
+                            distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] = distanceMatrix[node.x, node.y] + 1;
+                            nextNodeToBeExpanded.Enqueue(nodeToBeChecked);
+                        }
+                    }
+                    else
+                    {
+                        distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] = distanceMatrix[node.x, node.y] + 1;
+                        nextNodeToBeExpanded.Enqueue(nodeToBeChecked);
+                    }
+                }
+
+
+                if (New_SceneManager.pathDiagonal)
+                {
+                    if (node.x > 0)
+                    {
+                        nodeToBeChecked = new Vector2Int(node.x - 1, node.y + 1);
+                        if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] > 1000)
+                        {
+                            if (checkDirection)
+                            {
+                                if (canGoToNext!(node, nodeToBeChecked - node))
+                                {
+                                    distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] = distanceMatrix[node.x, node.y] + 1;
+                                    nextNodeToBeExpanded.Enqueue(nodeToBeChecked);
+                                }
+                            }
+                            else
+                            {
+                                distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] = distanceMatrix[node.x, node.y] + 1;
+                                nextNodeToBeExpanded.Enqueue(nodeToBeChecked);
+                            }
+                        }
+                    }
+                    if (rows - node.x > 1)
+                    {
+                        nodeToBeChecked = new Vector2Int(node.x + 1, node.y + 1);
+                        if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] > 1000)
+                        {
+                            if (checkDirection)
+                            {
+                                if (canGoToNext!(node, nodeToBeChecked - node))
+                                {
+                                    distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] = distanceMatrix[node.x, node.y] + 1;
+                                    nextNodeToBeExpanded.Enqueue(nodeToBeChecked);
+                                }
+                            }
+                            else
+                            {
+                                distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] = distanceMatrix[node.x, node.y] + 1;
+                                nextNodeToBeExpanded.Enqueue(nodeToBeChecked);
+                            }
+                        }
+                    }
                 }
             }
+
+
         } while (nextNodeToBeExpanded.Count != 0);
 
         return distanceMatrix;
     }
-
-
-    public static List<Vector2Int> AStarPathCalcToDeterminedExit(New_Plate plate, ExitDirection exit, Vector2Int start)
-    {
-        int[,] BaseCostMatrix = plate.BaseCostMatrix;
-        List<Vector2Int> steps = new List<Vector2Int>();
-
-
-        //ToBeDone
-
-
-        return steps;
-    }
-
 
     public static List<Vector3> GetBestPathInDistanceMatrix(New_Plate plate, int[,] distanceMatrix, int rows, int cols, Vector2Int start) {
         List<Vector2Int> stepsV2 = GetBestPathInDistanceMatrix(distanceMatrix, rows, cols, start);
@@ -136,44 +275,99 @@ public static class New_GenerateMatrix
         List<Vector2Int> steps = new List<Vector2Int> { start };
         Vector2Int curr = start;
         Vector2Int next = curr;
+        bool plate = start == new Vector2Int(2, 4);
 
         int schutz = 0;
         while (distanceMatrix[curr.x, curr.y] > 0 && schutz < 100)
         {
-            int value = MatrixObstacleValue;
-
+            int currMinValue = distanceMatrix[curr.x, curr.y];
+            Vector2Int plateToCheck;
             if (curr.x < rows - 1)
             {
-                if (distanceMatrix[curr.x + 1, curr.y] < value)
+                plateToCheck = new Vector2Int(curr.x + 1, curr.y);
+                if (distanceMatrix[plateToCheck.x, plateToCheck.y] == currMinValue-1 && !steps.Contains(plateToCheck))
                 {
-                    next = new Vector2Int(curr.x + 1, curr.y);
-                    value = distanceMatrix[next.x, next.y];
+                    next = plateToCheck;
+                    currMinValue = distanceMatrix[next.x, next.y];
+                }
+
+                if (New_SceneManager.pathDiagonal)
+                {
+                    if (curr.y < cols - 1)
+                    {
+                        plateToCheck = new Vector2Int(curr.x + 1, curr.y +1);
+                        if (distanceMatrix[plateToCheck.x, plateToCheck.y] == currMinValue - 1 && !steps.Contains(plateToCheck))
+                        {
+                            next = plateToCheck;
+                            currMinValue = distanceMatrix[next.x, next.y];
+                        }
+                    }
+
+
+                    if (curr.y > 0)
+                    {
+                        plateToCheck = new Vector2Int(curr.x + 1, curr.y - 1);
+                        if (distanceMatrix[plateToCheck.x, plateToCheck.y] == currMinValue - 1 && !steps.Contains(plateToCheck))
+                        {
+                            next = plateToCheck;
+                            currMinValue = distanceMatrix[next.x, next.y];
+                        }
+                    }
                 }
             }
             if (curr.x > 0)
             {
-                if (distanceMatrix[curr.x - 1, curr.y] < value)
+                plateToCheck = new Vector2Int(curr.x - 1, curr.y);
+                if (distanceMatrix[plateToCheck.x, plateToCheck.y] == currMinValue-1 && !steps.Contains(plateToCheck))
                 {
-                    next = new Vector2Int(curr.x - 1, curr.y);
-                    value = distanceMatrix[next.x, next.y];
+                    next = plateToCheck;
+                    currMinValue = distanceMatrix[next.x, next.y];
+                }
+
+
+                if (New_SceneManager.pathDiagonal)
+                {
+                    if (curr.y < cols - 1)
+                    {
+                        plateToCheck = new Vector2Int(curr.x - 1, curr.y + 1);
+                        if (distanceMatrix[plateToCheck.x, plateToCheck.y] == currMinValue - 1 && !steps.Contains(plateToCheck))
+                        {
+                            next = plateToCheck;
+                            currMinValue = distanceMatrix[next.x, next.y];
+                        }
+                    }
+
+
+                    if (curr.y > 0)
+                    {
+                        plateToCheck = new Vector2Int(curr.x - 1, curr.y - 1);
+                        if (distanceMatrix[plateToCheck.x, plateToCheck.y] == currMinValue - 1 && !steps.Contains(plateToCheck))
+                        {
+                            next = plateToCheck;
+                            currMinValue = distanceMatrix[next.x, next.y];
+                        }
+                    }
                 }
             }
             if (curr.y < cols - 1)
             {
-                if (distanceMatrix[curr.x, curr.y + 1] < value)
+                plateToCheck = new Vector2Int(curr.x, curr.y + 1);
+                if (distanceMatrix[plateToCheck.x, plateToCheck.y] == currMinValue-1 && !steps.Contains(plateToCheck))
                 {
-                    next = new Vector2Int(curr.x, curr.y + 1);
-                    value = distanceMatrix[next.x, next.y];
+                    next = plateToCheck;
+                    currMinValue = distanceMatrix[next.x, next.y];
                 }
             }
             if (curr.y > 0)
             {
-                if (distanceMatrix[curr.x, curr.y - 1] < value)
+                plateToCheck = new Vector2Int(curr.x, curr.y - 1);
+                if (distanceMatrix[plateToCheck.x, plateToCheck.y] == currMinValue-1 && !steps.Contains(plateToCheck))
                 {
-                    next = new Vector2Int(curr.x, curr.y - 1);
-                    value = distanceMatrix[next.x, next.y];
+                    next = plateToCheck;
+                    currMinValue = distanceMatrix[next.x, next.y];
                 }
             }
+        
             curr = next;
             steps.Add(curr);
             schutz++;
@@ -181,7 +375,7 @@ public static class New_GenerateMatrix
         return steps;
     }
 
-    public static List<Vector2Int> InterpolateArray<T>(Vector2Int arrayStart, Vector2Int goal)
+    public static List<Vector2Int> InterpolateArray(Vector2Int arrayStart, Vector2Int goal)
     {
         Vector2Int position = arrayStart;
         Vector2Int ratio = goal - arrayStart;
@@ -241,14 +435,14 @@ public static class New_GenerateMatrix
         return steps;
     }
 
-    public static Vector3 FindClostesPointInArrayV3(Vector3 plateArrayGoal, New_Plate plate)
+    public static Vector3? FindClostesPointInArrayV3(Vector3 plateArrayGoal, New_Plate plate)
     {
         Vector2Int calcPos = FindClostesPointInArrayV2(plateArrayGoal, plate);
         if (calcPos != new Vector2Int(-1, -1))
         {
             return plate.GetSubTileCenterWorldCoordinates(calcPos);
         }
-        return new Vector3(-1, -1, -1);
+        return null;
     }
 
     public static Vector2Int FindClostesPointInArrayV2(Vector3 plateArrayGoal, New_Plate plate)
@@ -319,9 +513,10 @@ public static class New_GenerateMatrix
 
     public static Vector3? FindBestPointToNextArrayAndGoalV3(Vector3 goal, ExitDirection exitDirection, New_Plate homePlate, New_Plate neighborPlate)
     {
-        Vector2Int? bestPoint = FindBestPointToNextArrayAndGoal(goal, exitDirection, homePlate, neighborPlate);
-        if(bestPoint == null){ return null; };
-        return homePlate.GetSubTileCenterWorldCoordinates(bestPoint!.Value);
+        Vector2Int? ret = null;
+        ret = FindBestPointToNextArrayAndGoal(goal, exitDirection, homePlate, neighborPlate);
+        if(ret == null){ return null; };
+        return homePlate.GetSubTileCenterWorldCoordinates(ret!.Value);
     }
 
 
@@ -392,7 +587,7 @@ public static class New_GenerateMatrix
 
     public static Queue<Vector3> GeneratePath(List<New_Plate> platesToVisit, Vector3 start, Vector3 goal)
     {
-        List<Vector3> steps = new List<Vector3> { goal };
+        List<Vector3> steps = new List<Vector3> { start };
         for (int i = 0; i < platesToVisit.Count - 1; i++)
         {
             New_Plate currentPlate = platesToVisit[i];
@@ -407,7 +602,7 @@ public static class New_GenerateMatrix
                     {
 
                         steps.AddRange(currentPlate.GetShortestPathToExitVector3(closestPoint!.Value, steps.Last<Vector3>()));
-                        steps.Add(steps.Last() + new Vector3(New_GenerateMatrix.tileSizeX, 0, 0));
+                        steps.Add(steps.Last() + new Vector3(New_GenerateMatrix.TileSizeX, 0, 0));
                     }
                 }
                 else
@@ -416,9 +611,8 @@ public static class New_GenerateMatrix
                     if (closestPoint != null)
                     {
                         steps.AddRange(currentPlate.GetShortestPathToExitVector3(closestPoint!.Value, steps.Last<Vector3>()));
-                        steps.Add(steps.Last() + new Vector3(-New_GenerateMatrix.tileSizeX, 0, 0));
+                        steps.Add(steps.Last() + new Vector3(-New_GenerateMatrix.TileSizeX, 0, 0));
                     }
-
                 }
             }
             else
@@ -429,7 +623,7 @@ public static class New_GenerateMatrix
                     if (closestPoint != null)
                     {
                         steps.AddRange(currentPlate.GetShortestPathToExitVector3(closestPoint!.Value, steps.Last<Vector3>()));
-                        steps.Add(steps.Last() + new Vector3(0, 0, New_GenerateMatrix.tileSizeX));
+                        steps.Add(steps.Last() + new Vector3(0, 0, New_GenerateMatrix.TileSizeX));
                     }
                 }
                 else
@@ -438,17 +632,45 @@ public static class New_GenerateMatrix
                     if (closestPoint != null)
                     {
                         steps.AddRange(currentPlate.GetShortestPathToExitVector3(closestPoint!.Value, steps.Last<Vector3>()));
-                        steps.Add(steps.Last() + new Vector3(0, 0, -New_GenerateMatrix.tileSizeX));
+                        steps.Add(steps.Last() + new Vector3(0, 0, -New_GenerateMatrix.TileSizeX));
                     }
                 }
             }
         }
-
-        steps.Reverse();
+        steps.Add(goal);
         return new Queue<Vector3>(steps);
     }
 
+    public static List<Vector2Int> PathDiagonal(Vector2Int start, Vector2Int exit)
+    {
+        List<Vector2Int> steps = new List<Vector2Int>();
+        do
+        {
+            steps.Add(start);
+            Vector2Int diff = exit - start;
+            if (diff.y > 0)
+            {
+                start.y += 1;
+            }
+            else if (diff.y < 0)
+            {
+                start.y -= 1;
+            }
+            
+            
+            if (diff.x > 0)
+            {
+                start.x += 1;
+            }
+            else if(diff.x < 0)
+            {
+                start.x -= 1;
+            }
 
+        } while (start != exit);
+
+        return steps;
+    }
 
 
 
@@ -459,13 +681,31 @@ public static class New_GenerateMatrix
         Debug.Log("===========================================================================================");
         for (int i = 0; i < rows; i++)
         {
+            string rowString = "";
             for (int j = 0; j < cols; j++)
             {
                 string extra = (plate != null) ? ("Realworld: " + plate!.GetSubTileCenterWorldCoordinates(i, j)) : "";
-                Debug.Log("Array: (" + i + ", " + j + ")" + extra + " Value: " + array[i, j]);
+
+                rowString = "Array: (" + i + ", " + j + ")" + extra + " Value: " + array[i, j];
             }
+            Debug.Log(rowString);
+        }
+    }
+    public static void DebugArrayOnlyValues<T>(T[,] array, int rows, int cols)
+    {
+        Debug.Log("===========================================================================================");
+        Debug.Log("Debugging Array     Rows: " + rows + " Cols: " + cols);
+        Debug.Log("===========================================================================================");
+        for (int i = 0; i < rows; i++)
+        {
+            string rowString = "";
+            for (int j = 0; j < cols; j++)
+            {
+                rowString += "    "+array[i, j] + "    ";
+            }
+            Debug.Log(rowString);
         }
     }
 
-  
+   
 }

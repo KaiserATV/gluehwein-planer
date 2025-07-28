@@ -121,7 +121,7 @@ MonoBehaviour:
   waitingSpot: {x: 0, y: 0, z: 0}
   nextWayPoint: {x: 0, y: 0, z: 0}
   exit: {x: 0, y: 0, z: 0}
-  speed: 1
+  speed: 5
   patienceLost: 0
   timeLeftWaiting: 0
   goalsBeforeExit: 0
