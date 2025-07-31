@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 
 public class New_Plate
@@ -11,6 +13,7 @@ public class New_Plate
         Center = pos;
         BaseCostMatrix = bcm;
     }
+    public bool hasChanged = false;
     public Vector3 Center { get; set; }
     public Vector3 Size { get; set; }
 
@@ -23,10 +26,13 @@ public class New_Plate
 
     public List<New_GoalNode> AllContainedGoalNodes = new List<New_GoalNode>();
 
-    public Dictionary<New_GoalNode, int[,]> AllGoalNodeAndDistanceFields = new Dictionary<New_GoalNode, int[,]>();
+    public Dictionary<Vector2Int, int[,]> GoalPositionToDistanceField = new Dictionary<Vector2Int, int[,]>();
+
+    public Dictionary<(Vector2Int, Vector2Int), List<Vector2Int>> AllTakenPaths = new Dictionary<(Vector2Int, Vector2Int), List<Vector2Int>>();
 
     public List<ExitDirection> CanExit = new List<ExitDirection>();
 
+    public Dictionary<New_Bude, List<Vector2Int>> budeToOccupiedSpaces = new Dictionary<New_Bude, List<Vector2Int>>();
 
     public void AddContainedGoalNode(New_GoalNode node)
     {
@@ -36,20 +42,18 @@ public class New_Plate
     public List<New_GoalNode> GetAllContainedGoalNodes() { return AllContainedGoalNodes; }
 
 
-    public int[,] GetDistanceFieldForGoal(New_GoalNode goalNode)
-    {
-        return AllGoalNodeAndDistanceFields[goalNode];
-    }
-
     /// <summary>
     /// Adds an Distance Field to an GoalNode 
     /// </summary>
     /// <param name="goal">the Goal node</param>
     /// <param name="distance">the coressponding distancefield</param>
-    public void AddGoalNodeAndDistanceField(New_GoalNode goalNode, int[,] distance)
+    public void AddGoalNode(New_GoalNode goalNode)
     {
+        if (AllContainedGoalNodes.Contains(goalNode)) { return; }
         AddContainedGoalNode(goalNode);
-        AllGoalNodeAndDistanceFields.Add(goalNode, distance);
+        if (GoalPositionToDistanceField.ContainsKey(GetPositionInArray(goalNode.Position))) { return; }
+        GoalPositionToDistanceField.Add(GetPositionInArray(goalNode.Position), (HasNoObstacles || HasOnlyObstacles) ? new int[0, 0] : New_GenerateMatrix.GenerateDistanceField(this, goalNode.Position, null));
+        hasChanged = false;
     }
 
 
@@ -98,7 +102,7 @@ public class New_Plate
 
 
     public bool CanExitInDirection(ExitDirection exit)
-    { 
+    {
         Vector2Int startPos = new Vector2Int();
         Vector2Int endPos = new Vector2Int();
 
@@ -109,19 +113,19 @@ public class New_Plate
                 endPos = new Vector2Int(0, Columns - 1);
                 break;
             case ExitDirection.NorthEast:
-                return BaseCostMatrix[0,Columns-1] != New_GenerateMatrix.MatrixObstacleValue;
+                return BaseCostMatrix[0, Columns - 1] != New_GenerateMatrix.MatrixObstacleValue;
             case ExitDirection.East:
                 startPos = new Vector2Int(0, Columns - 1);
                 endPos = new Vector2Int(Rows - 1, Columns - 1);
                 break;
             case ExitDirection.SouthEast:
-                return BaseCostMatrix[Rows-1, Columns - 1] != New_GenerateMatrix.MatrixObstacleValue;
+                return BaseCostMatrix[Rows - 1, Columns - 1] != New_GenerateMatrix.MatrixObstacleValue;
             case ExitDirection.South:
                 startPos = new Vector2Int(Rows - 1, 0);
                 endPos = new Vector2Int(Rows - 1, Columns - 1);
                 break;
             case ExitDirection.SouthWest:
-                return BaseCostMatrix[Rows-1, 0] != New_GenerateMatrix.MatrixObstacleValue;
+                return BaseCostMatrix[Rows - 1, 0] != New_GenerateMatrix.MatrixObstacleValue;
             case ExitDirection.West:
                 startPos = new Vector2Int(0, 0);
                 endPos = new Vector2Int(Rows - 1, 0);
@@ -133,7 +137,7 @@ public class New_Plate
 
         Vector2Int diff = endPos - startPos;
         int stepsIndirection = Math.Max(diff.x, diff.y);
-        int invalidTiles = stepsIndirection+1;
+        int invalidTiles = stepsIndirection + 1;
         diff.x = diff.x / stepsIndirection;
         diff.y = diff.y / stepsIndirection;
 
@@ -150,11 +154,9 @@ public class New_Plate
     }
 
 
-
-
     public List<Vector3> GetShortestPathToExitVector3(Vector3 exit, Vector3 start)
     {
-        List<Vector2Int> steps2Int = GetShortestPathToExitVector2(GetPositionInArray(exit), start);
+        List<Vector2Int> steps2Int = GetShortestPathToExitVector2(GetPositionInArray(exit), GetPositionInArray(start));
         List<Vector3> returnList = new List<Vector3>();
         foreach (Vector2Int step in steps2Int)
         {
@@ -164,24 +166,39 @@ public class New_Plate
     }
 
 
-    public List<Vector2Int> GetShortestPathToExitVector2(Vector2Int exit, Vector3 start)
+    public List<Vector2Int> GetShortestPathToExitVector2(Vector2Int exit, Vector2Int start)
     {
+        if (AllTakenPaths.ContainsKey((start, exit))) { return AllTakenPaths[(start, exit)]; }
         if (HasNoObstacles)
         {
             if (New_SceneManager.pathDiagonal)
             {
-                return New_GenerateMatrix.PathDiagonal(GetPositionInArray(start), exit);
+                List<Vector2Int> path = New_GenerateMatrix.PathDiagonal(start, exit);
+                AllTakenPaths.Add((start, exit), path);
+                return path;
             }
             else
             {
-                return New_GenerateMatrix.InterpolateArray(GetPositionInArray(start), exit);
+                List<Vector2Int> path = New_GenerateMatrix.InterpolateArray(start, exit);
+                AllTakenPaths.Add((start, exit), path);
+                return path;
             }
         }
         else if (!HasNoObstacles && !HasOnlyObstacles)
         {
-            //ToDo: Cache this shit
-            int[,] distance = New_GenerateMatrix.GenerateDistanceField(BaseCostMatrix, Rows, Columns, exit,null);
-            return New_GenerateMatrix.GetBestPathInDistanceMatrix(distance, Rows, Columns, GetPositionInArray(start));
+            int[,] distance;
+            if (GoalPositionToDistanceField.ContainsKey(exit))
+            {
+                distance = GoalPositionToDistanceField[exit];
+            }
+            else
+            {
+                distance = New_GenerateMatrix.GenerateDistanceField(BaseCostMatrix, Rows, Columns, exit, null);
+                GoalPositionToDistanceField.Add(exit, distance);
+            }
+            List<Vector2Int> path = New_GenerateMatrix.GetBestPathInDistanceMatrix(distance, Rows, Columns, start);
+            AllTakenPaths.Add((start, exit), path);
+            return path;
         }
         return new List<Vector2Int>();
     }
@@ -197,14 +214,13 @@ public class New_Plate
     }
     public Vector2Int GetPositionInArray(Vector3 positionVector3)
     {
-        return new Vector2Int(Math.Clamp(Mathf.FloorToInt((positionVector3.x - (Center.x - (Rows * New_GenerateMatrix.TileSizeX) / 2)) / New_GenerateMatrix.TileSizeX) , 0, Rows-1), Math.Clamp(Mathf.FloorToInt((positionVector3.z - (Center.z - (Columns * New_GenerateMatrix.TileSizeZ) / 2)) / New_GenerateMatrix.TileSizeZ), 0, Columns-1));
+        return new Vector2Int(Math.Clamp(Mathf.FloorToInt((positionVector3.x - (Center.x - (Rows * New_GenerateMatrix.TileSizeX) / 2)) / New_GenerateMatrix.TileSizeX), 0, Rows - 1), Math.Clamp(Mathf.FloorToInt((positionVector3.z - (Center.z - (Columns * New_GenerateMatrix.TileSizeZ) / 2)) / New_GenerateMatrix.TileSizeZ), 0, Columns - 1));
     }
 
 
     public int GetValueAtPosition(Vector3 position)
     {
-        Vector3 diff = new Vector3(Center.x - Size.x / 2, 0, Center.z - Size.z / 2) - position;
-        return BaseCostMatrix[Mathf.FloorToInt(diff.x / (New_GenerateMatrix.TileSizeX)), Mathf.FloorToInt(diff.z / (New_GenerateMatrix.TileSizeZ))];
+        return BaseCostMatrix[GetPositionInArray(position).x, GetPositionInArray(position).y];
     }
 
     public int GetValueAtPosition(int row, int column)
@@ -213,9 +229,125 @@ public class New_Plate
     }
 
 
+    public Vector2Int OccupySpaces(New_Bude b, Vector2Int direction, Vector2Int start, Vector2Int? end)
+    {
+        List<Vector2Int> stepsTaken = new List<Vector2Int> { start };
+        BaseCostMatrix[start.x, start.y] += New_GenerateMatrix.MatrixObstacleValue;
+        Vector2Int maxStep;
+        Vector2Int minStep;
+        int ratio;
 
+        if (end == null)
+        {
+            if (direction.x == 0)
+            {
+                if (direction.y == 0) { return start; }
+                maxStep = new Vector2Int(0, Math.Clamp(direction.y, -1, 1));
+                minStep = new Vector2Int(0, 0);
+                ratio = 0;
+            }
+            else if (direction.y == 0)
+            {
+                if (direction.x == 0) { return start; }
+                maxStep = new Vector2Int(Math.Clamp(direction.x, -1, 1), 0);
+                minStep = new Vector2Int(0, 0);
+                ratio = 0;
+            }
+            else
+            {
+                if (direction.x > direction.y)
+                {
+                    maxStep = new Vector2Int(Math.Clamp(direction.x, -1, 1), 0);
+                    minStep = new Vector2Int(0, Math.Clamp(direction.y, -1, 1));
+                    ratio = Mathf.Abs(direction.x / direction.y);
+                }
+                else
+                {
+                    maxStep = new Vector2Int(0, Math.Clamp(direction.y, -1, 1));
+                    minStep = new Vector2Int(Math.Clamp(direction.x, -1, 1), 0);
+                    ratio = Mathf.Abs(direction.y / direction.x);
+                }
+            }
+            int i = 0;
+            while (start.x < Rows && start.y < Columns && start.x >= 0 && start.y >= 0 && i < 10)
+            {
+                BaseCostMatrix[start.x, start.y] += New_GenerateMatrix.MatrixObstacleValue;
+                stepsTaken.Add(start);
+                i++;
+                if (i < ratio)
+                {
+                    start += minStep;
+                }
+                else
+                {
+                    start += maxStep;
+                    i = 0;
+                }
+            }
+        }
+        else
+        {
+            stepsTaken = New_GenerateMatrix.InterpolateArray(start, end!.Value);
+            foreach (Vector2Int step in stepsTaken)
+            {
+                BaseCostMatrix[step.x, step.y] += New_GenerateMatrix.MatrixObstacleValue;
+            }
+        }
+
+        if (budeToOccupiedSpaces.ContainsKey(b))
+        {
+            budeToOccupiedSpaces[b].AddRange(stepsTaken);
+        }
+        else
+        {
+            budeToOccupiedSpaces.Add(b, stepsTaken);
+        }
+
+        hasChanged = true;
+        //prob less needed to do
+        RecalcWakable();
+        FindAllExitableDirections();
+        GoalPositionToDistanceField = new Dictionary<Vector2Int, int[,]>();
+        AllTakenPaths = new Dictionary<(Vector2Int, Vector2Int), List<Vector2Int>>();
+        return stepsTaken.Last();
+    }
+
+    public void RecalcWakable()
+    {
+        int clearTiles = 0;
+        int obstacleTiles = 0;
+        for (int row = 0; row < Rows; row++)
+        {
+            for (int column = 0; column < Columns; column++)
+            {
+                if (BaseCostMatrix[row, column] == New_GenerateMatrix.MatrixObstacleValue)
+                {
+                    obstacleTiles++;
+                }
+                else
+                {
+                    clearTiles++;
+                }
+            }
+        }
+        if (clearTiles == Rows * Columns)
+        {
+            HasNoObstacles = true;
+        }
+        else
+        {
+            HasNoObstacles = false;
+        }
+        if (obstacleTiles == Rows * Columns)
+        {
+            HasOnlyObstacles = true;
+        }
+        else
+        {
+            HasOnlyObstacles = false;
+        }
+    }
 }
-
 public enum ExitDirection
 {
     North,

@@ -68,20 +68,20 @@ public class New_Spawner : MonoBehaviour
 
     public Vector3? GenerateRandomPosition()
     {
-        int maxTrys = 3;
-        Vector3? position = null;
-        while (maxTrys != 0)
-        {
-            float cellX = Random.Range(minWorldLimitX, maxWorldLimitX);
-            float cellZ = Random.Range(minWorldLimitZ, maxWorldLimitZ);
-            position = new Vector3(cellX, -1, cellZ);
-            if (Physics.Raycast(position!.Value,new Vector3(0,1f,0),2, New_GenerateMatrix.ObstacleLayer))
-            {
-                position = null;
-            }
-            maxTrys--;
-        }
-        return position;
+        //int maxTrys = 3;
+        //Vector3? position = null;
+        //while (maxTrys != 0)
+        //{
+        //    float cellX = Random.Range(minWorldLimitX, maxWorldLimitX);
+        //    float cellZ = Random.Range(minWorldLimitZ, maxWorldLimitZ);
+        //    position = new Vector3(cellX, -1, cellZ);
+        //    if (Physics.Raycast(position!.Value,new Vector3(0,1f,0),2, New_GenerateMatrix.ObstacleLayer))
+        //    {
+        //        position = null;
+        //    }
+        //    maxTrys--;
+        //}
+        return this.transform.position;
     }
     
 

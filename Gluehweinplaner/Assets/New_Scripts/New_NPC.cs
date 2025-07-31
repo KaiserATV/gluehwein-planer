@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 #nullable enable
 
@@ -10,10 +11,9 @@ public class New_NPC : MonoBehaviour
     public int shownTiles = -1;
 
     public New_GoalNode? currentGoalNode = null;
-    public New_GoalNode? prevGoalNode = null;
-    public Vector3 waitingSpot;
-    public Vector3 nextWayPoint;
-    public Vector3 exit;
+    public Vector3? waitingSpot;
+    public Vector3? nextWayPoint;
+    public Vector3? exit = null;
     private Vector2Int bitarrayCells;
     private New_Bude? bude = null;
     private New_SceneManager? sm = null;
@@ -23,7 +23,8 @@ public class New_NPC : MonoBehaviour
     
     public const float patience = 120f;
     public const float waitingTolerance = 0.2f;
-    public const float goalDistanceTolerance = 0.1f;
+    public const float exitTolerance = 0.1f;
+    public const float wayPointTolerance = 0.3f;
     
     public float speed = 0.01f;
     public float patienceLost;
@@ -36,35 +37,35 @@ public class New_NPC : MonoBehaviour
     public bool waiting = false;
     public bool exiting = false;
     public bool onWayToBude = false;
-    public bool onWayToPrevGoalNode = false;
+    public bool onWayToGoalNode = false;
+    public bool onWayToExit = false;
+    public bool onWayBackFromBude = false;
+    public bool lostPatience = false;
+
 
 
     void Start()
     {
         sm = GameObject.Find("SceneManager").GetComponent<New_SceneManager>();//prob better way to do this
-        //goalsBeforeExit = UnityEngine.Random.Range(0, sm.GetGoalNoteCount()+1);//In future mayy goal here
-        goalsBeforeExit = 1;
-        if (goalsBeforeExit>0)
+        Vector3? pos = sm!.GetNewSpawnPoint();
+        this.transform.position = pos!.Value;
+
+        patienceLost = patience;
+
+        goalsBeforeExit = UnityEngine.Random.Range(0, sm.GetGoalNoteCount() + 1);//In future mayy goal here
+        budenToVisit = sm!.GetNewBuden(goalsBeforeExit);
+        if (budenToVisit.Count == 0) { exiting = true; } else
         {
-            budenToVisit = sm.GetNewBuden(goalsBeforeExit);
             bude = budenToVisit.Dequeue();
+            moveList = sm.HandlePathRequest(this.transform.position, bude!.goalNode);
             currentGoalNode = bude.goalNode;
-            patienceLost = patience;
-            prevGoalNode = null;
-            moveList = sm.HandlePathRequest(this.transform.position, currentGoalNode);
-            nextWayPoint = moveList.Dequeue();
-            exit = sm.GetRandomExitPosition();
+            if (moveList.Count == 0) { exiting = true; } else
+            {
+                nextWayPoint = moveList.Dequeue();
+                onWayToGoalNode = true;
+            }
         }
-        else
-        {
-            exit = sm.GetRandomExitPosition();
-            exiting = true;
-            patienceLost = patience;
-            prevGoalNode = null;
-            currentGoalNode = null;
-            moveList = sm!.HandlePathRequest(GetPosition(), exit);
-            nextWayPoint = moveList.Dequeue();
-        }
+            
     }
 
     // Update is called once per frame
@@ -72,139 +73,148 @@ public class New_NPC : MonoBehaviour
     {
         if (!stopped)
         {
-            if (!waiting)
+            if (!exiting)
             {
-                if (moveList.Count != 0)
+                if (!waiting)
                 {
-                    if (Vector3.Distance(this.transform.position, nextWayPoint) > goalDistanceTolerance)
+                    if (!onWayToBude)
                     {
-                        this.transform.position = Vector3.MoveTowards(this.transform.position, nextWayPoint, speed*Time.deltaTime);
-                        patienceLost -= Time.deltaTime;
-                        if (patienceLost <= 0)
+                        if (onWayToGoalNode || onWayToExit)
                         {
-                            sm!.LostPatience();
-                            if (budenToVisit.Count == 0)
+                            if (Vector3.Distance(transform.position,nextWayPoint!.Value) > wayPointTolerance)
                             {
-                                onWayToBude = false;
-                                exiting = true;
-                                currentGoalNode = null;
-                                moveList = sm!.HandlePathRequest(GetPosition(), exit);
-                                nextWayPoint = moveList.Dequeue();
-                                this.transform.position = Vector3.MoveTowards(this.transform.position, nextWayPoint, speed * Time.deltaTime);
+                                MoveTo(nextWayPoint.Value, Time.deltaTime);
                             }
                             else
                             {
-                                prevGoalNode = currentGoalNode;
-                                bude = budenToVisit.Dequeue();
-                                currentGoalNode = bude.goalNode;
+                                if (moveList.Count > 0)
+                                {
+                                    nextWayPoint = moveList.Dequeue();
+                                    MoveTo(nextWayPoint.Value, Time.deltaTime);
+                                }
+                                else
+                                {
+                                    if (onWayToExit)
+                                    {
+                                        exiting = true;
+                                    }
+                                    else
+                                    {
+                                        onWayToBude = true;
+                                    }
+                                    onWayToGoalNode = false;
+                                }
                             }
-                            patienceLost = patience;
+                        }else if (onWayBackFromBude)
+                        {
+                            if (Vector3.Distance(currentGoalNode!.Position, this.transform.position) > wayPointTolerance)
+                            {
+                                MoveTo(currentGoalNode!.Position, Time.deltaTime);
+                            }
+                            else
+                            {
+                                if (budenToVisit.Count == 0)
+                                {
+                                    exiting = true;
+                                    onWayToGoalNode = false;
+                                }
+                                else
+                                {
+                                    bude = budenToVisit.Dequeue();
+                                    currentGoalNode = bude!.goalNode;
+                                    moveList = sm!.HandlePathRequest(this.transform.position, currentGoalNode);
+                                    nextWayPoint = moveList.Dequeue();
+                                    MoveTo(currentGoalNode!.Position, Time.deltaTime);
+
+                                }
+                                onWayBackFromBude = false;
+                            }
+                        }
+                      
+                    }
+                    else
+                    {//on way to bude
+                        if (waitingSpot == null)
+                        {
+                            if(bude == null)
+                            {
+                                exiting = true;
+                            }
+                            else
+                            {
+                                waitingSpot = bude!.GetNewPosition(this);
+                            }
+                        }
+                        else
+                        {
+                            if (Vector3.Distance(transform.position, waitingSpot!.Value) > waitingTolerance)
+                            {
+                                MoveTo(waitingSpot!.Value, Time.deltaTime);
+                            }
+                            else
+                            {
+                                timeLeftWaiting = bude!.WaitTime;
+                                waiting = true;
+                                onWayToBude = false;
+                            }
+                        }
+                    }
+
+                }
+                else
+                {//waiting
+                    if (timeLeftWaiting > 0)
+                    {
+                        timeLeftWaiting -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        onWayBackFromBude = true;
+                        onWayToGoalNode = false;
+                        waiting = false;
+                    }
+                }
+
+            }
+            else
+                {//exiting
+                    if (!onWayToExit)
+                    {
+                        if(exit == null)
+                        {
+                            exit = sm!.GetRandomExitPosition();
+                            moveList = sm.HandlePathRequest(this.transform.position, exit!.Value);
+                            nextWayPoint = moveList.Dequeue();
+                            onWayToGoalNode = true;
+                            onWayToExit = true;
+                            exiting = false;
                         }
                     }
                     else
                     {
-                        nextWayPoint = moveList.Dequeue();
+                        Respawn();
                     }
                 }
-                else
-                {
-                    if (onWayToPrevGoalNode) { 
-                        if(Vector3.Distance(this.transform.position, prevGoalNode!.Position) > goalDistanceTolerance)
-                        {
-                            this.transform.position = Vector3.MoveTowards(this.transform.position, prevGoalNode!.Position, speed * Time.deltaTime);
-                        }
-                        else
-                        {
-                            onWayToPrevGoalNode = false;
-                            if (budenToVisit.Count == 0)
-                            {
-                                exiting = true;
-                                currentGoalNode = null;
-                                moveList = sm!.HandlePathRequest(GetPosition(), exit);
-                                nextWayPoint = moveList.Dequeue();
-                                this.transform.position = Vector3.MoveTowards(this.transform.position, nextWayPoint, speed * Time.deltaTime);
-                            }
-                            else
-                            {
-                                prevGoalNode = currentGoalNode;
-                                bude = budenToVisit.Dequeue();
-                                currentGoalNode = bude.goalNode;
-                            }
-                        }
-                    }
-                    else if (!exiting && !onWayToBude)
-                    {
-                        Vector3? holder = bude!.GetNewPosition(this);
-                        if(holder != null)
-                        {
-                            waitingSpot = holder!.Value;
-                            onWayToBude = true;
-                            timeLeftWaiting = bude.WaitTime;
-                            this.transform.position = Vector3.MoveTowards(this.transform.position, waitingSpot, speed * Time.deltaTime);
-                        }
-                        else
-                        {
-                            if (budenToVisit.Count == 0)
-                            {
-                                onWayToBude = false;
-                                exiting = true;
-                                currentGoalNode = null;
-                                moveList = sm!.HandlePathRequest(GetPosition(), exit);
-                                if(moveList.Count == 0)
-                                {
-
-                                }
-                                else
-                                {
-                                    nextWayPoint = moveList.Dequeue();
-                                }
-                                this.transform.position = Vector3.MoveTowards(this.transform.position, nextWayPoint, speed * Time.deltaTime);
-                            }
-                            else
-                            {
-                                prevGoalNode = currentGoalNode;
-                                bude = budenToVisit.Dequeue();
-                                currentGoalNode = bude.goalNode;
-                            }
-                        }
-                    }
-                    else if (onWayToBude)
-                    {
-                        if (Vector3.Distance(this.transform.position, waitingSpot) > waitingTolerance)
-                        {
-                            this.transform.position = Vector3.MoveTowards(this.transform.position, waitingSpot, speed * Time.deltaTime);
-                        }
-                        else
-                        {
-                            waiting = true;
-                            prevGoalNode = currentGoalNode;
-                        }
-                    }
-                    else if (exiting)
-                    {
-                        if (Vector3.Distance(this.transform.position, exit) > goalDistanceTolerance)
-                        {
-                            this.transform.position = Vector3.MoveTowards(this.transform.position, exit, speed * Time.deltaTime);
-                        }
-                        else
-                        {
-                            Respawn();
-                        }
-                    }
-                }
+        }//stopped
+        if (!waiting)
+        {
+            if (patienceLost > 0)
+            {
+                patienceLost -= Time.deltaTime;
             }
             else
             {
-                if (timeLeftWaiting > 0)
+                if (budenToVisit.Count == 0)
                 {
-                    timeLeftWaiting -= Time.deltaTime;
+                    exiting = true;
                 }
                 else
                 {
-                    bude!.RemovePlayer(this);
-                    onWayToPrevGoalNode = true;
-                    waiting = false;
-                    onWayToBude = false;
+                    bude = budenToVisit.Dequeue();
+                    onWayToGoalNode = true;
+                    onWayBackFromBude = true;
+                    nextWayPoint = null;
+                    patienceLost = patience;
                 }
             }
         }
@@ -219,11 +229,9 @@ public class New_NPC : MonoBehaviour
     public void Respawn()
     {
         Vector3? pos = sm!.GetNewSpawnPoint();
-        if (pos == null)
-        {
-            return;
-        }
+        if(pos == null) { stopped = true; return;}
         this.transform.position = pos!.Value;
+
 
         randomExitGoalNumber = true;
         inactive = false;
@@ -231,31 +239,35 @@ public class New_NPC : MonoBehaviour
         waiting = false;
         exiting = false;
         onWayToBude = false;
-        onWayToPrevGoalNode = false;
+        onWayToGoalNode = false;
+        onWayBackFromBude = false;
+        onWayToExit = false;
 
-        timeLeftWaiting = 0.0f;
+        patienceLost = patience;
+        waitingSpot = null;
 
-        if (goalsBeforeExit > 0)
-        {
-            budenToVisit = sm.GetNewBuden(goalsBeforeExit);
-            bude = budenToVisit.Dequeue();
-            currentGoalNode = bude.goalNode;
-            patienceLost = patience;
-            prevGoalNode = null;
-            moveList = sm.HandlePathRequest(this.transform.position, currentGoalNode);
-            nextWayPoint = moveList.Dequeue();
-            exit = sm.GetRandomExitPosition();
-        }
+        exit = null;
+
+        goalsBeforeExit = UnityEngine.Random.Range(0, sm.GetGoalNoteCount() + 1);//In future mayy goal here
+        budenToVisit = sm!.GetNewBuden(goalsBeforeExit);
+        if (budenToVisit.Count == 0) { exiting = true; }
         else
         {
-            exit = sm.GetRandomExitPosition();
-            exiting = true;
-            patienceLost = patience;
-            prevGoalNode = null;
-            currentGoalNode = null;
-            moveList = sm!.HandlePathRequest(GetPosition(), exit);
-            nextWayPoint = moveList.Dequeue();
+            bude = budenToVisit.Dequeue();
+            moveList = sm.HandlePathRequest(this.transform.position, bude!.goalNode);
+            currentGoalNode = bude.goalNode;
+            if (moveList.Count == 0) { exiting = true; }
+            else
+            {
+                nextWayPoint = moveList.Dequeue();
+                onWayToGoalNode = true;
+            }
         }
+    }
+
+    private void MoveTo(Vector3 towards, float timeSinceLastMove)
+    {
+        this.transform.position = Vector3.MoveTowards(this.transform.position, towards, speed * timeSinceLastMove);
     }
 
     public void SetInactive(Vector3 inactivePostion)

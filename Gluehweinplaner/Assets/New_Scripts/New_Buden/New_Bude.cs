@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class New_Bude : MonoBehaviour
@@ -28,7 +29,7 @@ public class New_Bude : MonoBehaviour
 
     public void Start()
     {
-        this.transform.hasChanged = false;
+        transform.hasChanged = false;
 
         //calculate the tiles that are blocked by the box???        
 
@@ -37,17 +38,17 @@ public class New_Bude : MonoBehaviour
         // 1 - Wait_L, 2 - Wait_R, 3 - Ziel
 
         //Ziel Array
-        Transform child = this.transform.GetChild(3);
+        Transform child = transform.GetChild(3);
         Bounds bound = child.GetComponent<MeshRenderer>().localBounds;
         ziel = new New_BitArray2D(bound, child, agentRadius, 0, WaitTime);
 
         //Wait_L Array
-        child = this.transform.GetChild(1);
+        child = transform.GetChild(1);
         bound = child.GetComponent<MeshRenderer>().localBounds;
         wait_L = new New_BitArray2D(bound, child, agentRadius, 1, WaitTime);
 
         //Wait_R Array
-        child = this.transform.GetChild(2);
+        child = transform.GetChild(2);
         bound = child.GetComponent<MeshRenderer>().localBounds;
         wait_R = new New_BitArray2D(bound, child, agentRadius, 2, WaitTime);
 
@@ -66,11 +67,11 @@ public class New_Bude : MonoBehaviour
             timeGoneBy = 0;
         }
 
-        if (this.transform.hasChanged) {
+        if (transform.hasChanged) {
             ziel.RefreshPos();
             wait_L.RefreshPos();
             wait_R.RefreshPos();
-            this.transform.hasChanged = false;
+            transform.hasChanged = false;
         }
     }
 
@@ -142,7 +143,7 @@ public class New_Bude : MonoBehaviour
 
     public New_BudenJSON GetBudenJSON()
     {
-        return new New_BudenJSON(this.transform.position.x, this.transform.position.z, this.transform.eulerAngles.y, typeIndex, attraktivitaet, WaitTime);
+        return new New_BudenJSON(transform.position.x, transform.position.z, transform.eulerAngles.y, typeIndex, attraktivitaet, WaitTime);
     }
 
     public void SetTypeIndex(int i)
@@ -163,7 +164,34 @@ public class New_Bude : MonoBehaviour
         wait_R.RemovePlayer(npc);
     }
 
-    public Vector3 GetPosition() { return this.transform.position; }
+    public Vector3 GetPosition() { return transform.position; }
 
-    public Vector3 GetFacingDirection() { return this.transform.GetChild(3).transform.position - this.transform.GetChild(0).transform.position; }
+
+    /// <summary>
+    /// Gets all Corners of the Buden transform in order:
+    /// Top left, Top right, Bottom Left, Bottom Right
+    /// </summary>
+    /// <returns></returns>
+    public List<Vector3> GetAllCornerPoints()
+    {
+        Transform t = this.transform.GetChild(4);
+        Bounds b = this.transform.GetChild(4).GetComponent<MeshRenderer>().localBounds;
+        return new List<Vector3>
+        {
+            t.transform.TransformPoint(new Vector3(-b.size.x/2, 0, -b.size.z/2)),//Top Left
+            t.transform.TransformPoint(new Vector3(-b.size.x/2, 0, b.size.z/2)),//Top Right
+            t.transform.TransformPoint(new Vector3(b.size.x/2, 0, -b.size.z/2)),//Bottom Left
+            t.transform.TransformPoint(new Vector3(b.size.x/2, 0, b.size.z/2))//Bottom Right
+        };
+    }
+
+
+
+    public Vector3 GetFacingDirection() { return transform.GetChild(3).transform.position - transform.GetChild(0).transform.position; }
+
+    public Vector3 GetFarestPoint() {
+        Transform t = this.transform.GetChild(3);
+        Bounds b = t.GetComponent<MeshRenderer>().localBounds;
+        return t.TransformPoint(new Vector3(-b.size.x / 2, 0, 0));
+    }
 }

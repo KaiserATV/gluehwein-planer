@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 
 //ToDo:
@@ -73,8 +75,15 @@ public class New_SceneManager : MonoBehaviour
         }
 
 
-        GenerateGoalNodes();
 
+        foreach (New_Bude b in allBudenScripts)
+        {
+            List<Vector3> cornerPos = b.GetAllCornerPoints();/// Top left, Top right, Bottom Left, Bottom Right
+            ReserveBudenPosition(b, cornerPos[0], cornerPos[1]);
+            ReserveBudenPosition(b, cornerPos[1], cornerPos[3]);
+            ReserveBudenPosition(b, cornerPos[3], cornerPos[2]);
+            ReserveBudenPosition(b, cornerPos[2], cornerPos[0]);
+        }
 
         foreach (New_Plate plate in allPlateArray)
         {
@@ -82,6 +91,10 @@ public class New_SceneManager : MonoBehaviour
             //Debug.Log(plate.CanExit.Count);
         }
 
+        GenerateGoalNodes();
+
+
+        simulating = true;
     }
 
 
@@ -104,6 +117,60 @@ public class New_SceneManager : MonoBehaviour
             inactivePlayerCount++;
         }
     }
+
+
+   
+    public void ReserveBudenPosition(New_Bude b,Vector3 _start, Vector3 _end)
+    {
+        Vector2Int start = WorldPositionToPlateArrayPosition(_start);
+        Vector2Int end = WorldPositionToPlateArrayPosition(_end);
+       
+
+        Vector2Int dir = end - start;
+        List<Vector2Int> platesToVisit = New_GenerateMatrix.InterpolateArray(start, end);
+        if (platesToVisit.Count > 1)
+        {
+            Vector2Int lastPos = allPlateArray[platesToVisit[0].x, platesToVisit[0].y].OccupySpaces(b, dir, allPlateArray[platesToVisit[0].x, platesToVisit[0].y].GetPositionInArray(_start), null);
+            for (int i = 1; i < platesToVisit.Count; i++)
+            {
+                dir = platesToVisit[i - 1] - platesToVisit[i];
+                if (dir.x == 0)
+                {//y bigger
+                    if (dir.y > 0)
+                    {
+                        lastPos.y = 0;
+                        lastPos = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, dir, lastPos, null);
+                    }
+                    else
+                    { 
+                        lastPos.y = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].Columns - 1;
+                        lastPos = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, dir, lastPos, null);
+                    }
+                }
+                else
+                {
+                    if (dir.x > 0)
+                    {  
+                        lastPos.x = 0;
+                        lastPos = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, dir, lastPos, null);
+                    }
+                    else
+                    {
+                        lastPos.x = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].Rows - 1;
+                        lastPos = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, dir, lastPos, null);
+                    }
+                }
+            }
+        }
+        else
+        {
+            allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].OccupySpaces(b, dir, allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].GetPositionInArray(_start), allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].GetPositionInArray(_end));
+        }
+    }
+
+
+
+
 
     public void addPlayer(New_NPC npc) { if(!alleCurrentAgents.Contains(npc)){ alleCurrentAgents.Add(npc); playerCount++; } }
     public void removePlayer(New_NPC npc) { playerCount--; alleCurrentAgents.Remove(npc); }
@@ -136,7 +203,7 @@ public class New_SceneManager : MonoBehaviour
             New_Bude goal = allBudenScripts[i];
             while (j < groups.Count && !shouldBreak)
             {
-                if (Vector3.Distance(groups[j][0].GetPosition(), goal.GetPosition()) <= maxGoalNodeDistance)
+                if (Vector3.Distance(groups[j][0].GetFarestPoint(), goal.GetFarestPoint()) <= maxGoalNodeDistance && WorldPositionToPlateArrayPosition(goal.GetFarestPoint()) == WorldPositionToPlateArrayPosition(groups[j][0].GetFarestPoint()))
                 {
                     Vector3 firstDirection = groups[j][0].GetFacingDirection();
                     Vector3 goalDirection = goal.GetFacingDirection();
@@ -145,7 +212,7 @@ public class New_SceneManager : MonoBehaviour
                     float dot = Vector3.Dot(goalDirection.normalized, firstDirection.normalized);//dot product to get the direction the vectors are facing
 
                     //should divide by position
-                    Vector3 displacement = groups[j][0].GetPosition() - goal.GetPosition();
+                    Vector3 displacement = groups[j][0].GetFarestPoint() - goal.GetFarestPoint();
                     float positionBudenToEachOther = Vector3.Dot(displacement.normalized, goalDirection.normalized);
 
                     if (positionBudenToEachOther > 0)
@@ -228,19 +295,11 @@ public class New_SceneManager : MonoBehaviour
 
         foreach (List<New_Bude> goalGroup in groups)
         {
-            New_GoalNode gn = new New_GoalNode(goalGroup);
+            New_GoalNode gn = new New_GoalNode(goalGroup, WorldPositionToPlate(goalGroup[0].GetFarestPoint()));
             allGoalNodes.Add(gn);
-            gn.CalculatePosition();
-            AddGoalNodeToCorrespondingPlateAndGenerateDistanceField(gn);
+            gn.OnPlate.AddGoalNode(gn);
         }
     }
-
-    void AddGoalNodeToCorrespondingPlateAndGenerateDistanceField(New_GoalNode goal)
-    {
-        New_Plate plate = allPlateArray[goal.OnPlate.x, goal.OnPlate.y];
-        plate.AddGoalNodeAndDistanceField(goal, (!plate.HasNoObstacles && !plate.HasOnlyObstacles) ? new int[0, 0] : New_GenerateMatrix.GenerateDistanceField(plate, goal.Position,null));
-    }
-
 
     List<Vector3> debugTiles = new List<Vector3>();
     List<New_Plate> debugPlates = new List<New_Plate>();
@@ -344,15 +403,15 @@ public class New_SceneManager : MonoBehaviour
         return wayPoints;
     }
 
-
-    Vector2Int WorldPositionToPlateArrayPosition(New_Bude goal)
+    New_Plate WorldPositionToPlate(Vector3 pos)
     {
-        int plateNumberX = Mathf.FloorToInt((goal.GetPosition().x - allFloorBounds[0].min.x) / normalPlateX);
-        int plateNumberZ = Mathf.FloorToInt((goal.GetPosition().z - allFloorBounds[0].min.z) / normalPlateZ);
+        int plateNumberX = Mathf.FloorToInt((pos.x - allFloorBounds[0].min.x) / normalPlateX);
+        int plateNumberZ = Mathf.FloorToInt((pos.z - allFloorBounds[0].min.z) / normalPlateZ);
         plateNumberX = Math.Clamp(plateNumberX, 0, plateCountX - 1);
         plateNumberZ = Math.Clamp(plateNumberZ, 0, plateCountZ - 1);
-        return new Vector2Int(plateNumberX, plateNumberZ);
+        return allPlateArray[plateNumberX,plateNumberZ];
     }
+
 
     Vector2Int WorldPositionToPlateArrayPosition(Vector3 pos)
     {
@@ -455,6 +514,7 @@ public class New_SceneManager : MonoBehaviour
     public int shownPlate = -1;
     private void OnDrawGizmos()
     {
+        if (!Application.isPlaying) { return; }
         if (showDebugPlates)
         {
             for(int i = 0; i < shownPlate; i++)
@@ -469,7 +529,23 @@ public class New_SceneManager : MonoBehaviour
             Gizmos.color = Color.yellow;
             Gizmos.DrawCube(n.Position, new Vector3(1, 0.1f, 1));
         }
+        foreach (New_Plate p in allPlateArray)
+        {
+            for (int row = 0; row < p.Rows; row++)
+            {
+                for (int col = 0; col < p.Columns; col++)
+                {
+                    if (p.BaseCostMatrix[row, col] == New_GenerateMatrix.MatrixObstacleValue)
+                    {
+                        Gizmos.color = Color.red;
+                        Gizmos.DrawCube(p.GetSubTileCenterWorldCoordinates(row, col), new Vector3(New_GenerateMatrix.TileSizeX, 0.01f, New_GenerateMatrix.TileSizeZ));
+
+                    }
+                }
+            }
+        }
     }
+
 }
 
 

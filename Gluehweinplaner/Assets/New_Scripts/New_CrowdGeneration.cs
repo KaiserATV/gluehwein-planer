@@ -66,22 +66,24 @@ public class New_CrowdGeneration : MonoBehaviour
         }
     }
 
-    public Vector3? GenerateRandomPosition()
-    {
-        int maxTrys = 3;
-        Vector3? position = null;
-        while (maxTrys != 0)
-        {
-            float cellX = Random.Range(minWorldLimitX, maxWorldLimitX);
-            float cellZ = Random.Range(minWorldLimitZ, maxWorldLimitZ);
-            position = new Vector3(cellX, -1, cellZ);
-            if (!Physics.Raycast(position!.Value, new Vector3(0,1,0),2, New_GenerateMatrix.ObstacleLayer))
-            {
-                position = null;
-            }
-            maxTrys--;
-        }
-        return position;
-    }
+
+    public Vector3? GenerateRandomPosition() { return this.transform.position; }
+    //public Vector3? GenerateRandomPosition()
+    //{
+    //    int maxTrys = 3;
+    //    Vector3? position = null;
+    //    while (maxTrys != 0)
+    //    {
+    //        float cellX = Random.Range(minWorldLimitX, maxWorldLimitX);
+    //        float cellZ = Random.Range(minWorldLimitZ, maxWorldLimitZ);
+    //        position = new Vector3(cellX, -1, cellZ);
+    //        if (!Physics.Raycast(position!.Value, new Vector3(0,1,0),2, New_GenerateMatrix.ObstacleLayer))
+    //        {
+    //            position = null;
+    //        }
+    //        maxTrys--;
+    //    }
+    //    return position;
+    //}
 
 }

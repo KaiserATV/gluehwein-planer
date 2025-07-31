@@ -386,7 +386,7 @@ MonoBehaviour:
   agentRadius: 1
   waitTime: 10
   attraktivitaet: 5
-  "kapazit\xE4t": 0
+  kapazitaet: 0
   delayBeforeNotBusy: 5
   busy: 0
   attrakIncr: 10

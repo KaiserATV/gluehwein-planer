@@ -81,7 +81,7 @@ public static class New_GenerateMatrix
             if (rows - node.x > 1)
             {
                 Vector2Int nodeToBeChecked = new Vector2Int(node.x + 1, node.y);
-                if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] > 1000)
+                if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] == MatrixIsPathableValue)
                 {
                     if (checkDirection)
                     {
@@ -101,7 +101,7 @@ public static class New_GenerateMatrix
             if (node.x != 0)
             {
                 Vector2Int nodeToBeChecked = new Vector2Int(node.x - 1, node.y);
-                if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] > 1000)
+                if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] == MatrixIsPathableValue)
                 {
                     if (checkDirection)
                     {
@@ -123,7 +123,7 @@ public static class New_GenerateMatrix
             {
 
                 Vector2Int nodeToBeChecked = new Vector2Int(node.x, node.y - 1);
-                if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] > 1000)
+                if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] == MatrixIsPathableValue)
                 {
                     if (checkDirection)
                     {
@@ -146,7 +146,7 @@ public static class New_GenerateMatrix
                     if (node.x > 0)
                     {
                         nodeToBeChecked = new Vector2Int(node.x - 1, node.y - 1);
-                        if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] > 1000)
+                        if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] == MatrixIsPathableValue)
                         {
                             if (checkDirection)
                             {
@@ -166,7 +166,7 @@ public static class New_GenerateMatrix
                     if (rows - node.x > 1)
                     {
                         nodeToBeChecked = new Vector2Int(node.x + 1, node.y - 1);
-                        if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] > 1000)
+                        if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] == MatrixIsPathableValue)
                         {
                             if (checkDirection)
                             {
@@ -192,7 +192,7 @@ public static class New_GenerateMatrix
             {
 
                 Vector2Int nodeToBeChecked = new Vector2Int(node.x, node.y + 1);
-                if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] > 1000)
+                if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] == MatrixIsPathableValue)
                 {
                     if (checkDirection)
                     {
@@ -215,7 +215,7 @@ public static class New_GenerateMatrix
                     if (node.x > 0)
                     {
                         nodeToBeChecked = new Vector2Int(node.x - 1, node.y + 1);
-                        if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] > 1000)
+                        if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] == MatrixIsPathableValue)
                         {
                             if (checkDirection)
                             {
@@ -235,7 +235,7 @@ public static class New_GenerateMatrix
                     if (rows - node.x > 1)
                     {
                         nodeToBeChecked = new Vector2Int(node.x + 1, node.y + 1);
-                        if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] > 1000)
+                        if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] == MatrixIsPathableValue)
                         {
                             if (checkDirection)
                             {
@@ -393,7 +393,7 @@ public static class New_GenerateMatrix
 
         List<Vector2Int> steps = new List<Vector2Int>
         {
-            position
+            arrayStart
         };
 
         //ToDo: Check if Tile only consits of empty field, path accordingly
@@ -427,7 +427,6 @@ public static class New_GenerateMatrix
                     stepsTaken++;
                 }
             }
-
             steps.Add(position);
             schutz++;
             stepsTaken++;

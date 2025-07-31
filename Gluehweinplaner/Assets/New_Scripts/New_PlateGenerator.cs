@@ -84,8 +84,8 @@ public static class New_PlateGenerator
     static bool CheckIfPlacable(float posX, float posY)
     {
         bool isPlacable = !Physics.Raycast(
-                            new Vector3(posX, -1f, posY),
-                            new Vector3(0, 1f, 0), 2f, 
+                            new Vector3(posX, -10f, posY),
+                            new Vector3(0, 1f, 0), 11f, 
                             New_GenerateMatrix.ObstacleLayer
                             );
         return isPlacable;
