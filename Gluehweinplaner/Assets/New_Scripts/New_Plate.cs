@@ -179,7 +179,7 @@ public class New_Plate
             }
             else
             {
-                List<Vector2Int> path = New_GenerateMatrix.InterpolateArray(start, exit);
+                List<Vector2Int> path = New_GenerateMatrix.InterpolateArray(start, exit,(Vector2Int pos) => pos.x < Rows && pos.y < Columns && pos.x >= 0 && pos.y >= 0);
                 AllTakenPaths.Add((start, exit), path);
                 return path;
             }
@@ -233,65 +233,18 @@ public class New_Plate
     {
         List<Vector2Int> stepsTaken = new List<Vector2Int> { start };
         BaseCostMatrix[start.x, start.y] += New_GenerateMatrix.MatrixObstacleValue;
-        Vector2Int maxStep;
-        Vector2Int minStep;
-        int ratio;
 
-        if (end == null)
+        if(end == null)
         {
-            if (direction.x == 0)
-            {
-                if (direction.y == 0) { return start; }
-                maxStep = new Vector2Int(0, Math.Clamp(direction.y, -1, 1));
-                minStep = new Vector2Int(0, 0);
-                ratio = 0;
-            }
-            else if (direction.y == 0)
-            {
-                if (direction.x == 0) { return start; }
-                maxStep = new Vector2Int(Math.Clamp(direction.x, -1, 1), 0);
-                minStep = new Vector2Int(0, 0);
-                ratio = 0;
-            }
-            else
-            {
-                if (direction.x > direction.y)
-                {
-                    maxStep = new Vector2Int(Math.Clamp(direction.x, -1, 1), 0);
-                    minStep = new Vector2Int(0, Math.Clamp(direction.y, -1, 1));
-                    ratio = Mathf.Abs(direction.x / direction.y);
-                }
-                else
-                {
-                    maxStep = new Vector2Int(0, Math.Clamp(direction.y, -1, 1));
-                    minStep = new Vector2Int(Math.Clamp(direction.x, -1, 1), 0);
-                    ratio = Mathf.Abs(direction.y / direction.x);
-                }
-            }
-            int i = 0;
-            while (start.x < Rows && start.y < Columns && start.x >= 0 && start.y >= 0 && i < 10)
-            {
-                BaseCostMatrix[start.x, start.y] += New_GenerateMatrix.MatrixObstacleValue;
-                stepsTaken.Add(start);
-                i++;
-                if (i < ratio)
-                {
-                    start += minStep;
-                }
-                else
-                {
-                    start += maxStep;
-                    i = 0;
-                }
-            }
+            stepsTaken = New_GenerateMatrix.InterpolateArrayWithEndCondition(start, direction, (Vector2Int pos) => !(pos.x < Rows && pos.y < Columns && pos.x >= 0 && pos.y >= 0));
         }
         else
         {
-            stepsTaken = New_GenerateMatrix.InterpolateArray(start, end!.Value);
-            foreach (Vector2Int step in stepsTaken)
-            {
-                BaseCostMatrix[step.x, step.y] += New_GenerateMatrix.MatrixObstacleValue;
-            }
+            stepsTaken = New_GenerateMatrix.InterpolateArray(start, end!.Value, (Vector2Int pos) => pos.x < Rows && pos.y < Columns && pos.x >= 0 && pos.y >= 0);
+        }
+        foreach (Vector2Int step in stepsTaken)
+        {
+            BaseCostMatrix[step.x, step.y] += New_GenerateMatrix.MatrixObstacleValue;
         }
 
         if (budeToOccupiedSpaces.ContainsKey(b))

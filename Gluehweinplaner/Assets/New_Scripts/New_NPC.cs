@@ -127,6 +127,7 @@ public class New_NPC : MonoBehaviour
                                     MoveTo(currentGoalNode!.Position, Time.deltaTime);
 
                                 }
+                                bude!.RemovePlayer(this);
                                 onWayBackFromBude = false;
                             }
                         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.Rendering.DebugUI.Table;
@@ -87,14 +88,11 @@ public class New_SceneManager : MonoBehaviour
 
         foreach (New_Plate plate in allPlateArray)
         {
-            plate.FindAllExitableDirections();
-            //Debug.Log(plate.CanExit.Count);
+            plate.FindAllExitableDirections();//prob needs all neighbors stored to recalc
         }
 
         GenerateGoalNodes();
 
-
-        simulating = true;
     }
 
 
@@ -124,48 +122,46 @@ public class New_SceneManager : MonoBehaviour
     {
         Vector2Int start = WorldPositionToPlateArrayPosition(_start);
         Vector2Int end = WorldPositionToPlateArrayPosition(_end);
-       
-
         Vector2Int dir = end - start;
-        List<Vector2Int> platesToVisit = New_GenerateMatrix.InterpolateArray(start, end);
+        List<Vector2Int> platesToVisit = New_GenerateMatrix.InterpolateArray(start, end, (Vector2Int pos) => pos.x < plateCountX && pos.y < plateCountZ && pos.x >= 0 && pos.y >= 0);
+
+        Vector2Int startPos = allPlateArray[platesToVisit[0].x, platesToVisit[0].y].GetPositionInArray(_start);
         if (platesToVisit.Count > 1)
         {
-            Vector2Int lastPos = allPlateArray[platesToVisit[0].x, platesToVisit[0].y].OccupySpaces(b, dir, allPlateArray[platesToVisit[0].x, platesToVisit[0].y].GetPositionInArray(_start), null);
+            startPos = allPlateArray[platesToVisit[0].x, platesToVisit[0].y].OccupySpaces(b, dir, startPos, null);
             for (int i = 1; i < platesToVisit.Count; i++)
             {
-                dir = platesToVisit[i - 1] - platesToVisit[i];
                 if (dir.x == 0)
                 {//y bigger
                     if (dir.y > 0)
                     {
-                        lastPos.y = 0;
-                        lastPos = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, dir, lastPos, null);
+                        startPos.y = 0;
                     }
                     else
-                    { 
-                        lastPos.y = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].Columns - 1;
-                        lastPos = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, dir, lastPos, null);
+                    {
+                        startPos.y = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].Columns - 1;
                     }
                 }
                 else
                 {
                     if (dir.x > 0)
-                    {  
-                        lastPos.x = 0;
-                        lastPos = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, dir, lastPos, null);
+                    {
+                        startPos.x = 0;
                     }
                     else
                     {
-                        lastPos.x = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].Rows - 1;
-                        lastPos = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, dir, lastPos, null);
+                        startPos.x = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].Rows - 1;
                     }
+                }
+                if(i != platesToVisit.Count - 1)
+                {
+                    dir = platesToVisit[i] - platesToVisit[i+1];
+                    startPos = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, dir, startPos, null);
                 }
             }
         }
-        else
-        {
-            allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].OccupySpaces(b, dir, allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].GetPositionInArray(_start), allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].GetPositionInArray(_end));
-        }
+        Debug.Log(allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].Center + " "+ allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].Rows+ " "+ allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].Columns);
+        allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].OccupySpaces(b, dir, startPos, allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].GetPositionInArray(_end));
     }
 
 
@@ -312,7 +308,7 @@ public class New_SceneManager : MonoBehaviour
     public Queue<Vector3> HandlePathRequest(Vector3 start, Vector3 goal)
     {
         if (allPositionsToGoals.ContainsKey((start,goal))) {
-            return allPositionsToGoals[(start, goal)].Item2;
+            return new Queue<Vector3>(allPositionsToGoals[(start, goal)].Item2);
         }
 
         Vector2Int arrayStart = WorldPositionToPlateArrayPosition(start);
@@ -396,7 +392,7 @@ public class New_SceneManager : MonoBehaviour
 
         Queue<Vector3> wayPoints = New_GenerateMatrix.GeneratePath(platesToVisit, start, goal);
 
-        allPositionsToGoals.Add((start, goal), (platesToVisit, wayPoints));
+        allPositionsToGoals.Add((start, goal), (platesToVisit, new Queue<Vector3>(wayPoints)));
 
         debugTiles = wayPoints.ToList();
 
@@ -535,7 +531,7 @@ public class New_SceneManager : MonoBehaviour
             {
                 for (int col = 0; col < p.Columns; col++)
                 {
-                    if (p.BaseCostMatrix[row, col] == New_GenerateMatrix.MatrixObstacleValue)
+                    if (p.BaseCostMatrix[row, col] != New_GenerateMatrix.MatrixIsPathableValue)
                     {
                         Gizmos.color = Color.red;
                         Gizmos.DrawCube(p.GetSubTileCenterWorldCoordinates(row, col), new Vector3(New_GenerateMatrix.TileSizeX, 0.01f, New_GenerateMatrix.TileSizeZ));

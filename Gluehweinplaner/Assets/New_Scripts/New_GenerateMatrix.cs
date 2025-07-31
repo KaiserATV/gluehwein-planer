@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 #nullable enable
 
 public static class New_GenerateMatrix
@@ -375,61 +374,160 @@ public static class New_GenerateMatrix
         return steps;
     }
 
-    public static List<Vector2Int> InterpolateArray(Vector2Int arrayStart, Vector2Int goal)
+    public static List<Vector2Int> InterpolateArray(Vector2Int start, Vector2Int goal, Func<Vector2Int,bool> isInArray)
     {
-        Vector2Int position = arrayStart;
-        Vector2Int ratio = goal - arrayStart;
+        if(start == goal) { return  new List<Vector2Int> { start }; }
+        Vector2Int ratioDirection = goal - start;
+        Vector2Int maxStep;
+        Vector2Int minStep;
+        float ratioStep;
+        List<Vector2Int> steps = new List<Vector2Int>();
 
-        int stepsTaken = 0;
-        int stepSizeX = 1;
-        int stepSizeY = 1;
 
-        if (ratio.x < 0) {
-            stepSizeX = -1;
-        }
-        if (ratio.y < 0) {
-            stepSizeY = -1;
-        }
-
-        List<Vector2Int> steps = new List<Vector2Int>
+        if (ratioDirection.x == 0)
         {
-            arrayStart
-        };
-
-        //ToDo: Check if Tile only consits of empty field, path accordingly
-        int schutz = 0;
-        while (position != goal && schutz < 10)
+            if (ratioDirection.y == 0) { return steps; }
+            maxStep = new Vector2Int(0, Math.Clamp(ratioDirection.y, -1, 1));
+            minStep = new Vector2Int(0, 0);
+            ratioStep = int.MaxValue;
+        }
+        else if (ratioDirection.y == 0)
         {
-            if (ratio.x == 0)
+            if (ratioDirection.x == 0) { return steps; }
+            maxStep = new Vector2Int(Math.Clamp(ratioDirection.x, -1, 1), 0);
+            minStep = new Vector2Int(0, 0);
+            ratioStep = int.MaxValue;
+        }
+        else
+        {
+            if (Mathf.Abs(ratioDirection.x) > Math.Abs(ratioDirection.y ))
             {
-                position.y += stepSizeY;
-                ratio.y -= stepSizeY;
-            } else if (ratio.y == 0)
-            {
-                position.x += stepSizeX;
-                ratio.x -= stepSizeX;
-            }
-            else if (stepsTaken % 2 == 0)
-            {
-                if (ratio.y != 0)
-                {
-                    position.y += stepSizeY;
-                    ratio.y -= stepSizeY;
-                    stepsTaken++;
-                }
+                maxStep = new Vector2Int(Math.Clamp(ratioDirection.x, -1, 1), 0);
+                minStep = new Vector2Int(0, Math.Clamp(ratioDirection.y, -1, 1));
+                ratioStep = (float)ratioDirection.x /(float) ratioDirection.y;
             }
             else
             {
-                if (ratio.x != 0)
-                {
-                    position.x += stepSizeX;
-                    ratio.x -= stepSizeX;
-                    stepsTaken++;
-                }
+                maxStep = new Vector2Int(0, Math.Clamp(ratioDirection.y, -1, 1));
+                minStep = new Vector2Int(Math.Clamp(ratioDirection.x, -1, 1), 0);
+                ratioStep = (float)ratioDirection.y / (float)ratioDirection.x;
             }
-            steps.Add(position);
+        }
+        int i = 0;
+        int schutz = 0;
+        steps.Add(start);
+        if(ratioStep > 0)
+        {
+            while (start != goal && schutz < 10)
+            {
+                i++;
+                Debug.Log(start);
+                if (i <= ratioStep)
+                {
+                    start += maxStep;
+                    if (!isInArray(start))
+                    {
+                        start -= maxStep;
+                    }
+                }
+                else
+                {
+                    i = 0;
+                    start += minStep;
+                    if (!isInArray(start))
+                    {
+                        start -= minStep;
+                    }
+                }
+                steps.Add(start);
+                schutz++;
+            }
+        }
+        else
+        {
+            while (start != goal && schutz < 10)
+            {
+                Debug.Log(start);
+                i--;
+                if (i >= ratioStep)
+                {
+                    start += minStep;
+                    if (!isInArray(start))
+                    {
+                        start -= minStep;
+                    }
+                }
+                else
+                {
+                    i = 0;
+                    start += maxStep;
+                    if (!isInArray(start))
+                    {
+                        start -= maxStep;
+                    }
+                }
+                steps.Add(start);
+                schutz++;
+            }
+        }
+
+            return steps;
+    }
+
+    public static List<Vector2Int> InterpolateArrayWithEndCondition(Vector2Int start, Vector2Int ratioDirection, Func<Vector2Int, bool> endCondition)
+    {
+        Vector2Int maxStep;
+        Vector2Int minStep;
+        float ratioStep;
+        List<Vector2Int> steps = new List<Vector2Int>();
+
+
+        if (ratioDirection.x == 0)
+        {
+            if (ratioDirection.y == 0) { return steps; }
+            maxStep = new Vector2Int(0, Math.Clamp(ratioDirection.y, -1, 1));
+            minStep = new Vector2Int(0, 0);
+            ratioStep = int.MaxValue;
+        }
+        else if (ratioDirection.y == 0)
+        {
+            if (ratioDirection.x == 0) { return steps; }
+            maxStep = new Vector2Int(Math.Clamp(start.x, -1, 1), 0);
+            minStep = new Vector2Int(0, 0);
+            ratioStep = int.MaxValue;
+        }
+        else
+        {
+            if (ratioDirection.x > ratioDirection.y)
+            {
+                maxStep = new Vector2Int(Math.Clamp(start.x, -1, 1), 0);
+                minStep = new Vector2Int(0, Math.Clamp(ratioDirection.y, -1, 1));
+                ratioStep = Mathf.Abs((float)ratioDirection.x / (float)ratioDirection.y);
+            }
+            else
+            {
+                maxStep = new Vector2Int(0, Math.Clamp(ratioDirection.y, -1, 1));
+                minStep = new Vector2Int(Math.Clamp(ratioDirection.x, -1, 1), 0);
+                ratioStep = Mathf.Abs((float)ratioDirection.y / (float)ratioDirection.x);
+            }
+        }
+        int i = 0;
+        int schutz = 0;
+        steps.Add(start);
+        while (endCondition(start))
+        {
+            i++;
+            if (i <= ratioStep)
+            {
+                start += maxStep;
+            }
+            else
+            {
+                i = 0;
+                start += minStep;
+            }
+            steps.Add(start);
             schutz++;
-            stepsTaken++;
         }
         return steps;
     }
