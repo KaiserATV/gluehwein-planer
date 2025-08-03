@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -13,7 +14,7 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class New_SceneManager : MonoBehaviour
 {
-    public static bool pathDiagonal = false;
+    public bool pathDiagonal = false;
 
     public int maxPlayerCount = 50;
     public bool simulating = false;
@@ -88,7 +89,7 @@ public class New_SceneManager : MonoBehaviour
 
         foreach (New_Plate plate in allPlateArray)
         {
-            plate.FindAllExitableDirections();//prob needs all neighbors stored to recalc
+            plate.FindAllExitableDirections(pathDiagonal);//prob needs all neighbors stored to recalc
         }
 
         GenerateGoalNodes();
@@ -122,46 +123,60 @@ public class New_SceneManager : MonoBehaviour
     {
         Vector2Int start = WorldPositionToPlateArrayPosition(_start);
         Vector2Int end = WorldPositionToPlateArrayPosition(_end);
-        Vector2Int dir = end - start;
-        List<Vector2Int> platesToVisit = New_GenerateMatrix.InterpolateArray(start, end, (Vector2Int pos) => pos.x < plateCountX && pos.y < plateCountZ && pos.x >= 0 && pos.y >= 0);
+        Vector2Int dirEnd = end - start;
+        Vector3 worldEnd = _end - _start;
+        List<Vector2Int> platesToVisit = New_GenerateMatrix.InterpolateArray(start, end, ((Vector2Int a, Vector2Int b) toCompare) => (Vector3.Distance(allPlateArray[toCompare.a.x, toCompare.a.y].Center, _end) < Vector3.Distance(allPlateArray[toCompare.b.x, toCompare.b.y].Center, _end))? toCompare.a : toCompare.b , false, plateCountX, plateCountZ);
+        platesToVisit.Add(end);
+        foreach (Vector2Int plate in platesToVisit)
+        {
+            Debug.Log(allPlateArray[plate.x,plate.y].Center);
+        }
 
-        Vector2Int startPos = allPlateArray[platesToVisit[0].x, platesToVisit[0].y].GetPositionInArray(_start);
+        Vector2Int startPos = allPlateArray[platesToVisit[0].x, platesToVisit[0].y].GetPositionInArray(_start, true);
         if (platesToVisit.Count > 1)
         {
-            startPos = allPlateArray[platesToVisit[0].x, platesToVisit[0].y].OccupySpaces(b, dir, startPos, null);
-            for (int i = 1; i < platesToVisit.Count; i++)
+            Vector2Int dirToNextPlate = platesToVisit[1] - platesToVisit[0];
+            for (int i = 0; i < platesToVisit.Count;i++)
             {
-                if (dir.x == 0)
+                if (i < platesToVisit.Count - 1)
+                {
+                    dirEnd = end - platesToVisit[i];
+                    startPos = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, startPos, _end, pathDiagonal);
+                    dirToNextPlate = platesToVisit[i + 1] - platesToVisit[i];
+                }
+                else
+                {
+                    allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, startPos, _end, pathDiagonal);
+                    return;
+                }
+                if (dirToNextPlate.x == 0)
                 {//y bigger
-                    if (dir.y > 0)
+                    if (dirToNextPlate.y > 0)
                     {
                         startPos.y = 0;
                     }
                     else
                     {
-                        startPos.y = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].Columns - 1;
+                        startPos.y = allPlateArray[platesToVisit[i+1].x, platesToVisit[i + 1].y].Columns - 1;
                     }
                 }
                 else
                 {
-                    if (dir.x > 0)
+                    if (dirToNextPlate.x > 0)
                     {
                         startPos.x = 0;
                     }
                     else
                     {
-                        startPos.x = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].Rows - 1;
+                        startPos.x = allPlateArray[platesToVisit[i + 1].x, platesToVisit[i + 1].y].Rows - 1;
                     }
-                }
-                if(i != platesToVisit.Count - 1)
-                {
-                    dir = platesToVisit[i] - platesToVisit[i+1];
-                    startPos = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, dir, startPos, null);
                 }
             }
         }
-        Debug.Log(allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].Center + " "+ allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].Rows+ " "+ allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].Columns);
-        allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].OccupySpaces(b, dir, startPos, allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].GetPositionInArray(_end));
+        else
+        {
+            allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].OccupySpaces(b, startPos, _end,pathDiagonal);
+        }
     }
 
 
@@ -293,7 +308,7 @@ public class New_SceneManager : MonoBehaviour
         {
             New_GoalNode gn = new New_GoalNode(goalGroup, WorldPositionToPlate(goalGroup[0].GetFarestPoint()));
             allGoalNodes.Add(gn);
-            gn.OnPlate.AddGoalNode(gn);
+            gn.OnPlate.AddGoalNode(gn, pathDiagonal);
         }
     }
 
@@ -375,22 +390,21 @@ public class New_SceneManager : MonoBehaviour
                 }
             }
                 return allPlateArray[currentPlate.x, currentPlate.y].CanExit.Contains(exit) && allPlateArray[currentPlate.x + direction.x, currentPlate.y + direction.y].CanExit.Contains(inverse);
-        });
+        }, pathDiagonal);
 
 
 
-        List<Vector2Int> platePosToVisit = New_GenerateMatrix.GetBestPathInDistanceMatrix(distanceMatrix, plateCountX, plateCountZ, arrayStart);
-
+        List<Vector2Int> platePosToVisit = New_GenerateMatrix.GetBestPathInDistanceMatrix(distanceMatrix, plateCountX, plateCountZ, arrayStart, pathDiagonal);
         List<New_Plate> platesToVisit = new List<New_Plate>();
 
-        foreach(Vector2Int pos in platePosToVisit)
+        foreach (Vector2Int pos in platePosToVisit)
         {
             platesToVisit.Add(allPlateArray[pos.x, pos.y]);
         }
         debugPlates = platesToVisit;
 
 
-        Queue<Vector3> wayPoints = New_GenerateMatrix.GeneratePath(platesToVisit, start, goal);
+        Queue<Vector3> wayPoints = New_GenerateMatrix.GeneratePath(platesToVisit, start, goal, pathDiagonal);
 
         allPositionsToGoals.Add((start, goal), (platesToVisit, new Queue<Vector3>(wayPoints)));
 
@@ -534,8 +548,7 @@ public class New_SceneManager : MonoBehaviour
                     if (p.BaseCostMatrix[row, col] != New_GenerateMatrix.MatrixIsPathableValue)
                     {
                         Gizmos.color = Color.red;
-                        Gizmos.DrawCube(p.GetSubTileCenterWorldCoordinates(row, col), new Vector3(New_GenerateMatrix.TileSizeX, 0.01f, New_GenerateMatrix.TileSizeZ));
-
+                        Gizmos.DrawCube(p.GetSubTileCenterWorldCoordinates(row, col), new Vector3(New_GenerateMatrix.TileSizeX- 0.01f, 0.01f, New_GenerateMatrix.TileSizeZ - 0.01f));
                     }
                 }
             }

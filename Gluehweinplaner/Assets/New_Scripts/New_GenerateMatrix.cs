@@ -1,7 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
+using System.Security.Cryptography;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.InputSystem.XInput;
 #nullable enable
 
 public static class New_GenerateMatrix
@@ -58,13 +63,13 @@ public static class New_GenerateMatrix
         return baseCostHolder;
     }
 
-    public static int[,] GenerateDistanceField(New_Plate plate, Vector3 start,Func<Vector2Int, Vector2Int, bool>? canGoToNext)
+    public static int[,] GenerateDistanceField(New_Plate plate, Vector3 start,Func<Vector2Int, Vector2Int, bool>? canGoToNext, bool canPathDiagonal)
     {
-        Vector2Int startPosition = plate.GetPositionInArray(start);
-        return GenerateDistanceField(plate.BaseCostMatrix, plate.Rows, plate.Columns, startPosition,canGoToNext);
+        Vector2Int startPosition = plate.GetPositionInArray(start, false);
+        return GenerateDistanceField(plate.BaseCostMatrix, plate.Rows, plate.Columns, startPosition,canGoToNext, canPathDiagonal);
     }
 
-    public static int[,] GenerateDistanceField(int[,] baseCost, int rows, int cols, Vector2Int startPosition,Func<Vector2Int, Vector2Int, bool>? canGoToNext)
+    public static int[,] GenerateDistanceField(int[,] baseCost, int rows, int cols, Vector2Int startPosition,Func<Vector2Int, Vector2Int, bool>? canGoToNext, bool canPathDiagonal)
     {
         int[,] distanceMatrix = (int[,])baseCost.Clone();
         
@@ -140,7 +145,7 @@ public static class New_GenerateMatrix
                 }
 
 
-                if (New_SceneManager.pathDiagonal)
+                if (canPathDiagonal)
                 {
                     if (node.x > 0)
                     {
@@ -209,7 +214,7 @@ public static class New_GenerateMatrix
                 }
 
 
-                if (New_SceneManager.pathDiagonal)
+                if (canPathDiagonal)
                 {
                     if (node.x > 0)
                     {
@@ -260,8 +265,8 @@ public static class New_GenerateMatrix
         return distanceMatrix;
     }
 
-    public static List<Vector3> GetBestPathInDistanceMatrix(New_Plate plate, int[,] distanceMatrix, int rows, int cols, Vector2Int start) {
-        List<Vector2Int> stepsV2 = GetBestPathInDistanceMatrix(distanceMatrix, rows, cols, start);
+    public static List<Vector3> GetBestPathInDistanceMatrix(New_Plate plate, int[,] distanceMatrix, int rows, int cols, Vector2Int start, bool canPathDiagonal) {
+        List<Vector2Int> stepsV2 = GetBestPathInDistanceMatrix(distanceMatrix, rows, cols, start, canPathDiagonal);
         List<Vector3> stepsV3 = new List<Vector3>();
         foreach (Vector2Int step in stepsV2)
         {
@@ -270,7 +275,7 @@ public static class New_GenerateMatrix
         return stepsV3;
     }
 
-    public static List<Vector2Int> GetBestPathInDistanceMatrix(int[,] distanceMatrix, int rows, int cols, Vector2Int start) {
+    public static List<Vector2Int> GetBestPathInDistanceMatrix(int[,] distanceMatrix, int rows, int cols, Vector2Int start, bool canPathDiagonal) {
         List<Vector2Int> steps = new List<Vector2Int> { start };
         Vector2Int curr = start;
         Vector2Int next = curr;
@@ -290,7 +295,7 @@ public static class New_GenerateMatrix
                     currMinValue = distanceMatrix[next.x, next.y];
                 }
 
-                if (New_SceneManager.pathDiagonal)
+                if (canPathDiagonal)
                 {
                     if (curr.y < cols - 1)
                     {
@@ -324,7 +329,7 @@ public static class New_GenerateMatrix
                 }
 
 
-                if (New_SceneManager.pathDiagonal)
+                if (canPathDiagonal)
                 {
                     if (curr.y < cols - 1)
                     {
@@ -373,176 +378,202 @@ public static class New_GenerateMatrix
         }
         return steps;
     }
-
-    public static List<Vector2Int> InterpolateArray(Vector2Int start, Vector2Int goal, Func<Vector2Int,bool> isInArray)
+    //https://www.redblobgames.com/grids/line-drawing/
+    public static List<Vector2Int> InterpolateArray(Vector2Int start, Vector2Int goal, Func<(Vector2Int,Vector2Int),Vector2Int> decideNext, bool canPathDiagonal, int rows, int cols)
     {
-        if(start == goal) { return  new List<Vector2Int> { start }; }
-        Vector2Int ratioDirection = goal - start;
-        Vector2Int maxStep;
-        Vector2Int minStep;
-        float ratioStep;
-        List<Vector2Int> steps = new List<Vector2Int>();
-
-
-        if (ratioDirection.x == 0)
+        Debug.Log("Start: "+start);
+        Debug.Log("Goal: "+goal);
+        if (start == goal)
         {
-            if (ratioDirection.y == 0) { return steps; }
-            maxStep = new Vector2Int(0, Math.Clamp(ratioDirection.y, -1, 1));
-            minStep = new Vector2Int(0, 0);
-            ratioStep = int.MaxValue;
+            return new List<Vector2Int> { start };            
         }
-        else if (ratioDirection.y == 0)
+        int dx = goal.x - start.x, dy = goal.y - start.y;
+        int nx = Math.Abs(dx), ny = Math.Abs(dy);
+        int sign_x = dx > 0 ? 1 : -1, sign_y = dy > 0 ? 1 : -1;
+
+        List<Vector2Int> points = new List<Vector2Int> {  };
+        if (canPathDiagonal)
         {
-            if (ratioDirection.x == 0) { return steps; }
-            maxStep = new Vector2Int(Math.Clamp(ratioDirection.x, -1, 1), 0);
-            minStep = new Vector2Int(0, 0);
-            ratioStep = int.MaxValue;
+           
+            for (int ix = 0, iy = 0; ix < nx || iy < ny;)
+            {
+                points.Add(start);
+                float decision = (1 + 2 * ix) * ny - (1 + 2 * iy) * nx;
+                if (decision == 0)
+                {
+                    // next step is canPathDiagonal
+                    if (start.x+sign_x >=0 && start.x+sign_x < rows && start.y + sign_y >= 0 && start.y + sign_y < cols)
+                    {
+                        start.x += sign_x;
+                        start.y += sign_y;
+                    }
+                    else
+                    {
+                        points.Add(goal);
+                        return points;
+                    }
+                    ix++;
+                    iy++;
+                }
+                else if (decision < 0)
+                {
+                    // next step is horizontal
+                    if (start.x + sign_x >= 0 && start.x + sign_x < rows)
+                    {
+                        start.x += sign_x;
+                    }
+                    else
+                    {
+                        points.Add(goal);
+                        return points;
+                    }
+                    ix++;
+                }
+                else
+                {
+                    // next step is vertical
+                    if(start.y + sign_y >= 0 && start.y + sign_y < cols)
+                    {
+                        start.y += sign_y;
+                    }
+                    else
+                    {
+                        points.Add(goal);
+                        return points;
+                    }
+                    iy++;
+                }
+            }
+            points.Add(goal);
+            return points;
         }
         else
         {
-            if (Mathf.Abs(ratioDirection.x) > Math.Abs(ratioDirection.y ))
+            Vector2Int diffToBorder;
+            if (dx > 0)
             {
-                maxStep = new Vector2Int(Math.Clamp(ratioDirection.x, -1, 1), 0);
-                minStep = new Vector2Int(0, Math.Clamp(ratioDirection.y, -1, 1));
-                ratioStep = (float)ratioDirection.x /(float) ratioDirection.y;
+                if (dy > 0)
+                {
+                    diffToBorder = new Vector2Int(rows-1, cols-1)-start;
+                }
+                else
+                {
+                    diffToBorder = new Vector2Int(rows - 1, 0) - start;
+                }
             }
             else
             {
-                maxStep = new Vector2Int(0, Math.Clamp(ratioDirection.y, -1, 1));
-                minStep = new Vector2Int(Math.Clamp(ratioDirection.x, -1, 1), 0);
-                ratioStep = (float)ratioDirection.y / (float)ratioDirection.x;
-            }
-        }
-        int i = 0;
-        int schutz = 0;
-        steps.Add(start);
-        if(ratioStep > 0)
-        {
-            while (start != goal && schutz < 10)
-            {
-                i++;
-                Debug.Log(start);
-                if (i <= ratioStep)
+                if (dy > 0)
                 {
-                    start += maxStep;
-                    if (!isInArray(start))
+                    diffToBorder = new Vector2Int(0, cols - 1) - start;
+                }
+                else
+                {
+                    diffToBorder = new Vector2Int(0, 0) - start;
+                }
+            }
+            diffToBorder.x = Math.Abs(diffToBorder.x);
+            diffToBorder.y = Math.Abs(diffToBorder.y);
+
+            Vector2 p = new Vector2(start.x, start.y);
+            for (int ix = 0, iy = 0; ix < nx || iy < ny;)
+            {
+                points.Add(new Vector2Int(Mathf.FloorToInt(p.x), Mathf.FloorToInt(p.y)));
+                Debug.Log("Added: " + new Vector2Int(Mathf.FloorToInt(p.x), Mathf.FloorToInt(p.y)));
+                if ((0.5 + ix) / nx < (0.5 + iy) / ny)
+                {
+                    // next step is horizontal
+                    if (diffToBorder.x > 0 )
                     {
-                        start -= maxStep;
+                        p.x += sign_x;
+                        ix++;
+                        diffToBorder.x--;
+                    }
+                    else
+                    {
+                        return points;
+                    }
+                }else if ((0.5 + ix) / nx == (0.5 + iy) / ny)
+                {
+                    Vector2Int next = decideNext((new Vector2Int(Mathf.FloorToInt(p.x + sign_x), Mathf.FloorToInt(p.y)), new Vector2Int(Mathf.FloorToInt(p.x), Mathf.FloorToInt(p.y + sign_y))));
+                    if(next == new Vector2Int(Mathf.FloorToInt(p.x + sign_x), Mathf.FloorToInt(p.y)))
+                    {
+                        if (diffToBorder.x > 0)
+                        {
+                            p.x += sign_x;
+                            ix++;
+                            diffToBorder.x--;
+                        }
+                        else
+                        {
+                            return points;
+                        }
+                    }
+                    else
+                    {
+                        if (diffToBorder.y > 0)
+                        {
+                            // next step is vertical
+                            p.y += sign_y;
+                            iy++;
+                            diffToBorder.y--;
+                        }
+                        else
+                        {
+                            return points;
+                        }
                     }
                 }
                 else
                 {
-                    i = 0;
-                    start += minStep;
-                    if (!isInArray(start))
+                    if (diffToBorder.y > 0)
                     {
-                        start -= minStep;
+                        // next step is vertical
+                        p.y += sign_y;
+                        iy++;
+                        diffToBorder.y--;
                     }
+                    else
+                    {
+                        return points;
+                    }
+
                 }
-                steps.Add(start);
-                schutz++;
             }
-        }
-        else
-        {
-            while (start != goal && schutz < 10)
-            {
-                Debug.Log(start);
-                i--;
-                if (i >= ratioStep)
-                {
-                    start += minStep;
-                    if (!isInArray(start))
-                    {
-                        start -= minStep;
-                    }
-                }
-                else
-                {
-                    i = 0;
-                    start += maxStep;
-                    if (!isInArray(start))
-                    {
-                        start -= maxStep;
-                    }
-                }
-                steps.Add(start);
-                schutz++;
-            }
+
+            return points;
+            //    for (int ix = 0, iy = 0; iy < ny || ix < nx ;)
+            //    {
+            //        points.Add(start);
+            //        Debug.Log(start + "  "+cols);
+            //        double a = (0.5 + ix) / nx;
+            //        double b = (0.5 + iy) / ny;
+            //        Debug.Log(iy + "  "+ny);
+            //        if ( a < b )
+            //        {
+            //            // next step is horizontal
+            //            start.x += sign_x;
+            //            ix++;
+            //        }
+            //        else
+            //        {
+            //            // next step is vertical
+            //            start.y += sign_y;
+            //            iy++;
+            //        }
+            //    }
+            //    points.Add(goal);
+            //    return points;
         }
 
-            return steps;
     }
 
-    public static List<Vector2Int> InterpolateArrayWithEndCondition(Vector2Int start, Vector2Int ratioDirection, Func<Vector2Int, bool> endCondition)
+    public static Vector3 FindClostestPointInArrayV3(Vector3 plateArrayGoal, New_Plate plate)
     {
-        Vector2Int maxStep;
-        Vector2Int minStep;
-        float ratioStep;
-        List<Vector2Int> steps = new List<Vector2Int>();
-
-
-        if (ratioDirection.x == 0)
-        {
-            if (ratioDirection.y == 0) { return steps; }
-            maxStep = new Vector2Int(0, Math.Clamp(ratioDirection.y, -1, 1));
-            minStep = new Vector2Int(0, 0);
-            ratioStep = int.MaxValue;
-        }
-        else if (ratioDirection.y == 0)
-        {
-            if (ratioDirection.x == 0) { return steps; }
-            maxStep = new Vector2Int(Math.Clamp(start.x, -1, 1), 0);
-            minStep = new Vector2Int(0, 0);
-            ratioStep = int.MaxValue;
-        }
-        else
-        {
-            if (ratioDirection.x > ratioDirection.y)
-            {
-                maxStep = new Vector2Int(Math.Clamp(start.x, -1, 1), 0);
-                minStep = new Vector2Int(0, Math.Clamp(ratioDirection.y, -1, 1));
-                ratioStep = Mathf.Abs((float)ratioDirection.x / (float)ratioDirection.y);
-            }
-            else
-            {
-                maxStep = new Vector2Int(0, Math.Clamp(ratioDirection.y, -1, 1));
-                minStep = new Vector2Int(Math.Clamp(ratioDirection.x, -1, 1), 0);
-                ratioStep = Mathf.Abs((float)ratioDirection.y / (float)ratioDirection.x);
-            }
-        }
-        int i = 0;
-        int schutz = 0;
-        steps.Add(start);
-        while (endCondition(start))
-        {
-            i++;
-            if (i <= ratioStep)
-            {
-                start += maxStep;
-            }
-            else
-            {
-                i = 0;
-                start += minStep;
-            }
-            steps.Add(start);
-            schutz++;
-        }
-        return steps;
+        return plate.GetSubTileCenterWorldCoordinates(FindClostestPointInArrayV2(plateArrayGoal, plate));
     }
 
-    public static Vector3? FindClostesPointInArrayV3(Vector3 plateArrayGoal, New_Plate plate)
-    {
-        Vector2Int calcPos = FindClostesPointInArrayV2(plateArrayGoal, plate);
-        if (calcPos != new Vector2Int(-1, -1))
-        {
-            return plate.GetSubTileCenterWorldCoordinates(calcPos);
-        }
-        return null;
-    }
-
-    public static Vector2Int FindClostesPointInArrayV2(Vector3 plateArrayGoal, New_Plate plate)
+    public static Vector2Int FindClostestPointInArrayV2(Vector3 plateArrayGoal, New_Plate plate)
     {
         List<(Vector2Int, float)> positionToDistance = new List<(Vector2Int, float)>
         {
@@ -553,36 +584,39 @@ public static class New_GenerateMatrix
         };
         positionToDistance.Sort((o1, o2) => o1.Item2.CompareTo(o2.Item2));
 
-        Vector2Int? bestPoint = FindClostestPoint(positionToDistance[0].Item1, positionToDistance[1].Item1, plateArrayGoal, plate);
-
-        if (bestPoint != null)
+        (Vector2Int bestFirstPoint, float distance1)  = FindClostestPoint(positionToDistance[0].Item1, positionToDistance[1].Item1, plateArrayGoal, plate);
+        (Vector2Int bestSecondPoint, float distance2) = FindClostestPoint(positionToDistance[0].Item1, positionToDistance[2].Item1, plateArrayGoal, plate);
+        
+        if(bestFirstPoint == null || bestSecondPoint == null)
         {
-            return bestPoint!.Value;
+            return (bestFirstPoint == null)?bestSecondPoint:bestFirstPoint;
         }
         else
         {
-            bestPoint = FindClostestPoint(positionToDistance[0].Item1, positionToDistance[2].Item1, plateArrayGoal, plate);
-            if (bestPoint != null)
-            {
-                return bestPoint!.Value;
-            }
+            return (distance1 < distance2)? bestFirstPoint : bestSecondPoint;
         }
-        return new Vector2Int(-1, -1);
 
     }
 
-    public static Vector2Int? FindClostestPoint(Vector2Int clostestGoal, Vector2Int secondClostesGoal, Vector3 plateArrayGoal, New_Plate plate) {
+    public static (Vector2Int,float) FindClostestPoint(Vector2Int clostestGoal, Vector2Int secondClostesGoal, Vector3 plateArrayGoal, New_Plate plate) {
 
         Vector2Int goalDirection = secondClostesGoal - clostestGoal;
+
         int spacesBetween = Math.Max(Math.Abs(goalDirection.x), Math.Abs(goalDirection.y));
-        goalDirection.x = goalDirection.x / spacesBetween;
-        goalDirection.y = goalDirection.y / spacesBetween;//norming the vector
+        goalDirection.x /= spacesBetween;
+        goalDirection.y /= spacesBetween;//norming the vector
 
-        float clostestCurrentDistance = int.MaxValue;
+        Vector3 dir = plateArrayGoal - plate.GetSubTileCenterWorldCoordinates(clostestGoal);
+        dir.x = (dir.x > 0) ? 1 - goalDirection.x  : -1 - goalDirection.x;
+        dir.z = (dir.z > 0) ? 1 - goalDirection.y : -1 - goalDirection.y;
+        dir.y = 0;
+        dir.x *= TileSizeX;
+        dir.z *= TileSizeZ;
 
-        Vector2Int? closestValidPoint = null;
+        float clostestCurrentDistance = Vector3.Distance(plateArrayGoal, plate.GetSubTileCenterWorldCoordinates(clostestGoal));
+        Vector2Int closestValidPoint=clostestGoal;
         Vector2Int nextClosestPoint;
-        for (int i = 0; i < spacesBetween; i++)
+        for (int i = 1; i < spacesBetween; i++)
         {
             nextClosestPoint = clostestGoal + i * goalDirection;
 
@@ -590,22 +624,15 @@ public static class New_GenerateMatrix
 
             if (nextDistance < clostestCurrentDistance)
             {
-                if (plate.BaseCostMatrix[nextClosestPoint.x, nextClosestPoint.y] != MatrixObstacleValue)
-                {
-                    if (Physics.CheckSphere(plate.GetSubTileCenterWorldCoordinates(nextClosestPoint) + new Vector3(goalDirection.x, 0, goalDirection.y), 0.01f))
-                    {
-                        closestValidPoint = nextClosestPoint;
-                        clostestCurrentDistance = nextDistance;
-                    }
-                }
-
+                closestValidPoint = nextClosestPoint;
+                clostestCurrentDistance = nextDistance;
             }
             else if (nextDistance > clostestCurrentDistance)
             {
-                return closestValidPoint;
+                return (closestValidPoint,clostestCurrentDistance);
             }
         }
-        return closestValidPoint;
+        return (closestValidPoint, clostestCurrentDistance);
     }
 
     public static Vector3? FindBestPointToNextArrayAndGoalV3(Vector3 goal, ExitDirection exitDirection, New_Plate homePlate, New_Plate neighborPlate)
@@ -682,7 +709,7 @@ public static class New_GenerateMatrix
     }
 
 
-    public static Queue<Vector3> GeneratePath(List<New_Plate> platesToVisit, Vector3 start, Vector3 goal)
+    public static Queue<Vector3> GeneratePath(List<New_Plate> platesToVisit, Vector3 start, Vector3 goal, bool canPathDiagonal)
     {
         List<Vector3> steps = new List<Vector3> { start };
         for (int i = 0; i < platesToVisit.Count - 1; i++)
@@ -698,7 +725,7 @@ public static class New_GenerateMatrix
                     if (closestPoint != null)
                     {
 
-                        steps.AddRange(currentPlate.GetShortestPathToExitVector3(closestPoint!.Value, steps.Last<Vector3>()));
+                        steps.AddRange(currentPlate.GetShortestPathToExitVector3(closestPoint!.Value, steps.Last<Vector3>(), canPathDiagonal));
                         steps.Add(steps.Last() + new Vector3(New_GenerateMatrix.TileSizeX, 0, 0));
                     }
                 }
@@ -707,7 +734,7 @@ public static class New_GenerateMatrix
                     Vector3? closestPoint = New_GenerateMatrix.FindBestPointToNextArrayAndGoalV3(start, ExitDirection.North, currentPlate, nextPlate);
                     if (closestPoint != null)
                     {
-                        steps.AddRange(currentPlate.GetShortestPathToExitVector3(closestPoint!.Value, steps.Last<Vector3>()));
+                        steps.AddRange(currentPlate.GetShortestPathToExitVector3(closestPoint!.Value, steps.Last<Vector3>(), canPathDiagonal));
                         steps.Add(steps.Last() + new Vector3(-New_GenerateMatrix.TileSizeX, 0, 0));
                     }
                 }
@@ -719,7 +746,7 @@ public static class New_GenerateMatrix
                     Vector3? closestPoint = New_GenerateMatrix.FindBestPointToNextArrayAndGoalV3(start, ExitDirection.East, currentPlate, nextPlate);
                     if (closestPoint != null)
                     {
-                        steps.AddRange(currentPlate.GetShortestPathToExitVector3(closestPoint!.Value, steps.Last<Vector3>()));
+                        steps.AddRange(currentPlate.GetShortestPathToExitVector3(closestPoint!.Value, steps.Last<Vector3>(), canPathDiagonal));
                         steps.Add(steps.Last() + new Vector3(0, 0, New_GenerateMatrix.TileSizeX));
                     }
                 }
@@ -728,7 +755,7 @@ public static class New_GenerateMatrix
                     Vector3? closestPoint = New_GenerateMatrix.FindBestPointToNextArrayAndGoalV3(start, ExitDirection.West, currentPlate, nextPlate);
                     if (closestPoint != null)
                     {
-                        steps.AddRange(currentPlate.GetShortestPathToExitVector3(closestPoint!.Value, steps.Last<Vector3>()));
+                        steps.AddRange(currentPlate.GetShortestPathToExitVector3(closestPoint!.Value, steps.Last<Vector3>(), canPathDiagonal));
                         steps.Add(steps.Last() + new Vector3(0, 0, -New_GenerateMatrix.TileSizeX));
                     }
                 }
@@ -769,6 +796,60 @@ public static class New_GenerateMatrix
         return steps;
     }
 
+    public static ExitDirection DirectionToExitDiretion(Vector2Int direction)
+    {
+        if(direction.x == 0)
+        {
+            if(direction.y > 0)
+            {
+                return ExitDirection.East;
+            }
+            else if(direction.y < 0)
+            {
+                return ExitDirection.West;
+            }
+            else
+            {
+                return ExitDirection.NoExit;
+            }
+        }else if(direction.y == 0)
+        {
+            if (direction.x > 0)
+            {
+                return ExitDirection.South;
+            }
+            else
+            {
+                return ExitDirection.North;
+            }
+        }
+        else
+        {
+            if(direction.x > 0)
+            {
+                if(direction.y > 0)
+                {
+                    return ExitDirection.SouthWest;
+                }
+                else
+                {
+                    return ExitDirection.SouthEast;
+                }
+            }
+            else
+            {
+                if( direction.y > 0)
+                {
+                    return ExitDirection.NorthEast;
+                }
+                else
+                {
+                    return ExitDirection.NorthWest;
+                }
+            }
+        }
+    }
+
 
 
     public static void DebugArray<T>(T[,] array, int rows, int cols, New_Plate? plate)
@@ -803,6 +884,18 @@ public static class New_GenerateMatrix
             Debug.Log(rowString);
         }
     }
+  
+}
 
-   
+public enum ExitDirection
+{
+    NoExit,
+    North,
+    NorthEast,
+    East,
+    SouthEast,
+    South,
+    SouthWest,
+    West,
+    NorthWest
 }
