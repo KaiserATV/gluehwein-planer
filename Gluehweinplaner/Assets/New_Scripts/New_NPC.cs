@@ -53,6 +53,7 @@ public class New_NPC : MonoBehaviour
         patienceLost = patience;
 
         goalsBeforeExit = UnityEngine.Random.Range(0, sm.GetGoalNoteCount() + 1);//In future mayy goal here
+        //goalsBeforeExit = 1;
         budenToVisit = sm!.GetNewBuden(goalsBeforeExit);
         if (budenToVisit.Count == 0) { exiting = true; } else
         {

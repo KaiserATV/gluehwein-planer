@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.Rendering.DebugUI.Table;
@@ -76,7 +77,10 @@ public class New_SceneManager : MonoBehaviour
             randPlateZ = tt.randPlateZ;
         }
 
-
+        foreach (New_Plate plate in allPlateArray)
+        {
+            plate.FindAllExitableDirections(pathDiagonal);//prob needs all neighbors stored to recalc
+        }
 
         foreach (New_Bude b in allBudenScripts)
         {
@@ -87,13 +91,9 @@ public class New_SceneManager : MonoBehaviour
             ReserveBudenPosition(b, cornerPos[2], cornerPos[0]);
         }
 
-        foreach (New_Plate plate in allPlateArray)
-        {
-            plate.FindAllExitableDirections(pathDiagonal);//prob needs all neighbors stored to recalc
-        }
+        
 
         GenerateGoalNodes();
-
     }
 
 
@@ -126,12 +126,7 @@ public class New_SceneManager : MonoBehaviour
         Vector2Int dirEnd = end - start;
         Vector3 worldEnd = _end - _start;
         List<Vector2Int> platesToVisit = New_GenerateMatrix.InterpolateArray(start, end, ((Vector2Int a, Vector2Int b) toCompare) => (Vector3.Distance(allPlateArray[toCompare.a.x, toCompare.a.y].Center, _end) < Vector3.Distance(allPlateArray[toCompare.b.x, toCompare.b.y].Center, _end))? toCompare.a : toCompare.b , false, plateCountX, plateCountZ);
-        platesToVisit.Add(end);
-        foreach (Vector2Int plate in platesToVisit)
-        {
-            Debug.Log(allPlateArray[plate.x,plate.y].Center);
-        }
-
+      
         Vector2Int startPos = allPlateArray[platesToVisit[0].x, platesToVisit[0].y].GetPositionInArray(_start, true);
         if (platesToVisit.Count > 1)
         {
@@ -320,6 +315,8 @@ public class New_SceneManager : MonoBehaviour
         return HandlePathRequest(start, goalNode.Position);
     }
 
+    int[,] DebugDistance;
+    bool debugingDistance = false;
     public Queue<Vector3> HandlePathRequest(Vector3 start, Vector3 goal)
     {
         if (allPositionsToGoals.ContainsKey((start,goal))) {
@@ -330,71 +327,9 @@ public class New_SceneManager : MonoBehaviour
         Vector2Int arrayGoal = WorldPositionToPlateArrayPosition(goal);
 
         int[,] baseCostPlates = New_GenerateMatrix.GenerateBaseCostMatrix(plateCountX, plateCountZ, (int row, int column) => !allPlateArray[row, column].HasOnlyObstacles, out bool onlyObstacles, out bool noObstacles);
-        int[,] distanceMatrix = New_GenerateMatrix.GenerateDistanceField(baseCostPlates, plateCountX, plateCountZ, arrayGoal, (Vector2Int currentPlate, Vector2Int direction) =>
-        {
-            ExitDirection exit;
-            ExitDirection inverse;
-            if (direction.x == 0)
-            {
-                if (direction.y > 0)
-                {
-                    exit = ExitDirection.East;
-                    inverse = ExitDirection.West;
-                }
-                else
-                {
-                    exit = ExitDirection.West;
-                    inverse = ExitDirection.East;
-                }
-            }
-            else if(direction.y == 0)
-            {
-                if (direction.x > 0)
-                {
-                    exit = ExitDirection.South;
-                    inverse = ExitDirection.North;
-                }
-                else
-                {
-                    exit = ExitDirection.North;
-                    inverse = ExitDirection.South;
-                }
-            }
-            else
-            {
-                if(direction.x > 0)
-                {
-                    if( direction.y > 0)
-                    {
-                        exit = ExitDirection.SouthEast;
-                        inverse = ExitDirection.NorthWest;
-                    }
-                    else
-                    {
-                        exit = ExitDirection.SouthWest;
-                        inverse = ExitDirection.NorthEast;
-                    }
-                }
-                else
-                {
-                    if (direction.y > 0)
-                    {
-                        exit = ExitDirection.NorthEast;
-                        inverse = ExitDirection.SouthWest;
-                    }
-                    else
-                    {
-                        exit = ExitDirection.NorthWest;
-                        inverse = ExitDirection.SouthEast;
-                    }
-                }
-            }
-                return allPlateArray[currentPlate.x, currentPlate.y].CanExit.Contains(exit) && allPlateArray[currentPlate.x + direction.x, currentPlate.y + direction.y].CanExit.Contains(inverse);
-        }, pathDiagonal);
+        int[,] distanceMatrix = New_GenerateMatrix.GenerateDistanceField(baseCostPlates, plateCountX, plateCountZ, arrayGoal, (Vector2Int currentPlate, Vector2Int direction) => canPathTo(currentPlate,direction), pathDiagonal);
 
-
-
-        List<Vector2Int> platePosToVisit = New_GenerateMatrix.GetBestPathInDistanceMatrix(distanceMatrix, plateCountX, plateCountZ, arrayStart, pathDiagonal);
+        List<Vector2Int> platePosToVisit = New_GenerateMatrix.GetBestPathInDistanceMatrix(distanceMatrix, plateCountX, plateCountZ, arrayStart, pathDiagonal, (Vector2Int currentPlate, Vector2Int direction) => canPathTo(currentPlate, direction));
         List<New_Plate> platesToVisit = new List<New_Plate>();
 
         foreach (Vector2Int pos in platePosToVisit)
@@ -402,7 +337,8 @@ public class New_SceneManager : MonoBehaviour
             platesToVisit.Add(allPlateArray[pos.x, pos.y]);
         }
         debugPlates = platesToVisit;
-
+        debugingDistance = true;
+        DebugDistance = distanceMatrix;
 
         Queue<Vector3> wayPoints = New_GenerateMatrix.GeneratePath(platesToVisit, start, goal, pathDiagonal);
 
@@ -412,6 +348,70 @@ public class New_SceneManager : MonoBehaviour
 
         return wayPoints;
     }
+
+    bool canPathTo(Vector2Int currentPlate, Vector2Int direction)
+    {
+        ExitDirection exit;
+        ExitDirection inverse;
+        if (direction.x == 0)
+        {
+            if (direction.y > 0)
+            {
+                exit = ExitDirection.East;
+                inverse = ExitDirection.West;
+            }
+            else
+            {
+                exit = ExitDirection.West;
+                inverse = ExitDirection.East;
+            }
+        }
+        else if (direction.y == 0)
+        {
+            if (direction.x > 0)
+            {
+                exit = ExitDirection.South;
+                inverse = ExitDirection.North;
+            }
+            else
+            {
+                exit = ExitDirection.North;
+                inverse = ExitDirection.South;
+            }
+        }
+        else
+        {
+            if (direction.x > 0)
+            {
+                if (direction.y > 0)
+                {
+                    exit = ExitDirection.SouthEast;
+                    inverse = ExitDirection.NorthWest;
+                }
+                else
+                {
+                    exit = ExitDirection.SouthWest;
+                    inverse = ExitDirection.NorthEast;
+                }
+            }
+            else
+            {
+                if (direction.y > 0)
+                {
+                    exit = ExitDirection.NorthEast;
+                    inverse = ExitDirection.SouthWest;
+                }
+                else
+                {
+                    exit = ExitDirection.NorthWest;
+                    inverse = ExitDirection.SouthEast;
+                }
+            }
+        }
+        return !allPlateArray[currentPlate.x, currentPlate.y].HasOnlyObstacles && !allPlateArray[currentPlate.x + direction.x, currentPlate.y + direction.y].HasOnlyObstacles && allPlateArray[currentPlate.x, currentPlate.y].CanExit.Contains(exit) && allPlateArray[currentPlate.x + direction.x, currentPlate.y + direction.y].CanExit.Contains(inverse);
+    }
+
+
 
     New_Plate WorldPositionToPlate(Vector3 pos)
     {
@@ -522,19 +522,34 @@ public class New_SceneManager : MonoBehaviour
 
     public bool showDebugPlates = false;
     public int shownPlate = -1;
+    //16,29 sus
     private void OnDrawGizmos()
     {
         if (!Application.isPlaying) { return; }
-        if (showDebugPlates)
+        if (debugingDistance)
         {
-            for(int i = 0; i < shownPlate; i++)
+            for (int i = 0; i < plateCountX; i++)
             {
-                New_Plate p = debugPlates[i];
-                Gizmos.color = (i%2==0)?Color.red:Color.black;
-                Gizmos.DrawCube(p.Center, new Vector3(p.Size.x,0.1f,p.Size.z));
+                for (int j = 0; j < plateCountZ; j++)
+                {
+                    if (debugingDistance)
+                    {
+                        Handles.Label(allPlateArray[i, j].Center + new Vector3(0, 1, 0), DebugDistance[i, j].ToString());
+                    }
+                    ;
+                }
             }
         }
-        foreach(New_GoalNode n in allGoalNodes)
+        if (showDebugPlates)
+        {
+            for (int i = 0; i < shownPlate; i++)
+            {
+                New_Plate p = debugPlates[i];
+                Gizmos.color = (i % 2 == 0) ? Color.red : Color.black;
+                Gizmos.DrawCube(p.Center, new Vector3(p.Size.x, 0.1f, p.Size.z));
+            }
+        }
+        foreach (New_GoalNode n in allGoalNodes)
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawCube(n.Position, new Vector3(1, 0.1f, 1));
@@ -548,7 +563,7 @@ public class New_SceneManager : MonoBehaviour
                     if (p.BaseCostMatrix[row, col] != New_GenerateMatrix.MatrixIsPathableValue)
                     {
                         Gizmos.color = Color.red;
-                        Gizmos.DrawCube(p.GetSubTileCenterWorldCoordinates(row, col), new Vector3(New_GenerateMatrix.TileSizeX- 0.01f, 0.01f, New_GenerateMatrix.TileSizeZ - 0.01f));
+                        Gizmos.DrawCube(p.GetSubTileCenterWorldCoordinates(row, col), new Vector3(New_GenerateMatrix.TileSizeX - 0.01f, 0.01f, New_GenerateMatrix.TileSizeZ - 0.01f));
                     }
                 }
             }

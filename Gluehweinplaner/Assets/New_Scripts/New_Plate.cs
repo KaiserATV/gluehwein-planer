@@ -102,51 +102,54 @@ public class New_Plate
 
     public bool CanExitInDirection(ExitDirection exit)
     {
+        //Debug.Log(Center.x);
         Vector2Int startPos = new Vector2Int();
-        Vector2Int endPos = new Vector2Int();
-
+        Vector2Int diff = new Vector2Int(1,0);
+        int steps = 0;
         switch (exit)
         {
             case ExitDirection.North:
                 startPos = new Vector2Int(0, 0);
-                endPos = new Vector2Int(0, Columns - 1);
+                diff = new Vector2Int(0,1);
+                steps = Columns - 1;
                 break;
             case ExitDirection.NorthEast:
-                return BaseCostMatrix[0, Columns - 1] != New_GenerateMatrix.MatrixObstacleValue;
+                return BaseCostMatrix[0, Columns - 1] == New_GenerateMatrix.MatrixIsPathableValue;
             case ExitDirection.East:
                 startPos = new Vector2Int(0, Columns - 1);
-                endPos = new Vector2Int(Rows - 1, Columns - 1);
+                diff = new Vector2Int(1, 0);
+                steps = Rows -1;
                 break;
             case ExitDirection.SouthEast:
-                return BaseCostMatrix[Rows - 1, Columns - 1] != New_GenerateMatrix.MatrixObstacleValue;
+                return BaseCostMatrix[Rows - 1, Columns - 1] == New_GenerateMatrix.MatrixIsPathableValue;
             case ExitDirection.South:
                 startPos = new Vector2Int(Rows - 1, 0);
-                endPos = new Vector2Int(Rows - 1, Columns - 1);
+                diff = new Vector2Int(0, 1);
+                steps = Columns -1;
                 break;
             case ExitDirection.SouthWest:
-                return BaseCostMatrix[Rows - 1, 0] != New_GenerateMatrix.MatrixObstacleValue;
+                return BaseCostMatrix[Rows - 1, 0] == New_GenerateMatrix.MatrixIsPathableValue;
             case ExitDirection.West:
                 startPos = new Vector2Int(0, 0);
-                endPos = new Vector2Int(Rows - 1, 0);
+                diff = new Vector2Int(1, 0);
+                steps = Rows -1;
                 break;
             case ExitDirection.NorthWest:
-                return BaseCostMatrix[0, 0] != New_GenerateMatrix.MatrixObstacleValue;
+                return BaseCostMatrix[0, 0] == New_GenerateMatrix.MatrixIsPathableValue;
         }
 
 
-        Vector2Int diff = endPos - startPos;
-        int stepsIndirection = Math.Max(diff.x, diff.y);
-        int invalidTiles = stepsIndirection + 1;
-        diff.x = diff.x / stepsIndirection;
-        diff.y = diff.y / stepsIndirection;
+        int invalidTiles = steps + 1;
 
-        while (stepsIndirection >= 0)
+        int moveTiles = steps;
+
+        while (steps >= 0)
         {
-            if (BaseCostMatrix[startPos.x, startPos.y] == New_GenerateMatrix.MatrixObstacleValue)
+            if (BaseCostMatrix[startPos.x, startPos.y] != New_GenerateMatrix.MatrixIsPathableValue)
             {
                 invalidTiles--;
             }
-            stepsIndirection--;
+            steps--;
             startPos += diff;
         }
         return !(invalidTiles == 0);
@@ -195,7 +198,7 @@ public class New_Plate
                 distance = New_GenerateMatrix.GenerateDistanceField(BaseCostMatrix, Rows, Columns, exit, null, canPathDiagonal);
                 GoalPositionToDistanceField.Add(exit, distance);
             }
-            List<Vector2Int> path = New_GenerateMatrix.GetBestPathInDistanceMatrix(distance, Rows, Columns, start, canPathDiagonal);
+            List<Vector2Int> path = New_GenerateMatrix.GetBestPathInDistanceMatrix(distance, Rows, Columns, start ,canPathDiagonal, null);
             AllTakenPaths.Add((start, exit), path);
             return path;
         }

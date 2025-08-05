@@ -69,12 +69,11 @@ public static class New_GenerateMatrix
         return GenerateDistanceField(plate.BaseCostMatrix, plate.Rows, plate.Columns, startPosition,canGoToNext, canPathDiagonal);
     }
 
-    public static int[,] GenerateDistanceField(int[,] baseCost, int rows, int cols, Vector2Int startPosition,Func<Vector2Int, Vector2Int, bool>? canGoToNext, bool canPathDiagonal)
+    public static int[,] GenerateDistanceField(int[,] baseCost, int rows, int cols, Vector2Int startPosition, Func<Vector2Int, Vector2Int, bool>? canGoToNext, bool canPathDiagonal)
     {
         int[,] distanceMatrix = (int[,])baseCost.Clone();
         
-        bool checkDirection = canGoToNext != null;
-
+        bool checkDirection = (canGoToNext != null);
         Queue<Vector2Int> nextNodeToBeExpanded = new Queue<Vector2Int>();
         nextNodeToBeExpanded.Enqueue(startPosition);
 
@@ -265,8 +264,8 @@ public static class New_GenerateMatrix
         return distanceMatrix;
     }
 
-    public static List<Vector3> GetBestPathInDistanceMatrix(New_Plate plate, int[,] distanceMatrix, int rows, int cols, Vector2Int start, bool canPathDiagonal) {
-        List<Vector2Int> stepsV2 = GetBestPathInDistanceMatrix(distanceMatrix, rows, cols, start, canPathDiagonal);
+    public static List<Vector3> GetBestPathInDistanceMatrix(New_Plate plate, int[,] distanceMatrix, int rows, int cols, Vector2Int start, bool canPathDiagonal, Func<Vector2Int, Vector2Int, bool>? canPathTo) {
+        List<Vector2Int> stepsV2 = GetBestPathInDistanceMatrix(distanceMatrix, rows, cols, start, canPathDiagonal, canPathTo);
         List<Vector3> stepsV3 = new List<Vector3>();
         foreach (Vector2Int step in stepsV2)
         {
@@ -275,12 +274,12 @@ public static class New_GenerateMatrix
         return stepsV3;
     }
 
-    public static List<Vector2Int> GetBestPathInDistanceMatrix(int[,] distanceMatrix, int rows, int cols, Vector2Int start, bool canPathDiagonal) {
+    public static List<Vector2Int> GetBestPathInDistanceMatrix(int[,] distanceMatrix, int rows, int cols, Vector2Int start, bool canPathDiagonal, Func<Vector2Int, Vector2Int, bool>? canPathTo) {
         List<Vector2Int> steps = new List<Vector2Int> { start };
         Vector2Int curr = start;
         Vector2Int next = curr;
         bool plate = start == new Vector2Int(2, 4);
-
+        bool checkDirection = (canPathTo != null);
         int schutz = 0;
         while (distanceMatrix[curr.x, curr.y] > 0 && schutz < 100)
         {
@@ -291,8 +290,19 @@ public static class New_GenerateMatrix
                 plateToCheck = new Vector2Int(curr.x + 1, curr.y);
                 if (distanceMatrix[plateToCheck.x, plateToCheck.y] == currMinValue-1 && !steps.Contains(plateToCheck))
                 {
-                    next = plateToCheck;
-                    currMinValue = distanceMatrix[next.x, next.y];
+                    if (checkDirection)
+                    {
+                        if (canPathTo!(curr, plateToCheck-curr))
+                        {
+                            next = plateToCheck;
+                            currMinValue = distanceMatrix[next.x, next.y];
+                        }
+                    }
+                    else
+                    {
+                        next = plateToCheck;
+                        currMinValue = distanceMatrix[next.x, next.y];
+                    }
                 }
 
                 if (canPathDiagonal)
@@ -302,8 +312,19 @@ public static class New_GenerateMatrix
                         plateToCheck = new Vector2Int(curr.x + 1, curr.y +1);
                         if (distanceMatrix[plateToCheck.x, plateToCheck.y] == currMinValue - 1 && !steps.Contains(plateToCheck))
                         {
-                            next = plateToCheck;
-                            currMinValue = distanceMatrix[next.x, next.y];
+                            if (checkDirection)
+                            {
+                                if (canPathTo!(curr, plateToCheck-curr))
+                                {
+                                    next = plateToCheck;
+                                    currMinValue = distanceMatrix[next.x, next.y];
+                                }
+                            }
+                            else
+                            {
+                                next = plateToCheck;
+                                currMinValue = distanceMatrix[next.x, next.y];
+                            }
                         }
                     }
 
@@ -313,8 +334,19 @@ public static class New_GenerateMatrix
                         plateToCheck = new Vector2Int(curr.x + 1, curr.y - 1);
                         if (distanceMatrix[plateToCheck.x, plateToCheck.y] == currMinValue - 1 && !steps.Contains(plateToCheck))
                         {
-                            next = plateToCheck;
-                            currMinValue = distanceMatrix[next.x, next.y];
+                            if (checkDirection)
+                            {
+                                if (canPathTo!(curr, plateToCheck - curr))
+                                {
+                                    next = plateToCheck;
+                                    currMinValue = distanceMatrix[next.x, next.y];
+                                }
+                            }
+                            else
+                            {
+                                next = plateToCheck;
+                                currMinValue = distanceMatrix[next.x, next.y];
+                            }
                         }
                     }
                 }
@@ -324,8 +356,19 @@ public static class New_GenerateMatrix
                 plateToCheck = new Vector2Int(curr.x - 1, curr.y);
                 if (distanceMatrix[plateToCheck.x, plateToCheck.y] == currMinValue-1 && !steps.Contains(plateToCheck))
                 {
-                    next = plateToCheck;
-                    currMinValue = distanceMatrix[next.x, next.y];
+                    if (checkDirection)
+                    {
+                        if (canPathTo!(curr, plateToCheck - curr))
+                        {
+                            next = plateToCheck;
+                            currMinValue = distanceMatrix[next.x, next.y];
+                        }
+                    }
+                    else
+                    {
+                        next = plateToCheck;
+                        currMinValue = distanceMatrix[next.x, next.y];
+                    }
                 }
 
 
@@ -336,8 +379,19 @@ public static class New_GenerateMatrix
                         plateToCheck = new Vector2Int(curr.x - 1, curr.y + 1);
                         if (distanceMatrix[plateToCheck.x, plateToCheck.y] == currMinValue - 1 && !steps.Contains(plateToCheck))
                         {
-                            next = plateToCheck;
-                            currMinValue = distanceMatrix[next.x, next.y];
+                            if (checkDirection)
+                            {
+                                if (canPathTo!(curr, plateToCheck - curr))
+                                {
+                                    next = plateToCheck;
+                                    currMinValue = distanceMatrix[next.x, next.y];
+                                }
+                            }
+                            else
+                            {
+                                next = plateToCheck;
+                                currMinValue = distanceMatrix[next.x, next.y];
+                            }
                         }
                     }
 
@@ -347,8 +401,19 @@ public static class New_GenerateMatrix
                         plateToCheck = new Vector2Int(curr.x - 1, curr.y - 1);
                         if (distanceMatrix[plateToCheck.x, plateToCheck.y] == currMinValue - 1 && !steps.Contains(plateToCheck))
                         {
-                            next = plateToCheck;
-                            currMinValue = distanceMatrix[next.x, next.y];
+                            if (checkDirection)
+                            {
+                                if (canPathTo!(curr, plateToCheck - curr))
+                                {
+                                    next = plateToCheck;
+                                    currMinValue = distanceMatrix[next.x, next.y];
+                                }
+                            }
+                            else
+                            {
+                                next = plateToCheck;
+                                currMinValue = distanceMatrix[next.x, next.y];
+                            }
                         }
                     }
                 }
@@ -358,8 +423,19 @@ public static class New_GenerateMatrix
                 plateToCheck = new Vector2Int(curr.x, curr.y + 1);
                 if (distanceMatrix[plateToCheck.x, plateToCheck.y] == currMinValue-1 && !steps.Contains(plateToCheck))
                 {
-                    next = plateToCheck;
-                    currMinValue = distanceMatrix[next.x, next.y];
+                    if (checkDirection)
+                    {
+                        if (canPathTo!(curr, plateToCheck - curr))
+                        {
+                            next = plateToCheck;
+                            currMinValue = distanceMatrix[next.x, next.y];
+                        }
+                    }
+                    else
+                    {
+                        next = plateToCheck;
+                        currMinValue = distanceMatrix[next.x, next.y];
+                    }
                 }
             }
             if (curr.y > 0)
@@ -367,8 +443,19 @@ public static class New_GenerateMatrix
                 plateToCheck = new Vector2Int(curr.x, curr.y - 1);
                 if (distanceMatrix[plateToCheck.x, plateToCheck.y] == currMinValue-1 && !steps.Contains(plateToCheck))
                 {
-                    next = plateToCheck;
-                    currMinValue = distanceMatrix[next.x, next.y];
+                    if (checkDirection)
+                    {
+                        if (canPathTo!(curr, plateToCheck - curr))
+                        {
+                            next = plateToCheck;
+                            currMinValue = distanceMatrix[next.x, next.y];
+                        }
+                    }
+                    else
+                    {
+                        next = plateToCheck;
+                        currMinValue = distanceMatrix[next.x, next.y];
+                    }
                 }
             }
         
@@ -381,8 +468,6 @@ public static class New_GenerateMatrix
     //https://www.redblobgames.com/grids/line-drawing/
     public static List<Vector2Int> InterpolateArray(Vector2Int start, Vector2Int goal, Func<(Vector2Int,Vector2Int),Vector2Int> decideNext, bool canPathDiagonal, int rows, int cols)
     {
-        Debug.Log("Start: "+start);
-        Debug.Log("Goal: "+goal);
         if (start == goal)
         {
             return new List<Vector2Int> { start };            
@@ -474,12 +559,10 @@ public static class New_GenerateMatrix
             }
             diffToBorder.x = Math.Abs(diffToBorder.x);
             diffToBorder.y = Math.Abs(diffToBorder.y);
-
+            points.Add(start);
             Vector2 p = new Vector2(start.x, start.y);
             for (int ix = 0, iy = 0; ix < nx || iy < ny;)
             {
-                points.Add(new Vector2Int(Mathf.FloorToInt(p.x), Mathf.FloorToInt(p.y)));
-                Debug.Log("Added: " + new Vector2Int(Mathf.FloorToInt(p.x), Mathf.FloorToInt(p.y)));
                 if ((0.5 + ix) / nx < (0.5 + iy) / ny)
                 {
                     // next step is horizontal
@@ -539,31 +622,10 @@ public static class New_GenerateMatrix
                     }
 
                 }
+                points.Add(new Vector2Int(Mathf.FloorToInt(p.x), Mathf.FloorToInt(p.y)));
             }
 
             return points;
-            //    for (int ix = 0, iy = 0; iy < ny || ix < nx ;)
-            //    {
-            //        points.Add(start);
-            //        Debug.Log(start + "  "+cols);
-            //        double a = (0.5 + ix) / nx;
-            //        double b = (0.5 + iy) / ny;
-            //        Debug.Log(iy + "  "+ny);
-            //        if ( a < b )
-            //        {
-            //            // next step is horizontal
-            //            start.x += sign_x;
-            //            ix++;
-            //        }
-            //        else
-            //        {
-            //            // next step is vertical
-            //            start.y += sign_y;
-            //            iy++;
-            //        }
-            //    }
-            //    points.Add(goal);
-            //    return points;
         }
 
     }
