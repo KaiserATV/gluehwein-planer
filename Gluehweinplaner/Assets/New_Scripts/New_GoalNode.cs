@@ -54,7 +54,7 @@ public class New_GoalNode
         //3. Vergleichen ob neue Position von allen Goals direkt erreichbar ist
         
         Vector3 pot = new Vector3(minValues.x, 0, minValues.z);
-        while (OnPlate.GetValueAtPosition(pot) != New_GenerateMatrix.MatrixIsPathableValue)
+        while (OnPlate.GetBaseValueAtPosition(pot, true) != New_GenerateMatrix.MatrixIsPathableValue)
         {
             if (pot.x + New_GenerateMatrix.TileSizeX < maxValues.x)
             {

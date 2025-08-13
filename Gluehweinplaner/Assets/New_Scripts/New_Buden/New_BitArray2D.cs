@@ -9,10 +9,11 @@ public class New_BitArray2D
     //z=1x=0 z=1x=1
     private BitArray array;
     public float WaitTime;
-    private float agentRadius;
     private bool full;
     private int cellsX;
     private int cellsZ;
+    private float AgentWidthX;
+    private float AgentWidthZ;
     private Dictionary<New_NPC, Vector2Int> registeredPlayers=new Dictionary<New_NPC, Vector2Int>();
     private Transform childT;
     private int positionToBude; //0 -directly infront of Bode, 1 - to the left of the Bude, 2- to the right of the Bude
@@ -20,14 +21,14 @@ public class New_BitArray2D
     private float schiebZ;
     private const float spacearound = 2f;
 
-    public New_BitArray2D( Bounds b, Transform child, float aR, int p, float time) { 
+    public New_BitArray2D( Bounds b, Transform child, int p, float time, float ax, float az) { 
         childT = child;
 
         WaitTime = time;
-        agentRadius = aR * spacearound;
         full = false;   
         positionToBude = p;
-        
+        AgentWidthX = ax;
+        AgentWidthZ = az;
        
         CalcWidthHeight();
 
@@ -52,8 +53,8 @@ public class New_BitArray2D
 
     private void CalcWidthHeight()
     {
-        cellsX = Mathf.FloorToInt(childT.localScale.x / (agentRadius));
-        cellsZ = Mathf.FloorToInt(childT.localScale.z / (agentRadius));
+        cellsX = Mathf.FloorToInt(childT.localScale.x / (AgentWidthX));
+        cellsZ = Mathf.FloorToInt(childT.localScale.z / (AgentWidthZ));
     }
 
     public Vector3 GetRealWorldCords(Vector2Int cells)

@@ -12,10 +12,24 @@ public static class New_PlateGenerator
         int totalTileCountZ = Mathf.FloorToInt(size.z / New_GenerateMatrix.TileSizeX);
 
         int tileCountX = Mathf.FloorToInt((float) totalTileCountX / plateCountX);
-        int tileCountZ = Mathf.FloorToInt((float) totalTileCountZ / plateCountZ);
+        int tileCountZ = Mathf.FloorToInt((float)totalTileCountZ / plateCountZ);
 
-        int randTileCountX = totalTileCountX - (tileCountX * (plateCountX-1));
+        int randTileCountX = totalTileCountX - (tileCountX * (plateCountX - 1));
         int randTileCountZ = totalTileCountZ - (tileCountZ * (plateCountZ-1));
+
+        if (tileCountX < 1)
+        {
+            tileCountX = 1;
+            randTileCountX = 1;
+            plateCountX = totalTileCountX;
+        }
+        if (tileCountZ < 1)
+        {
+            tileCountZ = 1;
+            randTileCountZ = 1;
+            plateCountZ = totalTileCountZ;
+        }
+
 
         New_Plate[,] allPlates = new New_Plate[plateCountX,plateCountZ];
 
@@ -74,10 +88,12 @@ public static class New_PlateGenerator
         }
 
         tt.Plates = allPlates;
-        tt.normalPlateX = tileCountX * New_GenerateMatrix.TileSizeX;
-        tt.normalPlateZ = tileCountZ * New_GenerateMatrix.TileSizeZ;
-        tt.randPlateX = randTileCountX * New_GenerateMatrix.TileSizeX;
-        tt.randPlateZ = randTileCountZ * New_GenerateMatrix.TileSizeZ;
+        tt.normalPlateX = tileCountX;
+        tt.normalPlateZ = tileCountZ;
+        tt.randPlateX = randTileCountX;
+        tt.randPlateZ = randTileCountZ;
+        tt.plateCountX = plateCountX;
+        tt.plateCountZ = plateCountZ;
         return tt;
     }
 

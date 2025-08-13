@@ -23,7 +23,7 @@ public class New_CrowdGeneration : MonoBehaviour
         sm = GameObject.Find("SceneManager").GetComponent<New_SceneManager>();
         iac = GameObject.Find("InactiveAgentHolder").GetComponent<New_InactiveAgentsContainer>();
 
-        prop = Resources.Load("agent") as GameObject;
+        prop = Resources.Load("NEW_NPC") as GameObject;
         col = GetComponent<MeshCollider>();
 
         minWorldLimitX = col.bounds.min.x;

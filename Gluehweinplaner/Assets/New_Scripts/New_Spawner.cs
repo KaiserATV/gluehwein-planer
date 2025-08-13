@@ -8,7 +8,9 @@ public class New_Spawner : MonoBehaviour
     public float minWorldLimitZ = 0;
     public float maxWorldLimitZ = 0;
     public float spawnTime = 1f;
-    public float agentradius = 1f;
+    public float agentWidthX = 1f;
+    public float agentWidthZ = 1f;
+    public float agentHeight = 1f;
     private float zeitVergangen;
     private New_SceneManager sc;
     private MeshCollider col;
@@ -21,9 +23,12 @@ public class New_Spawner : MonoBehaviour
         sc = GameObject.Find("SceneManager").GetComponent<New_SceneManager>();
         iac = GameObject.Find("InactiveAgentHolder").GetComponent<New_InactiveAgentsContainer>();
 
-        prop = Resources.Load("New_agent") as GameObject;
+        prop = Resources.Load("New_NPC") as GameObject;
         col = GetComponent<MeshCollider>();
-
+        Vector3 size = prop.GetComponentInChildren<SkinnedMeshRenderer>().bounds.size;
+        agentHeight = size.y;
+        agentWidthX = size.x;
+        agentWidthZ = size.z;
         minWorldLimitX = col.bounds.min.x;
         maxWorldLimitX = col.bounds.max.x;
         minWorldLimitZ = col.bounds.min.z;

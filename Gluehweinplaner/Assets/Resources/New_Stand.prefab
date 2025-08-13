@@ -432,8 +432,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentRadius: 1
   WaitTime: 1
+  Agent: {fileID: 8394834171913602733, guid: c94b48ead9f89224583755a159218ae4, type: 3}
+  AgentWidthX: 2
+  AgentWidthZ: 2
   attraktivitaet: 5
   kapazitaet: 0
   delayBeforeNotBusy: 5

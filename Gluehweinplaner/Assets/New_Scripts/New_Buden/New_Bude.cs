@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class New_Bude : MonoBehaviour
 {
-    public float agentRadius = 1f;
-
     public float WaitTime = 1f;
-
+    public GameObject Agent;
+    public float AgentWidthX = 2f;
+    public float AgentWidthZ = 2f;
     public int attraktivitaet = 5;
     public int kapazitaet;
     public float delayBeforeNotBusy = 5f;
@@ -30,9 +30,9 @@ public class New_Bude : MonoBehaviour
     public void Start()
     {
         transform.hasChanged = false;
-
-        //calculate the tiles that are blocked by the box???        
-
+        Bounds b = Agent!.GetComponentInChildren<SkinnedMeshRenderer>().bounds;
+        AgentWidthX = b.size.x;
+        AgentWidthZ = b.size.z;
 
         // !!!!IMPORTANT!!!! the number of the children specifies the position in the prefab, if changed, chang number here!!!!!!!
         // 1 - Wait_L, 2 - Wait_R, 3 - Ziel
@@ -40,17 +40,17 @@ public class New_Bude : MonoBehaviour
         //Ziel Array
         Transform child = transform.GetChild(3);
         Bounds bound = child.GetComponent<MeshRenderer>().localBounds;
-        ziel = new New_BitArray2D(bound, child, agentRadius, 0, WaitTime);
+        ziel = new New_BitArray2D(bound, child, 0, WaitTime, AgentWidthX, AgentWidthZ);
 
         //Wait_L Array
         child = transform.GetChild(1);
         bound = child.GetComponent<MeshRenderer>().localBounds;
-        wait_L = new New_BitArray2D(bound, child, agentRadius, 1, WaitTime);
+        wait_L = new New_BitArray2D(bound, child, 1, WaitTime, AgentWidthX, AgentWidthZ);
 
         //Wait_R Array
         child = transform.GetChild(2);
         bound = child.GetComponent<MeshRenderer>().localBounds;
-        wait_R = new New_BitArray2D(bound, child, agentRadius, 2, WaitTime);
+        wait_R = new New_BitArray2D(bound, child, 2, WaitTime, AgentWidthX, AgentWidthZ);
 
         CalcKapa();
     }

@@ -6,10 +6,6 @@ using UnityEngine;
 
 public class New_NPC : MonoBehaviour
 {
-    //public bool showBudeDebug = true;
-    //public bool showTilesDebug = true;
-    public int shownTiles = -1;
-
     public New_GoalNode? currentGoalNode = null;
     public Vector3? waitingSpot;
     public Vector3? nextWayPoint;
@@ -17,6 +13,9 @@ public class New_NPC : MonoBehaviour
     private Vector2Int bitarrayCells;
     private New_Bude? bude = null;
     private New_SceneManager? sm = null;
+    private Animator? animator;
+    private string walkingName = "Walking";
+    private string waitingName = "Waiting";
 
     public Queue<Vector3> moveList = new Queue<Vector3>();
     private Queue<New_Bude> budenToVisit = new Queue<New_Bude>();
@@ -26,11 +25,12 @@ public class New_NPC : MonoBehaviour
     public const float exitTolerance = 0.1f;
     public const float wayPointTolerance = 0.3f;
     
-    public float speed = 0.01f;
+    public float speed = 2f;
     public float patienceLost;
     public float timeLeftWaiting = 0.0f;
     public int goalsBeforeExit;
-    
+    public float checkForChangeIntervall = 1f;
+
     public bool randomExitGoalNumber = true;
     public bool inactive = false;
     public bool stopped = false;
@@ -49,24 +49,26 @@ public class New_NPC : MonoBehaviour
         sm = GameObject.Find("SceneManager").GetComponent<New_SceneManager>();//prob better way to do this
         Vector3? pos = sm!.GetNewSpawnPoint();
         this.transform.position = pos!.Value;
+        animator = this.GetComponent<Animator>();
 
         patienceLost = patience;
 
-        goalsBeforeExit = UnityEngine.Random.Range(0, sm.GetGoalNoteCount() + 1);//In future mayy goal here
-        //goalsBeforeExit = 1;
+        goalsBeforeExit = 1;
+        //goalsBeforeExit = UnityEngine.Random.Range(0, sm.GetGoalNoteCount() + 1);//In future mayy goal here
         budenToVisit = sm!.GetNewBuden(goalsBeforeExit);
         if (budenToVisit.Count == 0) { exiting = true; } else
         {
             bude = budenToVisit.Dequeue();
             moveList = sm.HandlePathRequest(this.transform.position, bude!.goalNode);
             currentGoalNode = bude.goalNode;
-            if (moveList.Count == 0) { exiting = true; } else
+            if (moveList.Count == 0) { exiting = true; } 
+            else
             {
                 nextWayPoint = moveList.Dequeue();
                 onWayToGoalNode = true;
             }
         }
-            
+        animator.SetTrigger(walkingName);
     }
 
     // Update is called once per frame
@@ -157,6 +159,7 @@ public class New_NPC : MonoBehaviour
                             {
                                 timeLeftWaiting = bude!.WaitTime;
                                 waiting = true;
+                                animator!.SetBool(waitingName,true);
                                 onWayToBude = false;
                             }
                         }
@@ -174,6 +177,7 @@ public class New_NPC : MonoBehaviour
                         onWayBackFromBude = true;
                         onWayToGoalNode = false;
                         waiting = false;
+                        animator!.SetBool(waitingName,false);
                     }
                 }
 
@@ -186,7 +190,8 @@ public class New_NPC : MonoBehaviour
                         {
                             exit = sm!.GetRandomExitPosition();
                             moveList = sm.HandlePathRequest(this.transform.position, exit!.Value);
-                            nextWayPoint = moveList.Dequeue();
+                            if(moveList.Count == 0) { stopped = true; return; }
+                            nextWayPoint = moveList!.Dequeue();
                             onWayToGoalNode = true;
                             onWayToExit = true;
                             exiting = false;
@@ -197,28 +202,32 @@ public class New_NPC : MonoBehaviour
                         Respawn();
                     }
                 }
-        }//stopped
-        if (!waiting)
-        {
-            if (patienceLost > 0)
+            if (!waiting)
             {
-                patienceLost -= Time.deltaTime;
-            }
-            else
-            {
-                if (budenToVisit.Count == 0)
+                if (patienceLost > 0)
                 {
-                    exiting = true;
+                    patienceLost -= Time.deltaTime;
                 }
                 else
                 {
-                    bude = budenToVisit.Dequeue();
-                    onWayToGoalNode = true;
-                    onWayBackFromBude = true;
-                    nextWayPoint = null;
-                    patienceLost = patience;
+                    if (budenToVisit.Count == 0)
+                    {
+                        exiting = true;
+                    }
+                    else
+                    {
+                        bude = budenToVisit.Dequeue();
+                        onWayToGoalNode = true;
+                        onWayBackFromBude = true;
+                        nextWayPoint = null;
+                        patienceLost = patience;
+                    }
                 }
             }
+        }//stopped
+        else
+        {
+            animator!.SetBool(walkingName,false);
         }
     }
 
@@ -269,7 +278,8 @@ public class New_NPC : MonoBehaviour
 
     private void MoveTo(Vector3 towards, float timeSinceLastMove)
     {
-        this.transform.position = Vector3.MoveTowards(this.transform.position, towards, speed * timeSinceLastMove);
+        Vector3 dir = towards - transform.position;
+        this.transform.SetPositionAndRotation(Vector3.MoveTowards(this.transform.position, towards, speed * timeSinceLastMove), Quaternion.LookRotation(dir));
     }
 
     public void SetInactive(Vector3 inactivePostion)
