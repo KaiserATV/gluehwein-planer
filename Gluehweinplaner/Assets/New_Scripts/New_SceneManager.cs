@@ -95,7 +95,6 @@ public class New_SceneManager : MonoBehaviour
         GenerateGoalNodes();
     }
 
-
     void Update()
     {
         if (playerCount > maxPlayerCount)
@@ -562,67 +561,6 @@ public class New_SceneManager : MonoBehaviour
             }
         }
     }
-
-    public bool showDebugPlates = false;
-    public int shownPlate = -1;
-    public int shownTile = -1;
-    //16,29 sus
-    private void OnDrawGizmos()
-    {
-        if (!Application.isPlaying) { return; }
-        //if (debugingDistance)
-        //{
-        //    for (int i = 0; i < plateCountX; i++)
-        //    {
-        //        for (int j = 0; j < plateCountZ; j++)
-        //        {
-        //            if (debugingDistance)
-        //            {
-        //                Handles.Label(allPlateArray[i, j].Center + new Vector3(0, 1, 0), DebugDistance[i, j].ToString());
-        //            }
-        //            ;
-        //        }
-        //    }
-        //}
-        if (debugTilesB)
-        {
-            for (int i = 0; i < shownTile; i++)
-            {
-                Vector3 vec = debugTiles[i];
-                Gizmos.color = Color.blue;
-                Gizmos.DrawCube(vec, new Vector3(New_GenerateMatrix.TileSizeX, 0.1f, New_GenerateMatrix.TileSizeZ));
-            }
-        }
-        if (showDebugPlates)
-        {
-            for (int i = 0; i < shownPlate; i++)
-            {
-                New_Plate p = debugPlates[i];
-                Gizmos.color = (i % 2 == 0) ? Color.red : Color.black;
-                Gizmos.DrawCube(p.Center, new Vector3(p.Size.x, 0.1f, p.Size.z));
-            }
-        }
-        foreach (New_GoalNode n in allGoalNodes)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawCube(n.Position, new Vector3(1, 0.1f, 1));
-        }
-        foreach (New_Plate p in allPlateArray!)
-        {
-            for (int row = 0; row < p.Rows; row++)
-            {
-                for (int col = 0; col < p.Columns; col++)
-                {
-                    if (p.BaseCostMatrix[row, col] != New_GenerateMatrix.MatrixIsPathableValue)
-                    {
-                        Gizmos.color = Color.red;
-                        Gizmos.DrawCube(p.GetSubTileCenterWorldCoordinates(row, col), new Vector3(New_GenerateMatrix.TileSizeX - 0.01f, 0.01f, New_GenerateMatrix.TileSizeZ - 0.01f));
-                    }
-                }
-            }
-        }
-    }
-
 }
 
 
