@@ -27,7 +27,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169;USG0001</NoWarn>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,7 +36,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169;USG0001</NoWarn>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <NoConfig>true</NoConfig>
@@ -60,45 +60,39 @@
     <Analyzer Include="Z:\Unity\2022.3.55f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\New_Scripts\Audio\RadialSlider.cs" />
     <Compile Include="Assets\New_Scripts\FPSLogger.cs" />
-    <Compile Include="Assets\Scripts\SpawnerDespawner\Exits.cs" />
-    <Compile Include="Assets\Scripts\GameLogik\Heatmap.cs" />
-    <Compile Include="Assets\New_Scripts\New_PlateGenerator.cs" />
-    <Compile Include="Assets\Scripts\Buden\Buden.cs" />
-    <Compile Include="Assets\Scripts\Audio\RadialSlider.cs" />
-    <Compile Include="Assets\New_Scripts\New_Plate.cs" />
-    <Compile Include="Assets\Scripts\CrowdSimScripts\Obstacle.cs" />
+    <Compile Include="Assets\New_Scripts\FlowFieldSetup\New_TransferType.cs" />
+    <Compile Include="Assets\New_Scripts\GameLogik\BeendenSzene.cs" />
+    <Compile Include="Assets\New_Scripts\GameLogik\New_SceneManager.cs" />
+    <Compile Include="Assets\New_Scripts\New_Buden\DeleteBuilding.cs" />
+    <Compile Include="Assets\New_Scripts\Audio\VolumeManager.cs" />
+    <Compile Include="Assets\New_Scripts\Menu\RadialSelection.cs" />
+    <Compile Include="Assets\New_Scripts\SpawnerDespawner\New_Spawner.cs" />
     <Compile Include="Assets\Scripts\GameLogik\AgentManager.cs" />
     <Compile Include="Assets\New_Scripts\New_Buden\New_BudenJSON.cs" />
-    <Compile Include="Assets\New_Scripts\New_GenerateMatrix.cs" />
-    <Compile Include="Assets\Scripts\Buden\BitArray2D.cs" />
-    <Compile Include="Assets\Scripts\SpawnerDespawner\CrowdGeneration.cs" />
-    <Compile Include="Assets\Scripts\Buden\DeleteBuilding.cs" />
-    <Compile Include="Assets\Scripts\Budeninteraktion\ObjectSpawner.cs" />
-    <Compile Include="Assets\Scripts\SpawnerDespawner\InactiveAgentsContainer.cs" />
-    <Compile Include="Assets\New_Scripts\New_Exit.cs" />
-    <Compile Include="Assets\Scripts\Menu\RadialSelection.cs" />
-    <Compile Include="Assets\New_Scripts\New_TransferType.cs" />
-    <Compile Include="Assets\Scripts\Buden\Kategorien.cs" />
-    <Compile Include="Assets\Scripts\Buden\BudenJSON.cs" />
+    <Compile Include="Assets\New_Scripts\Menu\ScoreManager.cs" />
+    <Compile Include="Assets\New_Scripts\SpawnerDespawner\New_InactiveAgentsContainer.cs" />
+    <Compile Include="Assets\New_Scripts\SpawnerDespawner\New_Exit.cs" />
+    <Compile Include="Assets\New_Scripts\Movement\GodmodeController.cs" />
+    <Compile Include="Assets\New_Scripts\GameLogik\New_NPC.cs" />
     <Compile Include="Assets\New_Scripts\New_Buden\New_Bude.cs" />
-    <Compile Include="Assets\New_Scripts\New_Spawner.cs" />
-    <Compile Include="Assets\Scripts\Audio\VolumeManager.cs" />
-    <Compile Include="Assets\Scripts\Audio\SoundFXManager.cs" />
-    <Compile Include="Assets\New_Scripts\New_NPC.cs" />
-    <Compile Include="Assets\Scripts\Menu\ScoreManager.cs" />
-    <Compile Include="Assets\New_Scripts\New_GoalNode.cs" />
-    <Compile Include="Assets\Scripts\Audio\VolumeChangeSound.cs" />
+    <Compile Include="Assets\New_Scripts\Budeninteraktion\ObjectSpawner.cs" />
+    <Compile Include="Assets\New_Scripts\New_Heatmap.cs" />
+    <Compile Include="Assets\New_Scripts\FlowFieldSetup\New_GoalNode.cs" />
+    <Compile Include="Assets\New_Scripts\Audio\SoundFXManager.cs" />
     <Compile Include="Assets\Scripts\GameLogik\AgentController.cs" />
-    <Compile Include="Assets\New_Scripts\New_InactiveAgentsContainer.cs" />
+    <Compile Include="Assets\New_Scripts\Audio\VolumeMenuCloser.cs" />
     <Compile Include="Assets\Scripts\GameLogik\BeendenSzene.cs" />
-    <Compile Include="Assets\New_Scripts\New_CrowdGeneration.cs" />
-    <Compile Include="Assets\Scripts\Movable.cs" />
-    <Compile Include="Assets\New_Scripts\New_SceneManager.cs" />
-    <Compile Include="Assets\Scripts\Audio\VolumeMenuCloser.cs" />
+    <Compile Include="Assets\New_Scripts\New_Buden\Kategorien.cs" />
+    <Compile Include="Assets\New_Scripts\SpawnerDespawner\New_CrowdGeneration.cs" />
+    <Compile Include="Assets\New_Scripts\FlowFieldSetup\New_GenerateMatrix.cs" />
+    <Compile Include="Assets\New_Scripts\FlowFieldSetup\New_Plate.cs" />
+    <Compile Include="Assets\New_Scripts\FlowFieldSetup\New_PlateGenerator.cs" />
+    <Compile Include="Assets\New_Scripts\Movable.cs" />
     <Compile Include="Assets\New_Scripts\New_Buden\New_BitArray2D.cs" />
+    <Compile Include="Assets\New_Scripts\Audio\VolumeChangeSound.cs" />
     <Compile Include="Assets\New_Scripts\New_ObjectSpawner.cs" />
-    <Compile Include="Assets\Scripts\Movement\GodmodeController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -117,6 +111,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\Shader\Heatmap.shader" />
+    <None Include="Assets\smcs.rsp" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />

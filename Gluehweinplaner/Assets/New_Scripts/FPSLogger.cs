@@ -2,76 +2,74 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using Unity.Profiling;
 using UnityEngine;
+
 
 public class FPSLogger : MonoBehaviour
 {
-    List<(int, float, float, float)> stats = new List<(int, float, float, float)> ();
-    int agentenLogIntervall = 50;
+    List<(int,int, float, float, float)> stats = new List<(int,int, float, float, float)> ();
     New_SceneManager sc;
+    StringBuilder advancedStats = new StringBuilder();
+    StringBuilder fpsStats = new StringBuilder();
+    //https://docs.unity3d.com/2020.3/Documentation/ScriptReference/Unity.Profiling.ProfilerRecorder.html
+    ProfilerRecorder systemMemoryRecorder;
+    ProfilerRecorder gcMemoryRecorder;
+    ProfilerRecorder mainThreadTimeRecorder;
+    ProfilerRecorder GPUFrameTimeRecorder;
+    ProfilerRecorder CPUTotalFrameTimeRecorder;
 
 
-
-    float currentFps = 0;
-    float avgFps = 0;
-    int passedFrams = 0;
-    float minFps = float.MaxValue;
-    float maxFps = 0;
-    int lastAgentCount = 0;
+     int passedFrames = 0;
 
     private void Start()
     {
         sc = GameObject.Find("SceneManager").GetComponent<New_SceneManager>();
-        currentFps = 1f / Time.deltaTime;
-        avgFps += currentFps;
-        passedFrams++;
+        mainThreadTimeRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Internal, "Main Thread");
+        systemMemoryRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "Total Used Memory");
+        CPUTotalFrameTimeRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "CPU Total Frame Time");
+        GPUFrameTimeRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Render, "GPU Frame Time");
+        advancedStats.AppendLine("FrameNr.,FPS,agentCount,FrameTime in ms,System Memory in MB, CPU Frame Time in ms, GPU Frame Time in ms");
     }
-    
+
     void Update()
     {
-        currentFps = 1f / Time.deltaTime;
-        avgFps += currentFps;
-        passedFrams++;
-        if(currentFps < minFps)
-        {
-            minFps = currentFps;
-        }
-        else if(currentFps > maxFps)
-        {
-            maxFps = currentFps;
-        }
-
-
-        if (sc.playerCount % agentenLogIntervall == 0 && sc.playerCount != lastAgentCount)
-        {
-            stats.Add((sc.playerCount,(float)Math.Round(avgFps/passedFrams,2), (float)Math.Round(minFps,2), (float)Math.Round(maxFps, 2)));
-            currentFps = 0;
-            avgFps = 0;
-            passedFrams = 0;
-            minFps = float.MaxValue;
-            maxFps = 0;
-            lastAgentCount = sc.playerCount;
-        }
+        advancedStats.AppendLine($"{passedFrames},{1f / Time.deltaTime},{sc.playerCount},{GetRecorderFrameAverage(mainThreadTimeRecorder) * (1e-6f):F1},{systemMemoryRecorder.LastValue / (1024 * 1024)},{CPUTotalFrameTimeRecorder.LastValue},{GPUFrameTimeRecorder.LastValue}");
     }
 
     public void OnApplicationQuit()
     {
-        string path = Application.persistentDataPath + "/benchmarks.csv";
-        Debug.Log("Speichere JSON nach: " + path);
-        using (StreamWriter writer = new StreamWriter(path, false))
+        string pathTwo = Application.persistentDataPath + "/advanced-stats.csv";
+        Debug.Log("Speichere JSON nach: " + pathTwo);
+        using (StreamWriter writer = new StreamWriter(pathTwo, false))
         {
-            writer.Write(CreateCSV());
+            writer.Write(advancedStats.ToString());
         }
+        systemMemoryRecorder.Dispose();
+        gcMemoryRecorder.Dispose();
+        mainThreadTimeRecorder.Dispose();
+        GPUFrameTimeRecorder.Dispose();
+        CPUTotalFrameTimeRecorder.Dispose();
+    }
+    static double GetRecorderFrameAverage(ProfilerRecorder recorder)
+    {
+        var samplesCount = recorder.Capacity;
+        if (samplesCount == 0)
+            return 0;
+
+        double r = 0;
+        unsafe
+        {
+            var samples = stackalloc ProfilerRecorderSample[samplesCount];
+            recorder.CopyTo(samples, samplesCount);
+            for (var i = 0; i < samplesCount; ++i)
+                r += samples[i].Value;
+            r /= samplesCount;
+        }
+
+        return r;
     }
 
-    private string CreateCSV()
-    {
-        string returnString = "Agents,avgFPS,minFPS,maxFPS\n";
-        foreach (var item in stats)
-        {
-            returnString += item.Item1 + "," + item.Item2 + "," + item.Item3 + "," + item.Item4 + "\n";
-        }
-        return returnString;
-    }
 
 }

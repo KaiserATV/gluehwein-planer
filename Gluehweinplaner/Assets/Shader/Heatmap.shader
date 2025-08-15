@@ -29,6 +29,8 @@
 
 		uniform float _XDistance;
 		uniform float _ZDistance;
+		// uniform float _XRandDistance;
+		// uniform float _ZRandDistance;
 		uniform float _Properties[2000];	// y = intensity
 		uniform float2 _MaxVals;
 		uniform int _Rows;
