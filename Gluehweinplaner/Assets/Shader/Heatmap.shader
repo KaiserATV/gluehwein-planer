@@ -29,17 +29,15 @@
 
 		uniform float _XDistance;
 		uniform float _ZDistance;
-		// uniform float _XRandDistance;
-		// uniform float _ZRandDistance;
 		uniform float _Properties[2000];	// y = intensity
-		uniform float2 _MaxVals;
+		uniform float2 _MinVals;
 		uniform int _Rows;
 
 		sampler2D _HeatTex;
 
 		half4 frag(vertOutput output) : COLOR{
-			int cellX = (_MaxVals.x - output.worldPos.x)/_XDistance;
-			int cellZ = (_MaxVals.y - output.worldPos.z)/_ZDistance;
+			int cellX = (output.worldPos.x - _MinVals.x)/_XDistance;
+			int cellZ = (output.worldPos.z - _MinVals.y)/_ZDistance;
 			
 			half h = _Properties[_Rows * cellX + cellZ];
 			
