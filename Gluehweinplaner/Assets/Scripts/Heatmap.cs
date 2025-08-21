@@ -4,8 +4,10 @@ public class Heatmap : MonoBehaviour
 {
     public bool showMax = false;
     public bool showClear = true;
-
-
+    public int Rows = 44;
+    public int Cols = 44;
+    public float RowHeight = 0;
+    public float ColWidth = 0;
     public float[] properties;
     public int[] playCellCount;
     public int[] playMaxCount;
@@ -14,43 +16,31 @@ public class Heatmap : MonoBehaviour
     public Material material;
 
     private Bounds b;
-    int cellCountX = 0;
-    int cellCountZ = 0;
-    float normalSizeX = 0;
-    float normalSizeZ = 0;
-    float randSizeX = 0;
-    float randSizeZ = 0;
-    int cells;
+  
     private int statCounter = 0;
 
-    public void InitHeatMap(int _cellCountX, int _cellCountZ, float _normalSizeX, float _normalSizeZ, float _randSizeX, float _randSizeZ)
+    public void Start()
     {
-        cellCountX = _cellCountX;
-        cellCountZ = _cellCountZ;
-        normalSizeX = _normalSizeX;
-        normalSizeZ = _normalSizeZ;
-        randSizeX = _randSizeX;
-        randSizeZ = _randSizeZ;
-
-        cells = cellCountX * cellCountZ;
         b = GetComponent<MeshRenderer>().bounds;
-        properties = new float[cells];
-        playCellCount = new int[cells];
-        playMaxCount = new int[cells];
-        clear = new float[cells];
+        properties = new float[2000];
+        playCellCount = new int[2000];
+        playMaxCount = new int[2000];
+        clear = new float[2000];
+        RowHeight = b.size.x / Rows;
+        ColWidth = b.size.z / Cols;
 
-        material.SetInt("_Rows", cellCountX);
-        material.SetFloat("_XDistance", normalSizeX);
-        material.SetFloat("_ZDistance", normalSizeZ);
+        material.SetInt("_Rows", Rows);
+        material.SetFloat("_XDistance", RowHeight);
+        material.SetFloat("_ZDistance", ColWidth);
         material.SetVector("_MinVals", new Vector2(b.min.x, b.min.z));
     }
 
    
     public void Reset()
     {
-        properties = new float[cells];
-        playCellCount = new int[cells];
-        playMaxCount = new int[cells];
+        properties = new float[2000];
+        playCellCount = new int[2000];
+        playMaxCount = new int[2000];
         showMax = false;
         showClear = true;
         statCounter = 0;
@@ -65,7 +55,8 @@ public class Heatmap : MonoBehaviour
         {
             showCurrentAlpha();
             showClear = false;
-            showMax = false;        }
+            showMax = false;        
+        }
         else if (statCounter == 1)
         {
             showMaxAlpha();
@@ -107,86 +98,110 @@ public class Heatmap : MonoBehaviour
     }
 
 
-    public void Spawned(Vector2Int platePos)
+    public void Spawned(Vector3 spawnedPos)
     {
-        if(platePos.x < 0 || platePos.x >= cellCountX) { return; } 
-        else if (platePos.y < 0 || platePos.y >= cellCountZ) { return; }
-        int index = cellCountZ * platePos.x + platePos.y;
-        if (index >= 0 && index <= cells)
+        if(spawnedPos.x < b.min.x || spawnedPos.x > b.max.x || spawnedPos.z < b.min.z || spawnedPos.z > b.max.z) { return; }
+        Vector2Int inArray = new Vector2Int(
+            Mathf.FloorToInt((spawnedPos.x - b.min.x)/RowHeight)
+            ,
+            Mathf.FloorToInt((spawnedPos.z - b.min.z)/ColWidth)
+            );
+        int index = Cols * inArray.x + inArray.y;
+        if (index < 0 || index >=2000) { return; }
+        playCellCount[index] += 1;
+        int c = playCellCount[index];
+        int cM = playMaxCount[index];
+        if (c > cM) playMaxCount[index] = c;
+        properties[index] = determineAlpha(showMax ? cM : c);
+        if (showClear) { 
+            material.SetFloatArray("_Properties", clear);
+        }
+        else
         {
-            playCellCount[index] += 1;
-            int c = playCellCount[index];
-            int cM = playMaxCount[index];
-            if (c > cM) playMaxCount[index] = c;
-            properties[index] = determineAlpha(showMax ? cM : c);
-            if (showClear) { 
-                material.SetFloatArray("_Properties", clear);
-            }
-            else
-            {
-                material.SetFloatArray("_Properties", properties);
-            }
+            material.SetFloatArray("_Properties", properties);
         }
     }
 
-    public void ClearPos(Vector2Int pos)
+    public void ClearPos(Vector3 pos)
     {
-        int index1 = cellCountZ * pos.x + pos.y;
-        int c = playCellCount[index1];
+        if(pos.x < b.min.x || pos.x > b.max.x || pos.z < b.min.z || pos.z > b.max.z) { return; }
+        Vector2Int inArray = new Vector2Int(
+        Mathf.FloorToInt((pos.x - b.min.x) / RowHeight)
+        ,
+        Mathf.FloorToInt((pos.z - b.min.z) / ColWidth)
+        );
+        int index = Cols * inArray.x + inArray.y;
+        if (index < 0 || index >=2000) { return; }
+        int c = playCellCount[index];
         if (c > 0)
         {
-            playCellCount[index1]--;
-            properties[index1] = determineAlpha(c - 1);
+            playCellCount[index]--;
+            properties[index] = determineAlpha(c - 1);
             material.SetFloatArray("_Properties", properties);
         }
     }
 
 
-    public void Moved(Vector2Int from, Vector2Int to)
+    public void Moved(Vector3 from, Vector3 to)
     {
-        if(from == to) { return; }
-        if (from.x >= 0 && from.x < cellCountX && from.y >= 0 && from.y < cellCountZ) {
-            int index1 = cellCountZ * from.x + from.y;
-            playCellCount[index1] -= 1;
+        if (from == to) { return; }
+        Vector2Int inArrayFrom = new Vector2Int(
+            Mathf.FloorToInt((from.x - b.min.x) / RowHeight)
+            ,
+            Mathf.FloorToInt((from.z - b.min.z) / ColWidth)
+            );
+        int indexFrom = Cols * inArrayFrom.x + inArrayFrom.y;
+        
+        Vector2Int inArrayTo = new Vector2Int(
+            Mathf.FloorToInt((to.x - b.min.x) / RowHeight)
+            ,
+            Mathf.FloorToInt((to.z - b.min.z) / ColWidth)
+            );
+        int indexTo = Cols * inArrayTo.x + inArrayTo.y;
+        if(indexFrom == indexTo) { return; }
+        if (from.x < b.min.x || from.x > b.max.x || from.z < b.min.z || from.z > b.max.z) { 
+            if (to.x < b.min.x || to.x > b.max.x || to.z < b.min.z || to.z > b.max.z) { return; }
+            playCellCount[indexTo] += 1;
+            if (playCellCount[indexTo] > playMaxCount[indexTo]) { playMaxCount[indexTo] = playCellCount[indexTo]; }
             if (showMax)
             {
-                properties[index1] = determineAlpha(playMaxCount[index1]);
+                properties[indexTo] = determineAlpha(playMaxCount[indexTo]);
             }
             else
             {
-                properties[index1] = determineAlpha(playCellCount[index1]);
+                properties[indexTo] = determineAlpha(playCellCount[indexTo]);
             }
-
         }
-        else { return; }
-
-        if (to.x >= 0 && to.x < cellCountX && to.y >= 0 && to.y < cellCountZ)
+        else
         {
-            int index2 = cellCountZ * to.x + to.y;
-            playCellCount[index2] += 1;
-
-            int c = playCellCount[index2];
-            int cM = playMaxCount[index2];
-            if (c > cM) playMaxCount[index2] = c;
+            if (to.x >= b.min.x && to.x <= b.max.x && to.z >= b.min.z && to.z <= b.max.z) {
+                playCellCount[indexTo] += 1;
+                if (playCellCount[indexTo] > playMaxCount[indexTo]) { playMaxCount[indexTo] = playCellCount[indexTo]; }
+                if (showMax)
+                {
+                    properties[indexTo] = determineAlpha(playMaxCount[indexTo]);
+                }
+                else
+                {
+                    properties[indexTo] = determineAlpha(playCellCount[indexTo]);
+                }
+            }
+            playCellCount[indexFrom] -= 1;
             if (showMax)
             {
-                properties[index2] = determineAlpha(c);
+                properties[indexFrom] = determineAlpha(playMaxCount[indexFrom]);
             }
             else
             {
-                properties[index2] = determineAlpha(playCellCount[index2]);
+                properties[indexFrom] = determineAlpha(playCellCount[indexFrom]);
             }
         }
-        else { return; }
-
-
         if (showClear)
         {
             material.SetFloatArray("_Properties", clear);
         }
         else
         {
-
             material.SetFloatArray("_Properties", properties);
         }
     }

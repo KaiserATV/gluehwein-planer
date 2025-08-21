@@ -8,7 +8,7 @@ public class Exit : MonoBehaviour
 
     private void Start()
     {
-        b = GetComponent<MeshRenderer>().bounds;
+        b = GetComponentInChildren<MeshRenderer>().bounds;
     }
 
 
@@ -20,5 +20,10 @@ public class Exit : MonoBehaviour
     public Vector3 GetPosition()
     {
         return this.transform.position;
+    }
+
+    public ExitJSON ToJSON()
+    {
+        return new ExitJSON(this.transform.position.x, this.transform.position.z, this.transform.rotation.y);
     }
 }

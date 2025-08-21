@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class New_GoalNode
+public class GoalNode
 {
     private List<Bude> lineOfSightTo = new List<Bude>();
 
@@ -15,7 +15,7 @@ public class New_GoalNode
     public void AddGoal(Bude goal) { lineOfSightTo.Add(goal); }
     public void RemoveGoal(Bude goal) { lineOfSightTo.Remove(goal); }
 
-    public New_GoalNode(List<Bude> goals, Plate p)
+    public GoalNode(List<Bude> goals, Plate p)
     {
         OnPlate = p;
         lineOfSightTo = goals;
@@ -54,21 +54,23 @@ public class New_GoalNode
         //3. Vergleichen ob neue Position von allen Goals direkt erreichbar ist
         
         Vector3 pot = new Vector3(minValues.x, 0, minValues.z);
-        while (OnPlate.GetBaseValueAtPosition(pot, true) != New_GenerateMatrix.MatrixIsPathableValue)
+        while (OnPlate.GetBaseValueAtPosition(pot, true) != GenerateMatrix.MatrixIsPathableValue)
         {
-            if (pot.x + New_GenerateMatrix.TileSizeX < maxValues.x)
+            if (pot.x + GenerateMatrix.TileSizeX < maxValues.x)
             {
-                pot.x += New_GenerateMatrix.TileSizeX;
+                pot.x += GenerateMatrix.TileSizeX;
             }
-            else if (pot.z + New_GenerateMatrix.TileSizeZ < maxValues.z)
+            else if (pot.z + GenerateMatrix.TileSizeZ < maxValues.z)
             {
-                pot.z += New_GenerateMatrix.TileSizeZ;
+                pot.z += GenerateMatrix.TileSizeZ;
             }
             else { break; } //needs to do something}
         }
         Position = pot;
     }
 
-    //pahting to goal should be here maybe, or you path directly
-
+    public int GetGoalCount()
+    {
+        return lineOfSightTo.Count;
+    }
 }

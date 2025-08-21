@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 #nullable enable
 
-public static class New_GenerateMatrix
+public static class GenerateMatrix
 {
 
     public static float TileSizeX = 1f;//breite der spalte
@@ -658,8 +658,8 @@ public static class New_GenerateMatrix
 
     }
 
-    public static (Vector2Int,float) FindClostestPoint(Vector2Int clostestGoal, Vector2Int secondClostesGoal, Vector3 plateArrayGoal, Plate plate) {
-
+    public static (Vector2Int,float) FindClostestPoint(Vector2Int clostestGoal, Vector2Int secondClostesGoal, Vector3 plateArrayGoal, Plate plate) 
+    {
         Vector2Int goalDirection = secondClostesGoal - clostestGoal;
 
         int spacesBetween = Math.Max(Math.Abs(goalDirection.x), Math.Abs(goalDirection.y));
@@ -741,14 +741,14 @@ public static class New_GenerateMatrix
         for (int i = 0; i < maxSteps + 1; i++)
         {
             posToBeChecked = startPos + i * direction;
-            if (homePlate.BaseCostMatrix[posToBeChecked.x, posToBeChecked.y] != MatrixObstacleValue)
+            if (homePlate.BaseCostMatrix[posToBeChecked.x, posToBeChecked.y] == MatrixIsPathableValue)
             {
                 float distance = Vector3.Distance(goal, homePlate.GetSubTileCenterWorldCoordinates(posToBeChecked));
                 if (distance < currentSmallestDistance)
                 {
                     if (exitDirection == ExitDirection.North || exitDirection == ExitDirection.South)
                     {
-                        if(neighborPlate.BaseCostMatrix[neighborPlate.Rows-(posToBeChecked.x+1),posToBeChecked.y] != MatrixObstacleValue)
+                        if(neighborPlate.BaseCostMatrix[neighborPlate.Rows-(posToBeChecked.x+1),posToBeChecked.y] == MatrixIsPathableValue)
                         {
                             clostestPoint = posToBeChecked;
                             currentSmallestDistance = distance;
@@ -756,23 +756,24 @@ public static class New_GenerateMatrix
                     }
                     else
                     {
-                        if(neighborPlate.BaseCostMatrix[posToBeChecked.x,neighborPlate.Columns-(posToBeChecked.y+1)] != MatrixObstacleValue)
+                        if(neighborPlate.BaseCostMatrix[posToBeChecked.x,neighborPlate.Columns-(posToBeChecked.y+1)] == MatrixIsPathableValue)
                         {
                             clostestPoint = posToBeChecked;
                             currentSmallestDistance = distance;
                         }
                     }
                 }
+                else { break; }
             }
+            
         }
         return clostestPoint;
     }
 
 
-    public static (Queue<Vector3>,Queue<Vector3>,Plate?) GeneratePath(List<Plate> platesToVisit, Vector3 start, Vector3 goal, bool canPathDiagonal)
+    public static (Queue<Vector3>,Plate?) GeneratePath(List<Plate> platesToVisit, Vector3 start, Vector3 goal, bool canPathDiagonal)
     {
         List<Vector3> steps = new List<Vector3> { start };
-        List<Vector3> firstInNextPlate = new List<Vector3> {  };
         for (int i = 0; i < platesToVisit.Count - 1; i++)
         {
             Plate currentPlate = platesToVisit[i];
@@ -784,13 +785,13 @@ public static class New_GenerateMatrix
             {
                 if (diff.x > 0)
                 {
-                    closestPoint = New_GenerateMatrix.FindBestPointToNextArrayAndGoalV3(start, ExitDirection.South, currentPlate, nextPlate);
-                    checkDirection = new Vector3(New_GenerateMatrix.TileSizeX, 0, 0);
+                    closestPoint = GenerateMatrix.FindBestPointToNextArrayAndGoalV3(start, ExitDirection.South, currentPlate, nextPlate);
+                    checkDirection = new Vector3(GenerateMatrix.TileSizeX, 0, 0);
                 }
                 else
                 {
-                    closestPoint = New_GenerateMatrix.FindBestPointToNextArrayAndGoalV3(start, ExitDirection.North, currentPlate, nextPlate);
-                    checkDirection = new Vector3(-New_GenerateMatrix.TileSizeX, 0, 0);
+                    closestPoint = GenerateMatrix.FindBestPointToNextArrayAndGoalV3(start, ExitDirection.North, currentPlate, nextPlate);
+                    checkDirection = new Vector3(-GenerateMatrix.TileSizeX, 0, 0);
 
                 }
             }
@@ -798,13 +799,13 @@ public static class New_GenerateMatrix
             {
                 if (diff.z > 0)
                 {
-                    closestPoint = New_GenerateMatrix.FindBestPointToNextArrayAndGoalV3(start, ExitDirection.East, currentPlate, nextPlate);
-                    checkDirection = new Vector3(0, 0, New_GenerateMatrix.TileSizeZ);
+                    closestPoint = GenerateMatrix.FindBestPointToNextArrayAndGoalV3(start, ExitDirection.East, currentPlate, nextPlate);
+                    checkDirection = new Vector3(0, 0, GenerateMatrix.TileSizeZ);
                 }
                 else
                 {
-                    closestPoint = New_GenerateMatrix.FindBestPointToNextArrayAndGoalV3(start, ExitDirection.West, currentPlate, nextPlate);
-                    checkDirection = new Vector3(0, 0, -New_GenerateMatrix.TileSizeZ);
+                    closestPoint = GenerateMatrix.FindBestPointToNextArrayAndGoalV3(start, ExitDirection.West, currentPlate, nextPlate);
+                    checkDirection = new Vector3(0, 0, -GenerateMatrix.TileSizeZ);
                 }
             }
             if (closestPoint != null)
@@ -812,18 +813,17 @@ public static class New_GenerateMatrix
                 List<Vector3> subSteps = currentPlate.GetShortestPathToExitVector3(closestPoint!.Value, steps.Last<Vector3>(), canPathDiagonal);
                 if (subSteps.Count > 0)
                 {
-                    steps.AddRange(subSteps); 
-                    firstInNextPlate.Add(steps.Last() + checkDirection);
+                    steps.AddRange(subSteps);
                     steps.Add(steps.Last() + checkDirection);
                 }
                 else
                 {
-                    return (new Queue<Vector3>(), new Queue<Vector3>(), currentPlate);
+                    return (new Queue<Vector3>(), currentPlate);
                 }
             }
         }
-        steps.Add(goal);
-        return (new Queue<Vector3>(firstInNextPlate), new Queue<Vector3>(steps), null);
+        steps.AddRange(platesToVisit.Last<Plate>().GetShortestPathToExitVector3(goal, steps.Last<Vector3>(), canPathDiagonal));
+        return (new Queue<Vector3>(steps), null);
     }
 
     public static List<Vector2Int> PathDiagonal(Vector2Int start, Vector2Int exit)

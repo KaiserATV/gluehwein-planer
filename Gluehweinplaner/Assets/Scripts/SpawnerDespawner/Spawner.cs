@@ -13,7 +13,6 @@ public class Spawner : MonoBehaviour
     private float zeitVergangen;
 
     private SceneManager sm;
-    private MeshCollider col;
     private InactiveAgentsContainer iac;
 
     // Start is called before the first frame update
@@ -23,13 +22,13 @@ public class Spawner : MonoBehaviour
         sm = GameObject.Find("SceneManager").GetComponent<SceneManager>();
         iac = GameObject.Find("InactiveAgentHolder").GetComponent<InactiveAgentsContainer>();
 
-        prop = Resources.Load("NPC") as GameObject;
-        col = GetComponent<MeshCollider>();
+        prop = Resources.Load("agent") as GameObject;
+        Bounds b = GetComponentInChildren<MeshRenderer>().bounds;
 
-        minWorldLimitX = col.bounds.min.x;
-        maxWorldLimitX = col.bounds.max.x;
-        minWorldLimitZ = col.bounds.min.z;
-        maxWorldLimitZ = col.bounds.max.z;
+        minWorldLimitX = b.min.x;
+        maxWorldLimitX = b.max.x;
+        minWorldLimitZ = b.min.z;
+        maxWorldLimitZ = b.max.z;
     }
 
     private void FixedUpdate()
@@ -43,7 +42,7 @@ public class Spawner : MonoBehaviour
             }
             else if (sm.CanAddPlayer())
             {
-                Vector3? position = GenerateRandomPosition();
+                (Vector3 position,Vector3 egal) = GenerateRandomPosition();
                 Quaternion rotation = Quaternion.Euler(0, 0, 0);
                 if (iac.GetStoredCount()>0)
                 {
@@ -55,7 +54,7 @@ public class Spawner : MonoBehaviour
                 else 
                 {
                     if (position != null) {
-                        GameObject agent = Instantiate(prop, position!.Value, rotation);
+                        GameObject agent = Instantiate(prop, position, rotation);
                         agent.transform.parent = transform;
                         sm.playerCount++;
                     }
@@ -67,23 +66,22 @@ public class Spawner : MonoBehaviour
     }
 
 
-    public Vector3? GenerateRandomPosition() { return this.transform.position; }
-    //public Vector3? GenerateRandomPosition()
-    //{
-    //    int maxTrys = 3;
-    //    Vector3? position = null;
-    //    while (maxTrys != 0)
-    //    {
-    //        float cellX = Random.Range(minWorldLimitX, maxWorldLimitX);
-    //        float cellZ = Random.Range(minWorldLimitZ, maxWorldLimitZ);
-    //        position = new Vector3(cellX, -1, cellZ);
-    //        if (!Physics.Raycast(position!.Value, new Vector3(0,1,0),2, New_GenerateMatrix.ObstacleLayer))
-    //        {
-    //            position = null;
-    //        }
-    //        maxTrys--;
-    //    }
-    //    return position;
-    //}
+    //public Vector3? GenerateRandomPosition() { return this.transform.position; }
+    public (Vector3,Vector3) GenerateRandomPosition()
+    {
+        Vector3 position = new Vector3(minWorldLimitX,1.5f,minWorldLimitZ);
+        do
+        {
+            position.x = Random.Range(minWorldLimitX, maxWorldLimitX);
+            position.z = Random.Range(minWorldLimitZ, maxWorldLimitZ);
+        } while (Physics.CheckSphere(position, 1f));
+        position.y = 0;
+        return (position,transform.position);
+    }
 
+
+    public SpawnJSON ToJSON()
+    {
+        return new SpawnJSON(this.transform.position.x,this.transform.position.z, this.transform.rotation.y, spawnTime);   
+    }
 }

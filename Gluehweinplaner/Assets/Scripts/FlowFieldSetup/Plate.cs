@@ -23,7 +23,7 @@ public class Plate
     public int Columns { get; set; }
     public int[,] BaseCostMatrix { get; set; }
 
-    public List<New_GoalNode> AllContainedGoalNodes = new List<New_GoalNode>();
+    public List<GoalNode> AllContainedGoalNodes = new List<GoalNode>();
 
     public Dictionary<Vector2Int, int[,]> GoalPositionToDistanceField = new Dictionary<Vector2Int, int[,]>();
 
@@ -33,12 +33,12 @@ public class Plate
 
     public Dictionary<Bude, List<Vector2Int>> budeToOccupiedSpaces = new Dictionary<Bude, List<Vector2Int>>();
 
-    public void AddContainedGoalNode(New_GoalNode node)
+    public void AddContainedGoalNode(GoalNode node)
     {
         AllContainedGoalNodes.Add(node);
     }
 
-    public List<New_GoalNode> GetAllContainedGoalNodes() { return AllContainedGoalNodes; }
+    public List<GoalNode> GetAllContainedGoalNodes() { return AllContainedGoalNodes; }
 
 
     /// <summary>
@@ -46,12 +46,12 @@ public class Plate
     /// </summary>
     /// <param name="goal">the Goal node</param>
     /// <param name="distance">the coressponding distancefield</param>
-    public void AddGoalNode(New_GoalNode goalNode, bool canPathDiagonal)
+    public void AddGoalNode(GoalNode goalNode, bool canPathDiagonal)
     {
         if (AllContainedGoalNodes.Contains(goalNode)) { return; }
         AddContainedGoalNode(goalNode);
         if (GoalPositionToDistanceField.ContainsKey(GetPositionInArray(goalNode.Position, true))) { return; }
-        GoalPositionToDistanceField.Add(GetPositionInArray(goalNode.Position,true), (HasNoObstacles || HasOnlyObstacles) ? new int[0, 0] : New_GenerateMatrix.GenerateDistanceField(this, goalNode.Position, null, canPathDiagonal));
+        GoalPositionToDistanceField.Add(GetPositionInArray(goalNode.Position,true), (HasNoObstacles || HasOnlyObstacles) ? new int[0, 0] : GenerateMatrix.GenerateDistanceField(this, goalNode.Position, null, canPathDiagonal));
         hasChanged = false;
     }
 
@@ -128,28 +128,28 @@ public class Plate
                 steps = Columns - 1;
                 break;
             case ExitDirection.NorthEast:
-                return BaseCostMatrix[0, Columns - 1] == New_GenerateMatrix.MatrixIsPathableValue;
+                return BaseCostMatrix[0, Columns - 1] == GenerateMatrix.MatrixIsPathableValue;
             case ExitDirection.East:
                 startPos = new Vector2Int(0, Columns - 1);
                 diff = new Vector2Int(1, 0);
                 steps = Rows -1;
                 break;
             case ExitDirection.SouthEast:
-                return BaseCostMatrix[Rows - 1, Columns - 1] == New_GenerateMatrix.MatrixIsPathableValue;
+                return BaseCostMatrix[Rows - 1, Columns - 1] == GenerateMatrix.MatrixIsPathableValue;
             case ExitDirection.South:
                 startPos = new Vector2Int(Rows - 1, 0);
                 diff = new Vector2Int(0, 1);
                 steps = Columns -1;
                 break;
             case ExitDirection.SouthWest:
-                return BaseCostMatrix[Rows - 1, 0] == New_GenerateMatrix.MatrixIsPathableValue;
+                return BaseCostMatrix[Rows - 1, 0] == GenerateMatrix.MatrixIsPathableValue;
             case ExitDirection.West:
                 startPos = new Vector2Int(0, 0);
                 diff = new Vector2Int(1, 0);
                 steps = Rows -1;
                 break;
             case ExitDirection.NorthWest:
-                return BaseCostMatrix[0, 0] == New_GenerateMatrix.MatrixIsPathableValue;
+                return BaseCostMatrix[0, 0] == GenerateMatrix.MatrixIsPathableValue;
         }
 
         int invalidTiles = steps + 1;
@@ -157,7 +157,7 @@ public class Plate
 
         while (steps >= 0)
         {
-            if (BaseCostMatrix[startPos.x, startPos.y] != New_GenerateMatrix.MatrixIsPathableValue)
+            if (BaseCostMatrix[startPos.x, startPos.y] != GenerateMatrix.MatrixIsPathableValue)
             {
                 invalidTiles--;
             }
@@ -187,13 +187,13 @@ public class Plate
         {
             if (canPathDiagonal)
             {
-                List<Vector2Int> path = New_GenerateMatrix.PathDiagonal(start, exit);
+                List<Vector2Int> path = GenerateMatrix.PathDiagonal(start, exit);
                 AllTakenPaths.Add((start, exit), path);
                 return path;
             }
             else
             {
-                List<Vector2Int> path = New_GenerateMatrix.InterpolateArray(start, exit, ((Vector2Int a, Vector2Int b) compare) => CloserPlateToGoal(compare.a, compare.b, worldExit), canPathDiagonal, Rows, Columns);
+                List<Vector2Int> path = GenerateMatrix.InterpolateArray(start, exit, ((Vector2Int a, Vector2Int b) compare) => CloserPlateToGoal(compare.a, compare.b, worldExit), canPathDiagonal, Rows, Columns);
                 AllTakenPaths.Add((start, exit), path);
                 return path;
             }
@@ -207,10 +207,10 @@ public class Plate
             }
             else
             {
-                distance = New_GenerateMatrix.GenerateDistanceField(BaseCostMatrix, Rows, Columns, exit, null, canPathDiagonal);
+                distance = GenerateMatrix.GenerateDistanceField(BaseCostMatrix, Rows, Columns, exit, null, canPathDiagonal);
                 GoalPositionToDistanceField.Add(exit, distance);
             }
-            List<Vector2Int> path = New_GenerateMatrix.GetBestPathInDistanceMatrix(distance, Rows, Columns, start ,canPathDiagonal, null);
+            List<Vector2Int> path = GenerateMatrix.GetBestPathInDistanceMatrix(distance, Rows, Columns, start ,canPathDiagonal, null);
             AllTakenPaths.Add((start, exit), path);
             return path;
         }
@@ -220,21 +220,21 @@ public class Plate
     //needs to handle values that are negative
     public Vector3 GetSubTileCenterWorldCoordinates(Vector2Int pos)
     {
-        return new Vector3((New_GenerateMatrix.TileSizeX * pos.x) + (Center.x - Size.x / 2) + (New_GenerateMatrix.TileSizeX / 2), 0, New_GenerateMatrix.TileSizeZ * pos.y + (Center.z - Size.z / 2) + New_GenerateMatrix.TileSizeZ / 2);
+        return new Vector3((GenerateMatrix.TileSizeX * pos.x) + (Center.x - Size.x / 2) + (GenerateMatrix.TileSizeX / 2), 0, GenerateMatrix.TileSizeZ * pos.y + (Center.z - Size.z / 2) + GenerateMatrix.TileSizeZ / 2);
     }
     public Vector3 GetSubTileCenterWorldCoordinates(int rows, int cols)
     {
-        return new Vector3((New_GenerateMatrix.TileSizeX * rows) + (Center.x - Size.x / 2) + (New_GenerateMatrix.TileSizeX / 2), 0, New_GenerateMatrix.TileSizeZ * cols + (Center.z - Size.z / 2) + New_GenerateMatrix.TileSizeZ / 2);
+        return new Vector3((GenerateMatrix.TileSizeX * rows) + (Center.x - Size.x / 2) + (GenerateMatrix.TileSizeX / 2), 0, GenerateMatrix.TileSizeZ * cols + (Center.z - Size.z / 2) + GenerateMatrix.TileSizeZ / 2);
     }
     public Vector2Int GetPositionInArray(Vector3 positionVector3, bool safe)
     {
         if (safe)
         {
-            return new Vector2Int(Math.Clamp(Mathf.FloorToInt((positionVector3.x - (Center.x - (Rows * New_GenerateMatrix.TileSizeX) / 2)) / New_GenerateMatrix.TileSizeX), 0, Rows - 1), Math.Clamp(Mathf.FloorToInt((positionVector3.z - (Center.z - (Columns * New_GenerateMatrix.TileSizeZ) / 2)) / New_GenerateMatrix.TileSizeZ), 0, Columns - 1));
+            return new Vector2Int(Math.Clamp(Mathf.FloorToInt((positionVector3.x - (Center.x - (Rows * GenerateMatrix.TileSizeX) / 2)) / GenerateMatrix.TileSizeX), 0, Rows - 1), Math.Clamp(Mathf.FloorToInt((positionVector3.z - (Center.z - (Columns * GenerateMatrix.TileSizeZ) / 2)) / GenerateMatrix.TileSizeZ), 0, Columns - 1));
         }
         else
         {
-            return new Vector2Int(Mathf.FloorToInt((positionVector3.x - (Center.x - (Rows * New_GenerateMatrix.TileSizeX) / 2)) / New_GenerateMatrix.TileSizeX), Mathf.FloorToInt((positionVector3.z - (Center.z - (Columns * New_GenerateMatrix.TileSizeZ) / 2)) / New_GenerateMatrix.TileSizeZ));
+            return new Vector2Int(Mathf.FloorToInt((positionVector3.x - (Center.x - (Rows * GenerateMatrix.TileSizeX) / 2)) / GenerateMatrix.TileSizeX), Mathf.FloorToInt((positionVector3.z - (Center.z - (Columns * GenerateMatrix.TileSizeZ) / 2)) / GenerateMatrix.TileSizeZ));
         }
     }
 
@@ -254,11 +254,11 @@ public class Plate
     {
         List<Vector2Int> stepsTaken = new List<Vector2Int> { };
         Vector2Int goalPos = GetPositionInArray(exitWorld, false);
-        stepsTaken = New_GenerateMatrix.InterpolateArray(start, goalPos, ((Vector2Int a, Vector2Int b) compare) => CloserPlateToGoal(compare.a, compare.b, exitWorld), false, Rows, Columns);
+        stepsTaken = GenerateMatrix.InterpolateArray(start, goalPos, ((Vector2Int a, Vector2Int b) compare) => CloserPlateToGoal(compare.a, compare.b, exitWorld), false, Rows, Columns);
         
         foreach (Vector2Int step in stepsTaken)
         {
-            BaseCostMatrix[step.x, step.y] += New_GenerateMatrix.MatrixObstacleValue;
+            BaseCostMatrix[step.x, step.y] += GenerateMatrix.MatrixObstacleValue;
         }
 
         if (budeToOccupiedSpaces.ContainsKey(b))
@@ -274,7 +274,7 @@ public class Plate
 
         //RecalcWakable();
         HasNoObstacles = false;
-        ExitDirection dir = New_GenerateMatrix.DirectionToExitDiretion(goalPos-start);
+        ExitDirection dir = GenerateMatrix.DirectionToExitDiretion(goalPos-start);
         if(start == new Vector2(0,0))
         {
             if(dir == ExitDirection.East)
@@ -343,7 +343,7 @@ public class Plate
         List<Vector2Int> allOccupied = budeToOccupiedSpaces[b];
         foreach (Vector2Int step in allOccupied)
         {
-            BaseCostMatrix[step.x, step.y] -= New_GenerateMatrix.MatrixObstacleValue;
+            BaseCostMatrix[step.x, step.y] -= GenerateMatrix.MatrixObstacleValue;
         }
         FindAllExitableDirections(canPathDiagonal);
         hasChanged = true;
@@ -364,7 +364,7 @@ public class Plate
         {
             for (int column = 0; column < Columns; column++)
             {
-                if (BaseCostMatrix[row, column] == New_GenerateMatrix.MatrixObstacleValue)
+                if (BaseCostMatrix[row, column] == GenerateMatrix.MatrixObstacleValue)
                 {
                     obstacleTiles++;
                 }

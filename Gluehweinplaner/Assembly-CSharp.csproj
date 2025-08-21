@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\Audio\VolumeManager.cs" />
     <Compile Include="Assets\Scripts\Audio\SoundFXManager.cs" />
     <Compile Include="Assets\Scripts\Menu\ScoreManager.cs" />
+    <Compile Include="Assets\Scripts\TestMovingScript.cs" />
     <Compile Include="Assets\Scripts\Audio\VolumeChangeSound.cs" />
     <Compile Include="Assets\Scripts\GameLogik\NPC.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\TransferType.cs" />

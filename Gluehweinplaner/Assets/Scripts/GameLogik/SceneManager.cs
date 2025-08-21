@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 #nullable enable
 
 
@@ -41,16 +43,14 @@ public class SceneManager : MonoBehaviour
     private Heatmap? hm;
 
     private Dictionary<Vector3, (int[,], int[,])> goalPositionToDistanceMatrix = new Dictionary<Vector3, (int[,], int[,])>();
-    private Dictionary<(Vector3, Vector3), (List<Plate>, Queue<Vector3>, Queue<Vector3>)> allPositionsToGoals = new Dictionary<(Vector3, Vector3), (List<Plate>, Queue<Vector3>, Queue<Vector3>)>();
+    private Dictionary<(Vector3, Vector3), (List<Plate>, Queue<Vector3>)> allPositionsToGoals = new Dictionary<(Vector3, Vector3), (List<Plate>, Queue<Vector3>)>();
 
-    private List<New_GoalNode> allGoalNodes = new List<New_GoalNode>();
-    private List<Bounds> allFloorBounds = new List<Bounds>(); private LinkedList<int> leereStellen = new LinkedList<int>();
+    private List<GoalNode> allGoalNodes = new List<GoalNode>();
+    private List<Bounds> allFloorBounds = new List<Bounds>(); 
     private List<NPC> alleCurrentAgents = new List<NPC>();
 
-    private float normalPlateX = 0;
-    private float normalPlateZ = 0;
-    private float randPlateX = 0;
-    private float randPlateZ = 0;
+    public float normalPlateX = 0;
+    public float normalPlateZ = 0;
     
     
 
@@ -85,13 +85,10 @@ public class SceneManager : MonoBehaviour
             allPlateArray = tt.Plates;
             normalPlateX = tt.normalPlateX;
             normalPlateZ = tt.normalPlateZ;
-            randPlateX = tt.randPlateX;
-            randPlateZ = tt.randPlateZ;
             plateCountX = tt.plateCountX;
             plateCountZ = tt.plateCountZ;
         }
-        
-        hm.InitHeatMap(plateCountX, plateCountZ, normalPlateX, normalPlateZ, randPlateX, randPlateZ);
+
 
         foreach (Plate plate in allPlateArray!)
         {
@@ -125,7 +122,6 @@ public class SceneManager : MonoBehaviour
         }
         if (playerCount > maxPlayerCount)
         {
-            Debug.Log(playerCount + " "+maxPlayerCount);
             DespawnUnused();
         }
     }
@@ -139,7 +135,7 @@ public class SceneManager : MonoBehaviour
             alleCurrentAgents.Remove(ac);
             playerCount--;
             inactivePlayerCount++;
-            hm!.ClearPos(WorldPositionToPlateArrayPosition(ac.GetPosition()));
+            hm!.ClearPos(ac.GetPosition());
         }
     }
 
@@ -149,7 +145,7 @@ public class SceneManager : MonoBehaviour
     public void addPlayer(NPC npc) { if (!alleCurrentAgents.Contains(npc)) { alleCurrentAgents.Add(npc); playerCount++; } }
     public void removePlayer(NPC npc) { playerCount--; alleCurrentAgents.Remove(npc); }
     public bool CanAddPlayer() { return playerCount < maxPlayerCount; }
-    public Vector3? GetNewSpawnPoint()
+    public (Vector3,Vector3) GetNewSpawnPoint()
     {
         return allSpawner![UnityEngine.Random.Range(0, allSpawner.Length)].GenerateRandomPosition();
     }
@@ -170,7 +166,6 @@ public class SceneManager : MonoBehaviour
         playerCount = 0;
         agentsLostPatience = 0;
         simulating = false;
-        leereStellen = new LinkedList<int>();
         alleCurrentAgents = new List<NPC>();
         hm!.Reset();
         CalcAllBudenWeight();
@@ -223,8 +218,10 @@ public class SceneManager : MonoBehaviour
     }
 
     private string CreateJSON()
-    {
-        AlleBudenJSON aB = new AlleBudenJSON(allBudenScripts!.Count - leereStellen.Count);
+    { 
+        AlleBudenJSON aB = new AlleBudenJSON(allBudenScripts!.Count);
+        AlleExitJSON aE = new AlleExitJSON(allExits!.Length);
+        AlleSpawnJSON aS = new AlleSpawnJSON(allSpawner!.Length);
         int j = 0;
         for (int i = 0; i < allBudenScripts!.Count; i++)
         {
@@ -234,7 +231,15 @@ public class SceneManager : MonoBehaviour
                 j++;
             }
         }
-        return JsonUtility.ToJson(aB);
+        for(int i=0; i < allSpawner.Length; i++)
+        {
+            aS.spawnArray[i] = allSpawner[i].ToJSON();
+        }
+        for (int i = 0; i < allExits!.Length; i++)
+        {
+            aE.exitArray[i] = allExits![i].ToJSON();
+        }
+        return JsonUtility.ToJson(new GanzeSzene(aB, aE, aS));
     }
 
     public void SaveJSON()
@@ -247,13 +252,13 @@ public class SceneManager : MonoBehaviour
             writer.Write(CreateJSON());
         }
 
-        SoundFXManager.instance.PlaySoundFXClip(saveSoundClip, transform, 1f);
+        //SoundFXManager.instance.PlaySoundFXClip(saveSoundClip, transform, 1f);
     }
 
-    private AlleBudenJSON? ReadJSON()
+    private GanzeSzene? ReadJSON()
     {
         string path = Application.persistentDataPath + "/Position.json";
-        AlleBudenJSON? a = null;
+        GanzeSzene? a = null;
 
         if (!File.Exists(path))
         {
@@ -263,12 +268,11 @@ public class SceneManager : MonoBehaviour
         try
         {
             Debug.Log("Lese Datei von Pfad: " + path);
-
             using (StreamReader reader = new StreamReader(path))
             {
                 string jsonContent = reader.ReadToEnd();
 
-                a = JsonUtility.FromJson<AlleBudenJSON>(jsonContent);
+                a = JsonUtility.FromJson<GanzeSzene>(jsonContent);
 
                 if (a == null)
                 {
@@ -287,18 +291,20 @@ public class SceneManager : MonoBehaviour
 
     public void LoadBudenFromJSON()
     {
-        AlleBudenJSON? aB = ReadJSON();
-        GameObject? o = Resources.Load("Stand") as GameObject;
-        if (aB != null)
+        GanzeSzene? gS = ReadJSON();
+        GameObject? stand = Resources.Load("New_Stand") as GameObject;
+        GameObject? exit = Resources.Load("Exit") as GameObject;
+        GameObject? spawner = Resources.Load("Spawner") as GameObject;
+        if (gS != null)
         {
             GameObject budenContainer = GameObject.Find(budenContainerName);
-            foreach (BudenJSON b in aB.budenArray)
+            foreach (BudenJSON b in gS.alleBuden.budenArray)
             {
                 Vector3 pos = new(b.xPos, 0, b.zPos);
                 Quaternion orien = Quaternion.Euler(0, b.yRot, 0);
-                if (o != null && !Physics.CheckSphere(new Vector3(pos.x, 10, pos.z), 6.25f))
+                if (stand != null && !Physics.CheckSphere(new Vector3(pos.x, 10, pos.z), 6.25f))
                 {
-                    GameObject newObj = Instantiate(o, pos, orien);
+                    GameObject newObj = Instantiate(stand, pos, orien);
                     Bude bd = newObj.GetComponent<Bude>();
                     newObj.transform.parent = budenContainer.transform;
                     bd.attraktivitaet = b.attrak;
@@ -306,9 +312,32 @@ public class SceneManager : MonoBehaviour
                     bd.SetTypeIndex(1);
                     AddBude(bd);
                 }
-
             }
-            SoundFXManager.instance.PlaySoundFXClip(loadSoundClip, transform, 1f);
+            foreach (ExitJSON e in gS.allExits.exitArray)
+            {
+                Vector3 pos = new Vector3(e.xPos, 0, e.zPos);
+                Quaternion orien = Quaternion.Euler(0, e.yRot, 0);
+                Transform exitContainer = GameObject.Find(exitContainerName).transform;
+                if (exit != null)
+                {
+                    GameObject newObj = Instantiate(exit, pos, orien);
+                    newObj.transform.parent = exitContainer;
+                }
+            }
+            foreach (SpawnJSON s in gS.alleSpawns.spawnArray)
+            {
+                Vector3 pos = new Vector3(s.xPos, 0, s.zPos);
+                Quaternion orien = Quaternion.Euler(0, s.yRot, 0);
+                Transform spawnerContainer = GameObject.Find(spawnerContainerName).transform;
+                if (spawner != null)
+                {
+                    GameObject newObj = Instantiate(spawner, pos, orien);
+                    newObj.transform.parent = spawnerContainer;
+                }
+            }
+
+
+            //SoundFXManager.instance.PlaySoundFXClip(loadSoundClip, transform, 1f);
         }
         else
         {
@@ -321,7 +350,7 @@ public class SceneManager : MonoBehaviour
         Vector2Int end = WorldPositionToPlateArrayPosition(_end);
         Vector2Int dirEnd = end - start;
         Vector3 worldEnd = _end - _start;
-        List<Vector2Int> platesToVisit = New_GenerateMatrix.InterpolateArray(start, end, ((Vector2Int a, Vector2Int b) toCompare) => (Vector3.Distance(allPlateArray![toCompare.a.x, toCompare.a.y].Center, _end) < Vector3.Distance(allPlateArray[toCompare.b.x, toCompare.b.y].Center, _end))? toCompare.a : toCompare.b , false, plateCountX, plateCountZ);
+        List<Vector2Int> platesToVisit = GenerateMatrix.InterpolateArray(start, end, ((Vector2Int a, Vector2Int b) toCompare) => (Vector3.Distance(allPlateArray![toCompare.a.x, toCompare.a.y].Center, _end) < Vector3.Distance(allPlateArray[toCompare.b.x, toCompare.b.y].Center, _end))? toCompare.a : toCompare.b , false, plateCountX, plateCountZ);
       
         Vector2Int startPos = allPlateArray![platesToVisit[0].x, platesToVisit[0].y].GetPositionInArray(_start, true);
         if (platesToVisit.Count > 1)
@@ -482,30 +511,24 @@ public class SceneManager : MonoBehaviour
 
         foreach (List<Bude> goalGroup in groups)
         {
-            New_GoalNode gn = new New_GoalNode(goalGroup, WorldPositionToPlate(goalGroup[0].GetFarestPoint()));
+            GoalNode gn = new GoalNode(goalGroup, WorldPositionToPlate(goalGroup[0].GetFarestPoint()));
             allGoalNodes.Add(gn);
             gn.OnPlate.AddGoalNode(gn, pathDiagonal);
         }
     }
 
-    public (Queue<Vector3>, Queue<Vector3>) HandlePathRequest(Vector3 start, New_GoalNode goalNode)
+    public Queue<Vector3> HandlePathRequest(Vector3 start, GoalNode goalNode)
     {
         return HandlePathRequest(start, goalNode.Position);
     }
 
 
-    public (Queue<Vector3> ,Queue<Vector3>) HandlePathRequest(Vector3 start, Vector3 goal)
+    public Queue<Vector3> HandlePathRequest(Vector3 start, Vector3 goal)
     {
         if (allPositionsToGoals.ContainsKey((start,goal))) {
-            List<Plate> np = allPositionsToGoals[(start, goal)].Item1;
-            bool changed = false;
-            foreach (Plate p in np) {
-                changed |= p.hasChanged;
-                p.hasChanged = false;
-            }
-            if (!changed)
+            if (PlatePathChanged(allPositionsToGoals[(start, goal)].Item1))
             {
-                return (new Queue<Vector3>(allPositionsToGoals[(start, goal)].Item2), new Queue<Vector3>(allPositionsToGoals[(start, goal)].Item3));
+                return new Queue<Vector3>(allPositionsToGoals[(start, goal)].Item2);
             }
         }
 
@@ -524,12 +547,12 @@ public class SceneManager : MonoBehaviour
         }
         else
         {
-            baseCostPlates = New_GenerateMatrix.GenerateBaseCostMatrix(plateCountX, plateCountZ, (int row, int column) => !allPlateArray![row, column].HasOnlyObstacles, out bool onlyObstacles, out bool noObstacles);
-            distanceMatrix = New_GenerateMatrix.GenerateDistanceField(baseCostPlates, plateCountX, plateCountZ, arrayGoal, (Vector2Int currentPlate, Vector2Int direction) => canPathTo(currentPlate, direction), pathDiagonal);
+            baseCostPlates = GenerateMatrix.GenerateBaseCostMatrix(plateCountX, plateCountZ, (int row, int column) => !allPlateArray![row, column].HasOnlyObstacles, out bool onlyObstacles, out bool noObstacles);
+            distanceMatrix = GenerateMatrix.GenerateDistanceField(baseCostPlates, plateCountX, plateCountZ, arrayGoal, (Vector2Int currentPlate, Vector2Int direction) => canPathTo(currentPlate, direction), pathDiagonal);
         }
       
-        platePosToVisit = New_GenerateMatrix.GetBestPathInDistanceMatrix(distanceMatrix, plateCountX, plateCountZ, arrayStart, pathDiagonal, (Vector2Int currentPlate, Vector2Int direction) => canPathTo(currentPlate, direction));
-        if (platePosToVisit.Count == 0) { return (new Queue<Vector3>(), new Queue<Vector3>()); }//there is no way to path to the goal from the given position
+        platePosToVisit = GenerateMatrix.GetBestPathInDistanceMatrix(distanceMatrix, plateCountX, plateCountZ, arrayStart, pathDiagonal, (Vector2Int currentPlate, Vector2Int direction) => canPathTo(currentPlate, direction));
+        if (platePosToVisit.Count == 0) { return new Queue<Vector3>(); }//there is no way to path to the goal from the given position
 
         platesToVisit = new List<Plate>();
         foreach (Vector2Int pos in platePosToVisit)
@@ -537,7 +560,7 @@ public class SceneManager : MonoBehaviour
             platesToVisit.Add(allPlateArray![pos.x, pos.y]);
         }
 
-        (Queue<Vector3> firstStep,Queue<Vector3> wayPoints, Plate? lastVisitedPlate) = New_GenerateMatrix.GeneratePath(platesToVisit, start, goal, pathDiagonal);
+        (Queue<Vector3> wayPoints, Plate? lastVisitedPlate) = GenerateMatrix.GeneratePath(platesToVisit, start, goal, pathDiagonal);
 
         if (lastVisitedPlate == null)
         {
@@ -547,10 +570,10 @@ public class SceneManager : MonoBehaviour
             }
             if (!allPositionsToGoals.ContainsKey((start, goal)))
             {
-                allPositionsToGoals.Add((start, goal), (platesToVisit, new Queue<Vector3>(firstStep), new Queue<Vector3>(wayPoints)));
+                allPositionsToGoals.Add((start, goal), (platesToVisit, new Queue<Vector3>(wayPoints)));
             }
 
-            return (firstStep,wayPoints);
+            return wayPoints;
         }
         else
         {
@@ -559,11 +582,11 @@ public class SceneManager : MonoBehaviour
             do
             {
                 Vector2Int platePos = WorldPositionToPlateArrayPosition(lastVisitedPlate!.Center);
-                baseCostPlates[platePos.x, platePos.y] = New_GenerateMatrix.MatrixObstacleValue;
-                distanceMatrix = New_GenerateMatrix.GenerateDistanceField(baseCostPlates, plateCountX, plateCountZ, arrayGoal, (Vector2Int currentPlate, Vector2Int direction) => canPathTo(currentPlate, direction), pathDiagonal);
-                platePosToVisit = New_GenerateMatrix.GetBestPathInDistanceMatrix(distanceMatrix, plateCountX, plateCountZ, arrayStart, pathDiagonal, (Vector2Int currentPlate, Vector2Int direction) => canPathTo(currentPlate, direction));
+                baseCostPlates[platePos.x, platePos.y] = GenerateMatrix.MatrixObstacleValue;
+                distanceMatrix = GenerateMatrix.GenerateDistanceField(baseCostPlates, plateCountX, plateCountZ, arrayGoal, (Vector2Int currentPlate, Vector2Int direction) => canPathTo(currentPlate, direction), pathDiagonal);
+                platePosToVisit = GenerateMatrix.GetBestPathInDistanceMatrix(distanceMatrix, plateCountX, plateCountZ, arrayStart, pathDiagonal, (Vector2Int currentPlate, Vector2Int direction) => canPathTo(currentPlate, direction));
 
-                if (platePosToVisit.Count == 0) { return (new Queue<Vector3>(), new Queue<Vector3>()); }//there is no way to path to the goal from the given position
+                if (platePosToVisit.Count == 0) { return new Queue<Vector3>(); }//there is no way to path to the goal from the given position
 
                 platesToVisit = new List<Plate>();
                 foreach (Vector2Int pos in platePosToVisit)
@@ -571,19 +594,43 @@ public class SceneManager : MonoBehaviour
                     platesToVisit.Add(allPlateArray![pos.x, pos.y]);
                 }
 
-                (Queue < Vector3 > newfirstStep,Queue < Vector3> newWayPoints, Plate? lastPlate) = New_GenerateMatrix.GeneratePath(platesToVisit, start, goal, pathDiagonal);
+                (Queue < Vector3> newWayPoints, Plate? lastPlate) = GenerateMatrix.GeneratePath(platesToVisit, start, goal, pathDiagonal);
                 lastVisitedPlate = lastPlate;
                 if (lastPlate == null)
                 {
-                    allPositionsToGoals.Add((start, goal), (platesToVisit, new Queue<Vector3>(firstStep), new Queue<Vector3>(newWayPoints)));
+                    if(allPositionsToGoals.ContainsKey((start, goal)))
+                    {
+                        allPositionsToGoals.Remove((start, goal));
+                    }
+                    if (goalPositionToDistanceMatrix.ContainsKey(goal))
+                    {
+                        goalPositionToDistanceMatrix.Remove(goal);
+                    }
+                    allPositionsToGoals.Add((start, goal), (platesToVisit, new Queue<Vector3>(newWayPoints)));
                     goalPositionToDistanceMatrix.Add(goal, (baseCostPlates, distanceMatrix));
 
-                    return (newfirstStep,newWayPoints);
+                    return newWayPoints;
                 }
                 tries++;
             } while (tries < Mathf.Max(plateCountX,plateCountZ));
-            return (new Queue<Vector3>(), new Queue<Vector3>());//no path could be found
+            return new Queue<Vector3>();//no path could be found
         }
+    }
+
+    private bool PlatePathChanged(List<Plate> np)
+    {
+        bool changed = false;
+        foreach (Plate p in np)
+        {
+            changed |= p.hasChanged;
+            p.hasChanged = false;
+        }
+        return changed;
+    }
+
+    public void ClearPos(Vector3 pos)
+    {
+        hm!.ClearPos(pos);
     }
 
     bool canPathTo(Vector2Int currentPlate, Vector2Int direction)
@@ -680,12 +727,12 @@ public class SceneManager : MonoBehaviour
 
     public void Moved(Vector3 from, Vector3 to)
     {
-        hm!.Moved(WorldPositionToPlateArrayPosition(from), WorldPositionToPlateArrayPosition(to));
+        hm!.Moved(from, to);
     }
 
     public void Spawned(Vector3 pos)
     {
-        hm!.Spawned(WorldPositionToPlateArrayPosition(pos));
+        hm!.Spawned(pos);
     }
 
     public Queue<Bude> CalcNewWeightedBuden(int goalsBeforeExit)
@@ -695,14 +742,13 @@ public class SceneManager : MonoBehaviour
         int tmpWeight = allBudenWeigth;
         for (int i = 0; i < goalsBeforeExit; i++)
         {
-            int rand = UnityEngine.Random.Range(0, tmpWeight + 1);
-            int tmpCount = 0;
+            int rand = UnityEngine.Random.Range(0, allBudenWeigth);
             foreach (Bude bude in allBuden)
             {
                 if (!returnBuden.Contains(bude))
                 {
-                    tmpCount += bude.attraktivitaet;
-                    if (tmpCount > rand) { allBuden.Remove(bude); tmpWeight -= bude.attraktivitaet ; returnBuden.Enqueue(bude); break; }
+                    rand -= bude.attraktivitaet;
+                    if (rand < 0) { allBuden.Remove(bude); tmpWeight -= bude.attraktivitaet ; returnBuden.Enqueue(bude); break; }
                 }
             }
         }
@@ -723,6 +769,28 @@ public class SceneManager : MonoBehaviour
             }
         }
     }
+
+    //private void OnDrawGizmos()
+    //{
+    //    if (Application.isPlaying)
+    //    {
+    //        foreach (Plate plate in allPlateArray!)
+    //        {
+    //            Gizmos.color = new Color(1,1,0,0.2f);
+    //            Gizmos.DrawCube(plate.Center, new(plate.Rows -0.5f, 0.1f, plate.Columns - 0.5f));
+    //            for (int i = 0; i < plate.Rows; i++)
+    //            {
+    //                for (int j = 0; j < plate.Columns; j++)
+    //                {
+    //                    Gizmos.color = Color.red;
+    //                    if (plate.BaseCostMatrix[i, j] != GenerateMatrix.MatrixIsPathableValue)
+    //                    {
+    //                        Gizmos.DrawCube(plate.GetSubTileCenterWorldCoordinates(i, j), new(1, 0, 1));
+    //                    }
+    //                }
+    //            }
+    //        }
+
+    //    }
+    //}
 }
-
-

@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Unity.Profiling;
+using UnityEditor;
 using UnityEngine;
 
 
 public class FPSLogger : MonoBehaviour
 {
-    List<(int,int, float, float, float)> stats = new List<(int,int, float, float, float)> ();
+    List<(int,float, int ,double, double, double, double)> stats = new List<(int, float, int, double, double, double, double)> ();
     SceneManager sc;
     StringBuilder advancedStats = new StringBuilder();
     StringBuilder fpsStats = new StringBuilder();
@@ -19,10 +20,7 @@ public class FPSLogger : MonoBehaviour
     ProfilerRecorder mainThreadTimeRecorder;
     ProfilerRecorder GPUFrameTimeRecorder;
     ProfilerRecorder CPUTotalFrameTimeRecorder;
-
-
-     int passedFrames = 0;
-
+    int passedFrames = 0;
     private void Start()
     {
         sc = GameObject.Find("SceneManager").GetComponent<SceneManager>();
@@ -30,18 +28,33 @@ public class FPSLogger : MonoBehaviour
         systemMemoryRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "Total Used Memory");
         CPUTotalFrameTimeRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "CPU Total Frame Time");
         GPUFrameTimeRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Render, "GPU Frame Time");
-        advancedStats.AppendLine("FrameNr.,FPS,agentCount,FrameTime in ms,System Memory in MB, CPU Frame Time in ms, GPU Frame Time in ms");
+        passedFrames++;
     }
 
     void Update()
     {
-        advancedStats.AppendLine($"{passedFrames},{1f / Time.deltaTime},{sc.playerCount},{GetRecorderFrameAverage(mainThreadTimeRecorder) * (1e-6f):F1},{systemMemoryRecorder.LastValue / (1024 * 1024)},{CPUTotalFrameTimeRecorder.LastValue},{GPUFrameTimeRecorder.LastValue}");
+        passedFrames++;
+        if (passedFrames % 10 == 0)
+        {
+            stats.Add((passedFrames, Time.deltaTime, sc.playerCount ,Math.Round(GetRecorderFrameAverage(mainThreadTimeRecorder),3), Math.Round((double)systemMemoryRecorder.LastValue,3), Math.Round((double)CPUTotalFrameTimeRecorder.LastValue,3), Math.Round((double)GPUFrameTimeRecorder.LastValue,3)));
+        }
+        if (!sc.CanAddPlayer())
+        {
+            stats.Add((passedFrames, Time.deltaTime, sc.playerCount, Math.Round(GetRecorderFrameAverage(mainThreadTimeRecorder), 3), Math.Round((double)systemMemoryRecorder.LastValue, 3), Math.Round((double)CPUTotalFrameTimeRecorder.LastValue, 3), Math.Round((double)GPUFrameTimeRecorder.LastValue, 3)));
+            Application.Quit();
+            EditorApplication.isPlaying = false;
+        }
     }
 
     public void OnApplicationQuit()
     {
         string pathTwo = Application.persistentDataPath + "/advanced-stats.csv";
-        Debug.Log("Speichere JSON nach: " + pathTwo);
+        advancedStats.AppendLine("FrameNr.,FPS,agentCount,FrameTime in ms,System Memory in MB, CPU Frame Time in ms, GPU Frame Time in ms");
+        foreach ((int, float, int, double, double, double, double) stat in stats)
+        {
+            advancedStats.AppendLine($"{stat.Item1},{Math.Round(1f / stat.Item2,3)},{stat.Item3},{Math.Round(stat.Item4 * (1e-6f),3)},{Math.Round(stat.Item5 / (1024 * 1024),3)},{Math.Round(stat.Item6 / 1000000f,3)},{Math.Round(stat.Item7 / 1000000f,3)}");
+        }
+
         using (StreamWriter writer = new StreamWriter(pathTwo, false))
         {
             writer.Write(advancedStats.ToString());
@@ -67,9 +80,6 @@ public class FPSLogger : MonoBehaviour
                 r += samples[i].Value;
             r /= samplesCount;
         }
-
         return r;
     }
-
-
 }

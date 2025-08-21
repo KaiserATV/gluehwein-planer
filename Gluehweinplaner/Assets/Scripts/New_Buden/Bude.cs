@@ -25,7 +25,7 @@ public class Bude : MonoBehaviour
     private BitArray2D wait_R;
     private BitArray2D ziel;
 
-    public New_GoalNode goalNode;
+    public GoalNode goalNode;
 
     public void Start()
     {
