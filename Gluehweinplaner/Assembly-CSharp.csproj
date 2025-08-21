@@ -60,35 +60,35 @@
     <Analyzer Include="Z:\Unity\2022.3.55f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Menu\RadialSelection.cs" />
+    <Compile Include="Assets\Scripts\New_Buden\DeleteBuilding.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\PlateGenerator.cs" />
+    <Compile Include="Assets\Scripts\SpawnerDespawner\Spawner.cs" />
+    <Compile Include="Assets\Scripts\Audio\VolumeManager.cs" />
+    <Compile Include="Assets\Scripts\Audio\SoundFXManager.cs" />
     <Compile Include="Assets\Scripts\Audio\RadialSlider.cs" />
+    <Compile Include="Assets\Scripts\Menu\ScoreManager.cs" />
+    <Compile Include="Assets\Scripts\TestMovingScript.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\GoalNode.cs" />
+    <Compile Include="Assets\Scripts\Audio\VolumeChangeSound.cs" />
     <Compile Include="Assets\Scripts\FPSLogger.cs" />
     <Compile Include="Assets\Scripts\Budeninteraktion\JSON.cs" />
+    <Compile Include="Assets\Scripts\GameLogik\NPC.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\Plate.cs" />
     <Compile Include="Assets\Scripts\New_Buden\BitArray2D.cs" />
+    <Compile Include="Assets\Scripts\FlowFieldSetup\TransferType.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\GenerateMatrix.cs" />
+    <Compile Include="Assets\Scripts\GameLogik\BeendenSzene.cs" />
+    <Compile Include="Assets\Scripts\Heatmap.cs" />
     <Compile Include="Assets\Scripts\New_Buden\Kategorien.cs" />
+    <Compile Include="Assets\Scripts\Movable.cs" />
+    <Compile Include="Assets\Scripts\Audio\VolumeMenuCloser.cs" />
     <Compile Include="Assets\Scripts\Budeninteraktion\ObjectSpawner.cs" />
     <Compile Include="Assets\Scripts\GameLogik\SceneManager.cs" />
     <Compile Include="Assets\Scripts\SpawnerDespawner\Exit.cs" />
     <Compile Include="Assets\Scripts\SpawnerDespawner\InactiveAgentsContainer.cs" />
-    <Compile Include="Assets\Scripts\New_Buden\Bude.cs" />
-    <Compile Include="Assets\Scripts\Menu\RadialSelection.cs" />
-    <Compile Include="Assets\Scripts\New_Buden\DeleteBuilding.cs" />
-    <Compile Include="Assets\Scripts\SpawnerDespawner\Spawner.cs" />
-    <Compile Include="Assets\Scripts\Audio\VolumeManager.cs" />
-    <Compile Include="Assets\Scripts\Audio\SoundFXManager.cs" />
-    <Compile Include="Assets\Scripts\Menu\ScoreManager.cs" />
-    <Compile Include="Assets\Scripts\TestMovingScript.cs" />
-    <Compile Include="Assets\Scripts\Audio\VolumeChangeSound.cs" />
-    <Compile Include="Assets\Scripts\GameLogik\NPC.cs" />
-    <Compile Include="Assets\Scripts\FlowFieldSetup\TransferType.cs" />
-    <Compile Include="Assets\Scripts\GameLogik\BeendenSzene.cs" />
-    <Compile Include="Assets\Scripts\Heatmap.cs" />
-    <Compile Include="Assets\Scripts\Movable.cs" />
-    <Compile Include="Assets\Scripts\Audio\VolumeMenuCloser.cs" />
     <Compile Include="Assets\Scripts\Movement\GodmodeController.cs" />
+    <Compile Include="Assets\Scripts\New_Buden\Bude.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -450,10 +450,6 @@
     </Reference>
     <Reference Include="ReportGeneratorMerged">
       <HintPath>Library\PackageCache\com.unity.testtools.codecoverage@1.2.6\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.4\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">
@@ -1046,10 +1042,6 @@
       <Project>{9EAA59FC-EA2B-263E-8F76-9E84BB77F6D4}</Project>
       <Name>Unity.XR.OpenXR.Features.OculusQuestSupport.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Flow.csproj">
-      <Project>{BD9198DB-4378-20F9-E576-512087FDA780}</Project>
-      <Name>Unity.VisualScripting.Flow</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.Mathematics.Editor.csproj">
       <Project>{4B972E02-9F31-38B1-DF55-769B01DDF20A}</Project>
       <Name>Unity.Mathematics.Editor</Name>
@@ -1194,10 +1186,6 @@
       <Project>{509C9BEC-90B5-B640-92AB-12AB1C410C19}</Project>
       <Name>Unity.Timeline.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Shared.Editor.csproj">
-      <Project>{14BF768C-B551-B198-0872-4CB5C090F4C0}</Project>
-      <Name>Unity.VisualScripting.Shared.Editor</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.Tutorials.Core.csproj">
       <Project>{ED3B0444-C243-C336-7C76-7299F83C75D8}</Project>
       <Name>Unity.Tutorials.Core</Name>
@@ -1214,17 +1202,9 @@
       <Project>{01EB95DA-814B-CB20-0E54-A7FE70C756CD}</Project>
       <Name>Unity.VisualStudio.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Core.csproj">
-      <Project>{F541BA69-AECD-E59C-0E05-55DD8A0E997D}</Project>
-      <Name>Unity.VisualScripting.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="UnityEngine.SpatialTracking.csproj">
       <Project>{26E87A60-230E-A524-E575-F4A870EC8B15}</Project>
       <Name>UnityEngine.SpatialTracking</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Core.Editor.csproj">
-      <Project>{BC319C8C-C975-70D6-9A64-CE73670004B5}</Project>
-      <Name>Unity.VisualScripting.Core.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.XR.Hands.Editor.csproj">
       <Project>{52E4E754-32CE-04C0-8AFA-48CF25B2713E}</Project>
@@ -1233,10 +1213,6 @@
     <ProjectReference Include="UnityEditor.XR.LegacyInputHelpers.csproj">
       <Project>{A2F9A5FA-2196-5EB0-5471-0AD5E1154D0F}</Project>
       <Name>UnityEditor.XR.LegacyInputHelpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Flow.Editor.csproj">
-      <Project>{27119AD3-A36D-6210-CAE1-D5787BD9A9E9}</Project>
-      <Name>Unity.VisualScripting.Flow.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Timeline.csproj">
       <Project>{E4D184F3-9CE2-BD46-7099-3C74955DB8DA}</Project>
@@ -1258,10 +1234,6 @@
       <Project>{4DA399F2-A05A-CCA0-62CC-B0F6621FC452}</Project>
       <Name>Varjo.XR</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.SettingsProvider.Editor.csproj">
-      <Project>{42D8099C-0404-9D20-D104-74E49F609AE8}</Project>
-      <Name>Unity.VisualScripting.SettingsProvider.Editor</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.XR.OpenXR.Editor.csproj">
       <Project>{9B2BCB52-3169-ED3F-4E40-89F996E25311}</Project>
       <Name>Unity.XR.OpenXR.Editor</Name>
@@ -1281,10 +1253,6 @@
     <ProjectReference Include="Unity.Postprocessing.Editor.csproj">
       <Project>{37BCD43E-CD79-FA1D-7731-2CCF94A7A9F1}</Project>
       <Name>Unity.Postprocessing.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.State.Editor.csproj">
-      <Project>{F5F00687-13EA-F19F-0422-0415758F5BC1}</Project>
-      <Name>Unity.VisualScripting.State.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.XR.ARFoundation.InternalUtils.csproj">
       <Project>{E8AF0D72-C9E1-5D4D-24ED-04249444B680}</Project>
@@ -1317,10 +1285,6 @@
     <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.DeviceSimulator.csproj">
       <Project>{F9EDCE1A-93B5-65BA-752D-E8E49EB2D1CC}</Project>
       <Name>Unity.XR.Interaction.Toolkit.Samples.DeviceSimulator</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.State.csproj">
-      <Project>{68F42E30-74FD-0335-C71E-CD40FA8A3DAF}</Project>
-      <Name>Unity.VisualScripting.State</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

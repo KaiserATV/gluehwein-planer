@@ -60,34 +60,34 @@
     <Analyzer Include="Z:\Unity\2022.3.55f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\EyeTracking\VarjoEyeTracking.cs" />
+    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\MixedReality\Streams\VarjoDistortedColorStream.cs" />
     <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\MixedReality\VarjoMixedReality.cs" />
+    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\XRSubsystems\VarjoSessionSubsystem.cs" />
+    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\XRSubsystems\VarjoOcclusionSubsystem.cs" />
     <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\Input\DeviceLayouts.cs" />
     <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\MixedReality\Streams\VarjoCubemapMetadata.cs" />
+    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\VarjoLoader.cs" />
     <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\MixedReality\Streams\VarjoCameraMetadata.cs" />
+    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\BlendControlMask\VarjoBlendControlMask.cs" />
     <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\VarjoSettings.cs" />
+    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\Varjo.cs" />
+    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\VarjoTime.cs" />
+    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\XRSubsystems\VarjoCameraSubsystem.cs" />
     <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\Markers\VarjoMarkers.cs" />
     <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\MixedReality\VarjoCameraProperties.cs" />
+    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\EyeTracking\VarjoHeadsetIPD.cs" />
+    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\MixedReality\Streams\VarjoStreams.cs" />
     <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\MixedReality\Streams\VarjoEnvironmentCubemapStream.cs" />
+    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\VarjoMathUtils.cs" />
+    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\VarjoError.cs" />
     <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\MixedReality\VarjoCpuImageAPI.cs" />
+    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\ChromaKey\VarjoChromaKey.cs" />
+    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\Rendering\VarjoRendering.cs" />
     <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\MixedReality\Streams\VarjoFrameStream.cs" />
     <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\VarjoEventManager.cs" />
     <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\MixedReality\Streams\VarjoCameraMetadataStream.cs" />
     <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\MixedReality\Streams\VarjoTextureBuffer.cs" />
-    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\EyeTracking\VarjoEyeTracking.cs" />
-    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\MixedReality\Streams\VarjoDistortedColorStream.cs" />
-    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\XRSubsystems\VarjoSessionSubsystem.cs" />
-    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\XRSubsystems\VarjoOcclusionSubsystem.cs" />
-    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\VarjoLoader.cs" />
-    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\BlendControlMask\VarjoBlendControlMask.cs" />
-    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\Varjo.cs" />
-    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\VarjoTime.cs" />
-    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\XRSubsystems\VarjoCameraSubsystem.cs" />
-    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\EyeTracking\VarjoHeadsetIPD.cs" />
-    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\MixedReality\Streams\VarjoStreams.cs" />
-    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\VarjoMathUtils.cs" />
-    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\VarjoError.cs" />
-    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\ChromaKey\VarjoChromaKey.cs" />
-    <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\Rendering\VarjoRendering.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Packages\VarjoUnityXRPlugin-master\Runtime\Windows\x64\VarjoLib.dll" />
@@ -442,10 +442,6 @@
       <HintPath>Z:\Unity\2022.3.55f1\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.VisualScripting.YamlDotNet">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.4\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="ReportGeneratorMerged">
       <HintPath>Library\PackageCache\com.unity.testtools.codecoverage@1.2.6\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
       <Private>False</Private>
@@ -474,16 +470,8 @@
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.6.0\Lib\Editor\log4netPlastic.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.VisualScripting.IonicZip">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.4\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Meryel.UnityCodeAssist.YamlDotNet">
       <HintPath>Packages\com.merry-yellow.code-assist\Editor\ExternalReferences\Meryel.UnityCodeAssist.YamlDotNet.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.4\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Meryel.UnityCodeAssist.Newtonsoft.Json">
@@ -496,10 +484,6 @@
     </Reference>
     <Reference Include="Meryel.UnityCodeAssist.ProjectData">
       <HintPath>Packages\com.merry-yellow.code-assist\Editor\ExternalReferences\Meryel.UnityCodeAssist.ProjectData.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.TextureAssets">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.4\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Meryel.UnityCodeAssist.MQTTnet.Extensions.ManagedClient">

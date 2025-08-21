@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 #nullable enable
 
-
 public class Plate
 {
     public Plate(Vector3 pos, int[,] bcm)

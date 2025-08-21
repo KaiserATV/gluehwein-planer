@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 #nullable enable
 
@@ -166,16 +163,15 @@ public class NPC : MonoBehaviour
                                 waitingSpot = bude!.GetNewPosition(this);
                                 if(waitingSpot == null)
                                 {
-                                    onWayToBude = false;
-                                    onWayBackFromBude = false;
-                                    onWayToGoalNode = true;
-                                    waiting = false;
-                                    bude = budenToVisit.Dequeue();
-                                    currentGoalNode = bude!.goalNode;
-                                    patienceLost = patience;
-                                    moveList = sm!.HandlePathRequest(this.transform.position, currentGoalNode);
-                                    nextWayPoint = moveList.Dequeue();
-                                    onWayToGoalNode = true;
+                                    if(budenToVisit.Count > 0)
+                                    {
+                                        onWayToBude = false;
+                                        onWayBackFromBude = true;
+                                    }
+                                    else
+                                    {
+                                        exiting = true;
+                                    }
                                 }
                             }
                         }
