@@ -61,34 +61,35 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Menu\RadialSelection.cs" />
-    <Compile Include="Assets\Scripts\New_Buden\DeleteBuilding.cs" />
+    <Compile Include="Assets\Scripts\Buden\Kategorien.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\PlateGenerator.cs" />
     <Compile Include="Assets\Scripts\SpawnerDespawner\Spawner.cs" />
     <Compile Include="Assets\Scripts\Audio\VolumeManager.cs" />
     <Compile Include="Assets\Scripts\Audio\SoundFXManager.cs" />
     <Compile Include="Assets\Scripts\Audio\RadialSlider.cs" />
     <Compile Include="Assets\Scripts\Menu\ScoreManager.cs" />
-    <Compile Include="Assets\Scripts\TestMovingScript.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\GoalNode.cs" />
     <Compile Include="Assets\Scripts\Audio\VolumeChangeSound.cs" />
-    <Compile Include="Assets\Scripts\FPSLogger.cs" />
     <Compile Include="Assets\Scripts\Budeninteraktion\JSON.cs" />
+    <Compile Include="Assets\Scripts\TestingScripts\MoveBude.cs" />
     <Compile Include="Assets\Scripts\GameLogik\NPC.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\Plate.cs" />
-    <Compile Include="Assets\Scripts\New_Buden\BitArray2D.cs" />
+    <Compile Include="Assets\Scripts\TestingScripts\TestMovingScript.cs" />
+    <Compile Include="Assets\Scripts\Buden\BitArray2D.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\TransferType.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\GenerateMatrix.cs" />
     <Compile Include="Assets\Scripts\GameLogik\BeendenSzene.cs" />
     <Compile Include="Assets\Scripts\Heatmap.cs" />
-    <Compile Include="Assets\Scripts\New_Buden\Kategorien.cs" />
+    <Compile Include="Assets\Scripts\Buden\DeleteBuilding.cs" />
     <Compile Include="Assets\Scripts\Movable.cs" />
     <Compile Include="Assets\Scripts\Audio\VolumeMenuCloser.cs" />
+    <Compile Include="Assets\Scripts\Buden\Bude.cs" />
     <Compile Include="Assets\Scripts\Budeninteraktion\ObjectSpawner.cs" />
     <Compile Include="Assets\Scripts\GameLogik\SceneManager.cs" />
     <Compile Include="Assets\Scripts\SpawnerDespawner\Exit.cs" />
     <Compile Include="Assets\Scripts\SpawnerDespawner\InactiveAgentsContainer.cs" />
     <Compile Include="Assets\Scripts\Movement\GodmodeController.cs" />
-    <Compile Include="Assets\Scripts\New_Buden\Bude.cs" />
+    <Compile Include="Assets\Scripts\TestingScripts\FPSLogger.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

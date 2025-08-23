@@ -320,8 +320,7 @@ public class RadicalSelection : MonoBehaviour
     public void DeleteBuilding()
     {
         if (selectedBude != null)
-        {
-            selectedBude.ToBeDestroyed();
+        {            
             sm.RemoveBude(selectedBude);
             Destroy(selectedBude.gameObject);
         }

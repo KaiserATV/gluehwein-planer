@@ -93,7 +93,6 @@ public class BuildingDeletion : MonoBehaviour
         if (selectedBuilding != null)
         {
             Bude b = selectedBuilding.GetComponent<Bude>();
-            b.ToBeDestroyed();
             sm.RemoveBude(b);
             Destroy(selectedBuilding);
         }

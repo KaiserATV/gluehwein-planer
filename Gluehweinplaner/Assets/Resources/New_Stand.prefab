@@ -433,7 +433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 1
-  Agent: {fileID: 8394834171913602733, guid: c94b48ead9f89224583755a159218ae4, type: 3}
+  Agent: {fileID: 7915198942624319407, guid: 1ce76fdb171adb54abce9f11b46b780e, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5

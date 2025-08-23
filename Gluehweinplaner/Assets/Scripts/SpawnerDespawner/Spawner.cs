@@ -22,7 +22,7 @@ public class Spawner : MonoBehaviour
         sm = GameObject.Find("SceneManager").GetComponent<SceneManager>();
         iac = GameObject.Find("InactiveAgentHolder").GetComponent<InactiveAgentsContainer>();
 
-        prop = Resources.Load("agent") as GameObject;
+        prop = Resources.Load("NPC") as GameObject;
         Bounds b = GetComponentInChildren<MeshRenderer>().bounds;
 
         minWorldLimitX = b.min.x;

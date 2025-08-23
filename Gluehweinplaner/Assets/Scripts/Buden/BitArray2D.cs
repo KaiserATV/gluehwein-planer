@@ -8,28 +8,27 @@ public class BitArray2D
     //z=0x=0 z=0x=1
     //z=1x=0 z=1x=1
     private BitArray array;
-    private bool full;
     private int cellsX;
     private int cellsZ;
     private float AgentWidthX;
     private float AgentWidthZ;
-    private Dictionary<NPC, Vector2Int> registeredPlayers=new Dictionary<NPC, Vector2Int>();
+    private int currentWaiting = 0;
     private Transform childT;
     private int positionToBude; //0 -directly infront of Bode, 1 - to the left of the Bude, 2- to the right of the Bude
     private float schiebX;
     private float schiebZ;
     private const float spacearound = 2f;
+    private int kapa;
 
     public BitArray2D( Bounds b, Transform child, int p, float ax, float az) { 
         childT = child;
 
-        full = false;   
         positionToBude = p;
         AgentWidthX = ax;
         AgentWidthZ = az;
        
         CalcWidthHeight();
-
+        kapa = cellsX * cellsZ;
 
         array = new BitArray(cellsX * cellsZ);
 
@@ -40,12 +39,11 @@ public class BitArray2D
 
     public void Reset()
     {
-        registeredPlayers = new Dictionary<NPC, Vector2Int>();
-        array = new BitArray(cellsX * cellsZ);
+        array = new BitArray(kapa);
     }
     public int GetKapa()
     {
-        return cellsX * cellsZ;
+        return kapa;
     }
 
 
@@ -69,47 +67,40 @@ public class BitArray2D
     }
 
 
-    public void AddPlayer(Vector2Int v, NPC ac)
+    private void AddPlayer(Vector2Int v)
     {
-        registeredPlayers.Add(ac,v);
-        ac.SetCells(v);
-        // ac.SetGoal(GetRealWorldCords(v));
         array[v.y * cellsX + v.x] = true;
-        if (registeredPlayers.Count == cellsX * cellsZ) { full = true; }
+        currentWaiting++;
     }
 
-    public void RemovePlayer(NPC ac)
+    public void RemovePlayer(Vector2Int pos)
     {
-        if (registeredPlayers.ContainsKey(ac)) { 
-            Vector2Int pos = registeredPlayers[ac];
-            registeredPlayers.Remove(ac);
-            array[pos.y * cellsX + pos.x] = false;
-            full = false;
-        };
+        array[pos.y * cellsX + pos.x] = false;
+        currentWaiting--;
     }
 
-    public Vector3 FindBestPositionAndAdd(NPC ac)
+    public (Vector3,Vector2Int) FindBestPositionAndAdd()
     {
         Vector2Int coord = new Vector2Int(-1, -1);
-        if (!full)
+        if (!IsFull())
         {
             switch (positionToBude)
             {
                 case 0:
-                    coord = AddInFront(ac);
+                    coord = AddInFront();
                     break;
                 case 1:
-                    coord = AddToLeft(ac);
+                    coord = AddToLeft();
                     break;
                 case 2:
-                    coord = AddToRight(ac);
+                    coord = AddToRight();
                     break;
             }
         }
-        return GetRealWorldCords(coord);
+        return (GetRealWorldCords(coord),coord);
     }
 
-    public Vector2Int AddInFront(NPC ac)
+    private Vector2Int AddInFront()
     {
         for (int x = 0; x < cellsX; x++)
         {
@@ -117,7 +108,7 @@ public class BitArray2D
             {
                 if (!array[z * cellsX + x])
                 {
-                    AddPlayer(new Vector2Int(x, z), ac);
+                    AddPlayer(new Vector2Int(x, z));
                     return new Vector2Int(x, z);
                 }
             }
@@ -125,7 +116,7 @@ public class BitArray2D
         return new Vector2Int(-1, -1);
     }
 
-    public Vector2Int AddToLeft(NPC ac)
+    private Vector2Int AddToLeft()
     {
         for (int x = 0; x < cellsX; x++)
         {
@@ -133,7 +124,7 @@ public class BitArray2D
             {
                 if (!array[z * cellsX + x])
                 {
-                    AddPlayer(new Vector2Int(x, z), ac);
+                    AddPlayer(new Vector2Int(x, z));
                     return new Vector2Int(x, z);
                 }
             }
@@ -141,9 +132,7 @@ public class BitArray2D
         return new Vector2Int(-1, -1);
     }
 
-
-    //ToDo: Fix this shit
-    public Vector2Int AddToRight(NPC ac)
+    private Vector2Int AddToRight()
     {
         for (int x = 0; x < cellsX; x++)
         {
@@ -151,31 +140,16 @@ public class BitArray2D
             {
                 if (!array[z * cellsX + x])
                 {
-                    AddPlayer(new Vector2Int(x, z), ac);
+                    AddPlayer(new Vector2Int(x, z));
                     return new Vector2Int(x, z);
                 }
             }
         }
         return new Vector2Int(-1, -1);
     }
-    public void RefreshPos()
-    {
-        foreach ((NPC ac,Vector2Int pos) in registeredPlayers)
-        {
-            ac.InvalidatePosition(GetRealWorldCords(pos));
-        }
-    }
-
+  
     public bool IsFull()
     {
-        return full;
-    }
-
-    public void Destroying()
-    {
-        foreach((NPC ac, Vector2Int pos) in registeredPlayers)
-        {
-            ac.BudeDestroyed();
-        }
+        return currentWaiting == kapa;
     }
 }

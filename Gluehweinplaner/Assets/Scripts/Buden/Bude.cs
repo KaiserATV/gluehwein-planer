@@ -66,13 +66,6 @@ public class Bude : MonoBehaviour
             busy = CheckAuslastung();
             timeGoneBy = 0;
         }
-
-        if (transform.hasChanged) {
-            ziel.RefreshPos();
-            wait_L.RefreshPos();
-            wait_R.RefreshPos();
-            transform.hasChanged = false;
-        }
     }
 
     private void CalcKapa()
@@ -87,27 +80,57 @@ public class Bude : MonoBehaviour
         wait_R.Reset();
     }
 
+    public void BudeMoved()
+    {
+        goalNode.BudeMoved(this);
+    }
 
-    public Vector3? GetNewPosition(NPC ac)
+    public void BudeRemove()
+    {
+        goalNode.BudeDestroyed(this);
+    }
+
+    public (Vector3?,Vector3Int?) GetNewPosition(NPC ac)
     {
         Vector3 cellCoord;
+        Vector2Int arrayPos;
+        Vector3Int returnVector;
         if (!ziel.IsFull())
         {
-            cellCoord = ziel.FindBestPositionAndAdd(ac);
+            (cellCoord, arrayPos) = ziel.FindBestPositionAndAdd();
+            returnVector = new(0, arrayPos.x, arrayPos.y);
         }
         else if (!wait_L.IsFull())
         {
-            cellCoord = wait_L.FindBestPositionAndAdd(ac);
+            (cellCoord, arrayPos) = wait_L.FindBestPositionAndAdd();
+            returnVector = new(1, arrayPos.x, arrayPos.y);
         }
         else if (!wait_R.IsFull())
         {
-            cellCoord = wait_R.FindBestPositionAndAdd(ac);
-        }else
-        {
-            return null;
+            (cellCoord, arrayPos) = wait_R.FindBestPositionAndAdd();
+            returnVector = new(2, arrayPos.x, arrayPos.y);
         }
+        else
+        {
+            return (null,null);
+        }
+        return (cellCoord, returnVector);
+    }
 
-        return cellCoord;
+    public void RemovePlayer(Vector3Int pos)
+    {
+        switch (pos.x)
+        {
+            case 0:
+                ziel.RemovePlayer(new(pos.y, pos.z));
+                break;
+            case 1:
+                wait_L.RemovePlayer(new(pos.y, pos.z));
+                break;
+            case 2:
+            wait_R.RemovePlayer(new(pos.y, pos.z));
+            break;
+        }
     }
 
     public bool CheckAuslastung()
@@ -151,21 +174,7 @@ public class Bude : MonoBehaviour
         typeIndex = i;
     }
 
-    public void ToBeDestroyed()
-    {
-        ziel.Destroying();
-        wait_L.Destroying();
-        wait_R.Destroying();
-    }
-    public void RemovePlayer(NPC npc)
-    {
-        ziel.RemovePlayer(npc);
-        wait_L.RemovePlayer(npc);
-        wait_R.RemovePlayer(npc);
-    }
-
     public Vector3 GetPosition() { return transform.position; }
-
 
     /// <summary>
     /// Gets all Corners of the Buden transform in order:

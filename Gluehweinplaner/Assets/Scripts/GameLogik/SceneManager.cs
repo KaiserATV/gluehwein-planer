@@ -177,6 +177,7 @@ public class SceneManager : MonoBehaviour
     public void RemoveBude(Bude wegBude)
     {
         SoundFXManager.instance.PlaySoundFXClip(deleteSoundClip, transform, 1f);
+        wegBude.BudeRemove();
         allBudenScripts!.Add(wegBude);
     }
     public void Pausieren()
@@ -399,10 +400,6 @@ public class SceneManager : MonoBehaviour
    
     void GenerateGoalNodes()
     {
-        //Conditions in which the should go to the same goalnode
-        //1: Facing similar direction and not one infornt of the other
-        //2: Facing eachother, but they are truly facing eathother
-
         List<List<Bude>> groups = new List<List<Bude>>();
 
         bool added = false;
@@ -508,10 +505,31 @@ public class SceneManager : MonoBehaviour
 
         foreach (List<Bude> goalGroup in groups)
         {
-            GoalNode gn = new GoalNode(goalGroup, WorldPositionToPlate(goalGroup[0].GetFarestPoint()));
+            GoalNode gn = new GoalNode(goalGroup, WorldPositionToPlate(goalGroup[0].GetFarestPoint()),this);
             allGoalNodes.Add(gn);
             gn.OnPlate.AddGoalNode(gn, pathDiagonal);
         }
+    }
+
+    public void FindOrCreateNewGoalNode(Bude bude)
+    {
+        Plate on = WorldPositionToPlate(bude.GetFarestPoint());
+        foreach (GoalNode gn1 in allGoalNodes) { 
+            if(gn1.OnPlate == on)
+            {
+                gn1.AddGoal(bude);
+                gn1.CalculatePosition();
+                return;
+            }        
+        }
+        GoalNode gn = new GoalNode(new List<Bude> { bude }, WorldPositionToPlate(bude.GetFarestPoint()), this);
+        allGoalNodes.Add(gn);
+        gn.OnPlate.AddGoalNode(gn, pathDiagonal);
+    }
+
+    public void RemoveGoalNode(GoalNode gn)
+    {
+        allGoalNodes.Remove(gn);
     }
 
     public Queue<Vector3> HandlePathRequest(Vector3 start, GoalNode goalNode)
@@ -694,7 +712,7 @@ public class SceneManager : MonoBehaviour
 
 
 
-    Plate WorldPositionToPlate(Vector3 pos)
+    public Plate WorldPositionToPlate(Vector3 pos)
     {
         int plateNumberX = Mathf.FloorToInt((pos.x - allFloorBounds[0].min.x) / normalPlateX);
         int plateNumberZ = Mathf.FloorToInt((pos.z - allFloorBounds[0].min.z) / normalPlateZ);
