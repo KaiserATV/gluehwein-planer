@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+#nullable enable
 public class AgentController : MonoBehaviour
 {
     // Start is called before the first frame update
-    private UnityEngine.AI.NavMeshAgent agent;
+    private UnityEngine.AI.NavMeshAgent? agent;
     
     public bool randomExitGoalNumber = true;
     public int goalsBeforeExit;
@@ -12,7 +12,7 @@ public class AgentController : MonoBehaviour
     public const float patience = 120f;
     public float patienceLost;
     public bool inactive = false;
-
+    public bool respawned = false;
 
     public bool stopped = false;
     public bool waiting = false;
@@ -20,12 +20,13 @@ public class AgentController : MonoBehaviour
 
     public bool exiting = false;
     public float goalThreshhold = 1f;
-    public float exitTrashhold = 1f;
+    public float exitTreshhold = 3f;
 
     private Vector2Int bitarrayCells;
     private Vector2Int positionCells;
-    private Vector2 goal;
-    private BitArray2D bude;
+    private Vector3? exit;
+    public Vector2? goal = null;
+    private BitArray2D? bude = null;
     private AgentManager sm;
     private List<int> visitedGoalNumbers =  new List<int>();
     
@@ -38,73 +39,78 @@ public class AgentController : MonoBehaviour
     {
         sm = GameObject.Find("AgentManager").GetComponent<AgentManager>();
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        agent.autoRepath = true;
+        agent!.autoRepath = true;
         sm.addPlayer(this);
         if (randomExitGoalNumber) { goalsBeforeExit = Random.Range(0, sm.GetBudenCount() + 1); }
         positionCells = sm.UpdatePositionInGrid(new Vector2(transform.position.x, transform.position.z));
+        exit = sm.GetRamdomExit();
         FindNextGoal();
-        agent.destination = new Vector3(goal.x, 0, goal.y);
     }
 
     void Update()
     {
-        if (!stopped)
+        if (!stopped || goal == null)
         {
             if (waiting)
             {
-                if(Vector3.Distance(this.transform.position, agent.destination)>goalThreshhold)
+                if(agent!.remainingDistance > goalThreshhold)
                 {
                     waiting = false;
-                    stopped = false;
-                    agent.isStopped = false;
+                    agent!.isStopped = false;
                 }
                 else
                 {
                     timeLeftWaiting -= Time.deltaTime;
                     if (timeLeftWaiting < 0)
                     {
-                        bude.RemovePlayer(bitarrayCells, this);
-                        if (bude != null) {
-                            FindNextGoal();
-                        } else {
-                            FindExit();
-                        }
+                        FindNextGoal();
+                        waiting = false;
+                        agent!.isStopped = false;
                     }
                 }
             }
-            else if (agent.remainingDistance < goalThreshhold && !exiting && bude != null)
-            {
-                timeLeftWaiting = sm.GetWaitTime(goalNr);
-                waiting = true;
-                agent.isStopped = true;
-            }
-            else if (agent.remainingDistance < exitTrashhold && exiting)
-            {
-                Respawn();
-            }
             else
             {
-                patienceLost -= Time.deltaTime;
-                if (patienceLost <= 0)
+                if (exiting)
                 {
-                    if (goalNr >= 0 && bude!=null) { bude.RemovePlayer(bitarrayCells, this); }
-                    sm.LostPatience();
-                    FindNextGoal();
-                    patienceLost = patience;
+                    if (Vector3.Distance(transform.position, exit!.Value) < exitTreshhold)
+                    {
+                        Respawn();
+                        respawned = true;
+                    }
                 }
-                positionCells = sm.UpdatePositionInGrid(positionCells, new Vector2(this.transform.position.x, this.transform.position.z));
+                else
+                {
+                    if (agent!.remainingDistance < goalThreshhold)
+                    {
+                        timeLeftWaiting = sm.GetWaitTime(goalNr);
+                        waiting = true;
+                        agent!.isStopped = true;
+                    }
+                    patienceLost -= Time.deltaTime;
+                    if (patienceLost <= 0)
+                    {
+                        if (goalNr >= 0 && bude != null) { bude!.RemovePlayer(bitarrayCells, this); }
+                        sm.LostPatience();
+                        FindNextGoal();
+                        patienceLost = patience;
+                    }
+                    positionCells = sm.UpdatePositionInGrid(positionCells, new Vector2(this.transform.position.x, this.transform.position.z));
+                }
             }
         }
     }
     public void SetInactive()
     {
+       
         if (!exiting && bude!=null)
         {
-            bude.RemovePlayer(bitarrayCells, this);
+            bude!.RemovePlayer(bitarrayCells, this);
         }
+        sm.removePlayer(this);
         bude = null;
         inactive = true;
-        agent.isStopped=true;
+        agent!.isStopped=true;
         stopped = true;
         waiting = false;
         Vector3 newp = sm.GetIACPos();
@@ -115,9 +121,11 @@ public class AgentController : MonoBehaviour
 
      void FindNextGoal()
     {
-        waiting = false;
-        stopped = false;
-        agent.isStopped = false;
+        if (bude != null)
+        {
+            bude!.RemovePlayer(bitarrayCells, this);
+        }
+        bude = null;
         timeLeftWaiting = 0.0f;
         if (goalsBeforeExit > 0 && !exiting && !inactive)
         {
@@ -128,35 +136,33 @@ public class AgentController : MonoBehaviour
             } while (visitedGoalNumbers.Contains(goalNr));
             visitedGoalNumbers.Add(goalNr);
             goalsBeforeExit--;
+            agent!.destination = new Vector3(goal!.Value.x, 0, goal!.Value.y);
+            patienceLost = patience;
         }
         else
         {
             FindExit();
         }
-        patienceLost = patience;
     }
 
     void FindExit()
     {
-        agent.isStopped = false;
-        stopped = false;
-        waiting = false;
         exiting = true;
-        goal = sm.GetClostestExit(transform.position);
-        agent.destination = new Vector3(goal.x, 0, goal.y);
+        agent!.destination = new Vector3(exit!.Value.x, 0, exit!.Value.z);
+        goal = new Vector2(exit!.Value.x, exit!.Value.z);
     }
 
     public void InvalidatePosition(Vector3 newCoords)
     {
         if (waiting) { waiting = false; }
-        if (sm.simulating) { agent.isStopped = false; stopped = false; }
+        if (sm.simulating) { agent!.isStopped = false; stopped = false; }
         goal = newCoords;
-        agent.destination = new Vector3(goal.x, 0, goal.y);
+        agent!.destination = new Vector3(goal!.Value.x, 0, goal!.Value.y);
     }
 
     public void Respawn()
     {
-        agent.Warp(sm.GetNewSpawnPoint());//to random spawner
+        agent!.Warp(sm.GetNewSpawnPoint());//to random spawner
 
         agent.isStopped=false;
         stopped = false;
@@ -171,12 +177,11 @@ public class AgentController : MonoBehaviour
 
         patienceLost = patience;
 
-        agent.autoRepath = true;
-        sm.addPlayer(this);
+        agent!.autoRepath = true;
         if (randomExitGoalNumber) { goalsBeforeExit = Random.Range(0, sm.GetBudenCount() + 1); }
         positionCells = sm.UpdatePositionInGrid(new Vector2(transform.position.x, transform.position.z));
         FindNextGoal();
-        agent.destination = new Vector3(goal.x, 0, goal.y);
+        agent!.destination = new Vector3(goal!.Value.x, 0, goal!.Value.y);
     }
 
     public void BudeDestroyed()
@@ -185,7 +190,7 @@ public class AgentController : MonoBehaviour
 
         FindNextGoal();
 
-        agent.destination = new Vector3(goal.x, 0, goal.y);
+        agent!.destination = new Vector3(goal!.Value.x, 0, goal!.Value.y);
 
         waiting = false;
         if (sm.simulating)
@@ -201,21 +206,19 @@ public class AgentController : MonoBehaviour
             agent.isStopped = true;
         }
         timeLeftWaiting = 0.0f;
-
-
     }
 
     public void Stop()
     {
-        agent.isStopped = true;
+        agent!.isStopped = true;
         stopped = true;
     }
 
     public void Resume()
     {
-        agent.isStopped = false;
+        agent!.isStopped = false;
         stopped = false;
-        agent.destination = goal;
+        agent.destination = goal!.Value;
     }
 
     public void SetGoal(Vector2 g)

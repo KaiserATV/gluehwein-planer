@@ -10,7 +10,7 @@ public class BitArray2D
     private BitArray array;
 
     private float agentRadius;
-    private bool full;
+    private int totalKapa;
     private int cellsX;
     private int cellsZ;
     private List<AgentController> registeredPlayers=new List<AgentController>();
@@ -24,13 +24,11 @@ public class BitArray2D
         childT = child;
 
         agentRadius = aR * spacearound;
-        full = false;   
         positionToBude = p;
         
-       
         CalcWidthHeight();
 
-
+        totalKapa = cellsX * cellsZ;
         array = new BitArray(cellsX * cellsZ);
 
         schiebX = b.size.x / (child.localScale.x) * spacearound;
@@ -47,7 +45,6 @@ public class BitArray2D
     {
         return cellsX * cellsZ;
     }
-
 
     private void CalcWidthHeight()
     {
@@ -76,19 +73,17 @@ public class BitArray2D
         ac.SetBude(this);
         ac.SetGoal(GetRealWorldCords(v));
         array[v.y * cellsX + v.x] = true;
-        if (registeredPlayers.Count == cellsX * cellsZ) { full = true; }
     }
 
     public void RemovePlayer(Vector2Int v, AgentController ac)
     {
         if (registeredPlayers.Contains(ac)) { registeredPlayers.Remove(ac); };
         array[v.y * cellsX + v.x] = false;
-        full = false;
     }
 
-    public Vector2Int FindBestPositionAndAdd(AgentController ac)
+    public Vector2Int? FindBestPositionAndAdd(AgentController ac)
     {
-        if (!full)
+        if (!IsFull())
         {
             switch (positionToBude)
             {
@@ -100,10 +95,10 @@ public class BitArray2D
                     return AddToRight(ac);
             }
         }
-        return new Vector2Int(-1, -1);
+        return null;
     }
 
-    public Vector2Int AddInFront(AgentController ac)
+    public Vector2Int? AddInFront(AgentController ac)
     {
         for (int x = 0; x < cellsX; x++)
         {
@@ -116,10 +111,10 @@ public class BitArray2D
                 }
             }
         }
-        return new Vector2Int(-1, -1);
+        return null;
     }
 
-    public Vector2Int AddToLeft(AgentController ac)
+    public Vector2Int? AddToLeft(AgentController ac)
     {
         for (int x = 0; x < cellsX; x++)
         {
@@ -132,12 +127,12 @@ public class BitArray2D
                 }
             }
         }
-        return new Vector2Int(-1, -1);
+        return null;
     }
 
 
     //ToDo: Fix this shit
-    public Vector2Int AddToRight(AgentController ac)
+    public Vector2Int? AddToRight(AgentController ac)
     {
         for (int x = 0; x < cellsX; x++)
         {
@@ -150,7 +145,7 @@ public class BitArray2D
                 }
             }
         }
-        return new Vector2Int(-1, -1);
+        return null;
     }
     public void RefreshPos()
     {
@@ -162,7 +157,7 @@ public class BitArray2D
 
     public bool IsFull()
     {
-        return full;
+        return totalKapa <= registeredPlayers.Count;
     }
 
     public void Destroying()

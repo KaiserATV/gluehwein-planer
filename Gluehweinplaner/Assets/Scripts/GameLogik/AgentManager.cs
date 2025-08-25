@@ -104,7 +104,6 @@ public class AgentManager : MonoBehaviour
             alleBuden[budenNummer].GetNewPosition(ac);
             return budenNummer;
         }
-
         return -1;
     }
 
@@ -140,7 +139,7 @@ public class AgentManager : MonoBehaviour
             }
         }
     }
-
+    public Vector3 GetRamdomExit() { return alleExits[UnityEngine.Random.Range(0, alleExits.Length)].GetClostestPoint(); }
     public Vector3 GetClostestExit(Vector3 position)
     {
         Vector3 exitCoords = Vector3.zero;

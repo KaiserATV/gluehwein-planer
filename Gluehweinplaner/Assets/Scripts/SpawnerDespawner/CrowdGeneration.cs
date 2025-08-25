@@ -49,12 +49,14 @@ public class CrowdGeneration : MonoBehaviour
                 {
                     AgentController ac = iac.GetAgent();
                     ac.Respawn();
+                    am.addPlayer(ac.GetComponent<AgentController>());
                     am.inactivePlayerCount--;
                     am.playerCount++;
                 }
                 else 
                 {
                     GameObject agent = Instantiate(prop, position, rotation);
+                    am.addPlayer(agent.GetComponent<AgentController>());
                     agent.transform.parent = transform;
                     am.playerCount++;
                 }

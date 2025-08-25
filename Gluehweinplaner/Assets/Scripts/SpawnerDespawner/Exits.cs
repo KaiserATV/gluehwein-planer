@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Exits : MonoBehaviour
@@ -14,7 +13,7 @@ public class Exits : MonoBehaviour
 
     public Vector3 GetClostestPoint()
     {
-        return this.transform.position;
+        return transform.position;
     }
 
     public ExitJSON ToJSON()

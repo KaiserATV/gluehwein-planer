@@ -190,16 +190,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (7)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9231267}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &9231263 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 9231262}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &9231264 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 9231262}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9231267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9231264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1001 &45750271
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -268,16 +297,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (25)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 45750276}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &45750272 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 45750271}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &45750273 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 45750271}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &45750276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45750273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1001 &65488757
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -346,16 +404,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (14)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 65488762}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &65488758 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 65488757}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &65488759 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 65488757}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &65488762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65488759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1 &87688338
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,16 +635,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (10)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 117939796}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &117939792 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 117939791}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &117939793 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 117939791}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &117939796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117939793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1 &160532141 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9014170785475729474, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
@@ -834,16 +950,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (18)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 183985675}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &183985671 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 183985670}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &183985672 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 183985670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &183985675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183985672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!4 &186486334 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1565887663814566041, guid: 3e07eccb5e6f459d886de95044adb1d9, type: 3}
@@ -917,16 +1062,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (26)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 201622475}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &201622471 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 201622470}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &201622472 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 201622470}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &201622475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201622472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1001 &208985960
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2073,16 +2247,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (5)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 379300861}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &379300857 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 379300856}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &379300858 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 379300856}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &379300861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379300858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1 &381859517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2186,16 +2389,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 405535281}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &405535277 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 405535276}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &405535278 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 405535276}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &405535281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405535278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1 &481330436 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 146340753648116383, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
@@ -2885,16 +3117,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (28)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 558415121}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &558415117 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 558415116}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &558415118 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 558415116}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &558415121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558415118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1001 &577028141
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3534,10 +3795,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (4)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1814810118}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &686022902 stripped
 Transform:
@@ -3612,16 +3877,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (16)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 700778144}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &700778140 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 700778139}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &700778141 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 700778139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &700778144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700778141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1 &712350151
 GameObject:
   m_ObjectHideFlags: 0
@@ -3933,9 +4227,9 @@ Transform:
   m_GameObject: {fileID: 829851549}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.5}
-  m_LocalScale: {x: 180, y: 0.25, z: 200}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -119.4, y: 0, z: 98.8}
+  m_LocalScale: {x: 264.33002, y: 0.367125, z: 293.7}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1636704923}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4107,16 +4401,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (23)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 852670858}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &852670854 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 852670853}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &852670855 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 852670853}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &852670858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852670855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1001 &893047560
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4357,10 +4680,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1470470992}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &979026161 stripped
 Transform:
@@ -4546,7 +4873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCount: 0
   inactivePlayerCount: 0
-  maxPlayerCount: 10000
+  maxPlayerCount: 1000
   agentsLostPatience: 0
   maxKapazitaet: 0
   simulating: 1
@@ -4669,16 +4996,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (6)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1099084452}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &1099084448 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 1099084447}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1099084449 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 1099084447}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1099084452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099084449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1001 &1122020769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4747,16 +5103,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (12)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1122020774}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &1122020770 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 1122020769}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1122020771 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 1122020769}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1122020774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122020771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1001 &1125161606
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4825,16 +5210,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (13)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1125161611}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &1125161607 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 1125161606}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1125161608 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 1125161606}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1125161611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125161608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1001 &1131292587
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4903,16 +5317,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (15)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1131292592}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &1131292588 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 1131292587}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1131292589 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 1131292587}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1131292592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131292589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1 &1165382519
 GameObject:
   m_ObjectHideFlags: 0
@@ -5100,16 +5543,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (17)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1176556282}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &1176556278 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 1176556277}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1176556279 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 1176556277}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1176556282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176556279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1 &1177066375
 GameObject:
   m_ObjectHideFlags: 0
@@ -5446,16 +5918,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (8)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1206462905}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &1206462901 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 1206462900}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1206462902 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 1206462900}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1206462905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206462902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1 &1256138943
 GameObject:
   m_ObjectHideFlags: 0
@@ -5688,16 +6189,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1304106333}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &1304106329 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 1304106328}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1304106330 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 1304106328}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1304106333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304106330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1 &1341412597
 GameObject:
   m_ObjectHideFlags: 0
@@ -6027,16 +6557,70 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (22)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1404307866}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &1404307862 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 1404307861}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1404307863 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 1404307861}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1404307866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404307863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
+--- !u!1 &1470470988 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 979026160}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1470470992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470470988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1 &1476787236 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7313654230448209575, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
@@ -6451,16 +7035,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (20)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1590011094}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &1590011090 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 1590011089}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1590011091 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 1590011089}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1590011094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590011091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1001 &1613645728
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6529,16 +7142,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (27)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1613645733}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &1613645729 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 1613645728}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1613645730 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 1613645728}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1613645733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613645730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1 &1636704922
 GameObject:
   m_ObjectHideFlags: 0
@@ -6700,16 +7342,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (24)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1727953534}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &1727953530 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 1727953529}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1727953531 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 1727953529}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1727953534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727953531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1001 &1731298970
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7225,16 +7896,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (11)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1768830071}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &1768830067 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 1768830066}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1768830068 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 1768830066}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1768830071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768830068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1001 &1813796236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7303,16 +8003,70 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (29)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1813796241}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &1813796237 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 1813796236}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1813796238 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 1813796236}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1813796241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813796238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
+--- !u!1 &1814810114 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 686022901}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1814810118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814810114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!114 &1834337114 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7712547942246075122, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
@@ -7599,16 +8353,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (21)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1916141792}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &1916141788 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 1916141787}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1916141789 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 1916141787}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1916141792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916141789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1 &1936752096
 GameObject:
   m_ObjectHideFlags: 0
@@ -7899,16 +8682,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (19)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2038177826}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &2038177822 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 2038177821}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2038177823 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 2038177821}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2038177826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038177823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1 &2038348456
 GameObject:
   m_ObjectHideFlags: 0
@@ -8033,16 +8845,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (9)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2096908979}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &2096908975 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 2096908974}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2096908976 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 2096908974}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2096908979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096908976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!1001 &2120591221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8111,16 +8952,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stand (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1233372548524874943, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2120591226}
   m_SourcePrefab: {fileID: 100100000, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
 --- !u!4 &2120591222 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   m_PrefabInstance: {fileID: 2120591221}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2120591223 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
+  m_PrefabInstance: {fileID: 2120591221}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2120591226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120591223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c6b4d88f71e994e86bd8ee8cebe490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentRadius: 1
+  waitTime: 20
+  attraktivitaet: 5
+  "kapazit\xE4t": 0
+  delayBeforeNotBusy: 5
+  busy: 0
+  attrakIncr: 10
+  waitIncr: 5
 --- !u!4 &2138623512 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9014170783728641054, guid: 895f6f3c2d334633b5800312285058d2, type: 3}

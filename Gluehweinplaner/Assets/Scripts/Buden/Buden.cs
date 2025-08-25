@@ -87,10 +87,10 @@ public class Buden : MonoBehaviour
     }
 
 
-    public Vector3Int GetNewPosition(AgentController ac)
+    public Vector3Int? GetNewPosition(AgentController ac)
     {
-        Vector2Int cellCoord;
-        int zone;
+        Vector2Int? cellCoord = null;
+        int zone = 0;
         if (!ziel.IsFull())
         {
             cellCoord = ziel.FindBestPositionAndAdd(ac);
@@ -110,12 +110,9 @@ public class Buden : MonoBehaviour
         {
             cellCoord = wait_R.FindBestPositionAndAdd(ac);
             zone = 3;
-        }else
-        {
-            //Needs to find another target
-            return new Vector3Int(-1, -1, -1);
         }
-        return new Vector3Int(cellCoord.x, cellCoord.y, zone);
+        if (cellCoord == null) { return null; }
+        return new Vector3Int(cellCoord!.Value.x, cellCoord!.Value.y, zone);
     }
 
     public bool CheckAuslastung()
