@@ -60,9 +60,9 @@
     <Analyzer Include="Z:\Unity\2022.3.55f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Packages\VarjoUnityXRPlugin-master\Editor\VarjoPackageMetadata.cs" />
     <Compile Include="Packages\VarjoUnityXRPlugin-master\Editor\VarjoSettingsEditor.cs" />
     <Compile Include="Packages\VarjoUnityXRPlugin-master\Editor\VarjoBuildProcessor.cs" />
-    <Compile Include="Packages\VarjoUnityXRPlugin-master\Editor\VarjoPackageMetadata.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Packages\VarjoUnityXRPlugin-master\Editor\Varjo.XR.Editor.asmdef" />

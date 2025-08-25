@@ -60,28 +60,28 @@
     <Analyzer Include="Z:\Unity\2022.3.55f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\SpawnerDespawner\Exits.cs" />
-    <Compile Include="Assets\Scripts\GameLogik\Heatmap.cs" />
-    <Compile Include="Assets\Scripts\Buden\Buden.cs" />
-    <Compile Include="Assets\Scripts\Audio\RadialSlider.cs" />
-    <Compile Include="Assets\Scripts\GameLogik\AgentManager.cs" />
-    <Compile Include="Assets\Scripts\Buden\BitArray2D.cs" />
-    <Compile Include="Assets\Scripts\SpawnerDespawner\CrowdGeneration.cs" />
-    <Compile Include="Assets\Scripts\Buden\DeleteBuilding.cs" />
-    <Compile Include="Assets\Scripts\Budeninteraktion\ObjectSpawner.cs" />
-    <Compile Include="Assets\Scripts\SpawnerDespawner\InactiveAgentsContainer.cs" />
     <Compile Include="Assets\Scripts\Menu\RadialSelection.cs" />
     <Compile Include="Assets\Scripts\Buden\Kategorien.cs" />
     <Compile Include="Assets\Scripts\Buden\BudenJSON.cs" />
+    <Compile Include="Assets\Scripts\SpawnerDespawner\Exits.cs" />
+    <Compile Include="Assets\Scripts\GameLogik\Heatmap.cs" />
     <Compile Include="Assets\Scripts\Audio\VolumeManager.cs" />
     <Compile Include="Assets\Scripts\Audio\SoundFXManager.cs" />
+    <Compile Include="Assets\Scripts\Buden\Buden.cs" />
+    <Compile Include="Assets\Scripts\Audio\RadialSlider.cs" />
     <Compile Include="Assets\Scripts\Menu\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\Moving.cs" />
     <Compile Include="Assets\Scripts\Audio\VolumeChangeSound.cs" />
     <Compile Include="Assets\Scripts\GameLogik\AgentController.cs" />
+    <Compile Include="Assets\Scripts\GameLogik\AgentManager.cs" />
     <Compile Include="Assets\Scripts\StatsLogger.cs" />
+    <Compile Include="Assets\Scripts\Buden\BitArray2D.cs" />
     <Compile Include="Assets\Scripts\GameLogik\BeendenSzene.cs" />
+    <Compile Include="Assets\Scripts\SpawnerDespawner\CrowdGeneration.cs" />
+    <Compile Include="Assets\Scripts\Buden\DeleteBuilding.cs" />
     <Compile Include="Assets\Scripts\Audio\VolumeMenuCloser.cs" />
+    <Compile Include="Assets\Scripts\Budeninteraktion\ObjectSpawner.cs" />
+    <Compile Include="Assets\Scripts\SpawnerDespawner\InactiveAgentsContainer.cs" />
     <Compile Include="Assets\Scripts\MoveMent\GodmodeController.cs" />
   </ItemGroup>
   <ItemGroup>
