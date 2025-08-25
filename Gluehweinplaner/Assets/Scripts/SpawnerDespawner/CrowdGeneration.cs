@@ -79,4 +79,8 @@ public class CrowdGeneration : MonoBehaviour
         return position;
     }
 
+    public SpawnJSON ToJSON()
+    {
+        return new SpawnJSON(this.transform.position.x, this.transform.position.z, this.transform.rotation.y, spawnTime);
+    }
 }

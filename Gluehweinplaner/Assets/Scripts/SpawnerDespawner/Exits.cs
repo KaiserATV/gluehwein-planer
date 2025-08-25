@@ -16,4 +16,9 @@ public class Exits : MonoBehaviour
     {
         return this.transform.position;
     }
+
+    public ExitJSON ToJSON()
+    {
+        return new ExitJSON(this.transform.position.x, this.transform.position.z, this.transform.rotation.y);
+    }
 }

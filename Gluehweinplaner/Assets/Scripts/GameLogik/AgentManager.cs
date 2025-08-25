@@ -284,81 +284,93 @@ public class AgentManager : MonoBehaviour
 
     private string CreateJSON()
     {
-        AlleBudenJSON aB = new AlleBudenJSON(alleBuden.Length-leereStellen.Count);
+        AlleBudenJSON aB = new AlleBudenJSON(alleBuden.Length);
+        AlleExitJSON aE = new AlleExitJSON(alleExits.Length);
+        AlleSpawnJSON aS = new AlleSpawnJSON(spawner.Length);
         int j = 0;
-        for(int i = 0; i < alleBuden.Length;i++)
+        for (int i = 0; i < alleBuden.Length; i++)
         {
-            if(alleBuden[i] != null)
+            if (alleBuden[i] != null)
             {
                 aB.budenArray[j] = alleBuden[i].GetBudenJSON();
                 j++;
             }
         }
-        return JsonUtility.ToJson(aB);
+        for (int i = 0; i < spawner.Length; i++)
+        {
+            aS.spawnArray[i] = spawner[i].ToJSON();
+        }
+        for (int i = 0; i < alleExits!.Length; i++)
+        {
+            aE.exitArray[i] = alleExits![i].ToJSON();
+        }
+        return JsonUtility.ToJson(new GanzeSzene(aB, aE, aS));
     }
 
     public void SaveJSON()
     {
-        Debug.Log("Speichere JSON");	
+        Debug.Log("Speichere JSON");
         string path = Application.persistentDataPath + "/Position.json";
         Debug.Log("Speichere JSON nach: " + path);
-        using(StreamWriter writer = new StreamWriter(path, false))
+        using (StreamWriter writer = new StreamWriter(path, false))
         {
             writer.Write(CreateJSON());
         }
 
+
         SoundFXManager.instance.PlaySoundFXClip(saveSoundClip, transform, 1f);
     }
 
-    private AlleBudenJSON ReadJSON()
-{
-    string path = Application.persistentDataPath + "/Position.json";
-    AlleBudenJSON a = null;
-
-    if (!File.Exists(path))
+    private GanzeSzene ReadJSON()
     {
-        Debug.LogWarning("Datei existiert nicht: " + path);
-        return null;
-    }
-    try
-    {
-        Debug.Log("Lese Datei von Pfad: " + path);
+        string path = Application.persistentDataPath + "/Position.json";
+        GanzeSzene? a = null;
 
-        using (StreamReader reader = new StreamReader(path))
+        if (!File.Exists(path))
         {
-            string jsonContent = reader.ReadToEnd();
-
-            a = JsonUtility.FromJson<AlleBudenJSON>(jsonContent);
-
-            if (a == null)
+            Debug.LogWarning("Datei existiert nicht: " + path);
+            return null;
+        }
+        try
+        {
+            Debug.Log("Lese Datei von Pfad: " + path);
+            using (StreamReader reader = new StreamReader(path))
             {
-                Debug.LogWarning("Fehler beim Parsen der JSON-Datei.");
+                string jsonContent = reader.ReadToEnd();
+
+                a = JsonUtility.FromJson<GanzeSzene>(jsonContent);
+
+                if (a == null)
+                {
+                    Debug.LogWarning("Fehler beim Parsen der JSON-Datei.");
+                }
             }
         }
-    }
-    catch (System.Exception e)
-    {
-        Debug.LogWarning("Fehler beim Lesen der Datei: " + e);
-    }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning("Fehler beim Lesen der Datei: " + e);
+        }
 
-    return a;
-}
+        return a;
+    }
 
 
     public void LoadBudenFromJSON()
     {
-        AlleBudenJSON aB = ReadJSON();
-        GameObject o = Resources.Load("Stand") as GameObject;
-        if (aB != null)
+        GanzeSzene? gS = ReadJSON();
+        GameObject? stand = Resources.Load("Stand") as GameObject;
+        GameObject? exit = Resources.Load("Exit") as GameObject;
+        GameObject? spawner = Resources.Load("Spawner") as GameObject;
+        if (gS != null)
         {
             GameObject budenContainer = GameObject.Find(budenContainerName);
-            foreach (BudenJSON b in aB.budenArray)
+            foreach (BudenJSON b in gS.alleBuden.budenArray)
             {
-                Vector3 pos = new Vector3(b.xPos, 0, b.zPos);
+                Vector3 pos = new(b.xPos, 0, b.zPos);
                 Quaternion orien = Quaternion.Euler(0, b.yRot, 0);
-                if (!Physics.CheckSphere(new Vector3(pos.x,10,pos.z),6.25f))
+                if (stand != null && !Physics.CheckSphere(new Vector3(pos.x, 10, pos.z), 6.25f))
                 {
-                    GameObject newObj = Instantiate(o,pos,orien);
+                    GameObject newObj = Instantiate(stand, pos, orien);
                     Buden bd = newObj.GetComponent<Buden>();
                     newObj.transform.parent = budenContainer.transform;
                     bd.attraktivitaet = b.attrak;
@@ -366,9 +378,32 @@ public class AgentManager : MonoBehaviour
                     bd.SetTypeIndex(1);
                     AddBude(bd);
                 }
-
             }
-            SoundFXManager.instance.PlaySoundFXClip(loadSoundClip, transform, 1f);
+            foreach (ExitJSON e in gS.allExits.exitArray)
+            {
+                Vector3 pos = new Vector3(e.xPos, 0, e.zPos);
+                Quaternion orien = Quaternion.Euler(0, e.yRot, 0);
+                Transform exitContainer = GameObject.Find(exitContainerName).transform;
+                if (exit != null)
+                {
+                    GameObject newObj = Instantiate(exit, pos, orien);
+                    newObj.transform.parent = exitContainer;
+                }
+            }
+            foreach (SpawnJSON s in gS.alleSpawns.spawnArray)
+            {
+                Vector3 pos = new Vector3(s.xPos, 0, s.zPos);
+                Quaternion orien = Quaternion.Euler(0, s.yRot, 0);
+                Transform spawnerContainer = GameObject.Find(spawnerContainerName).transform;
+                if (spawner != null)
+                {
+                    GameObject newObj = Instantiate(spawner, pos, orien);
+                    newObj.transform.parent = spawnerContainer;
+                }
+            }
+
+
+            //SoundFXManager.instance.PlaySoundFXClip(loadSoundClip, transform, 1f);
         }
         else
         {
