@@ -83,7 +83,6 @@
     <Compile Include="Assets\Scripts\Budeninteraktion\ObjectSpawner.cs" />
     <Compile Include="Assets\Scripts\SpawnerDespawner\InactiveAgentsContainer.cs" />
     <Compile Include="Assets\Scripts\MoveMent\GodmodeController.cs" />
-    <Compile Include="Assets\Scripts\Movement\GodmodeController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

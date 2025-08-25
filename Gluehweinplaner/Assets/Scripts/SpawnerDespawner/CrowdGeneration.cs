@@ -66,17 +66,17 @@ public class CrowdGeneration : MonoBehaviour
 
     public Vector3 GenerateRandomPosition()
     {
-        Vector3 position;
-        do
-        {
-            float cellX = Random.Range(minWorldLimitX, maxWorldLimitX);
-            float cellZ = Random.Range(minWorldLimitZ, maxWorldLimitZ);
-            position = new Vector3(cellX, col.bounds.min.y + 1, cellZ);
+        //Vector3 position;
+        //do
+        //{
+        //    float cellX = Random.Range(minWorldLimitX, maxWorldLimitX);
+        //    float cellZ = Random.Range(minWorldLimitZ, maxWorldLimitZ);
+        //    position = new Vector3(cellX, col.bounds.min.y + 1, cellZ);
 
 
-        } while (Physics.CheckSphere(position,agentradius));
+        //} while (Physics.CheckSphere(position,agentradius));
 
-        return position;
+        return transform.position;
     }
 
     public SpawnJSON ToJSON()
