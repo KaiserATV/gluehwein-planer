@@ -25,8 +25,11 @@ public class BitArray2D
         childT = child;
 
         positionToBude = p;
-        spacearoundX = AgentWidthX = ax;
-        spacearoundZ = AgentWidthZ = az;
+        AgentWidthX = ax;
+        AgentWidthZ = az;
+
+        spacearoundX = 1;
+        spacearoundZ = 1;
 
         CalcWidthHeight();
         kapa = cellsX * cellsZ;
