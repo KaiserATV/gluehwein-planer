@@ -18,7 +18,7 @@ public class Bude : MonoBehaviour
 
     private int typeIndex;
 
-    public int attrakIncr=10;
+    public int attrakIncr = 10;
     public int waitIncr = 5;
 
     private BitArray2D wait_L;
@@ -30,7 +30,7 @@ public class Bude : MonoBehaviour
     public void Start()
     {
         transform.hasChanged = false;
-        Bounds b = Agent!.GetComponentInChildren<SkinnedMeshRenderer>().bounds;
+        Bounds b = Agent!.GetComponentInChildren<MeshRenderer>().bounds;
         AgentWidthX = b.size.x;
         AgentWidthZ = b.size.z;
 
@@ -90,7 +90,7 @@ public class Bude : MonoBehaviour
         goalNode.BudeDestroyed(this);
     }
 
-    public (Vector3?,Vector3Int?) GetNewPosition(NPC ac)
+    public (Vector3?, Vector3Int?) GetNewPosition()
     {
         Vector3 cellCoord;
         Vector2Int arrayPos;
@@ -112,7 +112,7 @@ public class Bude : MonoBehaviour
         }
         else
         {
-            return (null,null);
+            return (null, null);
         }
         return (cellCoord, returnVector);
     }
@@ -128,8 +128,8 @@ public class Bude : MonoBehaviour
                 wait_L.RemovePlayer(new(pos.y, pos.z));
                 break;
             case 2:
-            wait_R.RemovePlayer(new(pos.y, pos.z));
-            break;
+                wait_R.RemovePlayer(new(pos.y, pos.z));
+                break;
         }
     }
 
@@ -159,7 +159,8 @@ public class Bude : MonoBehaviour
     }
     public void decreaseWaittime()
     {
-        if (WaitTime - waitIncr > 0) { 
+        if (WaitTime - waitIncr > 0)
+        {
             WaitTime--;
         }
     }
@@ -198,7 +199,8 @@ public class Bude : MonoBehaviour
 
     public Vector3 GetFacingDirection() { return transform.GetChild(3).transform.position - transform.GetChild(0).transform.position; }
 
-    public Vector3 GetFarestPoint() {
+    public Vector3 GetFarestPoint()
+    {
         Transform t = this.transform.GetChild(3);
         Bounds b = t.GetComponent<MeshRenderer>().localBounds;
         return t.TransformPoint(new Vector3(-b.size.x / 2, 0, 0));

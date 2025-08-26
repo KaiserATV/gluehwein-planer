@@ -162,7 +162,7 @@ public class NPC : MonoBehaviour
                             }
                             else
                             {
-                                (waitingSpot,waitingAt) = bude!.GetNewPosition(this);
+                                (waitingSpot,waitingAt) = bude!.GetNewPosition();
                                 if(waitingSpot == null || budeChanged)
                                 {
                                     if(budenToVisit.Count > 0)
