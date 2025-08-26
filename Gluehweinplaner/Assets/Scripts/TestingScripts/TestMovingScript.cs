@@ -6,11 +6,19 @@ public class TestMovingScript : MonoBehaviour
     // -                  - x  +
     // z     tl                     tr
     // +     bl                     br
-    static Vector3 topLeft = new Vector3(-129, 20, 42);
-    static Vector3 topRight = new Vector3(-76,20,42);
-    static Vector3 bottomRight = new Vector3(-76, 20, 171);
-    static Vector3 bottomLeft = new Vector3(-129, 20, 171);
-    static Vector3 Center = new Vector3(-102.5f, 0, 106.5f);
+    //static Vector3 topLeft = new Vector3(-129, 20, 42);
+    //static Vector3 topRight = new Vector3(-76,20,42);
+    //static Vector3 bottomRight = new Vector3(-76, 20, 171);
+    //static Vector3 bottomLeft = new Vector3(-129, 20, 171);
+    //static Vector3 Center = new Vector3(-102.5f, 0, 106.5f);
+
+    static Vector3 topLeft = new Vector3(-41, 20, -62);
+    static Vector3 topRight = new Vector3(12, 20, -62);
+    static Vector3 bottomRight = new Vector3(12, 20, 66);
+    static Vector3 bottomLeft = new Vector3(-41, 20, 66);
+
+
+    static Vector3 Center = new Vector3(-14.5f, 0, 2f);
 
     public static float speed = 4.0f;
 

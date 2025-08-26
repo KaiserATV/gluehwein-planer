@@ -17,23 +17,24 @@ public class BitArray2D
     private int positionToBude; //0 -directly infront of Bode, 1 - to the left of the Bude, 2- to the right of the Bude
     private float schiebX;
     private float schiebZ;
-    private const float spacearound = 2f;
+    private float spacearoundX;
+    private float spacearoundZ;
     private int kapa;
 
     public BitArray2D( Bounds b, Transform child, int p, float ax, float az) { 
         childT = child;
 
         positionToBude = p;
-        AgentWidthX = ax;
-        AgentWidthZ = az;
-       
+        spacearoundX = AgentWidthX = ax;
+        spacearoundZ = AgentWidthZ = az;
+
         CalcWidthHeight();
         kapa = cellsX * cellsZ;
 
         array = new BitArray(cellsX * cellsZ);
 
-        schiebX = b.size.x / (child.localScale.x) * spacearound;
-        schiebZ = b.size.z / (child.localScale.z) * spacearound;
+        schiebX = b.size.x / cellsX;
+        schiebZ = b.size.z / cellsZ;
 
     }
 
@@ -49,8 +50,8 @@ public class BitArray2D
 
     private void CalcWidthHeight()
     {
-        cellsX = Mathf.FloorToInt(childT.localScale.x / (AgentWidthX));
-        cellsZ = Mathf.FloorToInt(childT.localScale.z / (AgentWidthZ));
+        cellsX = Mathf.FloorToInt(childT.localScale.x / (AgentWidthX + spacearoundX ));
+        cellsZ = Mathf.FloorToInt(childT.localScale.z / (AgentWidthZ + spacearoundZ ));
     }
 
     public Vector3 GetRealWorldCords(Vector2Int cells)

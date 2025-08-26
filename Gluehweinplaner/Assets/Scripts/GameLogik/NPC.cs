@@ -22,7 +22,7 @@ public class NPC : MonoBehaviour
     public const float patience = 120f;
     public const float waitingTolerance = 0.2f;
     public const float exitTolerance = 0.1f;
-    public const float wayPointTolerance = 0.3f;
+    public const float wayPointTolerance = 1f;
     
     public float speed = 2f;
     public float patienceLost;
@@ -75,7 +75,7 @@ public class NPC : MonoBehaviour
         {
             if (!waiting)
             {
-                if (Vector3.Distance(transform.position, currentGoal!.Value) < wayPointTolerance)
+                if (Vector3.Distance(transform.position, (currentGoal!.Value+new Vector3(0f,0.7f,0f))) < wayPointTolerance)
                 {
                     if (onWayToGoalNode)
                     {
@@ -124,16 +124,18 @@ public class NPC : MonoBehaviour
                         {
                             exiting = true;
                             currentGoal = sm!.GetRandomExitPosition();
-                            agent!.SetDestination(currentGoal!.Value);
                         }
                         else
                         {
                             bude = budenToVisit.Dequeue();
+                            currentGoalNode!.RemoveOnWayToGoalNode(this);
                             currentGoalNode = bude.goalNode;
                             currentGoal = currentGoalNode.Position;
                             currentGoalNode!.AddOnWayToGoalNode(this);
                             onWayToGoalNode = true;
                         }
+                        agent!.SetDestination(currentGoal!.Value);
+                        patienceLost = patience;
                     }
                 }
             }
@@ -152,6 +154,7 @@ public class NPC : MonoBehaviour
                     waiting = false;
                     waitingSpot = null;
                     onWayBackFromBude = true;
+                    currentGoal = currentGoalNode.Position;
                     agent!.SetDestination(currentGoal!.Value);
                     agent!.isStopped = false;
                     animator!.SetBool(waitingName, false);
@@ -172,7 +175,6 @@ public class NPC : MonoBehaviour
                     }
                     else
                     {
-                        bude!.RemovePlayer(waitingAt!.Value);
                         waitingAt = null;
                         currentGoalNode!.RemoveWaitingAtGoal(this);
                         onWayToGoalNode = false;
@@ -182,6 +184,7 @@ public class NPC : MonoBehaviour
                         agent!.SetDestination(currentGoal!.Value);
                         animator!.SetBool(waitingName, false);
                     }
+                    patienceLost = patience;
                 }
             }
         }

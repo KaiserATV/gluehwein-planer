@@ -69,14 +69,14 @@ public class Spawner : MonoBehaviour
     //public Vector3? GenerateRandomPosition() { return this.transform.position; }
     public (Vector3,Vector3) GenerateRandomPosition()
     {
-        Vector3 position = new Vector3(minWorldLimitX,1.5f,minWorldLimitZ);
-        do
-        {
-            position.x = Random.Range(minWorldLimitX, maxWorldLimitX);
-            position.z = Random.Range(minWorldLimitZ, maxWorldLimitZ);
-        } while (Physics.CheckSphere(position, 1f));
-        position.y = 0;
-        return (position,transform.position);
+        //Vector3 position = new Vector3(minWorldLimitX,1.5f,minWorldLimitZ);
+        //do
+        //{
+        //    position.x = Random.Range(minWorldLimitX, maxWorldLimitX);
+        //    position.z = Random.Range(minWorldLimitZ, maxWorldLimitZ);
+        //} while (Physics.CheckSphere(position, 1f));
+        //position.y = 0;
+        return (transform.position, transform.position);
     }
 
 
