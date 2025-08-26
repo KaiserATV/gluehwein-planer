@@ -28,7 +28,10 @@ public class BitArray2D
         AgentWidthX = ax;
         AgentWidthZ = az;
 
-        spacearoundX = 1;
+        //spacearoundX = 1;
+        //spacearoundZ = 1;->for models
+
+        spacearoundX = 0.5f;
         spacearoundZ = 1;
 
         CalcWidthHeight();
