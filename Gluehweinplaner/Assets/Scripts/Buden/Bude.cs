@@ -90,7 +90,7 @@ public class Bude : MonoBehaviour
         goalNode.BudeDestroyed(this);
     }
 
-    public (Vector3?,Vector3Int?) GetNewPosition(NPC ac)
+    public (Vector3?,Vector3Int?) GetNewPosition()
     {
         Vector3 cellCoord;
         Vector2Int arrayPos;

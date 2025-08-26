@@ -952,6 +952,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c362699cab9b1df4eb2a26a974322454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &508810964 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6289789540875306584, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
+  m_PrefabInstance: {fileID: 1213243452}
+  m_PrefabAsset: {fileID: 0}
+--- !u!208 &508810969
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508810964}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 6.3, y: 9.4, z: 6.45}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &581473461
 GameObject:
   m_ObjectHideFlags: 0
@@ -1374,6 +1395,69 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &866387053
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 866387055}
+  - component: {fileID: 866387054}
+  m_Layer: 0
+  m_Name: Navmesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &866387054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866387053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 9091ece8731cd854c8794ae4611f0d7e, type: 2}
+  m_BuildHeightMesh: 0
+--- !u!4 &866387055
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866387053}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.58}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &971928088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1685,6 +1769,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1213243454}
+    - targetCorrespondingSourceObject: {fileID: 6289789540875306584, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 508810969}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!1 &1213243453 stripped
 GameObject:
@@ -1881,7 +1968,7 @@ GameObject:
   - component: {fileID: 1876832999}
   - component: {fileID: 1876832998}
   - component: {fileID: 1876833002}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HeatMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2201,6 +2288,7 @@ SceneRoots:
   - {fileID: 14171556}
   - {fileID: 410342032}
   - {fileID: 581473463}
+  - {fileID: 866387055}
   - {fileID: 377096948}
   - {fileID: 1972694251}
   - {fileID: 1971013774}

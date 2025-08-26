@@ -76,15 +76,15 @@ public class SceneManager : MonoBehaviour
 
         //Generate for every floor the tiles and positions thereof
         foreach (Bounds floor in allFloorBounds)//vorerst nur ein floor, sonst problem
-        {
-            TransferType tt = PlateGenerator.CalculatePlatePositionsAndBaseCostMatrices(floor, plateCountX, plateCountZ);
-            allPlateArray = new Plate[plateCountX, plateCountZ];
-            allPlateArray = tt.Plates;
-            normalPlateX = tt.normalPlateX;
-            normalPlateZ = tt.normalPlateZ;
-            plateCountX = tt.plateCountX;
-            plateCountZ = tt.plateCountZ;
-        }
+            {
+                TransferType tt = PlateGenerator.CalculatePlatePositionsAndBaseCostMatrices(floor, plateCountX, plateCountZ);
+                allPlateArray = new Plate[plateCountX, plateCountZ];
+                allPlateArray = tt.Plates;
+                normalPlateX = tt.normalPlateX;
+                normalPlateZ = tt.normalPlateZ;
+                plateCountX = tt.plateCountX;
+                plateCountZ = tt.plateCountZ;
+            }
 
 
         foreach (Plate plate in allPlateArray!)
