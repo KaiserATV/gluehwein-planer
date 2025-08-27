@@ -4968,7 +4968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathDiagonal: 0
   simulating: 1
-  maxPlayerCount: 5000
+  maxPlayerCount: 10000
   plateCountX: 400
   plateCountZ: 400
   playerCount: 0
