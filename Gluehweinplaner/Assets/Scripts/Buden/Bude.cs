@@ -30,7 +30,7 @@ public class Bude : MonoBehaviour
     public void Start()
     {
         transform.hasChanged = false;
-        Bounds b = Agent!.GetComponentInChildren<SkinnedMeshRenderer>().bounds;
+        Bounds b = Agent!.GetComponentInChildren<MeshRenderer>().bounds;
         AgentWidthX = b.size.x;
         AgentWidthZ = b.size.z;
 

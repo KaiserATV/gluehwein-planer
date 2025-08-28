@@ -1017,9 +1017,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d1076c75aea15adab998bcafe0aa30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathDiagonal: 0
+  pathDiagonal: 1
   simulating: 1
-  maxPlayerCount: 10
+  maxPlayerCount: 1
   plateCountX: 10
   plateCountZ: 10
   playerCount: 0
@@ -1389,7 +1389,7 @@ Transform:
   m_GameObject: {fileID: 834080160}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -18.22, y: -0.53, z: 5.8}
   m_LocalScale: {x: 3.2493, y: 1.2634, z: 29.430935}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1488,7 +1488,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -24.8, y: 0, z: -3.3}
-  m_LocalScale: {x: 0.20000002, y: 0.20000002, z: 0.20000002}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 410342032}
@@ -1712,7 +1712,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4859477853738827348, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.91
+      value: -12.38
       objectReference: {fileID: 0}
     - target: {fileID: 4859477853738827348, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1720,7 +1720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4859477853738827348, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15.23
+      value: -12.75
       objectReference: {fileID: 0}
     - target: {fileID: 4859477853738827348, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1791,7 +1791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 7915198942624319407, guid: 1ce76fdb171adb54abce9f11b46b780e, type: 3}
+  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5

@@ -186,7 +186,8 @@ public class Plate
         {
             if (canPathDiagonal)
             {
-                List<Vector2Int> path = GenerateMatrix.PathDiagonal(start, exit);
+                //List<Vector2Int> path = GenerateMatrix.PathDiagonal(start, exit); //no path needed, can walök stright to last point
+                List<Vector2Int> path = new List<Vector2Int> { exit };
                 AllTakenPaths.Add((start, exit), path);
                 return path;
             }
@@ -209,7 +210,7 @@ public class Plate
                 distance = GenerateMatrix.GenerateDistanceField(BaseCostMatrix, Rows, Columns, exit, null, canPathDiagonal);
                 GoalPositionToDistanceField.Add(exit, distance);
             }
-            List<Vector2Int> path = GenerateMatrix.GetBestPathInDistanceMatrix(distance, Rows, Columns, start ,canPathDiagonal, null);
+            List<Vector2Int> path = GenerateMatrix.GetBestPathInDistanceMatrix(distance, Rows, Columns, start ,canPathDiagonal, (Vector2Int currMin, Vector2Int potential) => { Debug.Log(currMin+ "   "+ potential); return Vector2Int.Distance(currMin, exit) > Vector2Int.Distance(potential, exit); },null);
             AllTakenPaths.Add((start, exit), path);
             return path;
         }

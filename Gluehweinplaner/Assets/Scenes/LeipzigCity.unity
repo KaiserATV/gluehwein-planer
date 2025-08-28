@@ -171,6 +171,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4542951548719359147, guid: 189a2692d5658874f90e00afc91d66dc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4542951548719359147, guid: 189a2692d5658874f90e00afc91d66dc, type: 3}
       propertyPath: spawnTime
       value: 0.5
       objectReference: {fileID: 0}
@@ -178,7 +182,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawner (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4542951548719359147, guid: 189a2692d5658874f90e00afc91d66dc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -511,9 +516,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 147795898}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 147795900}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &147795895 stripped
 Transform:
@@ -567,30 +569,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &147795900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 147795896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1 &160532141 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9014170785475729474, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
@@ -801,9 +779,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 183648326}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 183648328}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &183648323 stripped
 Transform:
@@ -857,30 +832,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &183648328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 183648324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!4 &186486334 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1565887663814566041, guid: 3e07eccb5e6f459d886de95044adb1d9, type: 3}
@@ -1198,9 +1149,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 246749975}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 246749977}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &246749972 stripped
 Transform:
@@ -1254,30 +1202,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &246749977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 246749973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1 &259717539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1773,9 +1697,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 394809098}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 394809100}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &394809095 stripped
 Transform:
@@ -1829,30 +1750,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &394809100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 394809096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1001 &417591689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1917,9 +1814,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 417591693}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 417591695}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &417591690 stripped
 Transform:
@@ -1973,30 +1867,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &417591695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 417591691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1001 &445025598
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2061,9 +1931,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 445025602}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 445025604}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &445025599 stripped
 Transform:
@@ -2117,30 +1984,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &445025604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 445025600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1 &481330436 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 146340753648116383, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
@@ -2591,7 +2434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
+  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -2842,9 +2685,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 532261815}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 532261817}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &532261812 stripped
 Transform:
@@ -2898,30 +2738,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &532261817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532261813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1001 &535121105
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2986,9 +2802,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 535121109}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 535121111}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &535121106 stripped
 Transform:
@@ -3042,30 +2855,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &535121111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 535121107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1001 &536533657
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3130,9 +2919,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 536533661}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 536533663}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &536533658 stripped
 Transform:
@@ -3186,30 +2972,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &536533663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 536533659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1001 &573791028
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3274,9 +3036,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 573791032}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 573791034}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &573791029 stripped
 Transform:
@@ -3330,30 +3089,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &573791034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573791030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1 &597701222
 GameObject:
   m_ObjectHideFlags: 0
@@ -3557,9 +3292,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 621069701}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 621069703}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &621069698 stripped
 Transform:
@@ -3613,30 +3345,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &621069703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 621069699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1 &657283565
 GameObject:
   m_ObjectHideFlags: 0
@@ -3927,7 +3635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7c62e0fe448989f43b2015b43260ba4b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.64
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7c62e0fe448989f43b2015b43260ba4b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3963,7 +3671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6328360384627795018, guid: 7c62e0fe448989f43b2015b43260ba4b, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -2121858680485803272, guid: 7c62e0fe448989f43b2015b43260ba4b, type: 3}
       propertyPath: m_Layer
@@ -3987,7 +3695,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6798714279695717628, guid: 7c62e0fe448989f43b2015b43260ba4b, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4066,9 +3774,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 677662173}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 677662175}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &677662170 stripped
 Transform:
@@ -4122,30 +3827,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &677662175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677662171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1 &712350151
 GameObject:
   m_ObjectHideFlags: 0
@@ -4751,9 +4432,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 929080932}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 929080934}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &929080929 stripped
 Transform:
@@ -4807,30 +4485,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &929080934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 929080930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1001 &935487711
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4895,9 +4549,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 935487715}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 935487717}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &935487712 stripped
 Transform:
@@ -4951,30 +4602,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &935487717
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 935487713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1 &946965387
 GameObject:
   m_ObjectHideFlags: 0
@@ -5132,9 +4759,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 969525888}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 969525890}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &969525885 stripped
 Transform:
@@ -5188,30 +4812,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &969525890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 969525886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1001 &975949899
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5276,9 +4876,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 975949903}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 975949905}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &975949900 stripped
 Transform:
@@ -5332,30 +4929,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &975949905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 975949901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1001 &986601367
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5467,6 +5040,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4542951548719359147, guid: 189a2692d5658874f90e00afc91d66dc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4542951548719359147, guid: 189a2692d5658874f90e00afc91d66dc, type: 3}
       propertyPath: spawnTime
       value: 0.5
       objectReference: {fileID: 0}
@@ -5474,7 +5051,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawner (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4542951548719359147, guid: 189a2692d5658874f90e00afc91d66dc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5657,25 +5235,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d1076c75aea15adab998bcafe0aa30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathDiagonal: 0
+  pathDiagonal: 1
   simulating: 1
-  maxPlayerCount: 5000
+  maxPlayerCount: 1
   plateCountX: 400
   plateCountZ: 400
   playerCount: 0
   inactivePlayerCount: 0
   agentsLostPatience: 0
   maxKapazitaet: 0
-  allBudenWeigth: 0
+  allBudenWeigth: 5
   budenContainerName: BudenContainer
   exitContainerName: ExitContainer
   spawnerContainerName: SpawnerContainer
   heatmapname: HeatMap
   floors:
   - {fileID: 1888413063}
-  allBudenScripts: []
-  normalPlateX: 0
-  normalPlateZ: 0
+  allBudenScripts:
+  - {fileID: 494254167}
+  normalPlateX: 5
+  normalPlateZ: 5
   deleteSoundClip: {fileID: 0}
   saveSoundClip: {fileID: 0}
   loadSoundClip: {fileID: 0}
@@ -5688,7 +5267,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1036096514}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad238ed33899215418b0b00f83e9c814, type: 3}
   m_Name: 
@@ -5784,9 +5363,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1042713125}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1042713127}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &1042713122 stripped
 Transform:
@@ -5840,30 +5416,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1042713127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1042713123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1001 &1121391546
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6425,9 +5977,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1257995486}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1257995488}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &1257995483 stripped
 Transform:
@@ -6481,30 +6030,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1257995488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1257995484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1001 &1286174998
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6569,9 +6094,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1286175002}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1286175004}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &1286174999 stripped
 Transform:
@@ -6625,93 +6147,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1286175004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1286175000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
---- !u!1 &1291460238
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1291460239}
-  - component: {fileID: 1291460240}
-  m_Layer: 0
-  m_Name: Navmesh
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1291460239
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291460238}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.58}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1636704923}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1291460240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291460238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 8e290204aa118684c970076a0d0b4ee2, type: 2}
-  m_BuildHeightMesh: 0
 --- !u!1001 &1296459608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6776,9 +6211,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1296459612}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1296459614}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &1296459609 stripped
 Transform:
@@ -6832,30 +6264,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1296459614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1296459610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1001 &1305711339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6920,9 +6328,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1305711343}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1305711345}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &1305711340 stripped
 Transform:
@@ -6976,30 +6381,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1305711345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1305711341}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1001 &1318087220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7387,9 +6768,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1385416091}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1385416093}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &1385416088 stripped
 Transform:
@@ -7443,30 +6821,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1385416093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1385416089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1001 &1398914009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7531,9 +6885,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1398914013}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1398914015}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &1398914010 stripped
 Transform:
@@ -7587,30 +6938,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1398914015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1398914011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1001 &1405774510
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7675,9 +7002,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1405774514}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1405774516}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &1405774511 stripped
 Transform:
@@ -7731,30 +7055,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1405774516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1405774512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1 &1521297245
 GameObject:
   m_ObjectHideFlags: 0
@@ -8051,7 +7351,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1291460239}
   - {fileID: 1036096515}
   - {fileID: 829851550}
   m_Father: {fileID: 1341412598}
@@ -8164,9 +7463,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1717035018}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1717035020}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &1717035015 stripped
 Transform:
@@ -8220,30 +7516,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1717035020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717035016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1001 &1730049338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8293,6 +7565,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4542951548719359147, guid: 189a2692d5658874f90e00afc91d66dc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4542951548719359147, guid: 189a2692d5658874f90e00afc91d66dc, type: 3}
       propertyPath: spawnTime
       value: 0.5
       objectReference: {fileID: 0}
@@ -8300,7 +7576,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawner (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4542951548719359147, guid: 189a2692d5658874f90e00afc91d66dc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -8374,9 +7651,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1730681399}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1730681401}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &1730681396 stripped
 Transform:
@@ -8430,30 +7704,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1730681401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1730681397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1001 &1731298970
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8720,6 +7970,9 @@ PrefabInstance:
     - {fileID: 2819856895474916288, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7313654230448209575, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1813480386}
     - targetCorrespondingSourceObject: {fileID: 7696548424635294048, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1731298975}
@@ -8908,9 +8161,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1796759836}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1796759838}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &1796759833 stripped
 Transform:
@@ -8964,30 +8214,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1796759838
+--- !u!1 &1813480385 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7313654230448209575, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+  m_PrefabInstance: {fileID: 1731298970}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1813480386
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1796759834}
+  m_GameObject: {fileID: 1813480385}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
+  m_Script: {fileID: 11500000, guid: edbdcbb97d54e2241a75cc366dcaf2ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!114 &1834337114 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7712547942246075122, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
@@ -9404,9 +8647,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2015004195}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2015004197}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &2015004192 stripped
 Transform:
@@ -9460,30 +8700,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2015004197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2015004193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1 &2038348456
 GameObject:
   m_ObjectHideFlags: 0
@@ -9592,9 +8808,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2066836537}
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2066836539}
   m_SourcePrefab: {fileID: 100100000, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
 --- !u!4 &2066836534 stripped
 Transform:
@@ -9648,30 +8861,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2066836539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2066836535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7252f769dee2d51558cd4d5b0af239e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WaitTime: 20
-  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
-  AgentWidthX: 2
-  AgentWidthZ: 2
-  attraktivitaet: 5
-  kapazitaet: 0
-  delayBeforeNotBusy: 5
-  busy: 0
-  tilesX: 0
-  tilesZ: 0
-  attrakIncr: 10
-  waitIncr: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
