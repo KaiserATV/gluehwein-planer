@@ -580,7 +580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -870,7 +870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -1267,7 +1267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -1842,7 +1842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -1986,7 +1986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -2130,7 +2130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -2591,7 +2591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -2911,7 +2911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -3055,7 +3055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -3199,7 +3199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -3343,7 +3343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -3626,7 +3626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -4135,7 +4135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -4820,7 +4820,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -4964,7 +4964,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -5201,7 +5201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -5345,7 +5345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -5659,7 +5659,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathDiagonal: 0
   simulating: 1
-  maxPlayerCount: 10000
+  maxPlayerCount: 5000
   plateCountX: 400
   plateCountZ: 400
   playerCount: 0
@@ -5853,7 +5853,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -6494,7 +6494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -6638,7 +6638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -6845,7 +6845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -6989,7 +6989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -7456,7 +7456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -7600,7 +7600,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -7744,7 +7744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -8233,7 +8233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -8443,7 +8443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -8720,9 +8720,6 @@ PrefabInstance:
     - {fileID: 2819856895474916288, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7313654230448209575, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1731298973}
     - targetCorrespondingSourceObject: {fileID: 7696548424635294048, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1731298975}
@@ -8751,11 +8748,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 481330448}
   m_SourcePrefab: {fileID: 100100000, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
---- !u!1 &1731298971 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7313654230448209575, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-  m_PrefabInstance: {fileID: 1731298970}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1731298972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8800,18 +8792,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!114 &1731298973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1731298971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edbdcbb97d54e2241a75cc366dcaf2ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1731298974 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7696548424635294048, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
@@ -8997,7 +8977,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -9493,7 +9473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -9681,7 +9661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5

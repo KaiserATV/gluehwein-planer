@@ -55,7 +55,7 @@ public class Spawner : MonoBehaviour
                 {
                     if (position != null) {
                         GameObject agent = Instantiate(prop, position, rotation);
-                        agent.transform.parent = transform;
+                        agent.transform.SetParent(transform, false);
                         sm.playerCount++;
                     }
                 }
