@@ -210,7 +210,7 @@ public class Plate
                 distance = GenerateMatrix.GenerateDistanceField(BaseCostMatrix, Rows, Columns, exit, null, canPathDiagonal);
                 GoalPositionToDistanceField.Add(exit, distance);
             }
-            List<Vector2Int> path = GenerateMatrix.GetBestPathInDistanceMatrix(distance, Rows, Columns, start ,canPathDiagonal, (Vector2Int currMin, Vector2Int potential) => { Debug.Log(currMin+ "   "+ potential); return Vector2Int.Distance(currMin, exit) > Vector2Int.Distance(potential, exit); },null);
+            List<Vector2Int> path = GenerateMatrix.GetBestPathInDistanceMatrix(distance, Rows, Columns, start ,canPathDiagonal, (Vector2Int currMin, Vector2Int potential) => Vector2Int.Distance(currMin, exit) > Vector2Int.Distance(potential, exit),null);
             AllTakenPaths.Add((start, exit), path);
             return path;
         }
