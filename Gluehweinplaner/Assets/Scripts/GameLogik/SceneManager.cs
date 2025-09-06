@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 #nullable enable
 
 public class SceneManager : MonoBehaviour
@@ -37,7 +38,7 @@ public class SceneManager : MonoBehaviour
     private InactiveAgentsContainer? iac = null;
     private Heatmap? hm;
 
-    private Dictionary<Vector3, (int[,], int[,])> goalPositionToDistanceMatrix = new Dictionary<Vector3, (int[,], int[,])>();
+    private Dictionary<Vector3, (int[,], byte[,])> goalPositionToFlowField = new Dictionary<Vector3, (int[,], byte[,])>();
     private Dictionary<(Vector3, Vector3), (List<Plate>, Queue<Vector3>)> allPositionsToGoals = new Dictionary<(Vector3, Vector3), (List<Plate>, Queue<Vector3>)>();
 
     private List<GoalNode> allGoalNodes = new List<GoalNode>();
@@ -72,7 +73,7 @@ public class SceneManager : MonoBehaviour
         //Generate for every floor the tiles and positions thereof
         foreach (Bounds floor in allFloorBounds)//vorerst nur ein floor, sonst problem
             {
-                TransferType tt = PlateGenerator.CalculatePlatePositionsAndBaseCostMatrices(floor, plateCountX, plateCountZ);
+                TransferType tt = PlateGenerator.CalculatePlatePositionsAndBaseCostMatrices(floor, plateCountX, plateCountZ, pathDiagonal);
                 allPlateArray = new Plate[plateCountX, plateCountZ];
                 allPlateArray = tt.Plates;
                 normalPlateX = tt.normalPlateX;
@@ -81,11 +82,6 @@ public class SceneManager : MonoBehaviour
                 plateCountZ = tt.plateCountZ;
             }
 
-
-        foreach (Plate plate in allPlateArray!)
-        {
-            plate.FindAllExitableDirections(pathDiagonal);//prob needs all neighbors stored to recalc
-        }
 
         foreach (Bude b in allBudenScripts)
         {
@@ -354,12 +350,12 @@ public class SceneManager : MonoBehaviour
                 if (i < platesToVisit.Count - 1)
                 {
                     dirEnd = end - platesToVisit[i];
-                    startPos = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, startPos, _end, pathDiagonal);
+                    startPos = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, startPos, _end);
                     dirToNextPlate = platesToVisit[i + 1] - platesToVisit[i];
                 }
                 else
                 {
-                    allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, startPos, _end, pathDiagonal);
+                    allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, startPos, _end);
                     return;
                 }
                 if (dirToNextPlate.x == 0)
@@ -388,7 +384,7 @@ public class SceneManager : MonoBehaviour
         }
         else
         {
-            allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].OccupySpaces(b, startPos, _end,pathDiagonal);
+            allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].OccupySpaces(b, startPos, _end);
         }
     }
 
@@ -502,7 +498,7 @@ public class SceneManager : MonoBehaviour
         {
             GoalNode gn = new GoalNode(goalGroup, WorldPositionToPlate(goalGroup[0].GetFarestPoint()),this);
             allGoalNodes.Add(gn);
-            gn.OnPlate.AddGoalNode(gn, pathDiagonal);
+            gn.OnPlate.AddGoalNode(gn);
         }
     }
 
@@ -519,7 +515,7 @@ public class SceneManager : MonoBehaviour
         }
         GoalNode gn = new GoalNode(new List<Bude> { bude }, WorldPositionToPlate(bude.GetFarestPoint()), this);
         allGoalNodes.Add(gn);
-        gn.OnPlate.AddGoalNode(gn, pathDiagonal);
+        gn.OnPlate.AddGoalNode(gn);
     }
 
     public void RemoveGoalNode(GoalNode gn)
@@ -533,7 +529,7 @@ public class SceneManager : MonoBehaviour
     }
 
     private List<Plate> plateDebug = new List<Plate>();
-    private List<Vector3> debugTiles = new List<Vector3>();
+    private List<Vector3> debugList = new List<Vector3>();
     private bool drawDebug = false;
     public Queue<Vector3> HandlePathRequest(Vector3 start, Vector3 goal)
     {
@@ -548,22 +544,21 @@ public class SceneManager : MonoBehaviour
         Vector2Int arrayGoal = WorldPositionToPlateArrayPosition(goal);
         
         List<Vector2Int> platePosToVisit;
-        int[,] distanceMatrix;
+        byte[,] flowField;
         int[,] baseCostPlates;
         List<Plate> platesToVisit;
 
-        if (goalPositionToDistanceMatrix.ContainsKey(goal))
+        if (goalPositionToFlowField.ContainsKey(goal))
         {
-            baseCostPlates = goalPositionToDistanceMatrix[goal].Item1;
-            distanceMatrix = goalPositionToDistanceMatrix[goal].Item2;
+            baseCostPlates = goalPositionToFlowField[goal].Item1;
+            flowField = goalPositionToFlowField[goal].Item2;
         }
         else
         {
             baseCostPlates = GenerateMatrix.GenerateBaseCostMatrix(plateCountX, plateCountZ, (int row, int column) => !allPlateArray![row, column].HasOnlyObstacles, out bool onlyObstacles, out bool noObstacles);
-            distanceMatrix = GenerateMatrix.GenerateDistanceField(baseCostPlates, plateCountX, plateCountZ, arrayGoal, (Vector2Int currentPlate, Vector2Int direction) => canPathTo(currentPlate, direction), pathDiagonal);
+            (_,flowField) = GenerateMatrix.GenerateDistanceFieldAndFlowField(baseCostPlates, plateCountX, plateCountZ, new List<Vector2Int> { arrayGoal }, pathDiagonal);
         }
-        platePosToVisit = GenerateMatrix.GetBestPathInDistanceMatrix(distanceMatrix, plateCountX, plateCountZ, arrayStart, pathDiagonal, (Vector2Int currMin, Vector2Int potential) => isCloser(currMin,potential, arrayGoal), (Vector2Int start, Vector2Int dir) => canPathTo(start, dir));
-        
+        platePosToVisit = GenerateMatrix.GetBestPathInFlowFieldFull(flowField, arrayStart);
         if (platePosToVisit.Count == 0) { return new Queue<Vector3>(); }//there is no way to path to the goal from the given position
 
         platesToVisit = new List<Plate>();
@@ -572,21 +567,22 @@ public class SceneManager : MonoBehaviour
         {
             platesToVisit.Add(allPlateArray![pos.x, pos.y]);
         }
-     
+        plateDebug = platesToVisit;
+
         (Queue<Vector3> wayPoints, Plate? lastVisitedPlate) = GenerateMatrix.GeneratePath(platesToVisit, start, goal, pathDiagonal);
         if (lastVisitedPlate == null)
         {
-            if (!goalPositionToDistanceMatrix.ContainsKey(goal))
+            if (!goalPositionToFlowField.ContainsKey(goal))
             {
-                goalPositionToDistanceMatrix.Add(goal, (baseCostPlates, distanceMatrix));
+                goalPositionToFlowField.Add(goal, (baseCostPlates, flowField));
             }
             if (!allPositionsToGoals.ContainsKey((start, goal)))
             {
                 allPositionsToGoals.Add((start, goal), (platesToVisit, new Queue<Vector3>(wayPoints)));
             }
-            debugTiles = wayPoints.ToList();
             plateDebug = platesToVisit;
             drawDebug = true;
+            debugList = wayPoints.ToList();
             return wayPoints;
         }
         else
@@ -597,8 +593,8 @@ public class SceneManager : MonoBehaviour
             {
                 Vector2Int platePos = WorldPositionToPlateArrayPosition(lastVisitedPlate!.Center);
                 baseCostPlates[platePos.x, platePos.y] = GenerateMatrix.MatrixObstacleValue;
-                distanceMatrix = GenerateMatrix.GenerateDistanceField(baseCostPlates, plateCountX, plateCountZ, arrayGoal, (Vector2Int currentPlate, Vector2Int direction) => canPathTo(currentPlate, direction), pathDiagonal);
-                platePosToVisit = GenerateMatrix.GetBestPathInDistanceMatrix(distanceMatrix, plateCountX, plateCountZ, arrayStart, pathDiagonal, (Vector2Int currMin, Vector2Int potential) => isCloser(currMin, potential, arrayGoal), (Vector2Int start, Vector2Int dir) => canPathTo(start, dir));
+                (_, flowField) = GenerateMatrix.GenerateDistanceFieldAndFlowField(baseCostPlates, plateCountX, plateCountZ, new List<Vector2Int>{ arrayGoal }, pathDiagonal);
+                platePosToVisit = GenerateMatrix.GetBestPathInFlowFieldFull(flowField, arrayStart);
 
                 if (platePosToVisit.Count == 0) { return new Queue<Vector3>(); }//there is no way to path to the goal from the given position
 
@@ -607,7 +603,7 @@ public class SceneManager : MonoBehaviour
                 {
                     platesToVisit.Add(allPlateArray![pos.x, pos.y]);
                 }
-
+                
                 (Queue < Vector3> newWayPoints, Plate? lastPlate) = GenerateMatrix.GeneratePath(platesToVisit, start, goal, pathDiagonal);
                 lastVisitedPlate = lastPlate;
                 if (lastPlate == null)
@@ -616,13 +612,12 @@ public class SceneManager : MonoBehaviour
                     {
                         allPositionsToGoals.Remove((start, goal));
                     }
-                    if (goalPositionToDistanceMatrix.ContainsKey(goal))
+                    if (goalPositionToFlowField.ContainsKey(goal))
                     {
-                        goalPositionToDistanceMatrix.Remove(goal);
+                        goalPositionToFlowField.Remove(goal);
                     }
                     allPositionsToGoals.Add((start, goal), (platesToVisit, new Queue<Vector3>(newWayPoints)));
-                    goalPositionToDistanceMatrix.Add(goal, (baseCostPlates, distanceMatrix));
-                    debugTiles = newWayPoints.ToList();
+                    goalPositionToFlowField.Add(goal, (baseCostPlates, flowField));
                     plateDebug = platesToVisit;
                     drawDebug = true;
                     return newWayPoints;
@@ -661,70 +656,7 @@ public class SceneManager : MonoBehaviour
         hm!.ClearPos(pos);
     }
 
-    bool canPathTo(Vector2Int currentPlate, Vector2Int direction)
-    {
-        ExitDirection exit;
-        ExitDirection inverse;
-        if (direction.x == 0)
-        {
-            if (direction.y > 0)
-            {
-                exit = ExitDirection.East;
-                inverse = ExitDirection.West;
-            }
-            else
-            {
-                exit = ExitDirection.West;
-                inverse = ExitDirection.East;
-            }
-        }
-        else if (direction.y == 0)
-        {
-            if (direction.x > 0)
-            {
-                exit = ExitDirection.South;
-                inverse = ExitDirection.North;
-            }
-            else
-            {
-                exit = ExitDirection.North;
-                inverse = ExitDirection.South;
-            }
-        }
-        else
-        {
-            if (direction.x > 0)
-            {
-                if (direction.y > 0)
-                {
-                    exit = ExitDirection.SouthEast;
-                    inverse = ExitDirection.NorthWest;
-                }
-                else
-                {
-                    exit = ExitDirection.SouthWest;
-                    inverse = ExitDirection.NorthEast;
-                }
-            }
-            else
-            {
-                if (direction.y > 0)
-                {
-                    exit = ExitDirection.NorthEast;
-                    inverse = ExitDirection.SouthWest;
-                }
-                else
-                {
-                    exit = ExitDirection.NorthWest;
-                    inverse = ExitDirection.SouthEast;
-                }
-            }
-        }
-       return !allPlateArray![currentPlate.x, currentPlate.y].HasOnlyObstacles && !allPlateArray[currentPlate.x + direction.x, currentPlate.y + direction.y].HasOnlyObstacles && allPlateArray[currentPlate.x, currentPlate.y].CanExit.Contains(exit) && allPlateArray[currentPlate.x + direction.x, currentPlate.y + direction.y].CanExit.Contains(inverse);
-    }
-
-
-
+   
     public Plate WorldPositionToPlate(Vector3 pos)
     {
         int plateNumberX = Mathf.FloorToInt((pos.x - allFloorBounds[0].min.x) / normalPlateX);
@@ -798,21 +730,7 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        if(Application.isPlaying && drawDebug)
-        {
-            Gizmos.color = Color.yellow;
-            foreach (Plate p in plateDebug)
-            {
-                Gizmos.DrawCube(p.Center, p.Size);
-            }
-            Gizmos.color = Color.red;
-            foreach (Vector3 v in debugTiles)
-            {
-                Gizmos.DrawCube(v, new(1, 0, 1));
-            }
-        }
-    }
+
+    
 
 }

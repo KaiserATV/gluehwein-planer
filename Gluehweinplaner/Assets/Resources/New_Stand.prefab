@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 1490289255278885574}
   - component: {fileID: 1420407492188418052}
   - component: {fileID: 5219241846820980623}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Boden
   m_TagString: Untagged
   m_Icon: {fileID: 0}

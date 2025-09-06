@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Menu\RadialSelection.cs" />
     <Compile Include="Assets\Scripts\Buden\Kategorien.cs" />
+    <Compile Include="Assets\Scripts\FlowFieldSetup\ExitDirection.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\PlateGenerator.cs" />
     <Compile Include="Assets\Scripts\SpawnerDespawner\Spawner.cs" />
     <Compile Include="Assets\Scripts\Audio\VolumeManager.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Assets\Scripts\GameLogik\NPC.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\Plate.cs" />
     <Compile Include="Assets\Scripts\TestingScripts\TestMovingScript.cs" />
+    <Compile Include="Assets\Scripts\FlowFieldSetup\Portal.cs" />
     <Compile Include="Assets\Scripts\Buden\BitArray2D.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\TransferType.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\GenerateMatrix.cs" />

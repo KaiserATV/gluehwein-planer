@@ -1017,8 +1017,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d1076c75aea15adab998bcafe0aa30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathDiagonal: 1
-  simulating: 1
+  pathDiagonal: 0
+  simulating: 0
   maxPlayerCount: 1
   plateCountX: 10
   plateCountZ: 10
@@ -1389,8 +1389,8 @@ Transform:
   m_GameObject: {fileID: 834080160}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.22, y: -0.53, z: 5.8}
-  m_LocalScale: {x: 3.2493, y: 1.2634, z: 29.430935}
+  m_LocalPosition: {x: -18.07, y: -0.53, z: 5.8}
+  m_LocalScale: {x: 3.2899165, y: 1.2634, z: 29.430935}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1712,7 +1712,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4859477853738827348, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.38
+      value: 2.1
       objectReference: {fileID: 0}
     - target: {fileID: 4859477853738827348, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       propertyPath: m_LocalPosition.y
