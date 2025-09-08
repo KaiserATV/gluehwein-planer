@@ -81,7 +81,7 @@ public class SceneManager : MonoBehaviour
                 plateCountX = tt.plateCountX;
                 plateCountZ = tt.plateCountZ;
             }
-
+        show = true;
 
         foreach (Bude b in allBudenScripts)
         {
@@ -93,7 +93,7 @@ public class SceneManager : MonoBehaviour
         }
         GenerateGoalNodes();
     }
-
+    public bool show = false;
     public bool laden = false;
     public bool speichern = false;
     void Update()
@@ -528,9 +528,7 @@ public class SceneManager : MonoBehaviour
         return HandlePathRequest(start, goalNode.Position);
     }
 
-    private List<Plate> plateDebug = new List<Plate>();
-    private List<Vector3> debugList = new List<Vector3>();
-    private bool drawDebug = false;
+    
     public Queue<Vector3> HandlePathRequest(Vector3 start, Vector3 goal)
     {
         if (allPositionsToGoals.ContainsKey((start,goal))) {
@@ -562,12 +560,11 @@ public class SceneManager : MonoBehaviour
         if (platePosToVisit.Count == 0) { return new Queue<Vector3>(); }//there is no way to path to the goal from the given position
 
         platesToVisit = new List<Plate>();
-        
+       
         foreach (Vector2Int pos in platePosToVisit)
         {
             platesToVisit.Add(allPlateArray![pos.x, pos.y]);
         }
-        plateDebug = platesToVisit;
 
         (Queue<Vector3> wayPoints, Plate? lastVisitedPlate) = GenerateMatrix.GeneratePath(platesToVisit, start, goal, pathDiagonal);
         if (lastVisitedPlate == null)
@@ -580,9 +577,6 @@ public class SceneManager : MonoBehaviour
             {
                 allPositionsToGoals.Add((start, goal), (platesToVisit, new Queue<Vector3>(wayPoints)));
             }
-            plateDebug = platesToVisit;
-            drawDebug = true;
-            debugList = wayPoints.ToList();
             return wayPoints;
         }
         else
@@ -618,8 +612,7 @@ public class SceneManager : MonoBehaviour
                     }
                     allPositionsToGoals.Add((start, goal), (platesToVisit, new Queue<Vector3>(newWayPoints)));
                     goalPositionToFlowField.Add(goal, (baseCostPlates, flowField));
-                    plateDebug = platesToVisit;
-                    drawDebug = true;
+                   
                     return newWayPoints;
                 }
                 tries++;
@@ -627,6 +620,81 @@ public class SceneManager : MonoBehaviour
             return new Queue<Vector3>();//no path could be found
         }
     }
+
+    public void BudeMoved(Bude bude)
+    {
+        List<Vector3> cornerPos = bude.GetAllCornerPoints();/// Top left, Top right, Bottom Left, Bottom Right
+        ReserveBudenPosition(bude, cornerPos[0], cornerPos[1]);
+        ReserveBudenPosition(bude, cornerPos[1], cornerPos[3]);
+        ReserveBudenPosition(bude, cornerPos[3], cornerPos[2]);
+        ReserveBudenPosition(bude, cornerPos[2], cornerPos[0]);
+
+        FindOrCreateNewGoalNode(bude);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (Application.isPlaying && show)
+        {
+            //Plate plate = allPlateArray[0, 0];
+            //byte[,] flowField = plate.exitDirectionToPortals[ExitDirection.ExitDirections.South][0].flowfield;
+            //for (int i = 0; i < plate.Rows; i++)
+            //{
+            //    for (int j = 0; j < plate.Columns; j++)
+            //    {
+            //        if (flowField[i, j] == ExitDirection.North)
+            //        {
+            //            Gizmos.color = Color.black;
+            //        }
+            //        else if (flowField[i, j] == ExitDirection.NorthEast)
+            //        {
+            //            Gizmos.color = Color.cyan;
+            //        }
+            //        else if (flowField[i, j] == ExitDirection.East)
+            //        {
+            //            Gizmos.color = Color.blue;
+            //        }
+            //        else if (flowField[i, j] == ExitDirection.SouthEast)
+            //        {
+            //            Gizmos.color = Color.magenta;
+            //        }
+            //        else if (flowField[i, j] == ExitDirection.South)
+            //        {
+            //            Gizmos.color = Color.green;
+            //        }
+            //        else if (flowField[i, j] == ExitDirection.SouthWest)
+            //        {
+            //            Gizmos.color = Color.grey;
+            //        }
+            //        else if (flowField[i, j] == ExitDirection.West)
+            //        {
+            //            Gizmos.color = Color.yellow;
+            //        }
+            //        else if (flowField[i, j] == ExitDirection.NorthWest)
+            //        {
+            //            Gizmos.color = Color.white;
+            //        }
+            //        else if (flowField[i, j] == ExitDirection.NotPathable)
+            //        {
+            //            Gizmos.color = Color.red;
+            //        }
+            //        else
+            //        {
+            //            Gizmos.color = Color.white;
+            //        }
+            //        Gizmos.DrawCube(plate.GetSubTileCenterWorldCoordinates(i, j), new(1, 0, 1));
+            //    }
+            //}
+            foreach (GoalNode gn in allGoalNodes)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawSphere(gn.Position, 1f);
+            }
+
+        }
+    }
+
+
 
     /// <summary>
     /// Returns true, if the second Vector2Int is closer to the goal then the first
@@ -729,8 +797,4 @@ public class SceneManager : MonoBehaviour
             }
         }
     }
-
-
-    
-
 }

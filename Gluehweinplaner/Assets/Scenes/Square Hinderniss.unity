@@ -1017,11 +1017,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d1076c75aea15adab998bcafe0aa30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathDiagonal: 0
-  simulating: 0
+  pathDiagonal: 1
+  simulating: 1
   maxPlayerCount: 1
-  plateCountX: 10
-  plateCountZ: 10
+  plateCountX: 2
+  plateCountZ: 1
   playerCount: 0
   inactivePlayerCount: 0
   agentsLostPatience: 0
@@ -1039,6 +1039,7 @@ MonoBehaviour:
   deleteSoundClip: {fileID: 0}
   saveSoundClip: {fileID: 0}
   loadSoundClip: {fileID: 0}
+  show: 0
   laden: 0
   speichern: 0
 --- !u!114 &651296440
@@ -1769,6 +1770,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1213243454}
+    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1213243458}
     - targetCorrespondingSourceObject: {fileID: 6289789540875306584, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 508810969}
@@ -1791,7 +1795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaitTime: 20
-  Agent: {fileID: 196369825999762129, guid: f5233b5255d52c21dbeb3995ba009c5a, type: 3}
+  Agent: {fileID: 5623777370926623910, guid: 09c0f70795f6b31499059f9fe119e7a8, type: 3}
   AgentWidthX: 2
   AgentWidthZ: 2
   attraktivitaet: 5
@@ -1849,6 +1853,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4859477853738827348, guid: 14d961e1e79528e4189713704a422b7a, type: 3}
   m_PrefabInstance: {fileID: 1213243452}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1213243458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213243453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7764cf753bccd4dabbe75093722915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bude: {fileID: 1213243454}
+  switchNow: 0
 --- !u!1 &1839105051
 GameObject:
   m_ObjectHideFlags: 0
@@ -1968,7 +1986,7 @@ GameObject:
   - component: {fileID: 1876832999}
   - component: {fileID: 1876832998}
   - component: {fileID: 1876833002}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: HeatMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

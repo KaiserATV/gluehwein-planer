@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Audio\RadialSlider.cs" />
     <Compile Include="Assets\Scripts\Menu\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\GoalNode.cs" />
+    <Compile Include="Assets\Scripts\FlowFieldSetup\PriorityQueue.cs" />
     <Compile Include="Assets\Scripts\Audio\VolumeChangeSound.cs" />
     <Compile Include="Assets\Scripts\Budeninteraktion\JSON.cs" />
     <Compile Include="Assets\Scripts\TestingScripts\MoveBude.cs" />

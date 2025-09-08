@@ -119,7 +119,7 @@ public class Plate
 
     private void CalcPortalNodesForSide(ExitDirection.ExitDirections dir, Vector2Int start, Vector2Int end, Vector2Int moveDirection)
     {
-        if (exitDirectionToPortals.ContainsKey(dir)) { return; }
+        if (exitDirectionToPortals.ContainsKey(dir)) { exitDirectionToPortals.Remove(dir); }
         List<Portal>portalNodes = new List<Portal>();
         List<Vector2Int> pos = new List<Vector2Int>(); 
         Vector2Int curr = start;
@@ -233,7 +233,7 @@ public class Plate
         }
         else if (!HasNoObstacles && !HasOnlyObstacles)
         {
-            List<Vector2Int> path = GenerateMatrix.GetBestPathInFlowField(portal.flowfield1, startArray);
+            List<Vector2Int> path = GenerateMatrix.GetBestPathInFlowField(portal.flowfield, startArray);
             return path;
         }
         return new List<Vector2Int>();
@@ -310,7 +310,6 @@ public class Plate
         List<Vector2Int> stepsTaken = new List<Vector2Int> { };
         Vector2Int goalPos = GetPositionInArray(exitWorld, false);
         stepsTaken = GenerateMatrix.InterpolateArray(start, goalPos, ((Vector2Int a, Vector2Int b) compare) => CloserPlateToGoal(compare.a, compare.b, exitWorld), false, Rows, Columns);
-        
         foreach (Vector2Int step in stepsTaken)
         {
             BaseCostMatrix[step.x, step.y] += GenerateMatrix.MatrixObstacleValue;
