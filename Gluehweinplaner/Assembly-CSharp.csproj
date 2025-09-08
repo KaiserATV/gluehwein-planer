@@ -61,16 +61,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Menu\RadialSelection.cs" />
+    <Compile Include="Assets\Scripts\Documentation\IPortal.cs" />
     <Compile Include="Assets\Scripts\Buden\Kategorien.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\ExitDirection.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\PlateGenerator.cs" />
     <Compile Include="Assets\Scripts\SpawnerDespawner\Spawner.cs" />
     <Compile Include="Assets\Scripts\Audio\VolumeManager.cs" />
+    <Compile Include="Assets\Scripts\Documentation\IPlate.cs" />
     <Compile Include="Assets\Scripts\Audio\SoundFXManager.cs" />
     <Compile Include="Assets\Scripts\Audio\RadialSlider.cs" />
     <Compile Include="Assets\Scripts\Menu\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\GoalNode.cs" />
-    <Compile Include="Assets\Scripts\FlowFieldSetup\PriorityQueue.cs" />
     <Compile Include="Assets\Scripts\Audio\VolumeChangeSound.cs" />
     <Compile Include="Assets\Scripts\Budeninteraktion\JSON.cs" />
     <Compile Include="Assets\Scripts\TestingScripts\MoveBude.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Assets\Scripts\FlowFieldSetup\Plate.cs" />
     <Compile Include="Assets\Scripts\TestingScripts\TestMovingScript.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\Portal.cs" />
+    <Compile Include="Assets\Scripts\Documentation\IGoalNode.cs" />
     <Compile Include="Assets\Scripts\Buden\BitArray2D.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\TransferType.cs" />
     <Compile Include="Assets\Scripts\FlowFieldSetup\GenerateMatrix.cs" />

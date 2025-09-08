@@ -26,6 +26,7 @@ public class Bude : MonoBehaviour
     private BitArray2D ziel;
 
     public GoalNode goalNode;
+    public List<Plate> onplates;
 
     public void Start()
     {

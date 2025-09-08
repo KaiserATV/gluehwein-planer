@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-public class Portal
+/// <inheritdoc cref="IPortal"/>
+public class Portal : IPortal
 {
     public Vector2Int Center;
     public List<Vector2Int> GoalPositions2;
@@ -12,7 +13,7 @@ public class Portal
     public Portal(List<Vector2Int> pos2)
     {
         GoalPositions2 = pos2;
-        Center = new(Mathf.FloorToInt((pos2.Last().x+pos2.First().x)/2), Mathf.FloorToInt(Mathf.FloorToInt((pos2.Last().y + pos2.First().y) / 2)));
+        Center = new(Mathf.FloorToInt((pos2.Last().x + pos2.First().x) / 2), Mathf.FloorToInt(Mathf.FloorToInt((pos2.Last().y + pos2.First().y) / 2)));
     }
     public void GenerateFlowField(Plate plate)
     {

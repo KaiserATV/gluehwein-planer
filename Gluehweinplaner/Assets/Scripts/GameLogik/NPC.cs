@@ -61,7 +61,7 @@ public class NPC : MonoBehaviour
             bude = budenToVisit.Dequeue();
             moveList = sm.HandlePathRequest(start, bude!.goalNode!);
             currentGoalNode = bude.goalNode;
-            currentGoalNode!.AddOnWayToGoalNode(this);
+            currentGoalNode!.UsingGoalnodeAdd(this);
             if (moveList.Count == 0) { exiting = true; }
             else
             {
@@ -145,7 +145,7 @@ public class NPC : MonoBehaviour
                                     currentGoalNode = bude!.goalNode;
                                     patienceLost = patience;
                                     moveList = sm!.HandlePathRequest(this.transform.position, currentGoalNode!);
-                                    currentGoalNode!.AddOnWayToGoalNode(this);
+                                    currentGoalNode!.UsingGoalnodeAdd(this);
                                     nextWayPoint = moveList.Dequeue();
                                     onWayToGoalNode = true;
                                 }
@@ -256,7 +256,7 @@ public class NPC : MonoBehaviour
                     {
                         bude = budenToVisit.Dequeue();
                         currentGoalNode = bude.goalNode;
-                        currentGoalNode!.AddOnWayToGoalNode(this);
+                        currentGoalNode!.UsingGoalnodeAdd(this);
                         onWayToGoalNode = true;
                         onWayBackFromBude = true;
                         nextWayPoint = null;
@@ -302,7 +302,7 @@ public class NPC : MonoBehaviour
             {
                 bude = budenToVisit.Dequeue();
                 currentGoalNode = bude.goalNode;
-                currentGoalNode!.AddOnWayToGoalNode(this);
+                currentGoalNode!.UsingGoalnodeAdd(this);
                 onWayToGoalNode = true;
                 onWayBackFromBude = true;
                 nextWayPoint = null;

@@ -1,8 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ExitDirection
+public static class ExitDirection
 {
+    /// <summary>
+    /// All the byte direction to be used in the flowfield and their corressponding number.
+    /// </summary>
     public static byte NotPathable = 0;
     public static byte IsExit = 123;
     public static byte North = 1;
@@ -14,6 +16,9 @@ public class ExitDirection
     public static byte SouthWest = 7;
     public static byte NorthWest = 8;
 
+    /// <summary>
+    /// Enum with all the Exitdirections.
+    /// </summary>
     public enum ExitDirections
     {
         NoExit,
@@ -26,7 +31,11 @@ public class ExitDirection
         West,
         NorthWest
     }
-
+    /// <summary>
+    /// Function used to convert between an Exitdirections enum and the corresponding byte.
+    /// </summary>
+    /// <param name="dir">The Exitdirection to convert to the corresponding byte.</param>
+    /// <returns>The Byte corresponding to the provided Exitdirection.</returns>
     public static byte DirectionToByte(ExitDirections dir)
     {
         if (dir == ExitDirections.North) { return North; }
@@ -36,10 +45,14 @@ public class ExitDirection
         else if (dir == ExitDirections.NorthEast) { return NorthEast; }
         else if (dir == ExitDirections.SouthWest) { return SouthWest; }
         else if (dir == ExitDirections.SouthEast) { return SouthEast; }
-        else if (dir == ExitDirections.NorthWest){ return NorthWest; }
+        else if (dir == ExitDirections.NorthWest) { return NorthWest; }
         return NotPathable;
     }
-
+    /// <summary>
+    /// Function used to convert between an byte direction and the corresponding Exitdirection.
+    /// </summary>
+    /// <param name="dir">The byte to convert to the corresponding Exitdirection.</param>
+    /// <returns>The Exitdirection corresponding to the provided byte.</returns>
     public static Vector2Int ByteToVector(byte byt)
     {
         if (byt == North) { return new(-1, 0); }
@@ -49,9 +62,14 @@ public class ExitDirection
         else if (byt == NorthEast) { return new(-1, 1); }
         else if (byt == NorthWest) { return new(-1, -1); }
         else if (byt == SouthEast) { return new(1, 1); }
-        else if(byt == SouthWest) { return new(1, -1); }
+        else if (byt == SouthWest) { return new(1, -1); }
         else { return new(0, 0); }
     }
+    /// <summary>
+    /// Function used to convert between an Vector2Int direction and the corresponding byte.
+    /// </summary>
+    /// <param name="dir">The Vector2Int to convert to the corresponding byte.</param>
+    /// <returns>The byte corresponding to the provided Vector2Int.</returns>
     public static byte VectorToByte(Vector2Int direction)
     {
         if (direction.x == 0)
@@ -106,8 +124,11 @@ public class ExitDirection
             }
         }
     }
-
-
+    /// <summary>
+    /// Function used to convert between an Vector2Int direction and the corresponding Exitdirection.
+    /// </summary>
+    /// <param name="dir">The Vector2Int to convert to the corresponding Exitdirection.</param>
+    /// <returns>The Exitdirection corresponding to the provided Vector2Int.</returns>
     public static ExitDirections DirectionToExitDiretion(Vector2Int direction)
     {
         if (direction.x == 0)

@@ -1,23 +1,43 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using Utils;
-using static UnityEngine.Rendering.DebugUI.Table;
 #nullable enable
 
 public static class GenerateMatrix
 {
-
-    public static float TileSizeX = 1f;//breite der spalte
-    public static float TileSizeZ = 1f;//höhe der zeile
+    /// <summary>
+    /// The height of the row.
+    /// </summary>
+    public static float TileSizeX = 1f;
+    /// <summary>
+    /// The width of the column.
+    /// </summary>
+    public static float TileSizeZ = 1f;
+    /// <summary>
+    /// Value that is used to represent an obstacle in the Basecostmatrix.
+    /// </summary>
     public static int MatrixObstacleValue = 999;
+    /// <summary>
+    /// Value that is used to represent an wakable path in the Basecostmatrix.
+    /// </summary>
     public static int MatrixIsPathableValue = 1001;
+    /// <summary>
+    /// The Layer representing the not wakable path.
+    /// </summary>
     public static int ObstacleLayer = LayerMask.GetMask("nichtWakable");
 
 
     //The base cost matrix contains, the base values of the costs to travel to a certain square in the tile. it is at first only boolean, walkable or not, where 1 represents wakable and 256 not wakable
+    /// <summary>
+    /// Function generating the Basecostmatrix. The Function loops over all the tiles provided and calls the "isPathable()" function to determine which value the tile should have.
+    /// </summary>
+    /// <param name="rowCount">The amount of rows the Basecostmatrix should have.</param>
+    /// <param name="colCount">The amount of columns the Basecostmatrix should have.</param>
+    /// <param name="isPathable">The function used to determine wether or not an tile is wakable.</param>
+    /// <param name="onlyObstacles">True if there are only obstacles in the resulting Basecostmatrix.</param>
+    /// <param name="noObstacles">True if there are no obstacles in the resulting Basecostmatrix.</param>
+    /// <returns>The Basecostmatrix with the specified Rows and Columns.</returns>
     public static int[,] GenerateBaseCostMatrix(int rowCount, int colCount, Func<int, int, bool> isPathable, out bool onlyObstacles, out bool noObstacles)
     {
         int[,] baseCostHolder = new int[rowCount, colCount];
@@ -60,13 +80,30 @@ public static class GenerateMatrix
         }
         return baseCostHolder;
     }
-
+    /// <summary>
+    /// Function used to determine the resulting distancefield and flowfield.
+    /// </summary>
+    /// <seealso cref="GenerateDistanceFieldAndFlowField(int[,], int, int, List{Vector2Int}, bool)"/>
+    /// <param name="plate">The Plate for which the fields are to be calculated.</param>
+    /// <param name="start">The starting point so calulate the distance from.</param>
+    /// <param name="canPathDiagonal">Wether or not the agents can path diagonal.</param>
+    /// <returns>The distancefield and the flowfield.</returns>
     public static (int[,], byte[,]) GenerateDistanceFieldAndFlowField(Plate plate, Vector3 start, bool canPathDiagonal)
     {
         List<Vector2Int> startPositions = new List<Vector2Int>{plate.GetPositionInArray(start, false)};
         return GenerateDistanceFieldAndFlowField(plate.BaseCostMatrix, plate.Rows, plate.Columns, startPositions, canPathDiagonal);
     }
-
+    /// <summary>
+    /// The function works like a wavefront moving away from the starting position(s). Counting up the distance from the starting field for the distancematrix.
+    /// It stores the byte corresponding to the direction it moved from the last position to the new position for the flowfield.
+    /// </summary>
+    /// <seealso cref="GenerateDistanceFieldAndFlowField(Plate, Vector3, bool)"/>
+    /// <param name="baseCost">The Basecostmatrix used to calculate the resulting distance and flowfield.</param>
+    /// <param name="rows">The number of rows.</param>
+    /// <param name="cols">The number of columns.</param>
+    /// <param name="startPositions">The List of starting positions from which the fields are calculated.</param>
+    /// <param name="canPathDiagonal">Wether or not the agent can path diagonal.</param>
+    /// <returns>The distancefield and the flowfield.</returns>
     public static (int[,], byte[,]) GenerateDistanceFieldAndFlowField(int[,] baseCost, int rows, int cols, List<Vector2Int> startPositions,bool canPathDiagonal)
     {
         int[,] distanceMatrix = (int[,])baseCost.Clone();
@@ -171,7 +208,12 @@ public static class GenerateMatrix
         } while (nextNodeToBeExpanded.Count != 0);
         return (distanceMatrix,returnField);
     }
-    
+    /// <summary>
+    /// Function used to determine the clostest Vector2Int from a list of positions to a provieded goal Vector2Int. 
+    /// </summary>
+    /// <param name="list">Amount of positions to consider.</param>
+    /// <param name="point">Point to which the closest position needs to be found.</param>
+    /// <returns>Return the closest Vector2Int. to the provided point.</returns>
     public static Vector2Int GetClostestV2(List<Vector2Int> list,Vector2Int point)
     {
         float distance = float.MaxValue;
@@ -186,10 +228,16 @@ public static class GenerateMatrix
         }
         return clostestPoint;
     }
-
-
-   
-    //https://www.redblobgames.com/grids/line-drawing/
+    /// <summary>
+    /// Function used to interpolate between the two points within a grid. The Algortihm used is a line-drawing algoithm provided by https://www.redblobgames.com/grids/line-drawing/ .
+    /// </summary>
+    /// <param name="start">The starting point of the interpolation.</param>
+    /// <param name="goal">The goalpoint of the interpolation</param>
+    /// <param name="decideNext">Function to decide bewtween two points which should be used to interpolate the next step.</param>
+    /// <param name="canPathDiagonal">Wether or not the agents can path diagonal.</param>
+    /// <param name="rows">The number of rows.</param>
+    /// <param name="cols">The number of columns.</param>
+    /// <returns>A List of Vecto2Ints which represent the steps taken to interpolate between the two points inside the grid.</returns>
     public static List<Vector2Int> InterpolateArray(Vector2Int start, Vector2Int goal, Func<(Vector2Int,Vector2Int),Vector2Int> decideNext, bool canPathDiagonal, int rows, int cols)
     {
         if (start == goal)
@@ -350,74 +398,15 @@ public static class GenerateMatrix
             return points;
         }
     }
-
-    public static Vector3 FindClostestPointInArrayV3(Vector3 plateArrayGoal, Plate plate)
-    {
-        return plate.GetSubTileCenterWorldCoordinates(FindClostestPointInArrayV2(plateArrayGoal, plate));
-    }
-
-    public static Vector2Int FindClostestPointInArrayV2(Vector3 plateArrayGoal, Plate plate)
-    {
-        List<(Vector2Int, float)> positionToDistance = new List<(Vector2Int, float)>
-        {
-            ( new Vector2Int(0, 0), Vector3.Distance(plateArrayGoal, plate.GetSubTileCenterWorldCoordinates(new Vector2Int(0, 0)))),
-            ( new Vector2Int(plate.Rows-1, 0), Vector3.Distance(plateArrayGoal, plate.GetSubTileCenterWorldCoordinates(new Vector2Int(plate.Rows - 1, 0)))),
-            ( new Vector2Int(0, plate.Columns-1) ,Vector3.Distance(plateArrayGoal, plate.GetSubTileCenterWorldCoordinates(new Vector2Int(0, plate.Columns - 1)))),
-            ( new Vector2Int(plate.Rows - 1, plate.Columns - 1), Vector3.Distance(plateArrayGoal, plate.GetSubTileCenterWorldCoordinates(new Vector2Int(plate.Rows - 1, plate.Columns - 1))))
-        };
-        positionToDistance.Sort((o1, o2) => o1.Item2.CompareTo(o2.Item2));
-
-        (Vector2Int bestFirstPoint, float distance1)  = FindClostestPoint(positionToDistance[0].Item1, positionToDistance[1].Item1, plateArrayGoal, plate);
-        (Vector2Int bestSecondPoint, float distance2) = FindClostestPoint(positionToDistance[0].Item1, positionToDistance[2].Item1, plateArrayGoal, plate);
-        
-        if(bestFirstPoint == null || bestSecondPoint == null)
-        {
-            return (bestFirstPoint == null)?bestSecondPoint:bestFirstPoint;
-        }
-        else
-        {
-            return (distance1 < distance2)? bestFirstPoint : bestSecondPoint;
-        }
-
-    }
-
-    public static (Vector2Int,float) FindClostestPoint(Vector2Int clostestGoal, Vector2Int secondClostesGoal, Vector3 plateArrayGoal, Plate plate) 
-    {
-        Vector2Int goalDirection = secondClostesGoal - clostestGoal;
-
-        int spacesBetween = Math.Max(Math.Abs(goalDirection.x), Math.Abs(goalDirection.y));
-        goalDirection.x /= spacesBetween;
-        goalDirection.y /= spacesBetween;//norming the vector
-
-        Vector3 dir = plateArrayGoal - plate.GetSubTileCenterWorldCoordinates(clostestGoal);
-        dir.x = (dir.x > 0) ? 1 - goalDirection.x  : -1 - goalDirection.x;
-        dir.z = (dir.z > 0) ? 1 - goalDirection.y : -1 - goalDirection.y;
-        dir.y = 0;
-        dir.x *= TileSizeX;
-        dir.z *= TileSizeZ;
-
-        float clostestCurrentDistance = Vector3.Distance(plateArrayGoal, plate.GetSubTileCenterWorldCoordinates(clostestGoal));
-        Vector2Int closestValidPoint=clostestGoal;
-        Vector2Int nextClosestPoint;
-        for (int i = 1; i < spacesBetween; i++)
-        {
-            nextClosestPoint = clostestGoal + i * goalDirection;
-
-            float nextDistance = Vector3.Distance(plateArrayGoal, plate.GetSubTileCenterWorldCoordinates(nextClosestPoint));
-
-            if (nextDistance < clostestCurrentDistance)
-            {
-                closestValidPoint = nextClosestPoint;
-                clostestCurrentDistance = nextDistance;
-            }
-            else if (nextDistance > clostestCurrentDistance)
-            {
-                return (closestValidPoint,clostestCurrentDistance);
-            }
-        }
-        return (closestValidPoint, clostestCurrentDistance);
-    }
-
+    /// <summary>
+    /// The function used to find the best Vector3 point to an next plate within the provieded exitdirection.
+    /// </summary>
+    /// <seealso cref="FindBestPointToNextArrayAndGoal(Vector3, ExitDirection.ExitDirections, Plate, Plate)"/>
+    /// <param name="goal">The position to find the best exit to.</param>
+    /// <param name="exitDirection">The direction in which the exit position are to be considered.</param>
+    /// <param name="homePlate">The Plate on which the exit positions are to be considered.</param>
+    /// <param name="neighborPlate">The plate neighboring the plate on which the exits are considered.</param>
+    /// <returns>Null if there is no valid exit. A Vector3 if there is an valid exit.</returns>
     public static Vector3? FindBestPointToNextArrayAndGoalV3(Vector3 goal, ExitDirection.ExitDirections exitDirection, Plate homePlate, Plate neighborPlate)
     {
         Vector2Int? ret = null;
@@ -425,43 +414,23 @@ public static class GenerateMatrix
         if(ret == null){ return null; };
         return homePlate.GetSubTileCenterWorldCoordinates(ret!.Value);
     }
+    /// <summary>
+    /// The function used to find the best Vector3 point to an next plate within the provieded exitdirection.
+    /// </summary>
+    /// <seealso cref="FindBestPointToNextArrayAndGoalV3(Vector3, ExitDirection.ExitDirections, Plate, Plate)"/>
+    /// <param name="goal">The position to find the best exit to.</param>
+    /// <param name="exitDirection">The direction in which the exit position are to be considered.</param>
+    /// <param name="homePlate">The Plate on which the exit positions are to be considered.</param>
+    /// <param name="neighborPlate">The plate neighboring the plate on which the exits are considered.</param>
+    /// <returns>Null if there is no valid exit. A Vector3 if there is an valid exit.</returns>
     public static Vector2Int? FindBestPointToNextArrayAndGoal(Vector3 goal, ExitDirection.ExitDirections exitDirection, Plate homePlate, Plate neighborPlate)
     {
-        Vector2Int startPos = new Vector2Int();
-        Vector2Int endPos = new Vector2Int();
-        switch (exitDirection)
-        {
-            case ExitDirection.ExitDirections.North:
-                startPos = new Vector2Int(0, 0);
-                endPos = new Vector2Int(0, homePlate.Columns - 1);
-                break;
-            case ExitDirection.ExitDirections.East:
-                startPos = new Vector2Int(0, homePlate.Columns - 1);
-                endPos = new Vector2Int(homePlate.Rows - 1, homePlate.Columns - 1);
-                break;
-            case ExitDirection.ExitDirections.West:
-                startPos = new Vector2Int(homePlate.Rows - 1, 0);
-                endPos = new Vector2Int(0, 0);
-                break;
-            case ExitDirection.ExitDirections.South:
-                startPos = new Vector2Int(homePlate.Rows - 1, 0);
-                endPos = new Vector2Int(homePlate.Rows - 1, homePlate.Columns - 1);
-                break;
-        }
-
-        Vector2Int direction = endPos - startPos;
-        int maxSteps = Math.Max(Math.Abs(direction.x), Math.Abs(direction.y));
-
-        direction.x = Math.Clamp(direction.x, -1, 1);
-        direction.y = Math.Clamp(direction.y, -1, 1);
-
-        Vector2Int posToBeChecked = new Vector2Int();
-        float currentSmallestDistance = float.MaxValue;
-
+        Portal? clostestPortal = homePlate.GetClostestPortal(exitDirection);
+        if(clostestPortal == null){ return null; };
         Vector2Int? clostestPoint = null;
-        for (int i = 0; i < maxSteps + 1; i++)
+        float currentSmallestDistance = float.MaxValue;
+        foreach (Vector2Int posToBeChecked in clostestPortal.GoalPositions2)
         {
-            posToBeChecked = startPos + i * direction;
             if (homePlate.BaseCostMatrix[posToBeChecked.x, posToBeChecked.y] == MatrixIsPathableValue)
             {
                 float distance = Vector3.Distance(goal, homePlate.GetSubTileCenterWorldCoordinates(posToBeChecked));
@@ -469,7 +438,7 @@ public static class GenerateMatrix
                 {
                     if (exitDirection == ExitDirection.ExitDirections.North || exitDirection == ExitDirection.ExitDirections.South)
                     {
-                        if(neighborPlate.BaseCostMatrix[neighborPlate.Rows-(posToBeChecked.x+1),posToBeChecked.y] == MatrixIsPathableValue)
+                        if (neighborPlate.BaseCostMatrix[neighborPlate.Rows - (posToBeChecked.x+1), posToBeChecked.y] == MatrixIsPathableValue)
                         {
                             clostestPoint = posToBeChecked;
                             currentSmallestDistance = distance;
@@ -477,7 +446,7 @@ public static class GenerateMatrix
                     }
                     else
                     {
-                        if(neighborPlate.BaseCostMatrix[posToBeChecked.x,neighborPlate.Columns-(posToBeChecked.y+1)] == MatrixIsPathableValue)
+                        if (neighborPlate.BaseCostMatrix[posToBeChecked.x, neighborPlate.Columns - (posToBeChecked.y+1)] == MatrixIsPathableValue)
                         {
                             clostestPoint = posToBeChecked;
                             currentSmallestDistance = distance;
@@ -486,12 +455,21 @@ public static class GenerateMatrix
                 }
                 else { break; }
             }
-            
         }
         return clostestPoint;
     }
 
-
+    /// <summary>
+    /// Function to Generate the path for an agent from the provided plates to be visited. The path starts at the provided start and ends at the provided goal.
+    /// </summary>
+    /// <param name="platesToVisit">The List of plates through which the agents paths to the provided goal.</param>
+    /// <param name="start">The starting point of the path.</param>
+    /// <param name="goal">The ending point of the path.</param>
+    /// <param name="canPathDiagonal">Wether or not the agent can path diagonal.</param>
+    /// <returns>
+    /// The Queue of Vector3, the waypoints which the agent is ought to take. This list is null, when there couldn't be a path found with the provided plates could be found. 
+    /// In that case the last Plate is returned.
+    /// </returns>
     public static (Queue<Vector3>,Plate?) GeneratePath(List<Plate> platesToVisit, Vector3 start, Vector3 goal, bool canPathDiagonal)
     {
         List<Vector3> steps = new List<Vector3> { start };
@@ -617,7 +595,13 @@ public static class GenerateMatrix
         steps.AddRange(platesToVisit.Last<Plate>().GetShortestPathToGoalWithin(steps.Last(), goal));
         return (new Queue<Vector3>(steps), null);
     }
-
+    /// <summary>
+    /// The function finds the path between an start and the goal in the provided flowfield. Only returning the points at which the agent changes the direction.
+    /// </summary>
+    /// <seealso cref="GetBestPathInFlowFieldFull(byte[,], Vector2Int)"/>
+    /// <param name="flowfield">The flowfield in which the path should be found.</param>
+    /// <param name="start">The starting point of the path.</param>
+    /// <returns>The List of Vector2Int of tiles to be visited in the flowfield to an goal position. The function only returns the points in the path on which the agent must chang their position.</returns>
     public static List<Vector2Int> GetBestPathInFlowField(byte[,] flowfield,Vector2Int start)
     {
         List<Vector2Int> bestPath = new List<Vector2Int>();
@@ -638,7 +622,13 @@ public static class GenerateMatrix
         //Debug.Log(bestPath.Count);
         return bestPath;
     }
-
+    /// <summary>
+    /// The function returns the full path in the provided flowfield.
+    /// </summary>
+    /// <seealso cref="GetBestPathInFlowFieldFull(byte[,], Vector2Int)"/>
+    /// <param name="flowfield">The flowfield in which the path should be found.</param>
+    /// <param name="start">The starting point of the path.</param>
+    /// <returns>Return the full path taken by the agent.</returns>
     public static List<Vector2Int> GetBestPathInFlowFieldFull(byte[,] flowfield, Vector2Int start)
     {
         List<Vector2Int> bestPath = new List<Vector2Int>();
@@ -653,38 +643,14 @@ public static class GenerateMatrix
         return bestPath;
     }
 
-    public static List<Vector2Int> PathDiagonal(Vector2Int start, Vector2Int exit)
-    {
-        List<Vector2Int> steps = new List<Vector2Int>();
-        do
-        {
-            steps.Add(start);
-            Vector2Int diff = exit - start;
-            if (diff.y > 0)
-            {
-                start.y += 1;
-            }
-            else if (diff.y < 0)
-            {
-                start.y -= 1;
-            }
-            
-            
-            if (diff.x > 0)
-            {
-                start.x += 1;
-            }
-            else if(diff.x < 0)
-            {
-                start.x -= 1;
-            }
-
-        } while (start != exit);
-
-        return steps;
-    }
-
-
+    /// <summary>
+    /// The Function Debugs the Value of an array to the console.
+    /// </summary>
+    /// <typeparam name="T">The type of values in the array.</typeparam>
+    /// <param name="array">The array to be debuged.</param>
+    /// <param name="rows">The amount of rows.</param>
+    /// <param name="cols">The amount of columns.</param>
+    /// <param name="plate">The plate from which the points are.</param>
     public static void DebugArray<T>(T[,] array, int rows, int cols, Plate? plate)
     {
         Debug.Log("===========================================================================================");
@@ -702,6 +668,13 @@ public static class GenerateMatrix
             Debug.Log(rowString);
         }
     }
+    /// <summary>
+    /// The function logs the array to the console in the array format.
+    /// </summary>
+    /// <typeparam name="T">Type if values in the array.</typeparam>
+    /// <param name="array">The array to be debuged</param>
+    /// <param name="rows">The amount of rows.</param>
+    /// <param name="cols">The amount of columns.</param>
     public static void DebugArrayOnlyValues<T>(T[,] array, int rows, int cols)
     {
         Debug.Log("===========================================================================================");
@@ -717,5 +690,4 @@ public static class GenerateMatrix
             Debug.Log(rowString);
         }
     }
-  
 }

@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static ExitDirection;
 #nullable enable
 
-public class Plate
+/// <inheritdoc cref="IPlate"/>
+public class Plate : IPlate
 {
     public Plate(Vector3 pos, int[,] bcm, bool d)
     {
@@ -26,14 +26,14 @@ public class Plate
     public int Columns { get; set; }
     public int[,] BaseCostMatrix { get; set; }
 
-    private List<GoalNode> goalNodes = new List<GoalNode>();  
+    private List<GoalNode> goalNodes = new List<GoalNode>();
 
-    public Dictionary<ExitDirection.ExitDirections,List<Portal>> exitDirectionToPortals = new Dictionary<ExitDirection.ExitDirections,List<Portal>>();
-    public Dictionary<(Vector2Int,Vector2Int), List<Vector3>> pathsTaken = new Dictionary<(Vector2Int, Vector2Int), List<Vector3>>();
+    public Dictionary<ExitDirection.ExitDirections, List<Portal>> exitDirectionToPortals = new Dictionary<ExitDirection.ExitDirections, List<Portal>>();
+    public Dictionary<(Vector2Int, Vector2Int), List<Vector3>> pathsTaken = new Dictionary<(Vector2Int, Vector2Int), List<Vector3>>();
 
     public Dictionary<Bude, List<Vector2Int>> budeToOccupiedSpaces = new Dictionary<Bude, List<Vector2Int>>();
-    
-    public Dictionary<(Vector2Int,Vector3), List<Vector3>> finalPaths = new Dictionary<(Vector2Int, Vector3), List<Vector3>>();
+
+    public Dictionary<(Vector2Int, Vector3), List<Vector3>> finalPaths = new Dictionary<(Vector2Int, Vector3), List<Vector3>>();
     public Dictionary<Vector3, byte[,]> finalFlowFields = new Dictionary<Vector3, byte[,]>();
 
     public void CheckForPortalNodes(ExitDirection.ExitDirections dir)
@@ -64,13 +64,13 @@ public class Plate
             switch (dir)
             {
                 case ExitDirection.ExitDirections.NorthEast:
-                    exit = new(0, Columns-1);
+                    exit = new(0, Columns - 1);
                     break;
                 case ExitDirection.ExitDirections.NorthWest:
                     exit = new(0, 0);
                     break;
                 case ExitDirection.ExitDirections.SouthEast:
-                    exit = new(Rows-1, Columns - 1);
+                    exit = new(Rows - 1, Columns - 1);
                     break;
                 default:
                     exit = new(Rows - 1, 0);
@@ -120,13 +120,13 @@ public class Plate
     private void CalcPortalNodesForSide(ExitDirection.ExitDirections dir, Vector2Int start, Vector2Int end, Vector2Int moveDirection)
     {
         if (exitDirectionToPortals.ContainsKey(dir)) { exitDirectionToPortals.Remove(dir); }
-        List<Portal>portalNodes = new List<Portal>();
-        List<Vector2Int> pos = new List<Vector2Int>(); 
+        List<Portal> portalNodes = new List<Portal>();
+        List<Vector2Int> pos = new List<Vector2Int>();
         Vector2Int curr = start;
         bool added = false;
         while (curr != end)
         {
-            if (BaseCostMatrix[curr.x,curr.y] == GenerateMatrix.MatrixIsPathableValue && (curr != (end-moveDirection)))
+            if (BaseCostMatrix[curr.x, curr.y] == GenerateMatrix.MatrixIsPathableValue && (curr != (end - moveDirection)))
             {
                 added = false;
                 pos.Add(curr);
@@ -147,28 +147,20 @@ public class Plate
         exitDirectionToPortals.Add(dir, portalNodes);
     }
 
-    /// <summary>
-    /// Adds an Distance Field to an GoalNode 
-    /// </summary>
-    /// <param name="goal">the Goal node</param>
-    /// <param name="distance">the coressponding distancefield</param>
+   
     public void AddGoalNode(GoalNode goalNode)
     {
         if (goalNodes.Contains(goalNode)) { return; }
         goalNodes.Add(goalNode);
         hasChanged = false;
-        //if (!addedAllSides)
-        //{
-        //}
-        //else
-        //{
-        //    addedAllSides = true;
-        //}
         byte[,] flowField;
-        if (HasNoObstacles || HasOnlyObstacles) {
+        if (HasNoObstacles || HasOnlyObstacles)
+        {
             flowField = new byte[0, 0];
-        } else {
-            (_, flowField) = GenerateMatrix.GenerateDistanceFieldAndFlowField(this, goalNode.Position, canPathDiagonal); 
+        }
+        else
+        {
+            (_, flowField) = GenerateMatrix.GenerateDistanceFieldAndFlowField(this, goalNode.Position, canPathDiagonal);
         }
         finalFlowFields.Add(goalNode.Position, flowField);
     }
@@ -182,14 +174,14 @@ public class Plate
     public Portal? GetClostestPortal(Vector3 goal, ExitDirection.ExitDirections exit)
     {
         CheckForPortalNodes(exit);
-        if(exitDirectionToPortals[exit].Count == 0) { return null; }
+        if (exitDirectionToPortals[exit].Count == 0) { return null; }
         Portal? closest = null;
         float currDist = int.MaxValue;
-        foreach(Portal p in exitDirectionToPortals[exit])
+        foreach (Portal p in exitDirectionToPortals[exit])
         {
             float dist = Vector3.Distance(GetSubTileCenterWorldCoordinates(p.Center), goal);
-            if ( dist < currDist) 
-            { 
+            if (dist < currDist)
+            {
                 closest = p;
                 currDist = dist;
             }
@@ -202,7 +194,7 @@ public class Plate
     public List<Vector3> GetShortestPathToToNextPlateV3(Portal portal, Vector3 start)
     {
         Vector2Int startArray = GetPositionInArray(start, true);
-        List<Vector2Int> steps2Int = GetShortestPathToToNextPlateV2(portal, startArray, canPathDiagonal);
+        List<Vector2Int> steps2Int = GetShortestPathToToNextPlateV2(portal, startArray);
         List<Vector3> returnList = new List<Vector3>();
         foreach (Vector2Int step in steps2Int)
         {
@@ -211,8 +203,7 @@ public class Plate
         return returnList;
     }
 
-
-    public List<Vector2Int> GetShortestPathToToNextPlateV2(Portal portal, Vector2Int startArray, bool canPathDiagonal)
+    public List<Vector2Int> GetShortestPathToToNextPlateV2(Portal portal, Vector2Int startArray)
     {
         //calculate best Portal
         if (HasNoObstacles)
@@ -227,7 +218,7 @@ public class Plate
             }
             else
             {
-                List<Vector2Int> path = GenerateMatrix.InterpolateArray(startArray, close, ((Vector2Int a, Vector2Int b) compare) => CloserPlateToGoal(compare.a, compare.b, clostest), canPathDiagonal, Rows, Columns);
+                List<Vector2Int> path = GenerateMatrix.InterpolateArray(startArray, close, ((Vector2Int a, Vector2Int b) compare) => CloserVector2IntToGoal(compare.a, compare.b, clostest), canPathDiagonal, Rows, Columns);
                 return path;
             }
         }
@@ -238,12 +229,12 @@ public class Plate
         }
         return new List<Vector2Int>();
     }
-    
-    
+
+
     public List<Vector3> GetShortestPathToGoalWithin(Vector3 _start, Vector3 goal)
     {
         Vector2Int start = GetPositionInArray(_start, true);
-        if (finalPaths.ContainsKey((start,goal))) { return finalPaths[(start,goal)] ; }
+        if (finalPaths.ContainsKey((start, goal))) { return finalPaths[(start, goal)]; }
         if (HasNoObstacles) { return new List<Vector3> { goal }; }
         if (HasOnlyObstacles) { return new List<Vector3>(); }
         if (!finalFlowFields.ContainsKey(goal))
@@ -259,7 +250,7 @@ public class Plate
             }
             finalFlowFields.Add(goal, flowField);
         }
-        List<Vector2Int> steps2Int = GenerateMatrix.GetBestPathInFlowField(finalFlowFields[goal],start);
+        List<Vector2Int> steps2Int = GenerateMatrix.GetBestPathInFlowField(finalFlowFields[goal], start);
         List<Vector3> returnList = new List<Vector3>();
         foreach (Vector2Int step in steps2Int)
         {
@@ -268,8 +259,8 @@ public class Plate
         finalPaths.Add(((start, goal)), returnList);
         return returnList;
     }
-    
-    
+
+
 
 
     //needs to handle values that are negative
@@ -296,7 +287,7 @@ public class Plate
 
     public int GetBaseValueAtPosition(Vector3 position, bool safe)
     {
-       return BaseCostMatrix[GetPositionInArray(position, safe).x, GetPositionInArray(position, safe).y];
+        return BaseCostMatrix[GetPositionInArray(position, safe).x, GetPositionInArray(position, safe).y];
     }
 
     public int GetBaseValueAtPosition(int row, int column)
@@ -305,42 +296,42 @@ public class Plate
     }
 
 
-    public Vector2Int OccupySpaces(Bude b, Vector2Int start, Vector3 exitWorld)
+    public Vector2Int OccupySpaces(Bude bude, Vector2Int start, Vector3 exitWorld)
     {
         List<Vector2Int> stepsTaken = new List<Vector2Int> { };
         Vector2Int goalPos = GetPositionInArray(exitWorld, false);
-        stepsTaken = GenerateMatrix.InterpolateArray(start, goalPos, ((Vector2Int a, Vector2Int b) compare) => CloserPlateToGoal(compare.a, compare.b, exitWorld), false, Rows, Columns);
+        stepsTaken = GenerateMatrix.InterpolateArray(start, goalPos, ((Vector2Int a, Vector2Int b) compare) => CloserVector2IntToGoal(compare.a, compare.b, exitWorld), false, Rows, Columns);
         foreach (Vector2Int step in stepsTaken)
         {
             BaseCostMatrix[step.x, step.y] += GenerateMatrix.MatrixObstacleValue;
         }
 
-        if (budeToOccupiedSpaces.ContainsKey(b))
+        if (budeToOccupiedSpaces.ContainsKey(bude))
         {
-            budeToOccupiedSpaces[b].AddRange(stepsTaken);
+            budeToOccupiedSpaces[bude].AddRange(stepsTaken);
         }
         else
         {
-            budeToOccupiedSpaces.Add(b, stepsTaken);
+            budeToOccupiedSpaces.Add(bude, stepsTaken);
         }
 
         hasChanged = true;
 
         //RecalcWakable();
         HasNoObstacles = false;
-        ExitDirection.ExitDirections dir = ExitDirection.DirectionToExitDiretion(goalPos-start);
-        if(start == new Vector2(0,0))
+        ExitDirection.ExitDirections dir = ExitDirection.DirectionToExitDiretion(goalPos - start);
+        if (start == new Vector2(0, 0))
         {
-            if(dir == ExitDirection.ExitDirections.East)
+            if (dir == ExitDirection.ExitDirections.East)
             {
                 dir = ExitDirection.ExitDirections.North;
             }
             else
             {
-                dir=ExitDirection.ExitDirections.West;
+                dir = ExitDirection.ExitDirections.West;
             }
         }
-        else if(start == new Vector2Int(0, Columns - 1))
+        else if (start == new Vector2Int(0, Columns - 1))
         {
             if (dir == ExitDirection.ExitDirections.West)
             {
@@ -351,7 +342,7 @@ public class Plate
                 dir = ExitDirection.ExitDirections.East;
             }
         }
-        else if (start == new Vector2Int(Rows-1, Columns - 1))
+        else if (start == new Vector2Int(Rows - 1, Columns - 1))
         {
             if (dir == ExitDirection.ExitDirections.West)
             {
@@ -362,7 +353,7 @@ public class Plate
                 dir = ExitDirection.ExitDirections.East;
             }
         }
-        else if (start == new Vector2Int(Rows-1, 0))
+        else if (start == new Vector2Int(Rows - 1, 0))
         {
             if (dir == ExitDirection.ExitDirections.East)
             {
@@ -375,8 +366,7 @@ public class Plate
         }
         return stepsTaken.Last();
     }
-
-    public void BudeRemoved(Bude b)
+    public void BudeRemoved(Bude bude)
     {
         List<Vector2Int> allOccupied = budeToOccupiedSpaces[b];
         foreach (Vector2Int step in allOccupied)
@@ -385,8 +375,7 @@ public class Plate
         }
         hasChanged = true;
     }
-
-    public Vector2Int CloserPlateToGoal (Vector2Int a, Vector2Int b, Vector3 exit)
+    public Vector2Int CloserVector2IntToGoal(Vector2Int a, Vector2Int b, Vector3 exit)
     {
         return (Vector3.Distance(GetSubTileCenterWorldCoordinates(a), exit) < Vector3.Distance(GetSubTileCenterWorldCoordinates(b), exit)) ? a : a;
     }

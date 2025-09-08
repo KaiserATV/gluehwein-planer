@@ -86,10 +86,10 @@ public class SceneManager : MonoBehaviour
         foreach (Bude b in allBudenScripts)
         {
             List<Vector3> cornerPos = b.GetAllCornerPoints();/// Top left, Top right, Bottom Left, Bottom Right
-            ReserveBudenPosition(b, cornerPos[0], cornerPos[1]);
-            ReserveBudenPosition(b, cornerPos[1], cornerPos[3]);
-            ReserveBudenPosition(b, cornerPos[3], cornerPos[2]);
-            ReserveBudenPosition(b, cornerPos[2], cornerPos[0]);
+            b.onplates.AddRange(ReserveBudenPosition(b, cornerPos[0], cornerPos[1]));
+            b.onplates.AddRange(ReserveBudenPosition(b, cornerPos[1], cornerPos[3]));
+            b.onplates.AddRange(ReserveBudenPosition(b, cornerPos[3], cornerPos[2]));
+            b.onplates.AddRange(ReserveBudenPosition(b, cornerPos[2], cornerPos[0]));
         }
         GenerateGoalNodes();
     }
@@ -167,6 +167,10 @@ public class SceneManager : MonoBehaviour
 
     public void RemoveBude(Bude wegBude)
     {
+        foreach(Plate plate in wegBude.onplates)
+        {
+            plate.BudeRemoved(wegBude);
+        }
         SoundFXManager.instance.PlaySoundFXClip(deleteSoundClip, transform, 1f);
         wegBude.BudeRemove();
         allBudenScripts!.Add(wegBude);
@@ -333,30 +337,33 @@ public class SceneManager : MonoBehaviour
             Debug.LogWarning("Konnte keine Datei lesen von pfad: " + Application.persistentDataPath + "/Position.json");
         }
     }
-    public void ReserveBudenPosition(Bude b,Vector3 _start, Vector3 _end)
+    public List<Plate> ReserveBudenPosition(Bude b,Vector3 _start, Vector3 _end)
     {
         Vector2Int start = WorldPositionToPlateArrayPosition(_start);
         Vector2Int end = WorldPositionToPlateArrayPosition(_end);
         Vector2Int dirEnd = end - start;
         Vector3 worldEnd = _end - _start;
-        List<Vector2Int> platesToVisit = GenerateMatrix.InterpolateArray(start, end, ((Vector2Int a, Vector2Int b) toCompare) => (Vector3.Distance(allPlateArray![toCompare.a.x, toCompare.a.y].Center, _end) < Vector3.Distance(allPlateArray[toCompare.b.x, toCompare.b.y].Center, _end))? toCompare.a : toCompare.b , false, plateCountX, plateCountZ);
-      
-        Vector2Int startPos = allPlateArray![platesToVisit[0].x, platesToVisit[0].y].GetPositionInArray(_start, true);
-        if (platesToVisit.Count > 1)
+        List<Vector2Int> platePosToVisit = GenerateMatrix.InterpolateArray(start, end, ((Vector2Int a, Vector2Int b) toCompare) => (Vector3.Distance(allPlateArray![toCompare.a.x, toCompare.a.y].Center, _end) < Vector3.Distance(allPlateArray[toCompare.b.x, toCompare.b.y].Center, _end))? toCompare.a : toCompare.b , false, plateCountX, plateCountZ);
+        List<Plate> platesToVisit = new List<Plate>();
+        foreach (Vector2Int pos in platePosToVisit) {
+            platesToVisit.Add(allPlateArray![pos.x, pos.y]);
+        }
+        Vector2Int startPos = allPlateArray![platePosToVisit[0].x, platePosToVisit[0].y].GetPositionInArray(_start, true);
+        if (platePosToVisit.Count > 1)
         {
-            Vector2Int dirToNextPlate = platesToVisit[1] - platesToVisit[0];
-            for (int i = 0; i < platesToVisit.Count;i++)
+            Vector2Int dirToNextPlate = platePosToVisit[1] - platePosToVisit[0];
+            for (int i = 0; i < platePosToVisit.Count;i++)
             {
-                if (i < platesToVisit.Count - 1)
+                if (i < platePosToVisit.Count - 1)
                 {
-                    dirEnd = end - platesToVisit[i];
-                    startPos = allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, startPos, _end);
-                    dirToNextPlate = platesToVisit[i + 1] - platesToVisit[i];
+                    dirEnd = end - platePosToVisit[i];
+                    startPos = allPlateArray[platePosToVisit[i].x, platePosToVisit[i].y].OccupySpaces(b, startPos, _end);
+                    dirToNextPlate = platePosToVisit[i + 1] - platePosToVisit[i];
                 }
                 else
                 {
-                    allPlateArray[platesToVisit[i].x, platesToVisit[i].y].OccupySpaces(b, startPos, _end);
-                    return;
+                    allPlateArray[platePosToVisit[i].x, platePosToVisit[i].y].OccupySpaces(b, startPos, _end);
+                    return platesToVisit;
                 }
                 if (dirToNextPlate.x == 0)
                 {//y bigger
@@ -366,7 +373,7 @@ public class SceneManager : MonoBehaviour
                     }
                     else
                     {
-                        startPos.y = allPlateArray[platesToVisit[i+1].x, platesToVisit[i + 1].y].Columns - 1;
+                        startPos.y = allPlateArray[platePosToVisit[i+1].x, platePosToVisit[i + 1].y].Columns - 1;
                     }
                 }
                 else
@@ -377,15 +384,16 @@ public class SceneManager : MonoBehaviour
                     }
                     else
                     {
-                        startPos.x = allPlateArray[platesToVisit[i + 1].x, platesToVisit[i + 1].y].Rows - 1;
+                        startPos.x = allPlateArray[platePosToVisit[i + 1].x, platePosToVisit[i + 1].y].Rows - 1;
                     }
                 }
             }
         }
         else
         {
-            allPlateArray[platesToVisit.Last().x, platesToVisit.Last().y].OccupySpaces(b, startPos, _end);
+            allPlateArray[platePosToVisit.Last().x, platePosToVisit.Last().y].OccupySpaces(b, startPos, _end);
         }
+        return platesToVisit;
     }
 
    
@@ -508,7 +516,7 @@ public class SceneManager : MonoBehaviour
         foreach (GoalNode gn1 in allGoalNodes) { 
             if(gn1.OnPlate == on)
             {
-                gn1.AddGoal(bude);
+                gn1.AddBude(bude);
                 gn1.CalculatePosition();
                 return;
             }        
@@ -623,12 +631,18 @@ public class SceneManager : MonoBehaviour
 
     public void BudeMoved(Bude bude)
     {
+        List<Plate> onplates = bude.onplates;
+        foreach(Plate plate in onplates)
+        {
+            plate.BudeRemoved(bude);
+        }
         List<Vector3> cornerPos = bude.GetAllCornerPoints();/// Top left, Top right, Bottom Left, Bottom Right
-        ReserveBudenPosition(bude, cornerPos[0], cornerPos[1]);
-        ReserveBudenPosition(bude, cornerPos[1], cornerPos[3]);
-        ReserveBudenPosition(bude, cornerPos[3], cornerPos[2]);
-        ReserveBudenPosition(bude, cornerPos[2], cornerPos[0]);
-
+        List<Plate> affectedPlates = new List<Plate>();
+        affectedPlates.AddRange(ReserveBudenPosition(bude, cornerPos[0], cornerPos[1]));
+        affectedPlates.AddRange(ReserveBudenPosition(bude, cornerPos[1], cornerPos[3]));
+        affectedPlates.AddRange(ReserveBudenPosition(bude, cornerPos[3], cornerPos[2]));
+        affectedPlates.AddRange(ReserveBudenPosition(bude, cornerPos[2], cornerPos[0]));
+        bude.onplates = affectedPlates;
         FindOrCreateNewGoalNode(bude);
     }
 
