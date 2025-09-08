@@ -23,7 +23,7 @@ public class SoundFXManager : MonoBehaviour
         audioSource.clip = audioClip;
 
         // Assign volume
-        audioSource.volume = volume; 
+        audioSource.volume = volume;
 
         // Play sound 
         audioSource.Play();
@@ -47,7 +47,7 @@ public class SoundFXManager : MonoBehaviour
         audioSource.clip = audioClip[rand];
 
         // Assign volume
-        audioSource.volume = volume; 
+        audioSource.volume = volume;
 
         // Play sound 
         audioSource.Play();

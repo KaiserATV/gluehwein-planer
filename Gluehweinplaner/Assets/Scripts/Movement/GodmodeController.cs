@@ -47,21 +47,21 @@ public class GodmodeController : MonoBehaviour
     }
 
     void Update()
-{
-    if (isGodmodeActive)
     {
-        if (!isGrabbingObject && !isPlacingObject)
+        if (isGodmodeActive)
         {
-            MoveGodmode();
-        }
+            if (!isGrabbingObject && !isPlacingObject)
+            {
+                MoveGodmode();
+            }
 
-        // Nach 2 Sekunden darf der Godmode durch Bodennähe beendet werden
-        if (canExitGodmode && xrRig.transform.position.y <= groundThreshold)
-        {
-            ExitGodmodeAtCurrentPosition();
+            // Nach 2 Sekunden darf der Godmode durch Bodennähe beendet werden
+            if (canExitGodmode && xrRig.transform.position.y <= groundThreshold)
+            {
+                ExitGodmodeAtCurrentPosition();
+            }
         }
     }
-}
 
 
     public IEnumerator ToggleGodmode()
@@ -71,12 +71,12 @@ public class GodmodeController : MonoBehaviour
         // Play sound effect
         if (isGodmodeActive)
         {
-            if(godmodeActivateSound != null)
+            if (godmodeActivateSound != null)
                 SoundFXManager.instance.PlaySoundFXClip(godmodeActivateSound, transform, 1f);
         }
         else
         {
-            if(godmodeDeactivateSound != null)
+            if (godmodeDeactivateSound != null)
                 SoundFXManager.instance.PlaySoundFXClip(godmodeDeactivateSound, transform, 1f);
         }
 
@@ -203,14 +203,14 @@ public class GodmodeController : MonoBehaviour
     }
 
     public bool IsGodmodeActive()
-{
-    return isGodmodeActive;
-}
+    {
+        return isGodmodeActive;
+    }
 
-public void ToggleGodmodeFromRadialMenu()
-{
-    StartCoroutine(ToggleGodmode());
-}
+    public void ToggleGodmodeFromRadialMenu()
+    {
+        StartCoroutine(ToggleGodmode());
+    }
 
 }
 

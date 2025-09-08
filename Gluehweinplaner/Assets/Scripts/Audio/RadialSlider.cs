@@ -1,6 +1,6 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class RadialSlider : MonoBehaviour
 {
@@ -21,7 +21,7 @@ public class RadialSlider : MonoBehaviour
         // Update text and volume
         valueText.text = $"{Mathf.RoundToInt(value * 100)}%";
         volumeManager.SetMasterVolume(value);
-        
+
         // Save preference
         PlayerPrefs.SetFloat("MasterVolume", value);
     }

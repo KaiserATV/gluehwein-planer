@@ -21,7 +21,7 @@ public class MoveBude : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (timePassed > (changeTimer+offsetTimer))
+        if (timePassed > (changeTimer + offsetTimer))
         {
             SwitchPos();
         }
@@ -30,13 +30,13 @@ public class MoveBude : MonoBehaviour
             timePassed += Time.fixedDeltaTime;
         }
     }
-    
+
     private void SwitchPos()
     {
         Vector3 newPos;
         do
         {
-            newPos = new(Random.Range(teleportBounds.min.x, teleportBounds.max.x),0, Random.Range(teleportBounds.min.x, teleportBounds.max.x));
+            newPos = new(Random.Range(teleportBounds.min.x, teleportBounds.max.x), 0, Random.Range(teleportBounds.min.x, teleportBounds.max.x));
         }
         while (!Physics.CheckBox(newPos, budeRenderer.bounds.extents));
 

@@ -1,8 +1,5 @@
-using System;
-using System.Runtime.InteropServices;
-using UnityEngine.XR;
-using UnityEngine.XR.ARSubsystems;
 using UnityEngine;
+using UnityEngine.XR.ARSubsystems;
 
 
 namespace Varjo.XR

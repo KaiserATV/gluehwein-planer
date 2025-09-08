@@ -1,6 +1,5 @@
 ﻿// Copyright 2019 Varjo Technologies Oy. All rights reserved.
 
-using System;
 using UnityEngine;
 
 namespace Varjo.XR
@@ -91,7 +90,7 @@ namespace Varjo.XR
         /** <summary>The luminance (in cd/m^2) which saturates a pixel is equal to 2^ev * cameraCalibrationConstant.</summary> */
         public double cameraCalibrationConstant { get; internal set; }
 
-        internal VarjoCameraMetadata (DistortedColorFrameMetadata distortedColorData)
+        internal VarjoCameraMetadata(DistortedColorFrameMetadata distortedColorData)
         {
             DistortedColorFrameMetadata data = distortedColorData;
             ev = data.ev;

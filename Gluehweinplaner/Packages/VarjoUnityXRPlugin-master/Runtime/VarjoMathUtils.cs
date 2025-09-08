@@ -1,10 +1,5 @@
 // Copyright 2021 Varjo Technologies Oy. All rights reserved.
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.XR.Management;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace Varjo.XR
 {

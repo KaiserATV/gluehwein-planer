@@ -1,14 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Linq;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 
 #pragma warning disable IDE0005
-using Serilog = Meryel.Serilog;
 #pragma warning restore IDE0005
 
 
@@ -147,7 +143,7 @@ namespace Meryel.UnityCodeAssist.Editor
             obj = getObjectToSend(Selection.activeObject, type);
             if (obj != null)
                 return obj;
-            
+
 
             //**--check source code of this, for sorting
             var filteredArray = Selection.GetFiltered(type, SelectionMode.Unfiltered);
@@ -266,7 +262,7 @@ namespace Meryel.UnityCodeAssist.Editor
                 //var monoBehaviourType = typeof(MonoBehaviour);
                 //if (type == monoBehaviourType || type.IsSubclassOf(monoBehaviourType))
                 //    return true;
-                
+
                 //else if(type is interface)//**--
 
                 return false;

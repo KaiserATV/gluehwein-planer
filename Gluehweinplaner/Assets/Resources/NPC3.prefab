@@ -985,21 +985,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32a1ad748be1bfb408be43248055f3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animated: 1
   speed: 2
   patienceLost: 0
   timeLeftWaiting: 0
   goalsBeforeExit: 0
   checkForChangeIntervall: 1
   randomExitGoalNumber: 1
+  inactive: 0
   stopped: 0
   waiting: 0
   exiting: 0
   onWayToBude: 0
+  onWayToStart: 1
   onWayToGoalNode: 0
   onWayToExit: 0
   onWayBackFromBude: 0
   lostPatience: 0
-  onWayToStart: 1
 --- !u!1 &5649149858411034104
 GameObject:
   m_ObjectHideFlags: 0

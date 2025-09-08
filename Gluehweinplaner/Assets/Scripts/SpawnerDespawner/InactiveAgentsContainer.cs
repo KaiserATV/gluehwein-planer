@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-
-public class InactiveAgentsContainer : MonoBehaviour
+/// <inheritdoc cref="IInactiveAgentsContainer"/>
+public class InactiveAgentsContainer : MonoBehaviour, IInactiveAgentsContainer
 {
     private Vector3 WorldCoords;
     private int StoredPlayerCount;

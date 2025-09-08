@@ -1,0 +1,1117 @@
+\doxysection{Scene\+Manager Class Reference}
+\hypertarget{class_scene_manager}{}\label{class_scene_manager}\index{SceneManager@{SceneManager}}
+
+
+ 
+
+
+Inheritance diagram for Scene\+Manager\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_scene_manager}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_scene_manager_adffde9ff466af925c30376648df7bae6}{Start\+Simulation}} ()
+\begin{DoxyCompactList}\small\item\em Starts the simulation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_a254f12d0a6fbbd3b23e28dd040b3816d}{Resume\+Simulation}} ()
+\begin{DoxyCompactList}\small\item\em Resumes the simulation if it was stopped before. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_a0401179bf849b1fedd0f39fd11744096}{Stop\+Simulation}} ()
+\begin{DoxyCompactList}\small\item\em Stops the simulation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_ab6218e4a791f4eaa7ecdcdacaa92fb07}{Add\+Player}} (\mbox{\hyperlink{class_n_p_c}{NPC}} npc)
+\begin{DoxyCompactList}\small\item\em This function adds a to the allcontained player list and counts the playercount up. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_a96bf7343ceee6b83ae5ca76569472763}{remove\+Player}} (\mbox{\hyperlink{class_n_p_c}{NPC}} npc)
+\begin{DoxyCompactList}\small\item\em This function removes a player from the scene. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_scene_manager_aff906fd803d81b3907037fcc812d6313}{Can\+Add\+Player}} ()
+\begin{DoxyCompactList}\small\item\em This function checks if an Player can be added to the scene. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} \mbox{\hyperlink{class_scene_manager_a686122d99b8ffd232b454079dc524cee}{Get\+New\+Spawn\+Point}} ()
+\item 
+void \mbox{\hyperlink{class_scene_manager_aac223905d0d9e22de1566c9b980d2c2e}{Lost\+Patience}} ()
+\begin{DoxyCompactList}\small\item\em This function is called if an npc losses patience and searches for a new goal. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_addefbdaf81e9435e435013b3de25318b}{Reset\+Simulation}} ()
+\begin{DoxyCompactList}\small\item\em Resets the simulation and all contained Buden as well as all agents. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_ad03ab95dbcbd37460666b6869ad0498b}{Add\+Bude}} (\mbox{\hyperlink{class_bude}{Bude}} neue\+Bude)
+\begin{DoxyCompactList}\small\item\em This function adds a new \doxylink{class_bude}{Bude} to the scene. And also calculates the goalnode as well as the occupied spaces. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_a7b8830cfd8dc7dfd1247f62a8459a78f}{Remove\+Bude}} (\mbox{\hyperlink{class_bude}{Bude}} weg\+Bude)
+\begin{DoxyCompactList}\small\item\em This function removes a bude from all buden in the scene. Also this function clears up all occupied spaces. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_ac88abec0b24c1bba0016cecdc8e4738c}{Bude\+Moved}} (\mbox{\hyperlink{class_bude}{Bude}} bude)
+\begin{DoxyCompactList}\small\item\em The Function is called when a \doxylink{class_bude}{Bude} is beeing removed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_acf72c0fed1e3ba74c94828cc85d03928}{Pause}} ()
+\begin{DoxyCompactList}\small\item\em The function used to pause the simulation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_ab526b2a3f3e210b9172988e96317b847}{Toggle\+Simulation}} ()
+\begin{DoxyCompactList}\small\item\em Toggles the Simulation between running and stopped. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_a0726bf93e414999d6c5161abb3660258}{Increase\+Max\+Player\+Count}} ()
+\begin{DoxyCompactList}\small\item\em This function incresese the maximum playercount. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_aa927f8377209b28f2d6b11b852179ee4}{Decrease\+Max\+Player\+Count}} ()
+\begin{DoxyCompactList}\small\item\em Decreases the maximum playercount. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_a0d243aca5b777d10280adaeb6ff7472f}{Save\+JSON}} ()
+\begin{DoxyCompactList}\small\item\em Safes the current state in the scene into json. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_a3392c3f53557513db97ab392d8b8ab2a}{Load\+Scene\+From\+JSON}} ()
+\begin{DoxyCompactList}\small\item\em This function loads the whole scene from a supplied json. \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{class_plate}{Plate}} $>$ \mbox{\hyperlink{class_scene_manager_addde29ca9a7d5ad141f1a423087a6a1c}{Reserve\+Buden\+Position}} (\mbox{\hyperlink{class_bude}{Bude}} b, \mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} \+\_\+start, \mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} \+\_\+end)
+\begin{DoxyCompactList}\small\item\em This function removes the spaces that the bude occupies, so that the agents don\textquotesingle{}t path through it anymore. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_a6e6c92adb30fc0bd24d3d0540ec73f20}{Find\+Or\+Create\+New\+Goal\+Node}} (\mbox{\hyperlink{class_bude}{Bude}} bude)
+\begin{DoxyCompactList}\small\item\em Finds an exisiting goalnode or creates a new goalnode for the supplied bude. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_aa2148643a495988787989c5d95b00fa0}{Remove\+Goal\+Node}} (\mbox{\hyperlink{class_goal_node}{Goal\+Node}} gn)
+\begin{DoxyCompactList}\small\item\em This function removes a goalnode from the scene if is not beeing needed anymore. \end{DoxyCompactList}\item 
+Queue$<$ \mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} $>$ \mbox{\hyperlink{class_scene_manager_a744092140b7c5b9bb40348829f5affd8}{Handle\+Path\+Request}} (\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} start, \mbox{\hyperlink{class_goal_node}{Goal\+Node}} goal\+Node)
+\begin{DoxyCompactList}\small\item\em Function used to calculate the Path for a certain start and Goalnode. Firstly the plates to visit are calculated and thereafter the path through each one. \end{DoxyCompactList}\item 
+Queue$<$ \mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} $>$ \mbox{\hyperlink{class_scene_manager_a2f3d738c79c0b0aee79041b44db80e90}{Handle\+Path\+Request}} (\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} start, \mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} goal)
+\begin{DoxyCompactList}\small\item\em Function used to calculate the Path for a certain start and ending potiion. Firstly the plates to visit are calculated and thereafter the path through each one. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_scene_manager_aa4ad91455b4a94256bf1e1ebe4c24dac}{is\+Closer}} (Vector2\+Int curr\+Min, Vector2\+Int to\+Check, Vector2\+Int goal)
+\begin{DoxyCompactList}\small\item\em Returns true, if the second Vector2\+Int is closer to the goal then the first. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_a68f198f44aec04401657091640a56d22}{Clear\+Pos}} (\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} pos)
+\begin{DoxyCompactList}\small\item\em Clears a specific position in the heatmap. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_plate}{Plate}} \mbox{\hyperlink{class_scene_manager_a5c3b77ca0c5d749c5df8b85a4aaa484b}{World\+Position\+To\+Plate}} (\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} pos)
+\begin{DoxyCompactList}\small\item\em Converts a worldposition position to an specific plate. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} \mbox{\hyperlink{class_scene_manager_a83738ef34b290569060d9a4f6d24ed77}{Get\+Random\+Exit\+Position}} ()
+\begin{DoxyCompactList}\small\item\em Generates an random exit position. An random exit is choosen. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_scene_manager_ae3533b64fd49ef86bbac0f902ceeb085}{Get\+Goal\+Node\+Count}} ()
+\begin{DoxyCompactList}\small\item\em Gets the amount of current goal\+Nodes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_ac07372b9965114a6cf4454eaaccbbd04}{Moved}} (\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} from, \mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} to)
+\begin{DoxyCompactList}\small\item\em This function is called when a npc moves from one tile to another. This is propagated to the heatmap. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_adb366a66bde2f5a8dee82d26c76e1c78}{Spawned}} (\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} pos)
+\begin{DoxyCompactList}\small\item\em Propagates the spawned position of an agent to the heatmap. \end{DoxyCompactList}\item 
+Queue$<$ \mbox{\hyperlink{class_bude}{Bude}} $>$ \mbox{\hyperlink{class_scene_manager_a8f28e8860b1d1ec5638b6cdcd042af02}{Calc\+New\+Weighted\+Buden}} (int goals\+Before\+Exit)
+\begin{DoxyCompactList}\small\item\em This Function calculates a List of Buden to visit based off of the weight of the individual bude aswell as the supplied amount of goals before exit. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_a5c44d92213a6062d94f71c802a52961c}{Calc\+All\+Buden\+Weight}} ()
+\begin{DoxyCompactList}\small\item\em This function calculates the weight of all Buden contained in the scene. This weight is used to calculate the visited \doxylink{class_bude}{Bude} after. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_scene_manager_a1821332bb9a3394c251d5e4bf0561ca6}{path\+Diagonal}} = false
+\item 
+bool \mbox{\hyperlink{class_scene_manager_a3419b6d51de0ce084326aade8fb0d4c6}{simulating}} = false
+\item 
+int \mbox{\hyperlink{class_scene_manager_ab11cf4ef9012fb890ac566682451b792}{max\+Player\+Count}} = 1
+\item 
+int \mbox{\hyperlink{class_scene_manager_aadafc96fe1e6ad4e407e6e0357fe4303}{plate\+CountX}} = 0
+\item 
+int \mbox{\hyperlink{class_scene_manager_a90ed14f3790b12b22d1a31cff4c1d7fe}{plate\+CountZ}} = 0
+\item 
+int \mbox{\hyperlink{class_scene_manager_a614fb8d01c6ada03ae5e5c0d3734f774}{player\+Count}} = 0
+\item 
+int \mbox{\hyperlink{class_scene_manager_aacabded1cce32c5c3ca11ac87a987178}{inactive\+Player\+Count}} = 0
+\item 
+int \mbox{\hyperlink{class_scene_manager_a29c9ee24d7e5882664c038fc1a0e1b93}{agents\+Lost\+Patience}} = 0
+\item 
+int \mbox{\hyperlink{class_scene_manager_ac5bcb8c19c1286c1f28c7d592b301ce4}{max\+Kapazitaet}}
+\item 
+int \mbox{\hyperlink{class_scene_manager_a98cbb283e6c0f7cddcf1401e3c7d9dd4}{all\+Buden\+Weigth}}
+\item 
+string \mbox{\hyperlink{class_scene_manager_aca8f3034d79043f25a73896d1780f6cc}{buden\+Container\+Name}} = "{}Buden\+Container"{}
+\item 
+string \mbox{\hyperlink{class_scene_manager_a692c07271295fb994d8fb3284f47927e}{exit\+Container\+Name}} = "{}Exit\+Container"{}
+\item 
+string \mbox{\hyperlink{class_scene_manager_a96065f8f9797525b31bd12165c72cd85}{spawner\+Container\+Name}} = "{}Spawner\+Container"{}
+\item 
+string \mbox{\hyperlink{class_scene_manager_a14401ae29645720bbd36b1bf5d97bede}{heatmapname}} = "{}Heat\+Map"{}
+\item 
+Mesh\+Renderer?\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_scene_manager_a142efe2a02bcb3db5ce7091389dd9169}{floors}} = null
+\item 
+List$<$ \mbox{\hyperlink{class_bude}{Bude}} $>$? \mbox{\hyperlink{class_scene_manager_a52126ea2cf01c5576fb1daf776acb649}{all\+Buden\+Scripts}} = null
+\item 
+float \mbox{\hyperlink{class_scene_manager_a60c839bdb927edc4caf16320c280f96b}{normal\+PlateX}} = 0
+\item 
+float \mbox{\hyperlink{class_scene_manager_a32d4697c376b07846a67a6902a2d263f}{normal\+PlateZ}} = 0
+\item 
+bool \mbox{\hyperlink{class_scene_manager_a8c80ac887bfe3f9de226395d35682fc8}{show}} = false
+\item 
+bool \mbox{\hyperlink{class_scene_manager_a9997a5407dea8b3d95abb0425cd1c8ef}{laden}} = false
+\item 
+bool \mbox{\hyperlink{class_scene_manager_afe3ba8a6be1ff28812604693420700e7}{speichern}} = false
+\item 
+\mbox{\hyperlink{class_scene_manager_a07599fb7b2a26fd067596d00866ea349}{Vector3}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{interface_i_scene_manager}{IScene\+Manager}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}
+\begin{DoxyCompactList}\small\item\em Gets a new spawnposition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static float \mbox{\hyperlink{class_scene_manager_afdeeef61b144fb81941eb485dd822fc3}{max\+Goal\+Node\+Distance}} = 30.\+0f
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00008}{8}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_scene_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_scene_manager_ad03ab95dbcbd37460666b6869ad0498b}\index{SceneManager@{SceneManager}!AddBude@{AddBude}}
+\index{AddBude@{AddBude}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{AddBude()}{AddBude()}}
+{\footnotesize\ttfamily \label{class_scene_manager_ad03ab95dbcbd37460666b6869ad0498b} 
+void Scene\+Manager.\+Add\+Bude (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_bude}{Bude}}}]{neue\+Bude}{}\end{DoxyParamCaption})}
+
+
+
+This function adds a new \doxylink{class_bude}{Bude} to the scene. And also calculates the goalnode as well as the occupied spaces. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em neue\+Bude} & The bude that has been added.\\
+\hline
+\end{DoxyParams}
+Top left, Top right, Bottom Left, Bottom Right
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_adece1a4c3dca46c9d84b5570c4ebe9c6}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00161}{161}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_ab6218e4a791f4eaa7ecdcdacaa92fb07}\index{SceneManager@{SceneManager}!AddPlayer@{AddPlayer}}
+\index{AddPlayer@{AddPlayer}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{AddPlayer()}{AddPlayer()}}
+{\footnotesize\ttfamily \label{class_scene_manager_ab6218e4a791f4eaa7ecdcdacaa92fb07} 
+void Scene\+Manager.\+Add\+Player (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_n_p_c}{NPC}}}]{npc}{}\end{DoxyParamCaption})}
+
+
+
+This function adds a to the allcontained player list and counts the playercount up. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em npc} & The \doxylink{class_n_p_c}{NPC} added.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_aa34c4b685787c4884ea93c1c6dca6055}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00132}{132}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_ac88abec0b24c1bba0016cecdc8e4738c}\index{SceneManager@{SceneManager}!BudeMoved@{BudeMoved}}
+\index{BudeMoved@{BudeMoved}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{BudeMoved()}{BudeMoved()}}
+{\footnotesize\ttfamily \label{class_scene_manager_ac88abec0b24c1bba0016cecdc8e4738c} 
+void Scene\+Manager.\+Bude\+Moved (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_bude}{Bude}}}]{bude}{}\end{DoxyParamCaption})}
+
+
+
+The Function is called when a \doxylink{class_bude}{Bude} is beeing removed. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_goal_node_aded8137140a91d73845f0a124b5813ff}{Goal\+Node.\+Bude\+Moved(\+Bude)}, \doxylink{class_bude_a2e1cb51f2082eb72c339bddecdbf47ab}{Bude.\+Bude\+Moved}
+
+
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em bude} & \\
+\hline
+\end{DoxyParams}
+Top left, Top right, Bottom Left, Bottom Right
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_ac5a4db0ff47843ae12be12bf6b456d40}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00185}{185}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a5c44d92213a6062d94f71c802a52961c}\index{SceneManager@{SceneManager}!CalcAllBudenWeight@{CalcAllBudenWeight}}
+\index{CalcAllBudenWeight@{CalcAllBudenWeight}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{CalcAllBudenWeight()}{CalcAllBudenWeight()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a5c44d92213a6062d94f71c802a52961c} 
+void Scene\+Manager.\+Calc\+All\+Buden\+Weight (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+This function calculates the weight of all Buden contained in the scene. This weight is used to calculate the visited \doxylink{class_bude}{Bude} after. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a806e15be5422774e6f6fc82edd0e27ea}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00811}{811}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a8f28e8860b1d1ec5638b6cdcd042af02}\index{SceneManager@{SceneManager}!CalcNewWeightedBuden@{CalcNewWeightedBuden}}
+\index{CalcNewWeightedBuden@{CalcNewWeightedBuden}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{CalcNewWeightedBuden()}{CalcNewWeightedBuden()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a8f28e8860b1d1ec5638b6cdcd042af02} 
+Queue$<$ \mbox{\hyperlink{class_bude}{Bude}} $>$ Scene\+Manager.\+Calc\+New\+Weighted\+Buden (\begin{DoxyParamCaption}\item[{int}]{goals\+Before\+Exit}{}\end{DoxyParamCaption})}
+
+
+
+This Function calculates a List of Buden to visit based off of the weight of the individual bude aswell as the supplied amount of goals before exit. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em goals\+Before\+Exit} & Amount of Buden to visit before exit.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The list of Buden to visit.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a03e0fcc3e94ed6374b90f082b6d3d188}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00790}{790}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_aff906fd803d81b3907037fcc812d6313}\index{SceneManager@{SceneManager}!CanAddPlayer@{CanAddPlayer}}
+\index{CanAddPlayer@{CanAddPlayer}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{CanAddPlayer()}{CanAddPlayer()}}
+{\footnotesize\ttfamily \label{class_scene_manager_aff906fd803d81b3907037fcc812d6313} 
+bool Scene\+Manager.\+Can\+Add\+Player (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+This function checks if an Player can be added to the scene. 
+
+\begin{DoxyReturn}{Returns}
+True if a player can be added, false else.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a27d2c107597e9721fb54334d8e366388}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00134}{134}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a68f198f44aec04401657091640a56d22}\index{SceneManager@{SceneManager}!ClearPos@{ClearPos}}
+\index{ClearPos@{ClearPos}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{ClearPos()}{ClearPos()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a68f198f44aec04401657091640a56d22} 
+void Scene\+Manager.\+Clear\+Pos (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}}]{pos}{}\end{DoxyParamCaption})}
+
+
+
+Clears a specific position in the heatmap. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & The position to be cleared.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a3a09ef2906f7e3983cab1991498211d8}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00746}{746}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_aa927f8377209b28f2d6b11b852179ee4}\index{SceneManager@{SceneManager}!DecreaseMaxPlayerCount@{DecreaseMaxPlayerCount}}
+\index{DecreaseMaxPlayerCount@{DecreaseMaxPlayerCount}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{DecreaseMaxPlayerCount()}{DecreaseMaxPlayerCount()}}
+{\footnotesize\ttfamily \label{class_scene_manager_aa927f8377209b28f2d6b11b852179ee4} 
+void Scene\+Manager.\+Decrease\+Max\+Player\+Count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Decreases the maximum playercount. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_afe5c3aaa2012242214c0bfc76e7a21ec}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00229}{229}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a6e6c92adb30fc0bd24d3d0540ec73f20}\index{SceneManager@{SceneManager}!FindOrCreateNewGoalNode@{FindOrCreateNewGoalNode}}
+\index{FindOrCreateNewGoalNode@{FindOrCreateNewGoalNode}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{FindOrCreateNewGoalNode()}{FindOrCreateNewGoalNode()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a6e6c92adb30fc0bd24d3d0540ec73f20} 
+void Scene\+Manager.\+Find\+Or\+Create\+New\+Goal\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_bude}{Bude}}}]{bude}{}\end{DoxyParamCaption})}
+
+
+
+Finds an exisiting goalnode or creates a new goalnode for the supplied bude. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bude} & \doxylink{class_bude}{Bude} for which the goalnode needs to be found.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a9daaee953221b947208a9d2d535bde8f}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00538}{538}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_ae3533b64fd49ef86bbac0f902ceeb085}\index{SceneManager@{SceneManager}!GetGoalNodeCount@{GetGoalNodeCount}}
+\index{GetGoalNodeCount@{GetGoalNodeCount}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{GetGoalNodeCount()}{GetGoalNodeCount()}}
+{\footnotesize\ttfamily \label{class_scene_manager_ae3533b64fd49ef86bbac0f902ceeb085} 
+int Scene\+Manager.\+Get\+Goal\+Node\+Count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Gets the amount of current goal\+Nodes. 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a88bd699638cbd5986dda1decd9106091}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00775}{775}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a686122d99b8ffd232b454079dc524cee}\index{SceneManager@{SceneManager}!GetNewSpawnPoint@{GetNewSpawnPoint}}
+\index{GetNewSpawnPoint@{GetNewSpawnPoint}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{GetNewSpawnPoint()}{GetNewSpawnPoint()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a686122d99b8ffd232b454079dc524cee} 
+\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} Scene\+Manager.\+Get\+New\+Spawn\+Point (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00135}{135}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a83738ef34b290569060d9a4f6d24ed77}\index{SceneManager@{SceneManager}!GetRandomExitPosition@{GetRandomExitPosition}}
+\index{GetRandomExitPosition@{GetRandomExitPosition}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{GetRandomExitPosition()}{GetRandomExitPosition()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a83738ef34b290569060d9a4f6d24ed77} 
+\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} Scene\+Manager.\+Get\+Random\+Exit\+Position (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Generates an random exit position. An random exit is choosen. 
+
+\begin{DoxyReturn}{Returns}
+The position of an randomly choosen exit.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a8f8f908ca47b226def918ccbb208818f}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00771}{771}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a744092140b7c5b9bb40348829f5affd8}\index{SceneManager@{SceneManager}!HandlePathRequest@{HandlePathRequest}}
+\index{HandlePathRequest@{HandlePathRequest}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{HandlePathRequest()}{HandlePathRequest()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_scene_manager_a744092140b7c5b9bb40348829f5affd8} 
+Queue$<$ \mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} $>$ Scene\+Manager.\+Handle\+Path\+Request (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}}]{start}{, }\item[{\mbox{\hyperlink{class_goal_node}{Goal\+Node}}}]{goal\+Node}{}\end{DoxyParamCaption})}
+
+
+
+Function used to calculate the Path for a certain start and Goalnode. Firstly the plates to visit are calculated and thereafter the path through each one. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_scene_manager_a2f3d738c79c0b0aee79041b44db80e90}{Handle\+Path\+Request(\+Vector3, Vector3)}
+
+
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em start} & The Starting position.\\
+\hline
+{\em goal\+Node} & The ending position.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a Queue of steps to take. This queue is empty if there is no path to be taken.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a95c36dea8696d6f1f260423be59a6eaa}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00560}{560}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a2f3d738c79c0b0aee79041b44db80e90}\index{SceneManager@{SceneManager}!HandlePathRequest@{HandlePathRequest}}
+\index{HandlePathRequest@{HandlePathRequest}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{HandlePathRequest()}{HandlePathRequest()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_scene_manager_a2f3d738c79c0b0aee79041b44db80e90} 
+Queue$<$ \mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}} $>$ Scene\+Manager.\+Handle\+Path\+Request (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}}]{start}{, }\item[{\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}}]{goal}{}\end{DoxyParamCaption})}
+
+
+
+Function used to calculate the Path for a certain start and ending potiion. Firstly the plates to visit are calculated and thereafter the path through each one. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_scene_manager_a744092140b7c5b9bb40348829f5affd8}{Handle\+Path\+Request(\+Vector3, Goal\+Node)}
+
+
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em start} & The Starting position.\\
+\hline
+{\em goal} & The ending position.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a Queue of steps to take. This queue is empty if there is no path to be taken.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a283002b4fcff7f0e0e951bd1009f1cad}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00566}{566}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a0726bf93e414999d6c5161abb3660258}\index{SceneManager@{SceneManager}!IncreaseMaxPlayerCount@{IncreaseMaxPlayerCount}}
+\index{IncreaseMaxPlayerCount@{IncreaseMaxPlayerCount}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{IncreaseMaxPlayerCount()}{IncreaseMaxPlayerCount()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a0726bf93e414999d6c5161abb3660258} 
+void Scene\+Manager.\+Increase\+Max\+Player\+Count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+This function incresese the maximum playercount. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a25a992b07f5e885f5647809f2efda678}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00225}{225}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_aa4ad91455b4a94256bf1e1ebe4c24dac}\index{SceneManager@{SceneManager}!isCloser@{isCloser}}
+\index{isCloser@{isCloser}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{isCloser()}{isCloser()}}
+{\footnotesize\ttfamily \label{class_scene_manager_aa4ad91455b4a94256bf1e1ebe4c24dac} 
+bool Scene\+Manager.\+is\+Closer (\begin{DoxyParamCaption}\item[{Vector2\+Int}]{curr\+Min}{, }\item[{Vector2\+Int}]{to\+Check}{, }\item[{Vector2\+Int}]{goal}{}\end{DoxyParamCaption})}
+
+
+
+Returns true, if the second Vector2\+Int is closer to the goal then the first. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em curr\+Min} & \\
+\hline
+{\em to\+Check} & \\
+\hline
+{\em goal} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a767aad1b1d0d6bae1f6c09d9b033964d}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00730}{730}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a3392c3f53557513db97ab392d8b8ab2a}\index{SceneManager@{SceneManager}!LoadSceneFromJSON@{LoadSceneFromJSON}}
+\index{LoadSceneFromJSON@{LoadSceneFromJSON}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{LoadSceneFromJSON()}{LoadSceneFromJSON()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a3392c3f53557513db97ab392d8b8ab2a} 
+void Scene\+Manager.\+Load\+Scene\+From\+JSON (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+This function loads the whole scene from a supplied json. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a19d271ceb69c4f4bb7e77b5eec4750da}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00309}{309}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_aac223905d0d9e22de1566c9b980d2c2e}\index{SceneManager@{SceneManager}!LostPatience@{LostPatience}}
+\index{LostPatience@{LostPatience}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{LostPatience()}{LostPatience()}}
+{\footnotesize\ttfamily \label{class_scene_manager_aac223905d0d9e22de1566c9b980d2c2e} 
+void Scene\+Manager.\+Lost\+Patience (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+This function is called if an npc losses patience and searches for a new goal. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_addb7225fb7aa604aa722630543e6bfe2}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00142}{142}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_ac07372b9965114a6cf4454eaaccbbd04}\index{SceneManager@{SceneManager}!Moved@{Moved}}
+\index{Moved@{Moved}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{Moved()}{Moved()}}
+{\footnotesize\ttfamily \label{class_scene_manager_ac07372b9965114a6cf4454eaaccbbd04} 
+void Scene\+Manager.\+Moved (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}}]{from}{, }\item[{\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}}]{to}{}\end{DoxyParamCaption})}
+
+
+
+This function is called when a npc moves from one tile to another. This is propagated to the heatmap. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_heatmap_a75118becb7aeffaa28c21a8aae379b5b}{Heatmap.\+Moved(\+Vector3, Vector3)}
+
+
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em from} & The position the npc moved from.\\
+\hline
+{\em to} & The position the npc moved to.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a349bf51ca1ab2cb6581fdbc6271ec41e}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00780}{780}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_acf72c0fed1e3ba74c94828cc85d03928}\index{SceneManager@{SceneManager}!Pause@{Pause}}
+\index{Pause@{Pause}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{Pause()}{Pause()}}
+{\footnotesize\ttfamily \label{class_scene_manager_acf72c0fed1e3ba74c94828cc85d03928} 
+void Scene\+Manager.\+Pause (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+The function used to pause the simulation. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_n_p_c_ad4c5808368509dcbb0bb4fed7ec3eec0}{NPC.\+Stop()}
+
+
+\end{DoxySeeAlso}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a7a29688ec668fda799fe9385a9fbc68d}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00202}{202}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a7b8830cfd8dc7dfd1247f62a8459a78f}\index{SceneManager@{SceneManager}!RemoveBude@{RemoveBude}}
+\index{RemoveBude@{RemoveBude}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{RemoveBude()}{RemoveBude()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a7b8830cfd8dc7dfd1247f62a8459a78f} 
+void Scene\+Manager.\+Remove\+Bude (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_bude}{Bude}}}]{weg\+Bude}{}\end{DoxyParamCaption})}
+
+
+
+This function removes a bude from all buden in the scene. Also this function clears up all occupied spaces. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_bude_a03dd47fe6349e5e2232db89f12eb3fef}{Bude.\+Bude\+Remove()}, \doxylink{class_plate_a02a8f675166e11dd74357322354a5419}{Plate.\+Bude\+Removed(\+Bude)}
+
+
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em weg\+Bude} & The bude to remove.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a29e346187e7e1993be67e1fc0f0a8273}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00175}{175}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_aa2148643a495988787989c5d95b00fa0}\index{SceneManager@{SceneManager}!RemoveGoalNode@{RemoveGoalNode}}
+\index{RemoveGoalNode@{RemoveGoalNode}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{RemoveGoalNode()}{RemoveGoalNode()}}
+{\footnotesize\ttfamily \label{class_scene_manager_aa2148643a495988787989c5d95b00fa0} 
+void Scene\+Manager.\+Remove\+Goal\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_goal_node}{Goal\+Node}}}]{gn}{}\end{DoxyParamCaption})}
+
+
+
+This function removes a goalnode from the scene if is not beeing needed anymore. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gn} & The goalnode to remove.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a713e22a9a4a69703d66414d836881450}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00555}{555}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a96bf7343ceee6b83ae5ca76569472763}\index{SceneManager@{SceneManager}!removePlayer@{removePlayer}}
+\index{removePlayer@{removePlayer}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{removePlayer()}{removePlayer()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a96bf7343ceee6b83ae5ca76569472763} 
+void Scene\+Manager.\+remove\+Player (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_n_p_c}{NPC}}}]{npc}{}\end{DoxyParamCaption})}
+
+
+
+This function removes a player from the scene. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em npc} & The npc to remove.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a1d9a8ba125ea38cbd3fc7c5ba7bf97b8}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00133}{133}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_addde29ca9a7d5ad141f1a423087a6a1c}\index{SceneManager@{SceneManager}!ReserveBudenPosition@{ReserveBudenPosition}}
+\index{ReserveBudenPosition@{ReserveBudenPosition}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{ReserveBudenPosition()}{ReserveBudenPosition()}}
+{\footnotesize\ttfamily \label{class_scene_manager_addde29ca9a7d5ad141f1a423087a6a1c} 
+List$<$ \mbox{\hyperlink{class_plate}{Plate}} $>$ Scene\+Manager.\+Reserve\+Buden\+Position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_bude}{Bude}}}]{bude}{, }\item[{\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}}]{\+\_\+start}{, }\item[{\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}}]{\+\_\+end}{}\end{DoxyParamCaption})}
+
+
+
+This function removes the spaces that the bude occupies, so that the agents don\textquotesingle{}t path through it anymore. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bude} & The \doxylink{class_bude}{Bude} for which the space should be occupied.\\
+\hline
+{\em \+\_\+start} & The first corner from which the positon should occupy.\\
+\hline
+{\em \+\_\+end} & The ending corner of the side from which the space should be occupied.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The List of plates in which this side of a bude occupies space.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a37fe7431aecf42c57a608467f9892be5}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00364}{364}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_addefbdaf81e9435e435013b3de25318b}\index{SceneManager@{SceneManager}!ResetSimulation@{ResetSimulation}}
+\index{ResetSimulation@{ResetSimulation}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{ResetSimulation()}{ResetSimulation()}}
+{\footnotesize\ttfamily \label{class_scene_manager_addefbdaf81e9435e435013b3de25318b} 
+void Scene\+Manager.\+Reset\+Simulation (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Resets the simulation and all contained Buden as well as all agents. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a2bacc712de6278b3629cc7a92da10f91}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00144}{144}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a254f12d0a6fbbd3b23e28dd040b3816d}\index{SceneManager@{SceneManager}!ResumeSimulation@{ResumeSimulation}}
+\index{ResumeSimulation@{ResumeSimulation}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{ResumeSimulation()}{ResumeSimulation()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a254f12d0a6fbbd3b23e28dd040b3816d} 
+void Scene\+Manager.\+Resume\+Simulation (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Resumes the simulation if it was stopped before. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a24ab33972061ec4549d75c3c9c4f52d8}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00130}{130}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a0d243aca5b777d10280adaeb6ff7472f}\index{SceneManager@{SceneManager}!SaveJSON@{SaveJSON}}
+\index{SaveJSON@{SaveJSON}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{SaveJSON()}{SaveJSON()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a0d243aca5b777d10280adaeb6ff7472f} 
+void Scene\+Manager.\+Save\+JSON (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Safes the current state in the scene into json. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a8484873211ec61025cf838eb869c9f63}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00262}{262}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_adb366a66bde2f5a8dee82d26c76e1c78}\index{SceneManager@{SceneManager}!Spawned@{Spawned}}
+\index{Spawned@{Spawned}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{Spawned()}{Spawned()}}
+{\footnotesize\ttfamily \label{class_scene_manager_adb366a66bde2f5a8dee82d26c76e1c78} 
+void Scene\+Manager.\+Spawned (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}}]{pos}{}\end{DoxyParamCaption})}
+
+
+
+Propagates the spawned position of an agent to the heatmap. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_heatmap_acfa94c7ecab4429cf9f115b27fba6caf}{Heatmap.\+Spawned(\+Vector3)}
+
+
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & The position on which an agent spawned.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_ac876573e02f28e913f78f93113487c9b}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00785}{785}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_adffde9ff466af925c30376648df7bae6}\index{SceneManager@{SceneManager}!StartSimulation@{StartSimulation}}
+\index{StartSimulation@{StartSimulation}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{StartSimulation()}{StartSimulation()}}
+{\footnotesize\ttfamily \label{class_scene_manager_adffde9ff466af925c30376648df7bae6} 
+void Scene\+Manager.\+Start\+Simulation (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Starts the simulation. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a04b7ddc96a7ba5954d1312b1f72e5074}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00129}{129}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a0401179bf849b1fedd0f39fd11744096}\index{SceneManager@{SceneManager}!StopSimulation@{StopSimulation}}
+\index{StopSimulation@{StopSimulation}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{StopSimulation()}{StopSimulation()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a0401179bf849b1fedd0f39fd11744096} 
+void Scene\+Manager.\+Stop\+Simulation (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Stops the simulation. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a486029fd7f8bf1480efa3103f08b9e8b}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00131}{131}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_ab526b2a3f3e210b9172988e96317b847}\index{SceneManager@{SceneManager}!ToggleSimulation@{ToggleSimulation}}
+\index{ToggleSimulation@{ToggleSimulation}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{ToggleSimulation()}{ToggleSimulation()}}
+{\footnotesize\ttfamily \label{class_scene_manager_ab526b2a3f3e210b9172988e96317b847} 
+void Scene\+Manager.\+Toggle\+Simulation (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Toggles the Simulation between running and stopped. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_afef485842b779be9752208b6f95483c9}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00214}{214}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a5c3b77ca0c5d749c5df8b85a4aaa484b}\index{SceneManager@{SceneManager}!WorldPositionToPlate@{WorldPositionToPlate}}
+\index{WorldPositionToPlate@{WorldPositionToPlate}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{WorldPositionToPlate()}{WorldPositionToPlate()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a5c3b77ca0c5d749c5df8b85a4aaa484b} 
+\mbox{\hyperlink{class_plate}{Plate}} Scene\+Manager.\+World\+Position\+To\+Plate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}}]{pos}{}\end{DoxyParamCaption})}
+
+
+
+Converts a worldposition position to an specific plate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & The worldposition to chekc where it is.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The plate in which the worldcoordinates are.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_scene_manager_a8bafe4909000a41686020bcce6166ebe}{IScene\+Manager}}.
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00752}{752}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_scene_manager_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_scene_manager_a29c9ee24d7e5882664c038fc1a0e1b93}\index{SceneManager@{SceneManager}!agentsLostPatience@{agentsLostPatience}}
+\index{agentsLostPatience@{agentsLostPatience}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{agentsLostPatience}{agentsLostPatience}}
+{\footnotesize\ttfamily \label{class_scene_manager_a29c9ee24d7e5882664c038fc1a0e1b93} 
+int Scene\+Manager.\+agents\+Lost\+Patience = 0}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00021}{21}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a52126ea2cf01c5576fb1daf776acb649}\index{SceneManager@{SceneManager}!allBudenScripts@{allBudenScripts}}
+\index{allBudenScripts@{allBudenScripts}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{allBudenScripts}{allBudenScripts}}
+{\footnotesize\ttfamily \label{class_scene_manager_a52126ea2cf01c5576fb1daf776acb649} 
+List$<$\mbox{\hyperlink{class_bude}{Bude}}$>$? Scene\+Manager.\+all\+Buden\+Scripts = null}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00031}{31}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a98cbb283e6c0f7cddcf1401e3c7d9dd4}\index{SceneManager@{SceneManager}!allBudenWeigth@{allBudenWeigth}}
+\index{allBudenWeigth@{allBudenWeigth}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{allBudenWeigth}{allBudenWeigth}}
+{\footnotesize\ttfamily \label{class_scene_manager_a98cbb283e6c0f7cddcf1401e3c7d9dd4} 
+int Scene\+Manager.\+all\+Buden\+Weigth}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00023}{23}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_aca8f3034d79043f25a73896d1780f6cc}\index{SceneManager@{SceneManager}!budenContainerName@{budenContainerName}}
+\index{budenContainerName@{budenContainerName}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{budenContainerName}{budenContainerName}}
+{\footnotesize\ttfamily \label{class_scene_manager_aca8f3034d79043f25a73896d1780f6cc} 
+string Scene\+Manager.\+buden\+Container\+Name = "{}Buden\+Container"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00025}{25}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a692c07271295fb994d8fb3284f47927e}\index{SceneManager@{SceneManager}!exitContainerName@{exitContainerName}}
+\index{exitContainerName@{exitContainerName}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{exitContainerName}{exitContainerName}}
+{\footnotesize\ttfamily \label{class_scene_manager_a692c07271295fb994d8fb3284f47927e} 
+string Scene\+Manager.\+exit\+Container\+Name = "{}Exit\+Container"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00026}{26}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a142efe2a02bcb3db5ce7091389dd9169}\index{SceneManager@{SceneManager}!floors@{floors}}
+\index{floors@{floors}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{floors}{floors}}
+{\footnotesize\ttfamily \label{class_scene_manager_a142efe2a02bcb3db5ce7091389dd9169} 
+Mesh\+Renderer? \mbox{[}$\,$\mbox{]} Scene\+Manager.\+floors = null}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00030}{30}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a14401ae29645720bbd36b1bf5d97bede}\index{SceneManager@{SceneManager}!heatmapname@{heatmapname}}
+\index{heatmapname@{heatmapname}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{heatmapname}{heatmapname}}
+{\footnotesize\ttfamily \label{class_scene_manager_a14401ae29645720bbd36b1bf5d97bede} 
+string Scene\+Manager.\+heatmapname = "{}Heat\+Map"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00028}{28}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_aacabded1cce32c5c3ca11ac87a987178}\index{SceneManager@{SceneManager}!inactivePlayerCount@{inactivePlayerCount}}
+\index{inactivePlayerCount@{inactivePlayerCount}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{inactivePlayerCount}{inactivePlayerCount}}
+{\footnotesize\ttfamily \label{class_scene_manager_aacabded1cce32c5c3ca11ac87a987178} 
+int Scene\+Manager.\+inactive\+Player\+Count = 0}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00020}{20}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a9997a5407dea8b3d95abb0425cd1c8ef}\index{SceneManager@{SceneManager}!laden@{laden}}
+\index{laden@{laden}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{laden}{laden}}
+{\footnotesize\ttfamily \label{class_scene_manager_a9997a5407dea8b3d95abb0425cd1c8ef} 
+bool Scene\+Manager.\+laden = false}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00096}{96}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_afdeeef61b144fb81941eb485dd822fc3}\index{SceneManager@{SceneManager}!maxGoalNodeDistance@{maxGoalNodeDistance}}
+\index{maxGoalNodeDistance@{maxGoalNodeDistance}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{maxGoalNodeDistance}{maxGoalNodeDistance}}
+{\footnotesize\ttfamily \label{class_scene_manager_afdeeef61b144fb81941eb485dd822fc3} 
+float Scene\+Manager.\+max\+Goal\+Node\+Distance = 30.\+0f\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00010}{10}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_ac5bcb8c19c1286c1f28c7d592b301ce4}\index{SceneManager@{SceneManager}!maxKapazitaet@{maxKapazitaet}}
+\index{maxKapazitaet@{maxKapazitaet}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{maxKapazitaet}{maxKapazitaet}}
+{\footnotesize\ttfamily \label{class_scene_manager_ac5bcb8c19c1286c1f28c7d592b301ce4} 
+int Scene\+Manager.\+max\+Kapazitaet}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00022}{22}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_ab11cf4ef9012fb890ac566682451b792}\index{SceneManager@{SceneManager}!maxPlayerCount@{maxPlayerCount}}
+\index{maxPlayerCount@{maxPlayerCount}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{maxPlayerCount}{maxPlayerCount}}
+{\footnotesize\ttfamily \label{class_scene_manager_ab11cf4ef9012fb890ac566682451b792} 
+int Scene\+Manager.\+max\+Player\+Count = 1}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00015}{15}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a60c839bdb927edc4caf16320c280f96b}\index{SceneManager@{SceneManager}!normalPlateX@{normalPlateX}}
+\index{normalPlateX@{normalPlateX}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{normalPlateX}{normalPlateX}}
+{\footnotesize\ttfamily \label{class_scene_manager_a60c839bdb927edc4caf16320c280f96b} 
+float Scene\+Manager.\+normal\+PlateX = 0}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00047}{47}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a32d4697c376b07846a67a6902a2d263f}\index{SceneManager@{SceneManager}!normalPlateZ@{normalPlateZ}}
+\index{normalPlateZ@{normalPlateZ}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{normalPlateZ}{normalPlateZ}}
+{\footnotesize\ttfamily \label{class_scene_manager_a32d4697c376b07846a67a6902a2d263f} 
+float Scene\+Manager.\+normal\+PlateZ = 0}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00048}{48}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a1821332bb9a3394c251d5e4bf0561ca6}\index{SceneManager@{SceneManager}!pathDiagonal@{pathDiagonal}}
+\index{pathDiagonal@{pathDiagonal}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{pathDiagonal}{pathDiagonal}}
+{\footnotesize\ttfamily \label{class_scene_manager_a1821332bb9a3394c251d5e4bf0561ca6} 
+bool Scene\+Manager.\+path\+Diagonal = false}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00012}{12}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_aadafc96fe1e6ad4e407e6e0357fe4303}\index{SceneManager@{SceneManager}!plateCountX@{plateCountX}}
+\index{plateCountX@{plateCountX}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{plateCountX}{plateCountX}}
+{\footnotesize\ttfamily \label{class_scene_manager_aadafc96fe1e6ad4e407e6e0357fe4303} 
+int Scene\+Manager.\+plate\+CountX = 0}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00016}{16}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a90ed14f3790b12b22d1a31cff4c1d7fe}\index{SceneManager@{SceneManager}!plateCountZ@{plateCountZ}}
+\index{plateCountZ@{plateCountZ}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{plateCountZ}{plateCountZ}}
+{\footnotesize\ttfamily \label{class_scene_manager_a90ed14f3790b12b22d1a31cff4c1d7fe} 
+int Scene\+Manager.\+plate\+CountZ = 0}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00017}{17}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a614fb8d01c6ada03ae5e5c0d3734f774}\index{SceneManager@{SceneManager}!playerCount@{playerCount}}
+\index{playerCount@{playerCount}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{playerCount}{playerCount}}
+{\footnotesize\ttfamily \label{class_scene_manager_a614fb8d01c6ada03ae5e5c0d3734f774} 
+int Scene\+Manager.\+player\+Count = 0}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00019}{19}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a8c80ac887bfe3f9de226395d35682fc8}\index{SceneManager@{SceneManager}!show@{show}}
+\index{show@{show}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{show}{show}}
+{\footnotesize\ttfamily \label{class_scene_manager_a8c80ac887bfe3f9de226395d35682fc8} 
+bool Scene\+Manager.\+show = false}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00095}{95}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a3419b6d51de0ce084326aade8fb0d4c6}\index{SceneManager@{SceneManager}!simulating@{simulating}}
+\index{simulating@{simulating}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{simulating}{simulating}}
+{\footnotesize\ttfamily \label{class_scene_manager_a3419b6d51de0ce084326aade8fb0d4c6} 
+bool Scene\+Manager.\+simulating = false}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00013}{13}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a96065f8f9797525b31bd12165c72cd85}\index{SceneManager@{SceneManager}!spawnerContainerName@{spawnerContainerName}}
+\index{spawnerContainerName@{spawnerContainerName}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{spawnerContainerName}{spawnerContainerName}}
+{\footnotesize\ttfamily \label{class_scene_manager_a96065f8f9797525b31bd12165c72cd85} 
+string Scene\+Manager.\+spawner\+Container\+Name = "{}Spawner\+Container"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00027}{27}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_afe3ba8a6be1ff28812604693420700e7}\index{SceneManager@{SceneManager}!speichern@{speichern}}
+\index{speichern@{speichern}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{speichern}{speichern}}
+{\footnotesize\ttfamily \label{class_scene_manager_afe3ba8a6be1ff28812604693420700e7} 
+bool Scene\+Manager.\+speichern = false}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00097}{97}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+\Hypertarget{class_scene_manager_a07599fb7b2a26fd067596d00866ea349}\index{SceneManager@{SceneManager}!Vector3@{Vector3}}
+\index{Vector3@{Vector3}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{Vector3}{Vector3}}
+{\footnotesize\ttfamily \label{class_scene_manager_a07599fb7b2a26fd067596d00866ea349} 
+Scene\+Manager.\+Vector3}
+
+
+
+Definition at line \mbox{\hyperlink{_scene_manager_8cs_source_l00135}{135}} of file \mbox{\hyperlink{_scene_manager_8cs_source}{Scene\+Manager.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Max\+Friedrich/\+Documents/gluehwein-\/planer/\+Gluehweinplaner/\+Assets/\+Scripts/\+Game\+Logik/Scene\+Manager.\+cs\end{DoxyCompactItemize}

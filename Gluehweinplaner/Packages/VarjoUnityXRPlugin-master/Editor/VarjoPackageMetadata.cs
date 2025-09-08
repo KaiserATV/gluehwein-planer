@@ -1,11 +1,8 @@
 ﻿#if XR_MGMT_320
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEngine;
-using UnityEngine.XR.Management;
 using UnityEditor.XR.Management.Metadata;
-using Varjo.XR;
+using UnityEngine;
 
 class VarjoPackage : IXRPackage
 {

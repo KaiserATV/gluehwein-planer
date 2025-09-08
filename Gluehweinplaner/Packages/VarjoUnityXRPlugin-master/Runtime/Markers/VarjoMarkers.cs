@@ -1,17 +1,18 @@
 ﻿// Copyright 2020 Varjo Technologies Oy. All rights reserved.
 
 using System;
-using System.Runtime.InteropServices;
-using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using UnityEngine;
 
 namespace Varjo.XR
 {
     /// <summary>
     /// Varjo Marker Pose Flags
     /// </summary>
-    [Flags] public enum VarjoMarkerPoseFlags
+    [Flags]
+    public enum VarjoMarkerPoseFlags
     {
         /** <summary>Pose is being currently tracked.</summary> */
         TrackingOk = 1,

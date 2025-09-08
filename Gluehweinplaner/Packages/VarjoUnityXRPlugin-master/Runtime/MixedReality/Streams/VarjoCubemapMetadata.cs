@@ -1,8 +1,5 @@
 // Copyright 2022 Varjo Technologies Oy. All rights reserved.
 
-using System;
-using UnityEngine;
-
 namespace Varjo.XR
 {
     /// <summary>

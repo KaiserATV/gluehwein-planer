@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using UnityEngine;
 using UnityEditor;
 using UnityEditor.Animations;
+using UnityEngine;
 
 
 #pragma warning disable IDE0005
-using Serilog = Meryel.Serilog;
 #pragma warning restore IDE0005
 
 
@@ -177,7 +176,7 @@ namespace Meryel.UnityCodeAssist.Editor
             //var events = clips.SelectMany(c => c.events);
         }
 
-        
+
 
         public static bool GetAnimatorStateInfo(Animator animator, out List<(AnimatorState state, string fullPath)>? states, out List<(AnimatorTransition transition, string fullPath)>? transitions)
         {

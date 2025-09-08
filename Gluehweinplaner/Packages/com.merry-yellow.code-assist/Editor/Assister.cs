@@ -1,14 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using UnityEditor;
-
+using UnityEngine;
 using CodeEditor = Unity.CodeEditor.CodeEditor;
 
 
 #pragma warning disable IDE0005
-using Serilog = Meryel.Serilog;
 #pragma warning restore IDE0005
 
 
@@ -137,7 +134,7 @@ namespace Meryel.UnityCodeAssist.Editor
                 Serilog.Log.Information(error!);
             }
 #endif
-            
+
         }
 
         /*

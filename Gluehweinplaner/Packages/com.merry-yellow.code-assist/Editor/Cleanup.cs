@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using System;
+using System.IO;
+using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Principal;
-using System.Linq;
 
 #pragma warning disable IDE0005
-using Serilog = Meryel.Serilog;
 #pragma warning restore IDE0005
 
 

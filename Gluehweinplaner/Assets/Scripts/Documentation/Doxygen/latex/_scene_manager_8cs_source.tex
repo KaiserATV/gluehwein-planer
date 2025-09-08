@@ -1,0 +1,822 @@
+\doxysection{Scene\+Manager.\+cs}
+\hypertarget{_scene_manager_8cs_source}{}\label{_scene_manager_8cs_source}\index{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/GameLogik/SceneManager.cs@{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/GameLogik/SceneManager.cs}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }System.IO;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }System.Linq;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }UnityEngine;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00006}00006\ \textcolor{preprocessor}{\#nullable\ enable}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00008}\mbox{\hyperlink{class_scene_manager}{00008}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_scene_manager}{SceneManager}}\ :\ MonoBehaviour,\ \mbox{\hyperlink{interface_i_scene_manager}{ISceneManager}}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00009}00009\ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00010}00010\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ maxGoalNodeDistance\ =\ 30.0f;\textcolor{comment}{//best\ case\ it\ is\ calculated\ if\ there\ are\ blocking\ pionts\ between\ the\ goals}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00012}00012\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ pathDiagonal\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00013}00013\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ simulating\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00015}00015\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ maxPlayerCount\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00016}00016\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ plateCountX\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00017}00017\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ plateCountZ\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00019}00019\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ playerCount\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ inactivePlayerCount\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00021}00021\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ agentsLostPatience\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00022}00022\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ maxKapazitaet;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00023}00023\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ allBudenWeigth;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00025}00025\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ budenContainerName\ =\ \textcolor{stringliteral}{"{}BudenContainer"{}};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00026}00026\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ exitContainerName\ =\ \textcolor{stringliteral}{"{}ExitContainer"{}};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00027}00027\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ spawnerContainerName\ =\ \textcolor{stringliteral}{"{}SpawnerContainer"{}};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00028}00028\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ heatmapname\ =\ \textcolor{stringliteral}{"{}HeatMap"{}};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00030}00030\ \ \ \ \ \textcolor{keyword}{public}\ MeshRenderer[]?\ floors\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00031}00031\ \ \ \ \ \textcolor{keyword}{public}\ List<Bude>?\ allBudenScripts\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00034}00034\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{class_plate}{Plate}}[,]?\ allPlateArray\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00035}00035\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{class_spawner}{Spawner}}[]?\ allSpawner\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00036}00036\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{class_exit}{Exit}}[]?\ allExits\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00037}00037\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{class_inactive_agents_container}{InactiveAgentsContainer}}?\ iac\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00038}00038\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{class_heatmap}{Heatmap}}?\ hm;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00040}00040\ \ \ \ \ \textcolor{keyword}{private}\ Dictionary<Vector3,\ (\textcolor{keywordtype}{int}[,],\ \textcolor{keywordtype}{byte}[,])>\ goalPositionToFlowField\ =\ \textcolor{keyword}{new}\ Dictionary<Vector3,\ (\textcolor{keywordtype}{int}[,],\ \textcolor{keywordtype}{byte}[,])>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00041}00041\ \ \ \ \ \textcolor{keyword}{private}\ Dictionary<(Vector3,\ Vector3),\ (List<Plate>,\ Queue<Vector3>)>\ allPositionsToGoals\ =\ \textcolor{keyword}{new}\ Dictionary<(Vector3,\ Vector3),\ (List<Plate>,\ Queue<Vector3>)>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00043}00043\ \ \ \ \ \textcolor{keyword}{private}\ List<GoalNode>\ allGoalNodes\ =\ \textcolor{keyword}{new}\ List<GoalNode>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00044}00044\ \ \ \ \ \textcolor{keyword}{private}\ List<Bounds>\ allFloorBounds\ =\ \textcolor{keyword}{new}\ List<Bounds>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00045}00045\ \ \ \ \ \textcolor{keyword}{private}\ List<NPC>\ alleCurrentAgents\ =\ \textcolor{keyword}{new}\ List<NPC>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00047}00047\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ normalPlateX\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00048}00048\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ normalPlateZ\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00050}00050\ \ \ \ \ [SerializeField]\ \textcolor{keyword}{private}\ AudioClip?\ deleteSoundClip;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00051}00051\ \ \ \ \ [SerializeField]\ \textcolor{keyword}{private}\ AudioClip?\ saveSoundClip;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00052}00052\ \ \ \ \ [SerializeField]\ \textcolor{keyword}{private}\ AudioClip?\ loadSoundClip;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00054}00054\ \ \ \ \ \textcolor{keywordtype}{void}\ Start()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00055}00055\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ iac\ =\ GameObject.Find(\textcolor{stringliteral}{"{}InactiveAgentHolder"{}}).GetComponent<\mbox{\hyperlink{class_inactive_agents_container}{InactiveAgentsContainer}}>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Get\ all\ Bounds\ of\ all\ Floors}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (MeshRenderer\ floor\ \textcolor{keywordflow}{in}\ floors!)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ allFloorBounds.Add(floor.bounds);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00062}00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00064}00064\ \ \ \ \ \ \ \ \ allBudenScripts\ =\ GameObject.Find(budenContainerName).GetComponentsInChildren<\mbox{\hyperlink{class_bude}{Bude}}>().ToList();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00065}00065\ \ \ \ \ \ \ \ \ allSpawner\ =\ GameObject.Find(spawnerContainerName).GetComponentsInChildren<\mbox{\hyperlink{class_spawner}{Spawner}}>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00066}00066\ \ \ \ \ \ \ \ \ allExits\ =\ GameObject.Find(exitContainerName).GetComponentsInChildren<\mbox{\hyperlink{class_exit}{Exit}}>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00067}00067\ \ \ \ \ \ \ \ \ hm\ =\ GameObject.Find(heatmapname).GetComponent<\mbox{\hyperlink{class_heatmap}{Heatmap}}>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00070}00070\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_manager_a5c44d92213a6062d94f71c802a52961c}{CalcAllBudenWeight}}();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00072}00072\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Generate\ for\ every\ floor\ the\ tiles\ and\ positions\ thereof}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (Bounds\ floor\ \textcolor{keywordflow}{in}\ allFloorBounds)\textcolor{comment}{//vorerst\ nur\ ein\ floor,\ sonst\ problem}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00074}00074\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_plate_generator_dto}{PlateGeneratorDto}}\ tt\ =\ PlateGenerator.CalculatePlatePositionsAndBaseCostMatrices(floor,\ plateCountX,\ plateCountZ,\ pathDiagonal);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ allPlateArray\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_plate}{Plate}}[plateCountX,\ plateCountZ];}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ allPlateArray\ =\ tt.Plates;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ normalPlateX\ =\ tt.normalPlateX;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ normalPlateZ\ =\ tt.normalPlateZ;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ plateCountX\ =\ tt.plateCountX;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ plateCountZ\ =\ tt.plateCountZ;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00082}00082\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00083}00083\ \ \ \ \ \ \ \ \ show\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00085}00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_bude}{Bude}}\ b\ \textcolor{keywordflow}{in}\ allBudenScripts)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00086}00086\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ List<Vector3>\ cornerPos\ =\ b.\mbox{\hyperlink{class_bude_ac5e0386548e6c10723dd19837edd9c2f}{GetAllCornerPoints}}();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ b.onplates.AddRange(\mbox{\hyperlink{class_scene_manager_addde29ca9a7d5ad141f1a423087a6a1c}{ReserveBudenPosition}}(b,\ cornerPos[0],\ cornerPos[1]));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ b.onplates.AddRange(\mbox{\hyperlink{class_scene_manager_addde29ca9a7d5ad141f1a423087a6a1c}{ReserveBudenPosition}}(b,\ cornerPos[1],\ cornerPos[3]));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ b.onplates.AddRange(\mbox{\hyperlink{class_scene_manager_addde29ca9a7d5ad141f1a423087a6a1c}{ReserveBudenPosition}}(b,\ cornerPos[3],\ cornerPos[2]));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ b.onplates.AddRange(\mbox{\hyperlink{class_scene_manager_addde29ca9a7d5ad141f1a423087a6a1c}{ReserveBudenPosition}}(b,\ cornerPos[2],\ cornerPos[0]));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00092}00092\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00093}00093\ \ \ \ \ \ \ \ \ GenerateGoalNodes();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00094}00094\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00095}00095\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ show\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00096}00096\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ laden\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00097}00097\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ speichern\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00098}00098\ \ \ \ \ \textcolor{keywordtype}{void}\ Update()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00099}00099\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (laden)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00101}00101\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_manager_a3392c3f53557513db97ab392d8b8ab2a}{LoadSceneFromJSON}}();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ laden\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00104}00104\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (speichern)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00106}00106\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_manager_a0d243aca5b777d10280adaeb6ff7472f}{SaveJSON}}();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ speichern\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00109}00109\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (playerCount\ >\ maxPlayerCount)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00111}00111\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ DespawnUnused();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00113}00113\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00114}00114\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00115}00115\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ DespawnUnused()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00116}00116\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (playerCount\ >\ maxPlayerCount\ \&\&\ alleCurrentAgents.Count\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00118}00118\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_n_p_c}{NPC}}\ ac\ =\ alleCurrentAgents[0];}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ ac.\mbox{\hyperlink{class_n_p_c_a52216833b077a89afb05b1f9d1510c81}{SetInactive}}(iac!.GetWorldCoords());}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ iac.AddAgent(ac);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ alleCurrentAgents.Remove(ac);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ playerCount-\/-\/;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ inactivePlayerCount++;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ hm!.ClearPos(ac.\mbox{\hyperlink{class_n_p_c_addedf8ec2918a5bc638e7de57bc37c62}{GetPosition}}());}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00126}00126\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00127}00127\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00129}\mbox{\hyperlink{class_scene_manager_adffde9ff466af925c30376648df7bae6}{00129}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_adffde9ff466af925c30376648df7bae6}{StartSimulation}}()\ \{\ simulating\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00130}\mbox{\hyperlink{class_scene_manager_a254f12d0a6fbbd3b23e28dd040b3816d}{00130}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_a254f12d0a6fbbd3b23e28dd040b3816d}{ResumeSimulation}}()\ \{\ simulating\ =\ \textcolor{keyword}{true};\ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_n_p_c}{NPC}}\ ac\ \textcolor{keywordflow}{in}\ alleCurrentAgents)\ \{\ ac.\mbox{\hyperlink{class_n_p_c_ac7c73f1ac13663f2b08af8f9f7a37d0c}{Resume}}();\ \}\ \mbox{\hyperlink{class_scene_manager_a5c44d92213a6062d94f71c802a52961c}{CalcAllBudenWeight}}();\ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00131}\mbox{\hyperlink{class_scene_manager_a0401179bf849b1fedd0f39fd11744096}{00131}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_a0401179bf849b1fedd0f39fd11744096}{StopSimulation}}()\ \{\ simulating\ =\ \textcolor{keyword}{false};\ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_n_p_c}{NPC}}\ ac\ \textcolor{keywordflow}{in}\ alleCurrentAgents)\ \{\ ac.\mbox{\hyperlink{class_n_p_c_ad4c5808368509dcbb0bb4fed7ec3eec0}{Stop}}();\ \}\ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00132}\mbox{\hyperlink{class_scene_manager_ab6218e4a791f4eaa7ecdcdacaa92fb07}{00132}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_ab6218e4a791f4eaa7ecdcdacaa92fb07}{AddPlayer}}(\mbox{\hyperlink{class_n_p_c}{NPC}}\ npc)\ \{\ \textcolor{keywordflow}{if}\ (!alleCurrentAgents.Contains(npc))\ \{\ alleCurrentAgents.Add(npc);\ playerCount++;\ \}\ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00133}\mbox{\hyperlink{class_scene_manager_a96bf7343ceee6b83ae5ca76569472763}{00133}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_a96bf7343ceee6b83ae5ca76569472763}{removePlayer}}(\mbox{\hyperlink{class_n_p_c}{NPC}}\ npc)\ \{\ playerCount-\/-\/;\ alleCurrentAgents.Remove(npc);\ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00134}\mbox{\hyperlink{class_scene_manager_aff906fd803d81b3907037fcc812d6313}{00134}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_scene_manager_aff906fd803d81b3907037fcc812d6313}{CanAddPlayer}}()\ \{\ \textcolor{keywordflow}{return}\ playerCount\ <\ maxPlayerCount;\ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00135}00135\ \ \ \ \ \textcolor{keyword}{public}\ (\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}},\ \mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}})\ GetNewSpawnPoint()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00136}00136\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00137}00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ allSpawner![UnityEngine.Random.Range(0,\ allSpawner.Length)].GenerateRandomPosition();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00138}00138\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00139}00139\ \ \ \ \ \textcolor{comment}{//\ public\ int\ GetBudenCount()\ \{\ return\ alleBuden.Length-\/leereStellen.Count;\ \}}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00140}00140\ \ \ \ \ \textcolor{comment}{//\ public\ int\ ExitCount()\ \{\ return\ alleExits.Length;\ \}}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00142}\mbox{\hyperlink{class_scene_manager_aac223905d0d9e22de1566c9b980d2c2e}{00142}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_aac223905d0d9e22de1566c9b980d2c2e}{LostPatience}}()\ \{\ agentsLostPatience++;\ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00144}\mbox{\hyperlink{class_scene_manager_addefbdaf81e9435e435013b3de25318b}{00144}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_addefbdaf81e9435e435013b3de25318b}{ResetSimulation}}()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00145}00145\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00146}00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_n_p_c}{NPC}}\ ac\ \textcolor{keywordflow}{in}\ alleCurrentAgents)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00147}00147\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ ac.\mbox{\hyperlink{class_n_p_c_a52216833b077a89afb05b1f9d1510c81}{SetInactive}}(iac!.GetWorldCoords());}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ iac!.AddAgent(ac);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00150}00150\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00151}00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_bude}{Bude}}\ b\ \textcolor{keywordflow}{in}\ allBudenScripts!)\ \{\ \textcolor{keywordflow}{if}\ (b\ !=\ \textcolor{keyword}{null})\ \{\ b.\mbox{\hyperlink{class_bude_a99655bd57579b33a2e6b070c1c7b5948}{Reset}}();\ \}\ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00152}00152\ \ \ \ \ \ \ \ \ inactivePlayerCount\ =\ playerCount;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00153}00153\ \ \ \ \ \ \ \ \ playerCount\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00154}00154\ \ \ \ \ \ \ \ \ agentsLostPatience\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00155}00155\ \ \ \ \ \ \ \ \ simulating\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00156}00156\ \ \ \ \ \ \ \ \ alleCurrentAgents\ =\ \textcolor{keyword}{new}\ List<NPC>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00157}00157\ \ \ \ \ \ \ \ \ hm!.Reset();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00158}00158\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_manager_a5c44d92213a6062d94f71c802a52961c}{CalcAllBudenWeight}}();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00159}00159\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00161}\mbox{\hyperlink{class_scene_manager_ad03ab95dbcbd37460666b6869ad0498b}{00161}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_ad03ab95dbcbd37460666b6869ad0498b}{AddBude}}(\mbox{\hyperlink{class_bude}{Bude}}\ neueBude)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00162}00162\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00163}00163\ \ \ \ \ \ \ \ \ allBudenScripts!.Add(neueBude);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00164}00164\ \ \ \ \ \ \ \ \ List<Vector3>\ cornerPos\ =\ neueBude.\mbox{\hyperlink{class_bude_ac5e0386548e6c10723dd19837edd9c2f}{GetAllCornerPoints}}();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00165}00165\ \ \ \ \ \ \ \ \ List<Plate>\ affectedPlates\ =\ \textcolor{keyword}{new}\ List<Plate>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00166}00166\ \ \ \ \ \ \ \ \ affectedPlates.AddRange(\mbox{\hyperlink{class_scene_manager_addde29ca9a7d5ad141f1a423087a6a1c}{ReserveBudenPosition}}(neueBude,\ cornerPos[0],\ cornerPos[1]));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00167}00167\ \ \ \ \ \ \ \ \ affectedPlates.AddRange(\mbox{\hyperlink{class_scene_manager_addde29ca9a7d5ad141f1a423087a6a1c}{ReserveBudenPosition}}(neueBude,\ cornerPos[1],\ cornerPos[3]));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00168}00168\ \ \ \ \ \ \ \ \ affectedPlates.AddRange(\mbox{\hyperlink{class_scene_manager_addde29ca9a7d5ad141f1a423087a6a1c}{ReserveBudenPosition}}(neueBude,\ cornerPos[3],\ cornerPos[2]));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00169}00169\ \ \ \ \ \ \ \ \ affectedPlates.AddRange(\mbox{\hyperlink{class_scene_manager_addde29ca9a7d5ad141f1a423087a6a1c}{ReserveBudenPosition}}(neueBude,\ cornerPos[2],\ cornerPos[0]));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00170}00170\ \ \ \ \ \ \ \ \ neueBude.onplates\ =\ affectedPlates;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00171}00171\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_manager_a6e6c92adb30fc0bd24d3d0540ec73f20}{FindOrCreateNewGoalNode}}(neueBude);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00172}00172\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_manager_a5c44d92213a6062d94f71c802a52961c}{CalcAllBudenWeight}}();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00173}00173\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00175}\mbox{\hyperlink{class_scene_manager_a7b8830cfd8dc7dfd1247f62a8459a78f}{00175}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_a7b8830cfd8dc7dfd1247f62a8459a78f}{RemoveBude}}(\mbox{\hyperlink{class_bude}{Bude}}\ wegBude)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00176}00176\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00177}00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_plate}{Plate}}\ plate\ \textcolor{keywordflow}{in}\ wegBude.onplates)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00178}00178\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ plate.\mbox{\hyperlink{class_plate_a02a8f675166e11dd74357322354a5419}{BudeRemoved}}(wegBude);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00180}00180\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00181}00181\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_f_x_manager}{SoundFXManager}}.instance.PlaySoundFXClip(deleteSoundClip,\ transform,\ 1f);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00182}00182\ \ \ \ \ \ \ \ \ wegBude.BudeRemove();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00183}00183\ \ \ \ \ \ \ \ \ allBudenScripts!.Add(wegBude);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00184}00184\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00185}\mbox{\hyperlink{class_scene_manager_ac88abec0b24c1bba0016cecdc8e4738c}{00185}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_ac88abec0b24c1bba0016cecdc8e4738c}{BudeMoved}}(\mbox{\hyperlink{class_bude}{Bude}}\ bude)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00186}00186\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00187}00187\ \ \ \ \ \ \ \ \ List<Plate>\ onplates\ =\ bude.onplates;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00188}00188\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_plate}{Plate}}\ plate\ \textcolor{keywordflow}{in}\ onplates)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00189}00189\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ plate.\mbox{\hyperlink{class_plate_a02a8f675166e11dd74357322354a5419}{BudeRemoved}}(bude);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00191}00191\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00192}00192\ \ \ \ \ \ \ \ \ List<Vector3>\ cornerPos\ =\ bude.GetAllCornerPoints();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00193}00193\ \ \ \ \ \ \ \ \ List<Plate>\ affectedPlates\ =\ \textcolor{keyword}{new}\ List<Plate>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00194}00194\ \ \ \ \ \ \ \ \ affectedPlates.AddRange(\mbox{\hyperlink{class_scene_manager_addde29ca9a7d5ad141f1a423087a6a1c}{ReserveBudenPosition}}(bude,\ cornerPos[0],\ cornerPos[1]));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00195}00195\ \ \ \ \ \ \ \ \ affectedPlates.AddRange(\mbox{\hyperlink{class_scene_manager_addde29ca9a7d5ad141f1a423087a6a1c}{ReserveBudenPosition}}(bude,\ cornerPos[1],\ cornerPos[3]));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00196}00196\ \ \ \ \ \ \ \ \ affectedPlates.AddRange(\mbox{\hyperlink{class_scene_manager_addde29ca9a7d5ad141f1a423087a6a1c}{ReserveBudenPosition}}(bude,\ cornerPos[3],\ cornerPos[2]));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00197}00197\ \ \ \ \ \ \ \ \ affectedPlates.AddRange(\mbox{\hyperlink{class_scene_manager_addde29ca9a7d5ad141f1a423087a6a1c}{ReserveBudenPosition}}(bude,\ cornerPos[2],\ cornerPos[0]));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00198}00198\ \ \ \ \ \ \ \ \ bude.onplates\ =\ affectedPlates;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00199}00199\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_manager_a6e6c92adb30fc0bd24d3d0540ec73f20}{FindOrCreateNewGoalNode}}(bude);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00200}00200\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00202}\mbox{\hyperlink{class_scene_manager_acf72c0fed1e3ba74c94828cc85d03928}{00202}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_acf72c0fed1e3ba74c94828cc85d03928}{Pause}}()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00203}00203\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00204}00204\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (simulating)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00205}00205\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_manager_a0401179bf849b1fedd0f39fd11744096}{StopSimulation}}();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00207}00207\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00208}00208\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00209}00209\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_manager_a254f12d0a6fbbd3b23e28dd040b3816d}{ResumeSimulation}}();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00211}00211\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00212}00212\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00213}00213\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00214}\mbox{\hyperlink{class_scene_manager_ab526b2a3f3e210b9172988e96317b847}{00214}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_ab526b2a3f3e210b9172988e96317b847}{ToggleSimulation}}()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00215}00215\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00216}00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (playerCount\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00217}00217\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_manager_adffde9ff466af925c30376648df7bae6}{StartSimulation}}();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00219}00219\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00220}00220\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00221}00221\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_manager_addefbdaf81e9435e435013b3de25318b}{ResetSimulation}}();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00223}00223\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00224}00224\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00225}\mbox{\hyperlink{class_scene_manager_a0726bf93e414999d6c5161abb3660258}{00225}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_a0726bf93e414999d6c5161abb3660258}{IncreaseMaxPlayerCount}}()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00226}00226\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00227}00227\ \ \ \ \ \ \ \ \ maxPlayerCount\ +=\ 50;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00228}00228\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00229}\mbox{\hyperlink{class_scene_manager_aa927f8377209b28f2d6b11b852179ee4}{00229}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_aa927f8377209b28f2d6b11b852179ee4}{DecreaseMaxPlayerCount}}()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00230}00230\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00231}00231\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (maxPlayerCount\ >=\ 50)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00232}00232\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ maxPlayerCount\ -\/=\ 50;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00234}00234\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00235}00235\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00236}00236\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00237}00237\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{string}\ CreateJSON()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00238}00238\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00239}00239\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_alle_buden_j_s_o_n}{AlleBudenJSON}}\ aB\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_alle_buden_j_s_o_n}{AlleBudenJSON}}(allBudenScripts!.Count);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00240}00240\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_alle_exit_j_s_o_n}{AlleExitJSON}}\ aE\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_alle_exit_j_s_o_n}{AlleExitJSON}}(allExits!.Length);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00241}00241\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_alle_spawn_j_s_o_n}{AlleSpawnJSON}}\ aS\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_alle_spawn_j_s_o_n}{AlleSpawnJSON}}(allSpawner!.Length);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00242}00242\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ j\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00243}00243\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ allBudenScripts!.Count;\ i++)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00244}00244\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (allBudenScripts[i]\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ aB.budenArray[j]\ =\ allBudenScripts[i].GetBudenJSON();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ j++;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00250}00250\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00251}00251\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ allSpawner.Length;\ i++)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00252}00252\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \ \ aS.spawnArray[i]\ =\ allSpawner[i].ToJSON();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00254}00254\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00255}00255\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ allExits!.Length;\ i++)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00256}00256\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ aE.exitArray[i]\ =\ allExits![i].ToJSON();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00258}00258\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00259}00259\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ JsonUtility.ToJson(\textcolor{keyword}{new}\ GanzeSzene(aB,\ aE,\ aS));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00260}00260\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00261}00261\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00262}\mbox{\hyperlink{class_scene_manager_a0d243aca5b777d10280adaeb6ff7472f}{00262}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_a0d243aca5b777d10280adaeb6ff7472f}{SaveJSON}}()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00263}00263\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00264}00264\ \ \ \ \ \ \ \ \ Debug.Log(\textcolor{stringliteral}{"{}Speichere\ JSON"{}});}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00265}00265\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ path\ =\ Application.persistentDataPath\ +\ \textcolor{stringliteral}{"{}/Position.json"{}};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00266}00266\ \ \ \ \ \ \ \ \ Debug.Log(\textcolor{stringliteral}{"{}Speichere\ JSON\ nach:\ "{}}\ +\ path);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00267}00267\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using}\ (StreamWriter\ writer\ =\ \textcolor{keyword}{new}\ StreamWriter(path,\ \textcolor{keyword}{false}))}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00268}00268\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ writer.Write(CreateJSON());}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00270}00270\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00272}00272\ \ \ \ \ \ \ \ \ \textcolor{comment}{//SoundFXManager.instance.PlaySoundFXClip(saveSoundClip,\ transform,\ 1f);}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00273}00273\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00274}00274\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00275}00275\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{class_ganze_szene}{GanzeSzene}}?\ ReadJSON()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00276}00276\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00277}00277\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ path\ =\ Application.persistentDataPath\ +\ \textcolor{stringliteral}{"{}/Position.json"{}};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00278}00278\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_ganze_szene}{GanzeSzene}}?\ a\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00279}00279\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00280}00280\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!File.Exists(path))}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00281}00281\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ Debug.LogWarning(\textcolor{stringliteral}{"{}Datei\ existiert\ nicht:\ "{}}\ +\ path);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00284}00284\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00285}00285\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00286}00286\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ Debug.Log(\textcolor{stringliteral}{"{}Lese\ Datei\ von\ Pfad:\ "{}}\ +\ path);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using}\ (StreamReader\ reader\ =\ \textcolor{keyword}{new}\ StreamReader(path))}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ jsonContent\ =\ reader.ReadToEnd();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00291}00291\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00292}00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a\ =\ JsonUtility.FromJson<GanzeSzene>(jsonContent);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00293}00293\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (a\ ==\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00295}00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00296}00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Debug.LogWarning(\textcolor{stringliteral}{"{}Fehler\ beim\ Parsen\ der\ JSON-\/Datei."{}});}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00298}00298\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00299}00299\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00300}00300\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (System.Exception\ e)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00301}00301\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00302}00302\ \ \ \ \ \ \ \ \ \ \ \ \ Debug.LogWarning(\textcolor{stringliteral}{"{}Fehler\ beim\ Lesen\ der\ Datei:\ "{}}\ +\ e);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00303}00303\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00304}00304\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00305}00305\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ a;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00306}00306\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00307}00307\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00308}00308\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00309}\mbox{\hyperlink{class_scene_manager_a3392c3f53557513db97ab392d8b8ab2a}{00309}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_a3392c3f53557513db97ab392d8b8ab2a}{LoadSceneFromJSON}}()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00310}00310\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00311}00311\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_ganze_szene}{GanzeSzene}}?\ gS\ =\ ReadJSON();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00312}00312\ \ \ \ \ \ \ \ \ GameObject?\ stand\ =\ Resources.Load(\textcolor{stringliteral}{"{}New\_Stand"{}})\ as\ GameObject;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00313}00313\ \ \ \ \ \ \ \ \ GameObject?\ exit\ =\ Resources.Load(\textcolor{stringliteral}{"{}Exit"{}})\ as\ GameObject;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00314}00314\ \ \ \ \ \ \ \ \ GameObject?\ spawner\ =\ Resources.Load(\textcolor{stringliteral}{"{}Spawner"{}})\ as\ GameObject;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00315}00315\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (gS\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00316}00316\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00317}00317\ \ \ \ \ \ \ \ \ \ \ \ \ GameObject\ budenContainer\ =\ GameObject.Find(budenContainerName);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00318}00318\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_buden_j_s_o_n}{BudenJSON}}\ b\ \textcolor{keywordflow}{in}\ gS.alleBuden.budenArray)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00319}00319\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00320}00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vector3\ pos\ =\ \textcolor{keyword}{new}(b.xPos,\ 0,\ b.zPos);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00321}00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Quaternion\ orien\ =\ Quaternion.Euler(0,\ b.yRot,\ 0);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00322}00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stand\ !=\ \textcolor{keyword}{null}\ \&\&\ !Physics.CheckSphere(\textcolor{keyword}{new}\ Vector3(pos.x,\ 10,\ pos.z),\ 6.25f))}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00323}00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00324}00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GameObject\ newObj\ =\ Instantiate(stand,\ pos,\ orien);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00325}00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_bude}{Bude}}\ bd\ =\ newObj.GetComponent<\mbox{\hyperlink{class_bude}{Bude}}>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00326}00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newObj.transform.parent\ =\ budenContainer.transform;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00327}00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bd.attraktivitaet\ =\ b.attrak;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00328}00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bd.WaitTime\ =\ b.waittime;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00329}00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bd.\mbox{\hyperlink{class_bude_aad9ce44c3274aba62595086e5ffcb847}{SetTypeIndex}}(1);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00330}00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_manager_ad03ab95dbcbd37460666b6869ad0498b}{AddBude}}(bd);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00331}00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00332}00332\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00333}00333\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_exit_j_s_o_n}{ExitJSON}}\ e\ \textcolor{keywordflow}{in}\ gS.allExits.exitArray)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00334}00334\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00335}00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vector3\ pos\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}(e.xPos,\ 0,\ e.zPos);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00336}00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Quaternion\ orien\ =\ Quaternion.Euler(0,\ e.yRot,\ 0);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00337}00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Transform\ exitContainer\ =\ GameObject.Find(exitContainerName).transform;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00338}00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (exit\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GameObject\ newObj\ =\ Instantiate(exit,\ pos,\ orien);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00341}00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newObj.transform.parent\ =\ exitContainer;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00342}00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00343}00343\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00344}00344\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_spawn_j_s_o_n}{SpawnJSON}}\ s\ \textcolor{keywordflow}{in}\ gS.alleSpawns.spawnArray)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00345}00345\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00346}00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vector3\ pos\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}(s.xPos,\ 0,\ s.zPos);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00347}00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Quaternion\ orien\ =\ Quaternion.Euler(0,\ s.yRot,\ 0);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00348}00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Transform\ spawnerContainer\ =\ GameObject.Find(spawnerContainerName).transform;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00349}00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (spawner\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00350}00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00351}00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GameObject\ newObj\ =\ Instantiate(spawner,\ pos,\ orien);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00352}00352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newObj.transform.parent\ =\ spawnerContainer;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00353}00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00354}00354\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00355}00355\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00356}00356\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00357}00357\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//SoundFXManager.instance.PlaySoundFXClip(loadSoundClip,\ transform,\ 1f);}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00358}00358\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00359}00359\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00360}00360\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00361}00361\ \ \ \ \ \ \ \ \ \ \ \ \ Debug.LogWarning(\textcolor{stringliteral}{"{}Konnte\ keine\ Datei\ lesen\ von\ pfad:\ "{}}\ +\ Application.persistentDataPath\ +\ \textcolor{stringliteral}{"{}/Position.json"{}});}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00362}00362\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00363}00363\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00364}\mbox{\hyperlink{class_scene_manager_addde29ca9a7d5ad141f1a423087a6a1c}{00364}}\ \ \ \ \ \textcolor{keyword}{public}\ List<Plate>\ \mbox{\hyperlink{class_scene_manager_addde29ca9a7d5ad141f1a423087a6a1c}{ReserveBudenPosition}}(\mbox{\hyperlink{class_bude}{Bude}}\ b,\ Vector3\ \_start,\ Vector3\ \_end)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00365}00365\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00366}00366\ \ \ \ \ \ \ \ \ Vector2Int\ start\ =\ WorldPositionToPlateArrayPosition(\_start);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00367}00367\ \ \ \ \ \ \ \ \ Vector2Int\ end\ =\ WorldPositionToPlateArrayPosition(\_end);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00368}00368\ \ \ \ \ \ \ \ \ Vector2Int\ dirEnd\ =\ end\ -\/\ start;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00369}00369\ \ \ \ \ \ \ \ \ Vector3\ worldEnd\ =\ \_end\ -\/\ \_start;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00370}00370\ \ \ \ \ \ \ \ \ List<Vector2Int>\ platePosToVisit\ =\ GenerateMatrix.InterpolateArray(start,\ end,\ ((Vector2Int\ a,\ Vector2Int\ b)\ toCompare)\ =>\ (Vector3.Distance(allPlateArray![toCompare.a.x,\ toCompare.a.y].Center,\ \_end)\ <\ Vector3.Distance(allPlateArray[toCompare.b.x,\ toCompare.b.y].Center,\ \_end))\ ?\ toCompare.a\ :\ toCompare.b,\ \textcolor{keyword}{false},\ plateCountX,\ plateCountZ);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00371}00371\ \ \ \ \ \ \ \ \ List<Plate>\ platesToVisit\ =\ \textcolor{keyword}{new}\ List<Plate>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00372}00372\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (Vector2Int\ pos\ \textcolor{keywordflow}{in}\ platePosToVisit)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00373}00373\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00374}00374\ \ \ \ \ \ \ \ \ \ \ \ \ platesToVisit.Add(allPlateArray![pos.x,\ pos.y]);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00375}00375\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00376}00376\ \ \ \ \ \ \ \ \ Vector2Int\ startPos\ =\ allPlateArray![platePosToVisit[0].x,\ platePosToVisit[0].y].GetPositionInArray(\_start,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00377}00377\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (platePosToVisit.Count\ >\ 1)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00378}00378\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00379}00379\ \ \ \ \ \ \ \ \ \ \ \ \ Vector2Int\ dirToNextPlate\ =\ platePosToVisit[1]\ -\/\ platePosToVisit[0];}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00380}00380\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ platePosToVisit.Count;\ i++)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00381}00381\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00382}00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ <\ platePosToVisit.Count\ -\/\ 1)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00383}00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00384}00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dirEnd\ =\ end\ -\/\ platePosToVisit[i];}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00385}00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ startPos\ =\ allPlateArray[platePosToVisit[i].x,\ platePosToVisit[i].y].OccupySpaces(b,\ startPos,\ \_end);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00386}00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dirToNextPlate\ =\ platePosToVisit[i\ +\ 1]\ -\/\ platePosToVisit[i];}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00387}00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00388}00388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00389}00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlateArray[platePosToVisit[i].x,\ platePosToVisit[i].y].OccupySpaces(b,\ startPos,\ \_end);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00391}00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ platesToVisit;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00392}00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00393}00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dirToNextPlate.x\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00394}00394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{comment}{//y\ bigger}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00395}00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dirToNextPlate.y\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00396}00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00397}00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ startPos.y\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00398}00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00399}00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00400}00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ startPos.y\ =\ allPlateArray[platePosToVisit[i\ +\ 1].x,\ platePosToVisit[i\ +\ 1].y].Columns\ -\/\ 1;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00402}00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00403}00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00404}00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00405}00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00406}00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dirToNextPlate.x\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00407}00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00408}00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ startPos.x\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00410}00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00411}00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00412}00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ startPos.x\ =\ allPlateArray[platePosToVisit[i\ +\ 1].x,\ platePosToVisit[i\ +\ 1].y].Rows\ -\/\ 1;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00413}00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00414}00414\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00415}00415\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00416}00416\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00417}00417\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00418}00418\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00419}00419\ \ \ \ \ \ \ \ \ \ \ \ \ allPlateArray[platePosToVisit.Last().x,\ platePosToVisit.Last().y].OccupySpaces(b,\ startPos,\ \_end);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00420}00420\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00421}00421\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ platesToVisit;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00422}00422\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00423}00423\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00424}00424\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00425}00425\ \ \ \ \ \textcolor{keywordtype}{void}\ GenerateGoalNodes()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00426}00426\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00427}00427\ \ \ \ \ \ \ \ \ List<List<Bude>>\ groups\ =\ \textcolor{keyword}{new}\ List<List<Bude>>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00428}00428\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00429}00429\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ added\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00430}00430\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00431}00431\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ j\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00432}00432\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ shouldBreak\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00433}00433\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00434}00434\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00435}00435\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ allBudenScripts!.Count;\ i++)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00436}00436\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00437}00437\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_bude}{Bude}}\ goal\ =\ allBudenScripts[i];}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00438}00438\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (j\ <\ groups.Count\ \&\&\ !shouldBreak)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00439}00439\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00440}00440\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}.Distance(groups[j][0].GetFarestPoint(),\ goal.\mbox{\hyperlink{class_bude_aa552970bcf0f0ee53a8cd80985bfb671}{GetFarestPoint}}())\ <=\ maxGoalNodeDistance\ \&\&\ WorldPositionToPlateArrayPosition(goal.\mbox{\hyperlink{class_bude_aa552970bcf0f0ee53a8cd80985bfb671}{GetFarestPoint}}())\ ==\ WorldPositionToPlateArrayPosition(groups[j][0].GetFarestPoint()))}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00441}00441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00442}00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}\ firstDirection\ =\ groups[j][0].GetFacingDirection();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00443}00443\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}\ goalDirection\ =\ goal.\mbox{\hyperlink{class_bude_a4521d04fe57a4d48da5c6ff55f13ab61}{GetFacingDirection}}();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00444}00444\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00445}00445\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00446}00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ dot\ =\ \mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}.Dot(goalDirection.normalized,\ firstDirection.normalized);\textcolor{comment}{//dot\ product\ to\ get\ the\ direction\ the\ vectors\ are\ facing}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00447}00447\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00448}00448\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//should\ divide\ by\ position}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00449}00449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}\ displacement\ =\ groups[j][0].GetFarestPoint()\ -\/\ goal.\mbox{\hyperlink{class_bude_aa552970bcf0f0ee53a8cd80985bfb671}{GetFarestPoint}}();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00450}00450\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ positionBudenToEachOther\ =\ \mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}.Dot(displacement.normalized,\ goalDirection.normalized);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00451}00451\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00452}00452\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (positionBudenToEachOther\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00453}00453\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00454}00454\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//only\ invalid\ position\ here\ are}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00455}00455\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//1:\ If\ it\ is\ not\ in\ front\ by\ enough}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00456}00456\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//2:\ They\ are\ pointing\ in\ the\ same\ direction\ and\ are\ directly\ infront\ of\ eathother(or\ to\ close)}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00457}00457\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (positionBudenToEachOther\ >\ 0.5f)\ \textcolor{comment}{//everthing\ could\ be\ accetpable}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00458}00458\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00459}00459\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (positionBudenToEachOther\ >\ 0.8f)\textcolor{comment}{//only\ accetable\ if\ facing\ eachother}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00460}00460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00461}00461\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dot\ <\ -\/0.4f)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00462}00462\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00463}00463\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groups[j].Add(goal);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00464}00464\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ added\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00465}00465\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shouldBreak\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00466}00466\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00467}00467\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00468}00468\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00469}00469\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00470}00470\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groups[j].Add(goal);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00471}00471\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ added\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00472}00472\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shouldBreak\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00473}00473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00474}00474\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00475}00475\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{comment}{//\ only\ accetpable\ if\ facing\ same\ direction}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00476}00476\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00477}00477\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dot\ <\ 0.1f)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00478}00478\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00479}00479\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groups[j].Add(goal);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00480}00480\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ added\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00481}00481\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shouldBreak\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00482}00482\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00483}00483\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00484}00484\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00485}00485\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (positionBudenToEachOther\ <\ 0)\textcolor{comment}{//the\ other\ but\ inverted}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00486}00486\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00487}00487\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (positionBudenToEachOther\ <\ -\/0.5f)\ \textcolor{comment}{//everthing\ could\ be\ accetpable}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00488}00488\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00489}00489\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (positionBudenToEachOther\ <\ -\/0.8f)\textcolor{comment}{//only\ accetable\ if\ facing\ eachother}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00490}00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00491}00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dot\ <\ -\/0.4f)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00492}00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00493}00493\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groups[j].Add(goal);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00494}00494\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ added\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00495}00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shouldBreak\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00496}00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00497}00497\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00498}00498\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00499}00499\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00500}00500\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groups[j].Add(goal);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00501}00501\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ added\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00502}00502\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shouldBreak\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00503}00503\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00504}00504\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00505}00505\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{comment}{//\ only\ accetpable\ if\ facing\ same\ direction}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00506}00506\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00507}00507\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dot\ >\ 0.9f)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00508}00508\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00509}00509\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groups[j].Add(goal);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00510}00510\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ added\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00511}00511\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shouldBreak\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00512}00512\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00513}00513\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00514}00514\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00515}00515\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00516}00516\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ j++;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00517}00517\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00518}00518\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00519}00519\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!added)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00520}00520\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00521}00521\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groups.Add(\textcolor{keyword}{new}\ List<Bude>());}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00522}00522\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groups[\string^1].Add(goal);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00523}00523\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00524}00524\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00525}00525\ \ \ \ \ \ \ \ \ \ \ \ \ shouldBreak\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00526}00526\ \ \ \ \ \ \ \ \ \ \ \ \ j\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00527}00527\ \ \ \ \ \ \ \ \ \ \ \ \ added\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00528}00528\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00529}00529\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00530}00530\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (List<Bude>\ goalGroup\ \textcolor{keywordflow}{in}\ groups)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00531}00531\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00532}00532\ \ \ \ \ \ \ \ \ \ \ \ \ GoalNode\ gn\ =\ \textcolor{keyword}{new}\ GoalNode(goalGroup,\ \mbox{\hyperlink{class_scene_manager_a5c3b77ca0c5d749c5df8b85a4aaa484b}{WorldPositionToPlate}}(goalGroup[0].GetFarestPoint()),\ \textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00533}00533\ \ \ \ \ \ \ \ \ \ \ \ \ allGoalNodes.Add(gn);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00534}00534\ \ \ \ \ \ \ \ \ \ \ \ \ gn.\mbox{\hyperlink{class_goal_node_ad8f345087dac3086bfffa3cefee4b179}{OnPlate}}.\mbox{\hyperlink{class_plate_a045c43d528947814feed81abc4aa5238}{AddGoalNode}}(gn);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00535}00535\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00536}00536\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00537}00537\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00538}\mbox{\hyperlink{class_scene_manager_a6e6c92adb30fc0bd24d3d0540ec73f20}{00538}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_a6e6c92adb30fc0bd24d3d0540ec73f20}{FindOrCreateNewGoalNode}}(\mbox{\hyperlink{class_bude}{Bude}}\ bude)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00539}00539\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00540}00540\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_plate}{Plate}}\ on\ =\ \mbox{\hyperlink{class_scene_manager_a5c3b77ca0c5d749c5df8b85a4aaa484b}{WorldPositionToPlate}}(bude.\mbox{\hyperlink{class_bude_aa552970bcf0f0ee53a8cd80985bfb671}{GetFarestPoint}}());}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00541}00541\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_goal_node}{GoalNode}}\ gn1\ \textcolor{keywordflow}{in}\ allGoalNodes)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00542}00542\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00543}00543\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (gn1.\mbox{\hyperlink{class_goal_node_ad8f345087dac3086bfffa3cefee4b179}{OnPlate}}\ ==\ on)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00544}00544\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00545}00545\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gn1.\mbox{\hyperlink{class_goal_node_a4fdbb9b70833bf20e3b282f80ce5f918}{AddBude}}(bude);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00546}00546\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gn1.\mbox{\hyperlink{class_goal_node_ab6e546f1c3bbdd51f89984cff5a801bc}{CalculatePosition}}();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00547}00547\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00548}00548\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00549}00549\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00550}00550\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_goal_node}{GoalNode}}\ gn\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_goal_node}{GoalNode}}(\textcolor{keyword}{new}\ List<Bude>\ \{\ bude\ \},\ \mbox{\hyperlink{class_scene_manager_a5c3b77ca0c5d749c5df8b85a4aaa484b}{WorldPositionToPlate}}(bude.GetFarestPoint()),\ \textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00551}00551\ \ \ \ \ \ \ \ \ allGoalNodes.Add(gn);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00552}00552\ \ \ \ \ \ \ \ \ gn.\mbox{\hyperlink{class_goal_node_ad8f345087dac3086bfffa3cefee4b179}{OnPlate}}.\mbox{\hyperlink{class_plate_a045c43d528947814feed81abc4aa5238}{AddGoalNode}}(gn);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00553}00553\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00554}00554\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00555}\mbox{\hyperlink{class_scene_manager_aa2148643a495988787989c5d95b00fa0}{00555}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_aa2148643a495988787989c5d95b00fa0}{RemoveGoalNode}}(\mbox{\hyperlink{class_goal_node}{GoalNode}}\ gn)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00556}00556\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00557}00557\ \ \ \ \ \ \ \ \ allGoalNodes.Remove(gn);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00558}00558\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00559}00559\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00560}\mbox{\hyperlink{class_scene_manager_a744092140b7c5b9bb40348829f5affd8}{00560}}\ \ \ \ \ \textcolor{keyword}{public}\ Queue<Vector3>\ \mbox{\hyperlink{class_scene_manager_a744092140b7c5b9bb40348829f5affd8}{HandlePathRequest}}(Vector3\ start,\ \mbox{\hyperlink{class_goal_node}{GoalNode}}\ goalNode)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00561}00561\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00562}00562\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_scene_manager_a744092140b7c5b9bb40348829f5affd8}{HandlePathRequest}}(start,\ goalNode.Position);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00563}00563\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00564}00564\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00565}00565\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00566}\mbox{\hyperlink{class_scene_manager_a2f3d738c79c0b0aee79041b44db80e90}{00566}}\ \ \ \ \ \textcolor{keyword}{public}\ Queue<Vector3>\ \mbox{\hyperlink{class_scene_manager_a2f3d738c79c0b0aee79041b44db80e90}{HandlePathRequest}}(Vector3\ start,\ Vector3\ goal)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00567}00567\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00568}00568\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (allPositionsToGoals.ContainsKey((start,\ goal)))}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00569}00569\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00570}00570\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (PlatePathChanged(allPositionsToGoals[(start,\ goal)].Item1))}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00571}00571\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00572}00572\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ Queue<Vector3>(allPositionsToGoals[(start,\ goal)].Item2);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00573}00573\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00574}00574\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00575}00575\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00576}00576\ \ \ \ \ \ \ \ \ Vector2Int\ arrayStart\ =\ WorldPositionToPlateArrayPosition(start);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00577}00577\ \ \ \ \ \ \ \ \ Vector2Int\ arrayGoal\ =\ WorldPositionToPlateArrayPosition(goal);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00578}00578\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00579}00579\ \ \ \ \ \ \ \ \ List<Vector2Int>\ platePosToVisit;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00580}00580\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{byte}[,]\ flowField;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00581}00581\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}[,]\ baseCostPlates;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00582}00582\ \ \ \ \ \ \ \ \ List<Plate>\ platesToVisit;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00583}00583\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00584}00584\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (goalPositionToFlowField.ContainsKey(goal))}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00585}00585\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00586}00586\ \ \ \ \ \ \ \ \ \ \ \ \ baseCostPlates\ =\ goalPositionToFlowField[goal].Item1;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00587}00587\ \ \ \ \ \ \ \ \ \ \ \ \ flowField\ =\ goalPositionToFlowField[goal].Item2;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00588}00588\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00589}00589\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00590}00590\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00591}00591\ \ \ \ \ \ \ \ \ \ \ \ \ baseCostPlates\ =\ GenerateMatrix.GenerateBaseCostMatrix(plateCountX,\ plateCountZ,\ (\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ column)\ =>\ !allPlateArray![row,\ column].HasOnlyObstacles,\ out\ \textcolor{keywordtype}{bool}\ onlyObstacles,\ out\ \textcolor{keywordtype}{bool}\ noObstacles);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00592}00592\ \ \ \ \ \ \ \ \ \ \ \ \ (\_,\ flowField)\ =\ GenerateMatrix.GenerateDistanceFieldAndFlowField(baseCostPlates,\ plateCountX,\ plateCountZ,\ \textcolor{keyword}{new}\ List<Vector2Int>\ \{\ arrayGoal\ \},\ pathDiagonal);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00593}00593\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00594}00594\ \ \ \ \ \ \ \ \ platePosToVisit\ =\ GenerateMatrix.GetBestPathInFlowFieldFull(flowField,\ arrayStart);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00595}00595\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (platePosToVisit.Count\ ==\ 0)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ Queue<Vector3>();\ \}\textcolor{comment}{//there\ is\ no\ way\ to\ path\ to\ the\ goal\ from\ the\ given\ position}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00596}00596\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00597}00597\ \ \ \ \ \ \ \ \ platesToVisit\ =\ \textcolor{keyword}{new}\ List<Plate>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00598}00598\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00599}00599\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (Vector2Int\ pos\ \textcolor{keywordflow}{in}\ platePosToVisit)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00600}00600\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00601}00601\ \ \ \ \ \ \ \ \ \ \ \ \ platesToVisit.Add(allPlateArray![pos.x,\ pos.y]);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00602}00602\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00603}00603\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00604}00604\ \ \ \ \ \ \ \ \ (Queue<Vector3>\ wayPoints,\ \mbox{\hyperlink{class_plate}{Plate}}?\ lastVisitedPlate)\ =\ GenerateMatrix.GeneratePath(platesToVisit,\ start,\ goal,\ pathDiagonal);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00605}00605\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (lastVisitedPlate\ ==\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00606}00606\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00607}00607\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!goalPositionToFlowField.ContainsKey(goal))}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00608}00608\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00609}00609\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ goalPositionToFlowField.Add(goal,\ (baseCostPlates,\ flowField));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00610}00610\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00611}00611\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!allPositionsToGoals.ContainsKey((start,\ goal)))}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00612}00612\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00613}00613\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPositionsToGoals.Add((start,\ goal),\ (platesToVisit,\ \textcolor{keyword}{new}\ Queue<Vector3>(wayPoints)));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00614}00614\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00615}00615\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ wayPoints;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00616}00616\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00617}00617\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00618}00618\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00619}00619\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ tries\ =\ 0;\ \textcolor{comment}{//\ try\ to\ find\ a\ route\ 3\ times\ else\ go\ to\ the\ exit}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00620}00620\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_plate}{Plate}}\ goalPlate\ =\ allPlateArray![arrayGoal.x,\ arrayGoal.y];}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00621}00621\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00622}00622\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00623}00623\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vector2Int\ platePos\ =\ WorldPositionToPlateArrayPosition(lastVisitedPlate!.Center);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00624}00624\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ baseCostPlates[platePos.x,\ platePos.y]\ =\ GenerateMatrix.MatrixObstacleValue;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00625}00625\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\_,\ flowField)\ =\ GenerateMatrix.GenerateDistanceFieldAndFlowField(baseCostPlates,\ plateCountX,\ plateCountZ,\ \textcolor{keyword}{new}\ List<Vector2Int>\ \{\ arrayGoal\ \},\ pathDiagonal);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00626}00626\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ platePosToVisit\ =\ GenerateMatrix.GetBestPathInFlowFieldFull(flowField,\ arrayStart);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00627}00627\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00628}00628\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (platePosToVisit.Count\ ==\ 0)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ Queue<Vector3>();\ \}\textcolor{comment}{//there\ is\ no\ way\ to\ path\ to\ the\ goal\ from\ the\ given\ position}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00629}00629\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00630}00630\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ platesToVisit\ =\ \textcolor{keyword}{new}\ List<Plate>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00631}00631\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (Vector2Int\ pos\ \textcolor{keywordflow}{in}\ platePosToVisit)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00632}00632\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00633}00633\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ platesToVisit.Add(allPlateArray![pos.x,\ pos.y]);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00634}00634\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00635}00635\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00636}00636\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (Queue<Vector3>\ newWayPoints,\ \mbox{\hyperlink{class_plate}{Plate}}?\ lastPlate)\ =\ GenerateMatrix.GeneratePath(platesToVisit,\ start,\ goal,\ pathDiagonal);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00637}00637\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lastVisitedPlate\ =\ lastPlate;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00638}00638\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (lastPlate\ ==\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00639}00639\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00640}00640\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (allPositionsToGoals.ContainsKey((start,\ goal)))}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00641}00641\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00642}00642\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPositionsToGoals.Remove((start,\ goal));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00643}00643\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00644}00644\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (goalPositionToFlowField.ContainsKey(goal))}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00645}00645\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00646}00646\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ goalPositionToFlowField.Remove(goal);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00647}00647\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00648}00648\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPositionsToGoals.Add((start,\ goal),\ (platesToVisit,\ \textcolor{keyword}{new}\ Queue<Vector3>(newWayPoints)));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00649}00649\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ goalPositionToFlowField.Add(goal,\ (baseCostPlates,\ flowField));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00650}00650\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00651}00651\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ newWayPoints;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00652}00652\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00653}00653\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tries++;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00654}00654\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (tries\ <\ Mathf.Max(plateCountX,\ plateCountZ));}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00655}00655\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ Queue<Vector3>();\textcolor{comment}{//no\ path\ could\ be\ found}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00656}00656\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00657}00657\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00658}00658\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00659}00659\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ OnDrawGizmos()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00660}00660\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00661}00661\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Application.isPlaying\ \&\&\ show)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00662}00662\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00663}00663\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Plate\ plate\ =\ allPlateArray[0,\ 0];}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00664}00664\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//byte[,]\ flowField\ =\ plate.exitDirectionToPortals[ExitDirection.ExitDirections.South][0].flowfield;}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00665}00665\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//for\ (int\ i\ =\ 0;\ i\ <\ plate.Rows;\ i++)}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00666}00666\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\{}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00667}00667\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ for\ (int\ j\ =\ 0;\ j\ <\ plate.Columns;\ j++)}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00668}00668\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00669}00669\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ if\ (flowField[i,\ j]\ ==\ ExitDirection.North)}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00670}00670\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00671}00671\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ Gizmos.color\ =\ Color.black;}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00672}00672\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00673}00673\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ else\ if\ (flowField[i,\ j]\ ==\ ExitDirection.NorthEast)}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00674}00674\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00675}00675\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ Gizmos.color\ =\ Color.cyan;}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00676}00676\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00677}00677\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ else\ if\ (flowField[i,\ j]\ ==\ ExitDirection.East)}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00678}00678\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00679}00679\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ Gizmos.color\ =\ Color.blue;}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00680}00680\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00681}00681\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ else\ if\ (flowField[i,\ j]\ ==\ ExitDirection.SouthEast)}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00682}00682\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00683}00683\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ Gizmos.color\ =\ Color.magenta;}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00684}00684\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00685}00685\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ else\ if\ (flowField[i,\ j]\ ==\ ExitDirection.South)}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00686}00686\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00687}00687\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ Gizmos.color\ =\ Color.green;}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00688}00688\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00689}00689\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ else\ if\ (flowField[i,\ j]\ ==\ ExitDirection.SouthWest)}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00690}00690\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00691}00691\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ Gizmos.color\ =\ Color.grey;}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00692}00692\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00693}00693\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ else\ if\ (flowField[i,\ j]\ ==\ ExitDirection.West)}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00694}00694\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00695}00695\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ Gizmos.color\ =\ Color.yellow;}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00696}00696\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00697}00697\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ else\ if\ (flowField[i,\ j]\ ==\ ExitDirection.NorthWest)}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00698}00698\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00699}00699\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ Gizmos.color\ =\ Color.white;}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00700}00700\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00701}00701\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ else\ if\ (flowField[i,\ j]\ ==\ ExitDirection.NotPathable)}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00702}00702\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00703}00703\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ Gizmos.color\ =\ Color.red;}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00704}00704\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00705}00705\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ else}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00706}00706\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00707}00707\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ Gizmos.color\ =\ Color.white;}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00708}00708\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00709}00709\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ Gizmos.DrawCube(plate.GetSubTileCenterWorldCoordinates(i,\ j),\ new(1,\ 0,\ 1));}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00710}00710\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00711}00711\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\}}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00712}00712\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_goal_node}{GoalNode}}\ gn\ \textcolor{keywordflow}{in}\ allGoalNodes)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00713}00713\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00714}00714\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Gizmos.color\ =\ Color.yellow;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00715}00715\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Gizmos.DrawSphere(gn.Position,\ 1f);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00716}00716\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00717}00717\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00718}00718\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00719}00719\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00720}00720\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00721}00721\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00722}00722\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00730}\mbox{\hyperlink{class_scene_manager_aa4ad91455b4a94256bf1e1ebe4c24dac}{00730}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_scene_manager_aa4ad91455b4a94256bf1e1ebe4c24dac}{isCloser}}(Vector2Int\ currMin,\ Vector2Int\ toCheck,\ Vector2Int\ goal)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00731}00731\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00732}00732\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Vector2Int.Distance(currMin,\ goal)\ >\ Vector2Int.Distance(toCheck,\ goal);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00733}00733\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00734}00734\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00735}00735\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{bool}\ PlatePathChanged(List<Plate>\ np)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00736}00736\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00737}00737\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ changed\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00738}00738\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_plate}{Plate}}\ p\ \textcolor{keywordflow}{in}\ np)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00739}00739\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00740}00740\ \ \ \ \ \ \ \ \ \ \ \ \ changed\ |=\ p.hasChanged;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00741}00741\ \ \ \ \ \ \ \ \ \ \ \ \ p.hasChanged\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00742}00742\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00743}00743\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ changed;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00744}00744\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00745}00745\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00746}\mbox{\hyperlink{class_scene_manager_a68f198f44aec04401657091640a56d22}{00746}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_a68f198f44aec04401657091640a56d22}{ClearPos}}(Vector3\ pos)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00747}00747\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00748}00748\ \ \ \ \ \ \ \ \ hm!.ClearPos(pos);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00749}00749\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00750}00750\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00751}00751\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00752}\mbox{\hyperlink{class_scene_manager_a5c3b77ca0c5d749c5df8b85a4aaa484b}{00752}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_plate}{Plate}}\ \mbox{\hyperlink{class_scene_manager_a5c3b77ca0c5d749c5df8b85a4aaa484b}{WorldPositionToPlate}}(Vector3\ pos)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00753}00753\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00754}00754\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ plateNumberX\ =\ Mathf.FloorToInt((pos.x\ -\/\ allFloorBounds[0].min.x)\ /\ normalPlateX);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00755}00755\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ plateNumberZ\ =\ Mathf.FloorToInt((pos.z\ -\/\ allFloorBounds[0].min.z)\ /\ normalPlateZ);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00756}00756\ \ \ \ \ \ \ \ \ plateNumberX\ =\ Math.Clamp(plateNumberX,\ 0,\ plateCountX\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00757}00757\ \ \ \ \ \ \ \ \ plateNumberZ\ =\ Math.Clamp(plateNumberZ,\ 0,\ plateCountZ\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00758}00758\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ allPlateArray![plateNumberX,\ plateNumberZ];}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00759}00759\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00760}00760\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00761}00761\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00762}00762\ \ \ \ \ Vector2Int\ WorldPositionToPlateArrayPosition(\mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d260d449}{Vector3}}\ pos)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00763}00763\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00764}00764\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ plateNumberX\ =\ Mathf.FloorToInt((pos.x\ -\/\ allFloorBounds[0].min.x)\ /\ normalPlateX);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00765}00765\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ plateNumberZ\ =\ Mathf.FloorToInt((pos.z\ -\/\ allFloorBounds[0].min.z)\ /\ normalPlateZ);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00766}00766\ \ \ \ \ \ \ \ \ plateNumberX\ =\ Math.Clamp(plateNumberX,\ 0,\ plateCountX\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00767}00767\ \ \ \ \ \ \ \ \ plateNumberZ\ =\ Math.Clamp(plateNumberZ,\ 0,\ plateCountZ\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00768}00768\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ Vector2Int(plateNumberX,\ plateNumberZ);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00769}00769\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00770}00770\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00771}\mbox{\hyperlink{class_scene_manager_a83738ef34b290569060d9a4f6d24ed77}{00771}}\ \ \ \ \ \textcolor{keyword}{public}\ Vector3\ \mbox{\hyperlink{class_scene_manager_a83738ef34b290569060d9a4f6d24ed77}{GetRandomExitPosition}}()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00772}00772\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00773}00773\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ allExits![UnityEngine.Random.Range(0,\ allExits.Length)].GetPosition();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00774}00774\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00775}\mbox{\hyperlink{class_scene_manager_ae3533b64fd49ef86bbac0f902ceeb085}{00775}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_scene_manager_ae3533b64fd49ef86bbac0f902ceeb085}{GetGoalNodeCount}}()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00776}00776\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00777}00777\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ allGoalNodes.Count;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00778}00778\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00779}00779\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00780}\mbox{\hyperlink{class_scene_manager_ac07372b9965114a6cf4454eaaccbbd04}{00780}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_ac07372b9965114a6cf4454eaaccbbd04}{Moved}}(Vector3\ from,\ Vector3\ to)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00781}00781\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00782}00782\ \ \ \ \ \ \ \ \ hm!.Moved(from,\ to);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00783}00783\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00784}00784\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00785}\mbox{\hyperlink{class_scene_manager_adb366a66bde2f5a8dee82d26c76e1c78}{00785}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_adb366a66bde2f5a8dee82d26c76e1c78}{Spawned}}(Vector3\ pos)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00786}00786\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00787}00787\ \ \ \ \ \ \ \ \ hm!.Spawned(pos);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00788}00788\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00789}00789\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00790}\mbox{\hyperlink{class_scene_manager_a8f28e8860b1d1ec5638b6cdcd042af02}{00790}}\ \ \ \ \ \textcolor{keyword}{public}\ Queue<Bude>\ \mbox{\hyperlink{class_scene_manager_a8f28e8860b1d1ec5638b6cdcd042af02}{CalcNewWeightedBuden}}(\textcolor{keywordtype}{int}\ goalsBeforeExit)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00791}00791\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00792}00792\ \ \ \ \ \ \ \ \ Queue<Bude>\ returnBuden\ =\ \textcolor{keyword}{new}\ Queue<Bude>();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00793}00793\ \ \ \ \ \ \ \ \ List<Bude>\ allBuden\ =\ allBudenScripts!.ToList();}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00794}00794\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ tmpWeight\ =\ allBudenWeigth;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00795}00795\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ goalsBeforeExit;\ i++)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00796}00796\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00797}00797\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ rand\ =\ UnityEngine.Random.Range(0,\ allBudenWeigth);}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00798}00798\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_bude}{Bude}}\ bude\ \textcolor{keywordflow}{in}\ allBuden)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00799}00799\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00800}00800\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!returnBuden.Contains(bude))}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00801}00801\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00802}00802\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rand\ -\/=\ bude.attraktivitaet;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00803}00803\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rand\ <\ 0)\ \{\ allBuden.Remove(bude);\ tmpWeight\ -\/=\ bude.attraktivitaet;\ returnBuden.Enqueue(bude);\ \textcolor{keywordflow}{break};\ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00804}00804\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00805}00805\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00806}00806\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00807}00807\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ returnBuden;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00808}00808\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00809}00809\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00810}00810\ }
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00811}\mbox{\hyperlink{class_scene_manager_a5c44d92213a6062d94f71c802a52961c}{00811}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_a5c44d92213a6062d94f71c802a52961c}{CalcAllBudenWeight}}()}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00812}00812\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00813}00813\ \ \ \ \ \ \ \ \ maxKapazitaet\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00814}00814\ \ \ \ \ \ \ \ \ allBudenWeigth\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00815}00815\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_bude}{Bude}}\ b\ \textcolor{keywordflow}{in}\ allBudenScripts!)}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00816}00816\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00817}00817\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (b\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00818}00818\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00819}00819\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maxKapazitaet\ +=\ b.kapazitaet;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00820}00820\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allBudenWeigth\ +=\ b.attraktivitaet;}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00821}00821\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00822}00822\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00823}00823\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_scene_manager_8cs_source_l00824}00824\ \}}
+
+\end{DoxyCode}

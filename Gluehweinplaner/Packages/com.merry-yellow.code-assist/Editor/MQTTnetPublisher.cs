@@ -1,25 +1,21 @@
+using Meryel.UnityCodeAssist.MQTTnet;
+using Meryel.UnityCodeAssist.MQTTnet.Adapter;
+using Meryel.UnityCodeAssist.MQTTnet.Diagnostics;
+using Meryel.UnityCodeAssist.MQTTnet.Implementations;
+using Meryel.UnityCodeAssist.MQTTnet.Protocol;
+using Meryel.UnityCodeAssist.MQTTnet.Server;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
-using UnityEngine;
-using UnityEditor;
+using System.Linq;
 using System.Threading;
-using Task = System.Threading.Tasks.Task;
+using UnityEditor;
+using UnityEngine;
 using Application = UnityEngine.Application;
-
-using Meryel.UnityCodeAssist.MQTTnet;
-using Meryel.UnityCodeAssist.MQTTnet.Server;
-using Meryel.UnityCodeAssist.MQTTnet.Protocol;
-using Meryel.UnityCodeAssist.MQTTnet.Adapter;
-using Meryel.UnityCodeAssist.MQTTnet.Implementations;
-using Meryel.UnityCodeAssist.MQTTnet.Diagnostics;
+using Task = System.Threading.Tasks.Task;
 
 
 #pragma warning disable IDE0005
-using Serilog = Meryel.Serilog;
-using MQTTnet = Meryel.UnityCodeAssist.MQTTnet;
-using Newtonsoft = Meryel.UnityCodeAssist.Newtonsoft;
 #pragma warning restore IDE0005
 
 
@@ -202,7 +198,7 @@ namespace Meryel.UnityCodeAssist.Editor
             {
                 Serilog.Log.Error(ex, "async exception at {Location}", nameof(Broker_InterceptingPublishAsync));
             }
-            
+
             return Task.CompletedTask;
         }
 
@@ -222,7 +218,7 @@ namespace Meryel.UnityCodeAssist.Editor
             cancellationTokenSource?.Cancel();
             cancellationTokenSource = null;
             Serilog.Log.Verbose("MQTTnet clearing, cancelled async token");
-            
+
             broker?.StopAsync().GetAwaiter().GetResult();
             Serilog.Log.Verbose("MQTTnet clearing, stopped broker");
 
@@ -272,7 +268,7 @@ namespace Meryel.UnityCodeAssist.Editor
 
             var publisher = broker;
             if (publisher != null)
-                //publisher.SendMoreFrame(messageType).SendFrame(SerializeObject(content));
+            //publisher.SendMoreFrame(messageType).SendFrame(SerializeObject(content));
             {
                 var applicationMessage = new MqttApplicationMessageBuilder()
                     .WithTopic("sc/" + messageType) // sc/ => server->client message
@@ -494,7 +490,7 @@ namespace Meryel.UnityCodeAssist.Editor
 
             Serilog.Log.Debug("SendGO: {GoName}", go.name);
 
-            var dataOfSelf = go.ToSyncModel(priority:10000);
+            var dataOfSelf = go.ToSyncModel(priority: 10000);
             if (dataOfSelf != null)
                 SendAux(dataOfSelf);
 
@@ -519,7 +515,7 @@ namespace Meryel.UnityCodeAssist.Editor
             var dataOfComponentAnimation = go.ToSyncModelOfComponentAnimation();
             if (dataOfComponentAnimation != null)
                 SendAux(dataOfComponentAnimation);
-            
+
         }
 
         public void SendScriptableObject(ScriptableObject so)

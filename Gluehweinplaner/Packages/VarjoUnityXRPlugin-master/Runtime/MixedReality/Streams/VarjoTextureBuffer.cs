@@ -1,7 +1,6 @@
 // Copyright 2019 Varjo Technologies Oy. All rights reserved.
 
 using System;
-using System.IO;
 using System.Runtime.InteropServices;
 using UnityEngine;
 

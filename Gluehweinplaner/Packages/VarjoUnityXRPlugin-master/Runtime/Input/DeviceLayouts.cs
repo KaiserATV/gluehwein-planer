@@ -1,8 +1,8 @@
 #if UNITY_INPUT_SYSTEM
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.XR;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.Layouts;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.Scripting;
 
 namespace Varjo.XR.Input
@@ -166,10 +166,10 @@ namespace Varjo.XR.Input
         [Preserve, InputControl]
         public ButtonControl secondaryTouched { get; private set; }
 
-        [Preserve, InputControl(aliases = new[] { "Secondary2DAxisClick", "touchpadClicked"})]
+        [Preserve, InputControl(aliases = new[] { "Secondary2DAxisClick", "touchpadClicked" })]
         public ButtonControl trackpadPressed { get; private set; }
 
-        [Preserve, InputControl(aliases = new[] { "Secondary2DAxisTouch", "touchpadTouched"})]
+        [Preserve, InputControl(aliases = new[] { "Secondary2DAxisTouch", "touchpadTouched" })]
         public ButtonControl trackpadTouched { get; private set; }
 
         [Preserve, InputControl(aliases = new[] { "Secondary2DAxis", "touchpad" })]

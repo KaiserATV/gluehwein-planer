@@ -8,15 +8,13 @@ using UnityEditor.Build.Reporting;
 
 using UnityEngine;
 
-using Varjo.XR;
-
 namespace Varjo.XR.Editor
 {
     public class VarjoBuildProcessor : IPreprocessBuildWithReport, IPostprocessBuildWithReport
     {
         public int callbackOrder
         {
-            get { return 0;  }
+            get { return 0; }
         }
 
         void CleanOldSettings()
@@ -26,8 +24,8 @@ namespace Varjo.XR.Editor
                 return;
 
             var oldSettings = from s in preloadedAssets
-                where s != null && s.GetType() == typeof(VarjoSettings)
-                select s;
+                              where s != null && s.GetType() == typeof(VarjoSettings)
+                              select s;
 
             if (oldSettings != null && oldSettings.Any())
             {

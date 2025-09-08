@@ -1,0 +1,40 @@
+\doxysection{Inactive\+Agents\+Container.\+cs}
+\hypertarget{_inactive_agents_container_8cs_source}{}\label{_inactive_agents_container_8cs_source}\index{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/SpawnerDespawner/InactiveAgentsContainer.cs@{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/SpawnerDespawner/InactiveAgentsContainer.cs}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }UnityEngine;}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00004}\mbox{\hyperlink{class_inactive_agents_container}{00004}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_inactive_agents_container}{InactiveAgentsContainer}}\ :\ MonoBehaviour,\ \mbox{\hyperlink{interface_i_inactive_agents_container}{IInactiveAgentsContainer}}}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00005}00005\ \{}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00006}00006\ \ \ \ \ \textcolor{keyword}{private}\ Vector3\ WorldCoords;}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00007}00007\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{int}\ StoredPlayerCount;}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00008}00008\ \ \ \ \ \textcolor{keyword}{private}\ LinkedList<NPC>\ StoredAgents\ =\ \textcolor{keyword}{new}\ LinkedList<NPC>();}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00009}00009\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ Start()}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00010}00010\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00011}00011\ \ \ \ \ \ \ \ \ WorldCoords\ =\ this.transform.position;}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00012}00012\ \ \ \ \ \ \ \ \ StoredPlayerCount\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00013}00013\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00015}\mbox{\hyperlink{class_inactive_agents_container_a27a9f88c5c90736554cc496244f605e9}{00015}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_inactive_agents_container_a27a9f88c5c90736554cc496244f605e9}{AddAgent}}(\mbox{\hyperlink{class_n_p_c}{NPC}}\ ac)}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00016}00016\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00017}00017\ \ \ \ \ \ \ \ \ StoredAgents.AddFirst(ac);}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00018}00018\ \ \ \ \ \ \ \ \ StoredPlayerCount++;}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00019}00019\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00020}\mbox{\hyperlink{class_inactive_agents_container_a2305c45ff8ff31d3c2d707be886c5656}{00020}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_n_p_c}{NPC}}\ \mbox{\hyperlink{class_inactive_agents_container_a2305c45ff8ff31d3c2d707be886c5656}{GetAgent}}()}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00021}00021\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00022}00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_n_p_c}{NPC}}\ ac\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (StoredPlayerCount\ !=\ 0)}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00024}00024\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ ac\ =\ StoredAgents.First.Value;}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ StoredPlayerCount-\/-\/;}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ StoredAgents.RemoveFirst();}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00028}00028\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ac;}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00030}00030\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00032}\mbox{\hyperlink{class_inactive_agents_container_aff4be1a0209b6d9e3662b7816848f03b}{00032}}\ \ \ \ \ \textcolor{keyword}{public}\ Vector3\ \mbox{\hyperlink{class_inactive_agents_container_aff4be1a0209b6d9e3662b7816848f03b}{GetWorldCoords}}()\ \{\ \textcolor{keywordflow}{return}\ WorldCoords;\ \}}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00033}\mbox{\hyperlink{class_inactive_agents_container_a67a4b505c8d525be4f931413f035ddf3}{00033}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_inactive_agents_container_a67a4b505c8d525be4f931413f035ddf3}{GetStoredCount}}()\ \{\ \textcolor{keywordflow}{return}\ StoredPlayerCount;\ \}}
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_inactive_agents_container_8cs_source_l00035}00035\ \}}
+
+\end{DoxyCode}

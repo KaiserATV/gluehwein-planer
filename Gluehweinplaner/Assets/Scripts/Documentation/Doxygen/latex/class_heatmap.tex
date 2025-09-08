@@ -1,0 +1,338 @@
+\doxysection{Heatmap Class Reference}
+\hypertarget{class_heatmap}{}\label{class_heatmap}\index{Heatmap@{Heatmap}}
+
+
+ 
+
+
+Inheritance diagram for Heatmap\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_heatmap}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_heatmap_a42f87d22cb539167ee43e26294538cdc}{Start}} ()
+\begin{DoxyCompactList}\small\item\em Initializes all fields. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_heatmap_abc124429398a53983f77fe306d669c3d}{Reset}} ()
+\begin{DoxyCompactList}\small\item\em Resets all values in the heatmap. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_heatmap_a814ac46c13b5ee2f1971eb1d3ffaf2e1}{Toggle\+Alpha\+Mode}} ()
+\begin{DoxyCompactList}\small\item\em Toggles the Alpha\+Mode between Max, Current and Clear. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_heatmap_acfa94c7ecab4429cf9f115b27fba6caf}{Spawned}} (Vector3 spawned\+Pos)
+\begin{DoxyCompactList}\small\item\em Thats into account when an agent spawns at an poition in the heatmap. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_heatmap_a323ea113f6681e1139d46718f7389c4c}{Clear\+Pos}} (Vector3 pos)
+\begin{DoxyCompactList}\small\item\em Subtracts one from a position in the current list of positions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_heatmap_a75118becb7aeffaa28c21a8aae379b5b}{Moved}} (Vector3 from, Vector3 to)
+\begin{DoxyCompactList}\small\item\em Moves the value from one position to another. This happens when an agents moves. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_heatmap_aec2021531cd41f6873f465123d1ce2c4}{determine\+Alpha}} (int usage)
+\begin{DoxyCompactList}\small\item\em Determines the Color, or alpha, determined by he usage-\/ anount of agents at a position. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_heatmap_a765116138db4fca514e4519b65ddc821}{show\+Max}} = false
+\item 
+bool \mbox{\hyperlink{class_heatmap_a75b29c4bba68467f5cae526856f869d0}{show\+Clear}} = true
+\item 
+int \mbox{\hyperlink{class_heatmap_a3904bf5cd4ced92848f68f48e4c01955}{Rows}} = 44
+\item 
+int \mbox{\hyperlink{class_heatmap_acedae7f82987219a08e4128a285f3fc3}{Cols}} = 44
+\item 
+float \mbox{\hyperlink{class_heatmap_aded65173830f722e4d1d79754b9c3496}{Row\+Height}} = 0
+\item 
+float \mbox{\hyperlink{class_heatmap_a556f93fc09d63e60394c49b3ccfca166}{Col\+Width}} = 0
+\item 
+float\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_heatmap_a1e419b8b506465b9d342839b508dee0c}{properties}}
+\item 
+int\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_heatmap_ad53de699f9ce48e7cdd1c92919405d8b}{play\+Cell\+Count}}
+\item 
+int\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_heatmap_ac136e814cfdb3db98488b240ad2dd2ba}{play\+Max\+Count}}
+\item 
+float\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_heatmap_aa3504014629a627314162f626550657d}{clear}}
+\item 
+Material \mbox{\hyperlink{class_heatmap_a32ba649e297069695ad9357d77da39a7}{material}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00003}{3}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_heatmap_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_heatmap_a323ea113f6681e1139d46718f7389c4c}\index{Heatmap@{Heatmap}!ClearPos@{ClearPos}}
+\index{ClearPos@{ClearPos}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{ClearPos()}{ClearPos()}}
+{\footnotesize\ttfamily \label{class_heatmap_a323ea113f6681e1139d46718f7389c4c} 
+void Heatmap.\+Clear\+Pos (\begin{DoxyParamCaption}\item[{Vector3}]{pos}{}\end{DoxyParamCaption})}
+
+
+
+Subtracts one from a position in the current list of positions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & The position where it should be subtracted.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_heatmap_af92eeadba8a2a81777b02f9bb19f5455}{IHeatmap}}.
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00126}{126}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+\Hypertarget{class_heatmap_aec2021531cd41f6873f465123d1ce2c4}\index{Heatmap@{Heatmap}!determineAlpha@{determineAlpha}}
+\index{determineAlpha@{determineAlpha}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{determineAlpha()}{determineAlpha()}}
+{\footnotesize\ttfamily \label{class_heatmap_aec2021531cd41f6873f465123d1ce2c4} 
+float Heatmap.\+determine\+Alpha (\begin{DoxyParamCaption}\item[{int}]{usage}{}\end{DoxyParamCaption})}
+
+
+
+Determines the Color, or alpha, determined by he usage-\/ anount of agents at a position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em usage} & The amount of agents at a position.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The alpha value corresponding to the agentcount.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_heatmap_a6a68df12921f69cba0b5999c0906a0ca}{IHeatmap}}.
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00212}{212}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+\Hypertarget{class_heatmap_a75118becb7aeffaa28c21a8aae379b5b}\index{Heatmap@{Heatmap}!Moved@{Moved}}
+\index{Moved@{Moved}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{Moved()}{Moved()}}
+{\footnotesize\ttfamily \label{class_heatmap_a75118becb7aeffaa28c21a8aae379b5b} 
+void Heatmap.\+Moved (\begin{DoxyParamCaption}\item[{Vector3}]{from}{, }\item[{Vector3}]{to}{}\end{DoxyParamCaption})}
+
+
+
+Moves the value from one position to another. This happens when an agents moves. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em from} & The position from where an agent moved.\\
+\hline
+{\em to} & The position to which an agent moved.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_heatmap_ad1221f0d1ec07fe32251a611cc87e847}{IHeatmap}}.
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00146}{146}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+\Hypertarget{class_heatmap_abc124429398a53983f77fe306d669c3d}\index{Heatmap@{Heatmap}!Reset@{Reset}}
+\index{Reset@{Reset}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{Reset()}{Reset()}}
+{\footnotesize\ttfamily \label{class_heatmap_abc124429398a53983f77fe306d669c3d} 
+void Heatmap.\+Reset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Resets all values in the heatmap. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_heatmap_a16212a7a89073f940e5d406de7ed04c8}{IHeatmap}}.
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00039}{39}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+\Hypertarget{class_heatmap_acfa94c7ecab4429cf9f115b27fba6caf}\index{Heatmap@{Heatmap}!Spawned@{Spawned}}
+\index{Spawned@{Spawned}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{Spawned()}{Spawned()}}
+{\footnotesize\ttfamily \label{class_heatmap_acfa94c7ecab4429cf9f115b27fba6caf} 
+void Heatmap.\+Spawned (\begin{DoxyParamCaption}\item[{Vector3}]{spawned\+Pos}{}\end{DoxyParamCaption})}
+
+
+
+Thats into account when an agent spawns at an poition in the heatmap. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em spawned\+Pos} & The position at which the agent spawned.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_heatmap_accc65c378ffcaac8f5194874eef734a9}{IHeatmap}}.
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00101}{101}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+\Hypertarget{class_heatmap_a42f87d22cb539167ee43e26294538cdc}\index{Heatmap@{Heatmap}!Start@{Start}}
+\index{Start@{Start}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily \label{class_heatmap_a42f87d22cb539167ee43e26294538cdc} 
+void Heatmap.\+Start (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes all fields. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_heatmap_a492d16c26d262e6048d1ec8a614892dc}{IHeatmap}}.
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00022}{22}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+\Hypertarget{class_heatmap_a814ac46c13b5ee2f1971eb1d3ffaf2e1}\index{Heatmap@{Heatmap}!ToggleAlphaMode@{ToggleAlphaMode}}
+\index{ToggleAlphaMode@{ToggleAlphaMode}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{ToggleAlphaMode()}{ToggleAlphaMode()}}
+{\footnotesize\ttfamily \label{class_heatmap_a814ac46c13b5ee2f1971eb1d3ffaf2e1} 
+void Heatmap.\+Toggle\+Alpha\+Mode (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Toggles the Alpha\+Mode between Max, Current and Clear. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_heatmap_a31baca75e02232de54a91666ab6c26b3}{IHeatmap}}.
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00051}{51}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_heatmap_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_heatmap_aa3504014629a627314162f626550657d}\index{Heatmap@{Heatmap}!clear@{clear}}
+\index{clear@{clear}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{clear}{clear}}
+{\footnotesize\ttfamily \label{class_heatmap_aa3504014629a627314162f626550657d} 
+float \mbox{[}$\,$\mbox{]} Heatmap.\+clear}
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00014}{14}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+\Hypertarget{class_heatmap_acedae7f82987219a08e4128a285f3fc3}\index{Heatmap@{Heatmap}!Cols@{Cols}}
+\index{Cols@{Cols}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{Cols}{Cols}}
+{\footnotesize\ttfamily \label{class_heatmap_acedae7f82987219a08e4128a285f3fc3} 
+int Heatmap.\+Cols = 44}
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00008}{8}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+\Hypertarget{class_heatmap_a556f93fc09d63e60394c49b3ccfca166}\index{Heatmap@{Heatmap}!ColWidth@{ColWidth}}
+\index{ColWidth@{ColWidth}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{ColWidth}{ColWidth}}
+{\footnotesize\ttfamily \label{class_heatmap_a556f93fc09d63e60394c49b3ccfca166} 
+float Heatmap.\+Col\+Width = 0}
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00010}{10}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+\Hypertarget{class_heatmap_a32ba649e297069695ad9357d77da39a7}\index{Heatmap@{Heatmap}!material@{material}}
+\index{material@{material}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{material}{material}}
+{\footnotesize\ttfamily \label{class_heatmap_a32ba649e297069695ad9357d77da39a7} 
+Material Heatmap.\+material}
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00016}{16}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+\Hypertarget{class_heatmap_ad53de699f9ce48e7cdd1c92919405d8b}\index{Heatmap@{Heatmap}!playCellCount@{playCellCount}}
+\index{playCellCount@{playCellCount}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{playCellCount}{playCellCount}}
+{\footnotesize\ttfamily \label{class_heatmap_ad53de699f9ce48e7cdd1c92919405d8b} 
+int \mbox{[}$\,$\mbox{]} Heatmap.\+play\+Cell\+Count}
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00012}{12}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+\Hypertarget{class_heatmap_ac136e814cfdb3db98488b240ad2dd2ba}\index{Heatmap@{Heatmap}!playMaxCount@{playMaxCount}}
+\index{playMaxCount@{playMaxCount}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{playMaxCount}{playMaxCount}}
+{\footnotesize\ttfamily \label{class_heatmap_ac136e814cfdb3db98488b240ad2dd2ba} 
+int \mbox{[}$\,$\mbox{]} Heatmap.\+play\+Max\+Count}
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00013}{13}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+\Hypertarget{class_heatmap_a1e419b8b506465b9d342839b508dee0c}\index{Heatmap@{Heatmap}!properties@{properties}}
+\index{properties@{properties}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{properties}{properties}}
+{\footnotesize\ttfamily \label{class_heatmap_a1e419b8b506465b9d342839b508dee0c} 
+float \mbox{[}$\,$\mbox{]} Heatmap.\+properties}
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00011}{11}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+\Hypertarget{class_heatmap_aded65173830f722e4d1d79754b9c3496}\index{Heatmap@{Heatmap}!RowHeight@{RowHeight}}
+\index{RowHeight@{RowHeight}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{RowHeight}{RowHeight}}
+{\footnotesize\ttfamily \label{class_heatmap_aded65173830f722e4d1d79754b9c3496} 
+float Heatmap.\+Row\+Height = 0}
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00009}{9}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+\Hypertarget{class_heatmap_a3904bf5cd4ced92848f68f48e4c01955}\index{Heatmap@{Heatmap}!Rows@{Rows}}
+\index{Rows@{Rows}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{Rows}{Rows}}
+{\footnotesize\ttfamily \label{class_heatmap_a3904bf5cd4ced92848f68f48e4c01955} 
+int Heatmap.\+Rows = 44}
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00007}{7}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+\Hypertarget{class_heatmap_a75b29c4bba68467f5cae526856f869d0}\index{Heatmap@{Heatmap}!showClear@{showClear}}
+\index{showClear@{showClear}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{showClear}{showClear}}
+{\footnotesize\ttfamily \label{class_heatmap_a75b29c4bba68467f5cae526856f869d0} 
+bool Heatmap.\+show\+Clear = true}
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00006}{6}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+\Hypertarget{class_heatmap_a765116138db4fca514e4519b65ddc821}\index{Heatmap@{Heatmap}!showMax@{showMax}}
+\index{showMax@{showMax}!Heatmap@{Heatmap}}
+\doxysubsubsection{\texorpdfstring{showMax}{showMax}}
+{\footnotesize\ttfamily \label{class_heatmap_a765116138db4fca514e4519b65ddc821} 
+bool Heatmap.\+show\+Max = false}
+
+
+
+Definition at line \mbox{\hyperlink{_heatmap_8cs_source_l00005}{5}} of file \mbox{\hyperlink{_heatmap_8cs_source}{Heatmap.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Max\+Friedrich/\+Documents/gluehwein-\/planer/\+Gluehweinplaner/\+Assets/\+Scripts/Heatmap.\+cs\end{DoxyCompactItemize}

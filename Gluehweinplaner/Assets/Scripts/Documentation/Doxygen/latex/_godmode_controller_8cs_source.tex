@@ -1,0 +1,222 @@
+\doxysection{Godmode\+Controller.\+cs}
+\hypertarget{_godmode_controller_8cs_source}{}\label{_godmode_controller_8cs_source}\index{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/Movement/GodmodeController.cs@{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/Movement/GodmodeController.cs}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System.Collections;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }UnityEngine;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }UnityEngine.InputSystem;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }UnityEngine.XR.Interaction.Toolkit;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00006}\mbox{\hyperlink{class_godmode_controller}{00006}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_godmode_controller}{GodmodeController}}\ :\ MonoBehaviour}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00007}00007\ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00008}00008\ \ \ \ \ \textcolor{keyword}{public}\ GameObject\ xrRig;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00009}00009\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ moveSpeed\ =\ 3f;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00010}00010\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ verticalSpeed\ =\ 2f;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00011}00011\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ transitionDuration\ =\ 1f;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00012}00012\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ groundThreshold\ =\ 0.5f;\ \textcolor{comment}{//\ Höhe\ für\ automatisches\ Beenden\ des\ Godmode}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00013}00013\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ cameraStandardHeight\ =\ 1.8f;\ \textcolor{comment}{//\ Standardhöhe\ der\ Kamera\ in\ Bodenperspektive}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00014}00014\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ godmodeLiftHeight\ =\ 5f;\ \textcolor{comment}{//\ Wie\ weit\ man\ angehoben\ wird,\ wenn\ der\ Godmode\ aktiviert\ wird}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00016}00016\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ vignetteSizeGodmode\ =\ 0.85f;\ \ \textcolor{comment}{//\ Standardgröße\ in\ Godmode}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00017}00017\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ vignetteSizeDuringReset\ =\ 0.65f;\ \ \textcolor{comment}{//\ Vignette\ beim\ Zurücksetzen}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00019}00019\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{bool}\ isGodmodeActive\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{bool}\ isGrabbingObject\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00021}00021\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{bool}\ isPlacingObject\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00022}00022\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{bool}\ canExitGodmode\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00024}00024\ \ \ \ \ \textcolor{keyword}{public}\ InputActionReference\ verticalMoveAction;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00025}00025\ \ \ \ \ \textcolor{keyword}{public}\ InputActionReference\ horizontalMoveAction;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00026}00026\ \ \ \ \ \textcolor{keyword}{public}\ InputActionReference\ grabAction;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00028}00028\ \ \ \ \ \textcolor{keyword}{public}\ TeleportationProvider\ teleportProvider;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00029}00029\ \ \ \ \ \textcolor{keyword}{public}\ LocomotionProvider\ snapTurnProvider;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00030}00030\ \ \ \ \ \textcolor{keyword}{public}\ XRRayInteractor\ teleportRayInteractor;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00032}00032\ \ \ \ \ \textcolor{keyword}{public}\ LocomotionVignetteProvider\ godmodeVignetteProvider;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00033}00033\ \ \ \ \ \textcolor{keyword}{public}\ TunnelingVignetteController\ tunnelingVignetteController;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00035}00035\ \ \ \ \ \textcolor{keyword}{private}\ Vector3\ originalPosition;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00037}00037\ \ \ \ \ [SerializeField]\ \textcolor{keyword}{private}\ AudioClip\ godmodeActivateSound;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00038}00038\ \ \ \ \ [SerializeField]\ \textcolor{keyword}{private}\ AudioClip\ godmodeDeactivateSound;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00040}00040\ \ \ \ \ \textcolor{keywordtype}{void}\ Start()}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00041}00041\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (grabAction\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00043}00043\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ grabAction.action.started\ +=\ \_\ =>\ StartGrabbing();}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ grabAction.action.canceled\ +=\ \_\ =>\ StopGrabbing();}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00046}00046\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00047}00047\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00049}00049\ \ \ \ \ \textcolor{keywordtype}{void}\ Update()}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00050}00050\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isGodmodeActive)}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!isGrabbingObject\ \&\&\ !isPlacingObject)}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MoveGodmode();}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Nach\ 2\ Sekunden\ darf\ der\ Godmode\ durch\ Bodennähe\ beendet\ werden}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (canExitGodmode\ \&\&\ xrRig.transform.position.y\ <=\ groundThreshold)}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ExitGodmodeAtCurrentPosition();}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00063}00063\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00064}00064\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00067}00067\ \ \ \ \ \textcolor{keyword}{public}\ IEnumerator\ ToggleGodmode()}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00068}00068\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00069}00069\ \ \ \ \ \ \ \ \ isGodmodeActive\ =\ !isGodmodeActive;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Play\ sound\ effect}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00072}00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isGodmodeActive)}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00073}00073\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (godmodeActivateSound\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_f_x_manager}{SoundFXManager}}.instance.PlaySoundFXClip(godmodeActivateSound,\ transform,\ 1f);}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00076}00076\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00078}00078\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (godmodeDeactivateSound\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_f_x_manager}{SoundFXManager}}.instance.PlaySoundFXClip(godmodeDeactivateSound,\ transform,\ 1f);}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00081}00081\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (teleportRayInteractor\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00084}00084\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ teleportRayInteractor.enabled\ =\ !isGodmodeActive;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00086}00086\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isGodmodeActive)}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00089}00089\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ originalPosition\ =\ xrRig.transform.position;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ canExitGodmode\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Heben\ des\ Spielers\ um\ die\ definierte\ Höhe}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ Vector3\ targetPosition\ =\ originalPosition\ +\ Vector3.up\ *\ godmodeLiftHeight;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ yield\ \textcolor{keywordflow}{return}\ StartCoroutine(SmoothTransition(targetPosition));}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ SetVignetteSize(vignetteSizeGodmode);\ \textcolor{comment}{//\ Nutzt\ den\ Wert\ aus\ dem\ Inspektor}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ yield\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ WaitForSeconds(2f);\ \textcolor{comment}{//\ Erst\ nach\ 2\ Sekunden\ kann\ der\ Godmode\ beendet\ werden}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ canExitGodmode\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00101}00101\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00103}00103\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ yield\ \textcolor{keywordflow}{return}\ StartCoroutine(TransitionOutOfGodmode());}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00105}00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00106}00106\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00108}00108\ \ \ \ \ IEnumerator\ TransitionOutOfGodmode()}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00109}00109\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00110}00110\ \ \ \ \ \ \ \ \ SetVignetteSize(vignetteSizeDuringReset);\ \textcolor{comment}{//\ Vignette\ beim\ Zurücksetzen\ aus\ dem\ Inspektor\ nutzen}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00111}00111\ \ \ \ \ \ \ \ \ yield\ \textcolor{keywordflow}{return}\ StartCoroutine(SmoothTransition(originalPosition));\ \textcolor{comment}{//\ Zurück\ zum\ Startpunkt}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00112}00112\ \ \ \ \ \ \ \ \ tunnelingVignetteController.EndTunnelingVignette(godmodeVignetteProvider);\ \textcolor{comment}{//\ Vignette\ deaktivieren}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (teleportProvider\ !=\ \textcolor{keyword}{null})\ teleportProvider.enabled\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (snapTurnProvider\ !=\ \textcolor{keyword}{null})\ snapTurnProvider.enabled\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00116}00116\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00118}00118\ \ \ \ \ \textcolor{keywordtype}{void}\ ExitGodmodeAtCurrentPosition()}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00119}00119\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00120}00120\ \ \ \ \ \ \ \ \ isGodmodeActive\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00121}00121\ \ \ \ \ \ \ \ \ canExitGodmode\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00123}00123\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Behalte\ die\ aktuelle\ Position,\ aber\ setze\ die\ Höhe\ auf\ Standard-\/Kamerahöhe}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00124}00124\ \ \ \ \ \ \ \ \ Vector3\ newPosition\ =\ xrRig.transform.position;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00125}00125\ \ \ \ \ \ \ \ \ newPosition.y\ =\ cameraStandardHeight;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00126}00126\ \ \ \ \ \ \ \ \ xrRig.transform.position\ =\ newPosition;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00128}00128\ \ \ \ \ \ \ \ \ tunnelingVignetteController.EndTunnelingVignette(godmodeVignetteProvider);\ \textcolor{comment}{//\ Vignette\ sofort\ deaktivieren}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00130}00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (teleportRayInteractor\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00131}00131\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ teleportRayInteractor.enabled\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00133}00133\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00135}00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (teleportProvider\ !=\ \textcolor{keyword}{null})\ teleportProvider.enabled\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00136}00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (snapTurnProvider\ !=\ \textcolor{keyword}{null})\ snapTurnProvider.enabled\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00137}00137\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00139}00139\ \ \ \ \ IEnumerator\ SmoothTransition(Vector3\ targetPosition)}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00140}00140\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00141}00141\ \ \ \ \ \ \ \ \ Vector3\ startPosition\ =\ xrRig.transform.position;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00142}00142\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ elapsedTime\ =\ 0f;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00144}00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (elapsedTime\ <\ transitionDuration)}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00145}00145\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ xrRig.transform.position\ =\ Vector3.Lerp(startPosition,\ targetPosition,\ elapsedTime\ /\ transitionDuration);}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ elapsedTime\ +=\ Time.deltaTime;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ yield\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00149}00149\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00151}00151\ \ \ \ \ \ \ \ \ xrRig.transform.position\ =\ targetPosition;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00152}00152\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00153}00153\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00154}00154\ \ \ \ \ \textcolor{keywordtype}{void}\ MoveGodmode()}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00155}00155\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00156}00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!isGrabbingObject\ \&\&\ !isPlacingObject)}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00157}00157\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ verticalMove\ =\ verticalMoveAction.action.ReadValue<\textcolor{keywordtype}{float}>()\ *\ verticalSpeed\ *\ Time.deltaTime;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ Vector3\ verticalMovement\ =\ Vector3.up\ *\ verticalMove;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ Vector2\ horizontalInput\ =\ horizontalMoveAction.action.ReadValue<Vector2>();}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ Transform\ cameraTransform\ =\ Camera.main.transform;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ Vector3\ moveDirection\ =\ (cameraTransform.forward\ *\ horizontalInput.y\ +\ cameraTransform.right\ *\ horizontalInput.x);}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ moveDirection.y\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ moveDirection.Normalize();}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ Vector3\ horizontalMove\ =\ moveDirection\ *\ moveSpeed\ *\ Time.deltaTime;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ xrRig.transform.position\ +=\ horizontalMove\ +\ verticalMovement;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00171}00171\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00172}00172\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00174}00174\ \ \ \ \ \textcolor{keywordtype}{void}\ SetVignetteSize(\textcolor{keywordtype}{float}\ size)}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00175}00175\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00176}00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (godmodeVignetteProvider\ ==\ \textcolor{keyword}{null})\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00178}00178\ \ \ \ \ \ \ \ \ godmodeVignetteProvider.overrideDefaultParameters\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00179}00179\ \ \ \ \ \ \ \ \ godmodeVignetteProvider.overrideParameters.apertureSize\ =\ size;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00180}00180\ \ \ \ \ \ \ \ \ godmodeVignetteProvider.overrideParameters.featheringEffect\ =\ 0.1f;\ \textcolor{comment}{//\ Kleinere\ Übergangszone}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00181}00181\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00182}00182\ \ \ \ \ \ \ \ \ tunnelingVignetteController.BeginTunnelingVignette(godmodeVignetteProvider);}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00183}00183\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00185}00185\ \ \ \ \ \textcolor{keywordtype}{void}\ StartGrabbing()}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00186}00186\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00187}00187\ \ \ \ \ \ \ \ \ isGrabbingObject\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00188}00188\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00190}00190\ \ \ \ \ \textcolor{keywordtype}{void}\ StopGrabbing()}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00191}00191\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00192}00192\ \ \ \ \ \ \ \ \ isGrabbingObject\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00193}00193\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00195}00195\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ StartPlacingObject()}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00196}00196\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00197}00197\ \ \ \ \ \ \ \ \ isPlacingObject\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00198}00198\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00200}00200\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ StopPlacingObject()}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00201}00201\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00202}00202\ \ \ \ \ \ \ \ \ isPlacingObject\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00203}00203\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00205}00205\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ IsGodmodeActive()}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00206}00206\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00207}00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ isGodmodeActive;}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00208}00208\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00209}00209\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00210}00210\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ ToggleGodmodeFromRadialMenu()}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00211}00211\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00212}00212\ \ \ \ \ \ \ \ \ StartCoroutine(ToggleGodmode());}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00213}00213\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00215}00215\ \}}
+\DoxyCodeLine{\Hypertarget{_godmode_controller_8cs_source_l00216}00216\ }
+
+\end{DoxyCode}

@@ -1,0 +1,600 @@
+\doxysection{Bude Class Reference}
+\hypertarget{class_bude}{}\label{class_bude}\index{Bude@{Bude}}
+
+
+ 
+
+
+Inheritance diagram for Bude\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_bude}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_bude_a713ac6f028b43d0614f6b21d902c7443}{Start}} ()
+\begin{DoxyCompactList}\small\item\em Start function called to determine the position of the \doxylink{class_bude}{Bude}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_bude_a99655bd57579b33a2e6b070c1c7b5948}{Reset}} ()
+\begin{DoxyCompactList}\small\item\em Resets the values of the \doxylink{class_bude}{Bude}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_bude_a2e1cb51f2082eb72c339bddecdbf47ab}{Bude\+Moved}} ()
+\begin{DoxyCompactList}\small\item\em The Function called if the \doxylink{class_bude}{Bude} is beeing moved. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_bude_a03dd47fe6349e5e2232db89f12eb3fef}{Bude\+Remove}} ()
+\begin{DoxyCompactList}\small\item\em The Function called if the \doxylink{class_bude}{Bude} is beeing removed. \end{DoxyCompactList}\item 
+Vector3\+Int? \mbox{\hyperlink{class_bude_a80c1a3704096b28a4643b305dcc161ed}{Get\+New\+Position}} ()
+\item 
+void \mbox{\hyperlink{class_bude_ac2b3cadb03050d692ee8771e17b7e25e}{Remove\+Player}} (Vector3\+Int pos)
+\begin{DoxyCompactList}\small\item\em Removes the player form the specific position at the waiting area. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_bude_a52243c921c4254c6545b1d3c7b6d0ba5}{Check\+Occupation}} ()
+\begin{DoxyCompactList}\small\item\em This function checks if the \doxylink{class_bude}{Bude} is currently completly occupied and there are no more places to for agents to visit. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_bude_abdf1fcd0fa0a65643bc9e2b6b6af97c0}{increase\+Attractivness}} ()
+\begin{DoxyCompactList}\small\item\em Increases the attractiveness of the bude. Resulting in higher likelihood of beeing visited by an agent. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_bude_a4830f11ea77a396a6e9b810d79e2afd1}{decrease\+Attractivness}} ()
+\begin{DoxyCompactList}\small\item\em Decreases the attractiveness of the bude. Resulting in lessend likelihood of beeing visited by an agent. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_bude_a3f539dcd168aa1b4019046b4ecbdadb4}{increase\+Waittime}} ()
+\begin{DoxyCompactList}\small\item\em Increases the waittime. Agents wait longer infront of the \doxylink{class_bude}{Bude}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_bude_ace7128912dd8922315ad2a3664a051b3}{decrease\+Waittime}} ()
+\begin{DoxyCompactList}\small\item\em Decreases the waittime. Agents wait less infront of the \doxylink{class_bude}{Bude}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_buden_j_s_o_n}{Buden\+JSON}} \mbox{\hyperlink{class_bude_a82a5de885b448d7a09ad0b5e4071b375}{Get\+Buden\+JSON}} ()
+\begin{DoxyCompactList}\small\item\em Function used to create the JSON File representing the \doxylink{class_bude}{Bude}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_bude_aad9ce44c3274aba62595086e5ffcb847}{Set\+Type\+Index}} (int i)
+\begin{DoxyCompactList}\small\item\em Sets the Type of bude. Currently only one Model of \doxylink{class_bude}{Bude} is in use. \end{DoxyCompactList}\item 
+Vector3 \mbox{\hyperlink{class_bude_a979b843196f38a3a1a94aaacbf43d9b3}{Get\+Position}} ()
+\begin{DoxyCompactList}\small\item\em This Function gets the location of the \doxylink{class_bude}{Bude}. \end{DoxyCompactList}\item 
+List$<$ Vector3 $>$ \mbox{\hyperlink{class_bude_ac5e0386548e6c10723dd19837edd9c2f}{Get\+All\+Corner\+Points}} ()
+\begin{DoxyCompactList}\small\item\em Gets all Corners of the Buden transform in order\+: Top left, Top right, Bottom Left, Bottom Right. \end{DoxyCompactList}\item 
+Vector3 \mbox{\hyperlink{class_bude_a4521d04fe57a4d48da5c6ff55f13ab61}{Get\+Facing\+Direction}} ()
+\begin{DoxyCompactList}\small\item\em Function to get the Factiong Direction of the \doxylink{class_bude}{Bude}. \end{DoxyCompactList}\item 
+Vector3 \mbox{\hyperlink{class_bude_aa552970bcf0f0ee53a8cd80985bfb671}{Get\+Farest\+Point}} ()
+\begin{DoxyCompactList}\small\item\em The point which is opposite to the main bude at the end of the "{}ziel"{} area. This point is located in the mid of the ziel area. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_bude_acb9900f263bd3b3f5f7f247752933afb}{Wait\+Time}} = 20
+\item 
+Game\+Object \mbox{\hyperlink{class_bude_ac65e7bc4652d57f11383be160a8c818c}{Agent}}
+\item 
+float \mbox{\hyperlink{class_bude_a683a280dd39fde6112dd16f57136bd7f}{Agent\+WidthX}} = 2f
+\item 
+float \mbox{\hyperlink{class_bude_a34944fa4f7558b9a97c17aa21c203520}{Agent\+WidthZ}} = 2f
+\item 
+int \mbox{\hyperlink{class_bude_a18ca8a0e4e244cc4afd1088dfcdc4b95}{attraktivitaet}} = 5
+\item 
+int \mbox{\hyperlink{class_bude_a6149ed4b06861c6ff1051e7e37845cd8}{kapazitaet}}
+\item 
+float \mbox{\hyperlink{class_bude_aa4be8cd381d9321051c82f68796c4afd}{delay\+Before\+Not\+Busy}} = 5f
+\item 
+bool \mbox{\hyperlink{class_bude_a90a4614dadbd1267efc850a82495a952}{busy}} = false
+\item 
+int \mbox{\hyperlink{class_bude_a68cfa650f1801a21a8b1c0b9752cabfd}{tilesX}}
+\item 
+int \mbox{\hyperlink{class_bude_adee279a89bb49b184adb0be42a7c129a}{tilesZ}}
+\item 
+int \mbox{\hyperlink{class_bude_a77180d07ab69c221811ba75ee6f397e6}{attrak\+Incr}} = 10
+\item 
+int \mbox{\hyperlink{class_bude_a827891e802bbf3f0aa19bb94c27c5509}{wait\+Incr}} = 5
+\item 
+\mbox{\hyperlink{class_goal_node}{Goal\+Node}} \mbox{\hyperlink{class_bude_a8a1b72c9c185022552d6ff7eccb1eef1}{goal\+Node}}
+\item 
+List$<$ \mbox{\hyperlink{class_plate}{Plate}} $>$ \mbox{\hyperlink{class_bude_adf4c6bfaa950c42bc153a6d398c7db5f}{onplates}}
+\item 
+\mbox{\hyperlink{class_bude_a06584d9724ca6af4028249d77e47c466}{Vector3?}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{interface_i_bude}{IBude}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interface_i_bude_a6e93b745d1f81908e8c86d8b23b22a2f}{Vector3?}}
+\begin{DoxyCompactList}\small\item\em This function gets a new waiting position in on of the waiting areas. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00004}{4}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_bude_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_bude_a2e1cb51f2082eb72c339bddecdbf47ab}\index{Bude@{Bude}!BudeMoved@{BudeMoved}}
+\index{BudeMoved@{BudeMoved}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{BudeMoved()}{BudeMoved()}}
+{\footnotesize\ttfamily \label{class_bude_a2e1cb51f2082eb72c339bddecdbf47ab} 
+void Bude.\+Bude\+Moved (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+The Function called if the \doxylink{class_bude}{Bude} is beeing moved. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_goal_node_aded8137140a91d73845f0a124b5813ff}{Goal\+Node.\+Bude\+Moved(\+Bude)}
+
+
+\end{DoxySeeAlso}
+
+
+Implements \mbox{\hyperlink{interface_i_bude_abe61825fee560abdb922003a44002bf6}{IBude}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00080}{80}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a03dd47fe6349e5e2232db89f12eb3fef}\index{Bude@{Bude}!BudeRemove@{BudeRemove}}
+\index{BudeRemove@{BudeRemove}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{BudeRemove()}{BudeRemove()}}
+{\footnotesize\ttfamily \label{class_bude_a03dd47fe6349e5e2232db89f12eb3fef} 
+void Bude.\+Bude\+Remove (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+The Function called if the \doxylink{class_bude}{Bude} is beeing removed. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_goal_node_ae5fb76d989aa4de3f8f0cbc4885bc598}{Goal\+Node.\+Remove\+Bude(\+Bude)}
+
+
+\end{DoxySeeAlso}
+
+
+Implements \mbox{\hyperlink{interface_i_bude_aeaf8ae62028a43e8363f68b1ea1e3542}{IBude}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00084}{84}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a52243c921c4254c6545b1d3c7b6d0ba5}\index{Bude@{Bude}!CheckOccupation@{CheckOccupation}}
+\index{CheckOccupation@{CheckOccupation}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{CheckOccupation()}{CheckOccupation()}}
+{\footnotesize\ttfamily \label{class_bude_a52243c921c4254c6545b1d3c7b6d0ba5} 
+bool Bude.\+Check\+Occupation (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+This function checks if the \doxylink{class_bude}{Bude} is currently completly occupied and there are no more places to for agents to visit. 
+
+\begin{DoxyReturn}{Returns}
+True if \doxylink{class_bude}{Bude} is completly occupied, else false.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_bude_a56ce9bbe3468224468367c52b8a729ce}{IBude}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00129}{129}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a4830f11ea77a396a6e9b810d79e2afd1}\index{Bude@{Bude}!decreaseAttractivness@{decreaseAttractivness}}
+\index{decreaseAttractivness@{decreaseAttractivness}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{decreaseAttractivness()}{decreaseAttractivness()}}
+{\footnotesize\ttfamily \label{class_bude_a4830f11ea77a396a6e9b810d79e2afd1} 
+void Bude.\+decrease\+Attractivness (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Decreases the attractiveness of the bude. Resulting in lessend likelihood of beeing visited by an agent. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_bude_a9450442ed5cd70dd8d83fbe56715fe51}{IBude}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00139}{139}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_ace7128912dd8922315ad2a3664a051b3}\index{Bude@{Bude}!decreaseWaittime@{decreaseWaittime}}
+\index{decreaseWaittime@{decreaseWaittime}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{decreaseWaittime()}{decreaseWaittime()}}
+{\footnotesize\ttfamily \label{class_bude_ace7128912dd8922315ad2a3664a051b3} 
+void Bude.\+decrease\+Waittime (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Decreases the waittime. Agents wait less infront of the \doxylink{class_bude}{Bude}. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_bude_a49b49b8c25897d075abf960a59c2b4db}{IBude}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00151}{151}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_ac5e0386548e6c10723dd19837edd9c2f}\index{Bude@{Bude}!GetAllCornerPoints@{GetAllCornerPoints}}
+\index{GetAllCornerPoints@{GetAllCornerPoints}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{GetAllCornerPoints()}{GetAllCornerPoints()}}
+{\footnotesize\ttfamily \label{class_bude_ac5e0386548e6c10723dd19837edd9c2f} 
+List$<$ Vector3 $>$ Bude.\+Get\+All\+Corner\+Points (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Gets all Corners of the Buden transform in order\+: Top left, Top right, Bottom Left, Bottom Right. 
+
+\begin{DoxyReturn}{Returns}
+List with the locations of all corners
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_bude_ad8d82689aa386cec540b500e4bac5a08}{IBude}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00167}{167}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a82a5de885b448d7a09ad0b5e4071b375}\index{Bude@{Bude}!GetBudenJSON@{GetBudenJSON}}
+\index{GetBudenJSON@{GetBudenJSON}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{GetBudenJSON()}{GetBudenJSON()}}
+{\footnotesize\ttfamily \label{class_bude_a82a5de885b448d7a09ad0b5e4071b375} 
+\mbox{\hyperlink{class_buden_j_s_o_n}{Buden\+JSON}} Bude.\+Get\+Buden\+JSON (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Function used to create the JSON File representing the \doxylink{class_bude}{Bude}. 
+
+\begin{DoxyReturn}{Returns}
+An \doxylink{class_buden_j_s_o_n}{Buden\+JSON} object representing the current state of the \doxylink{class_bude}{Bude}.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_bude_a7fbb24b437f2f76693bfd131b08806ab}{IBude}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00158}{158}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a4521d04fe57a4d48da5c6ff55f13ab61}\index{Bude@{Bude}!GetFacingDirection@{GetFacingDirection}}
+\index{GetFacingDirection@{GetFacingDirection}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{GetFacingDirection()}{GetFacingDirection()}}
+{\footnotesize\ttfamily \label{class_bude_a4521d04fe57a4d48da5c6ff55f13ab61} 
+Vector3 Bude.\+Get\+Facing\+Direction (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Function to get the Factiong Direction of the \doxylink{class_bude}{Bude}. 
+
+\begin{DoxyReturn}{Returns}
+An Vector3 with the Direction in which the \doxylink{class_bude}{Bude} is facing.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_bude_aceafed50c01abb8887f28a05ae20c3f2}{IBude}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00179}{179}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_aa552970bcf0f0ee53a8cd80985bfb671}\index{Bude@{Bude}!GetFarestPoint@{GetFarestPoint}}
+\index{GetFarestPoint@{GetFarestPoint}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{GetFarestPoint()}{GetFarestPoint()}}
+{\footnotesize\ttfamily \label{class_bude_aa552970bcf0f0ee53a8cd80985bfb671} 
+Vector3 Bude.\+Get\+Farest\+Point (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+The point which is opposite to the main bude at the end of the "{}ziel"{} area. This point is located in the mid of the ziel area. 
+
+\begin{DoxyReturn}{Returns}
+Returns the point which is is furthes from the \doxylink{class_bude}{Bude}.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_bude_a059cee7c1e9e5c82abe746bbc9c4d690}{IBude}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00180}{180}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a80c1a3704096b28a4643b305dcc161ed}\index{Bude@{Bude}!GetNewPosition@{GetNewPosition}}
+\index{GetNewPosition@{GetNewPosition}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{GetNewPosition()}{GetNewPosition()}}
+{\footnotesize\ttfamily \label{class_bude_a80c1a3704096b28a4643b305dcc161ed} 
+Vector3\+Int? Bude.\+Get\+New\+Position (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Implements \mbox{\hyperlink{interface_i_bude}{IBude}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00088}{88}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a979b843196f38a3a1a94aaacbf43d9b3}\index{Bude@{Bude}!GetPosition@{GetPosition}}
+\index{GetPosition@{GetPosition}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{GetPosition()}{GetPosition()}}
+{\footnotesize\ttfamily \label{class_bude_a979b843196f38a3a1a94aaacbf43d9b3} 
+Vector3 Bude.\+Get\+Position (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+This Function gets the location of the \doxylink{class_bude}{Bude}. 
+
+\begin{DoxyReturn}{Returns}
+The position of the \doxylink{class_bude}{Bude}.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_bude_ad702a8d5d24c44acf802bab012c041c8}{IBude}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00166}{166}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_abdf1fcd0fa0a65643bc9e2b6b6af97c0}\index{Bude@{Bude}!increaseAttractivness@{increaseAttractivness}}
+\index{increaseAttractivness@{increaseAttractivness}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{increaseAttractivness()}{increaseAttractivness()}}
+{\footnotesize\ttfamily \label{class_bude_abdf1fcd0fa0a65643bc9e2b6b6af97c0} 
+void Bude.\+increase\+Attractivness (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Increases the attractiveness of the bude. Resulting in higher likelihood of beeing visited by an agent. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_bude_a1520b0618e8cf60096d0ea14bdb5ff62}{IBude}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00134}{134}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a3f539dcd168aa1b4019046b4ecbdadb4}\index{Bude@{Bude}!increaseWaittime@{increaseWaittime}}
+\index{increaseWaittime@{increaseWaittime}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{increaseWaittime()}{increaseWaittime()}}
+{\footnotesize\ttfamily \label{class_bude_a3f539dcd168aa1b4019046b4ecbdadb4} 
+void Bude.\+increase\+Waittime (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Increases the waittime. Agents wait longer infront of the \doxylink{class_bude}{Bude}. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_bude_a097acbb491a3e0f3e71eaa2f8a4a3bbf}{IBude}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00146}{146}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_ac2b3cadb03050d692ee8771e17b7e25e}\index{Bude@{Bude}!RemovePlayer@{RemovePlayer}}
+\index{RemovePlayer@{RemovePlayer}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{RemovePlayer()}{RemovePlayer()}}
+{\footnotesize\ttfamily \label{class_bude_ac2b3cadb03050d692ee8771e17b7e25e} 
+void Bude.\+Remove\+Player (\begin{DoxyParamCaption}\item[{Vector3\+Int}]{pos}{}\end{DoxyParamCaption})}
+
+
+
+Removes the player form the specific position at the waiting area. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_bude_a5ecb79ebdb9ad1e07b6553531c8e9ac1}{IBude}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00114}{114}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a99655bd57579b33a2e6b070c1c7b5948}\index{Bude@{Bude}!Reset@{Reset}}
+\index{Reset@{Reset}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{Reset()}{Reset()}}
+{\footnotesize\ttfamily \label{class_bude_a99655bd57579b33a2e6b070c1c7b5948} 
+void Bude.\+Reset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Resets the values of the \doxylink{class_bude}{Bude}. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_bude_ab9c7cf65237251406adbdf2c13fde13c}{IBude}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00074}{74}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_aad9ce44c3274aba62595086e5ffcb847}\index{Bude@{Bude}!SetTypeIndex@{SetTypeIndex}}
+\index{SetTypeIndex@{SetTypeIndex}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{SetTypeIndex()}{SetTypeIndex()}}
+{\footnotesize\ttfamily \label{class_bude_aad9ce44c3274aba62595086e5ffcb847} 
+void Bude.\+Set\+Type\+Index (\begin{DoxyParamCaption}\item[{int}]{i}{}\end{DoxyParamCaption})}
+
+
+
+Sets the Type of bude. Currently only one Model of \doxylink{class_bude}{Bude} is in use. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_bude_a2bc07e969706ffb8a5215ab8e8e16ffb}{IBude}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00162}{162}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a713ac6f028b43d0614f6b21d902c7443}\index{Bude@{Bude}!Start@{Start}}
+\index{Start@{Start}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily \label{class_bude_a713ac6f028b43d0614f6b21d902c7443} 
+void Bude.\+Start (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Start function called to determine the position of the \doxylink{class_bude}{Bude}. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_bude_ae0ca8026a78b6d294e24fcc5183bae01}{IBude}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00031}{31}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_bude_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_bude_ac65e7bc4652d57f11383be160a8c818c}\index{Bude@{Bude}!Agent@{Agent}}
+\index{Agent@{Agent}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{Agent}{Agent}}
+{\footnotesize\ttfamily \label{class_bude_ac65e7bc4652d57f11383be160a8c818c} 
+Game\+Object Bude.\+Agent}
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00007}{7}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a683a280dd39fde6112dd16f57136bd7f}\index{Bude@{Bude}!AgentWidthX@{AgentWidthX}}
+\index{AgentWidthX@{AgentWidthX}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{AgentWidthX}{AgentWidthX}}
+{\footnotesize\ttfamily \label{class_bude_a683a280dd39fde6112dd16f57136bd7f} 
+float Bude.\+Agent\+WidthX = 2f}
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00008}{8}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a34944fa4f7558b9a97c17aa21c203520}\index{Bude@{Bude}!AgentWidthZ@{AgentWidthZ}}
+\index{AgentWidthZ@{AgentWidthZ}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{AgentWidthZ}{AgentWidthZ}}
+{\footnotesize\ttfamily \label{class_bude_a34944fa4f7558b9a97c17aa21c203520} 
+float Bude.\+Agent\+WidthZ = 2f}
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00009}{9}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a77180d07ab69c221811ba75ee6f397e6}\index{Bude@{Bude}!attrakIncr@{attrakIncr}}
+\index{attrakIncr@{attrakIncr}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{attrakIncr}{attrakIncr}}
+{\footnotesize\ttfamily \label{class_bude_a77180d07ab69c221811ba75ee6f397e6} 
+int Bude.\+attrak\+Incr = 10}
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00021}{21}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a18ca8a0e4e244cc4afd1088dfcdc4b95}\index{Bude@{Bude}!attraktivitaet@{attraktivitaet}}
+\index{attraktivitaet@{attraktivitaet}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{attraktivitaet}{attraktivitaet}}
+{\footnotesize\ttfamily \label{class_bude_a18ca8a0e4e244cc4afd1088dfcdc4b95} 
+int Bude.\+attraktivitaet = 5}
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00010}{10}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a90a4614dadbd1267efc850a82495a952}\index{Bude@{Bude}!busy@{busy}}
+\index{busy@{busy}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{busy}{busy}}
+{\footnotesize\ttfamily \label{class_bude_a90a4614dadbd1267efc850a82495a952} 
+bool Bude.\+busy = false}
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00014}{14}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_aa4be8cd381d9321051c82f68796c4afd}\index{Bude@{Bude}!delayBeforeNotBusy@{delayBeforeNotBusy}}
+\index{delayBeforeNotBusy@{delayBeforeNotBusy}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{delayBeforeNotBusy}{delayBeforeNotBusy}}
+{\footnotesize\ttfamily \label{class_bude_aa4be8cd381d9321051c82f68796c4afd} 
+float Bude.\+delay\+Before\+Not\+Busy = 5f}
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00012}{12}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a8a1b72c9c185022552d6ff7eccb1eef1}\index{Bude@{Bude}!goalNode@{goalNode}}
+\index{goalNode@{goalNode}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{goalNode}{goalNode}}
+{\footnotesize\ttfamily \label{class_bude_a8a1b72c9c185022552d6ff7eccb1eef1} 
+\mbox{\hyperlink{class_goal_node}{Goal\+Node}} Bude.\+goal\+Node}
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00028}{28}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a6149ed4b06861c6ff1051e7e37845cd8}\index{Bude@{Bude}!kapazitaet@{kapazitaet}}
+\index{kapazitaet@{kapazitaet}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{kapazitaet}{kapazitaet}}
+{\footnotesize\ttfamily \label{class_bude_a6149ed4b06861c6ff1051e7e37845cd8} 
+int Bude.\+kapazitaet}
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00011}{11}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_adf4c6bfaa950c42bc153a6d398c7db5f}\index{Bude@{Bude}!onplates@{onplates}}
+\index{onplates@{onplates}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{onplates}{onplates}}
+{\footnotesize\ttfamily \label{class_bude_adf4c6bfaa950c42bc153a6d398c7db5f} 
+List$<$\mbox{\hyperlink{class_plate}{Plate}}$>$ Bude.\+onplates}
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00029}{29}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a68cfa650f1801a21a8b1c0b9752cabfd}\index{Bude@{Bude}!tilesX@{tilesX}}
+\index{tilesX@{tilesX}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{tilesX}{tilesX}}
+{\footnotesize\ttfamily \label{class_bude_a68cfa650f1801a21a8b1c0b9752cabfd} 
+int Bude.\+tilesX}
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00016}{16}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_adee279a89bb49b184adb0be42a7c129a}\index{Bude@{Bude}!tilesZ@{tilesZ}}
+\index{tilesZ@{tilesZ}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{tilesZ}{tilesZ}}
+{\footnotesize\ttfamily \label{class_bude_adee279a89bb49b184adb0be42a7c129a} 
+int Bude.\+tilesZ}
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00017}{17}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a06584d9724ca6af4028249d77e47c466}\index{Bude@{Bude}!Vector3?@{Vector3?}}
+\index{Vector3?@{Vector3?}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{Vector3?}{Vector3?}}
+{\footnotesize\ttfamily \label{class_bude_a06584d9724ca6af4028249d77e47c466} 
+Bude.\+Vector3?}
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00088}{88}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_a827891e802bbf3f0aa19bb94c27c5509}\index{Bude@{Bude}!waitIncr@{waitIncr}}
+\index{waitIncr@{waitIncr}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{waitIncr}{waitIncr}}
+{\footnotesize\ttfamily \label{class_bude_a827891e802bbf3f0aa19bb94c27c5509} 
+int Bude.\+wait\+Incr = 5}
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00022}{22}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+\Hypertarget{class_bude_acb9900f263bd3b3f5f7f247752933afb}\index{Bude@{Bude}!WaitTime@{WaitTime}}
+\index{WaitTime@{WaitTime}!Bude@{Bude}}
+\doxysubsubsection{\texorpdfstring{WaitTime}{WaitTime}}
+{\footnotesize\ttfamily \label{class_bude_acb9900f263bd3b3f5f7f247752933afb} 
+int Bude.\+Wait\+Time = 20}
+
+
+
+Definition at line \mbox{\hyperlink{_bude_8cs_source_l00006}{6}} of file \mbox{\hyperlink{_bude_8cs_source}{Bude.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Max\+Friedrich/\+Documents/gluehwein-\/planer/\+Gluehweinplaner/\+Assets/\+Scripts/\+Buden/Bude.\+cs\end{DoxyCompactItemize}

@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class BitArray2D
+/// <inheritdoc cref="IBitArray2D"/>
+public class BitArray2D : IBitArray2D
 {
 
     //z=0x=0 z=0x=1
@@ -21,7 +20,8 @@ public class BitArray2D
     private float spacearoundZ;
     private int kapa;
 
-    public BitArray2D( Bounds b, Transform child, int p, float ax, float az) { 
+    public BitArray2D(Bounds b, Transform child, int p, float ax, float az)
+    {
         childT = child;
 
         positionToBude = p;
@@ -56,8 +56,8 @@ public class BitArray2D
 
     private void CalcWidthHeight()
     {
-        cellsX = Mathf.FloorToInt(childT.localScale.x / (AgentWidthX + spacearoundX ));
-        cellsZ = Mathf.FloorToInt(childT.localScale.z / (AgentWidthZ + spacearoundZ ));
+        cellsX = Mathf.FloorToInt(childT.localScale.x / (AgentWidthX + spacearoundX));
+        cellsZ = Mathf.FloorToInt(childT.localScale.z / (AgentWidthZ + spacearoundZ));
     }
 
     public Vector3 GetRealWorldCords(Vector2Int cells)
@@ -70,7 +70,7 @@ public class BitArray2D
             lx += schiebX / 2;
         }
         Vector3 tV = childT.TransformPoint(new Vector3(lx, 0, lz));
-        return new Vector3(tV.x, 0,tV.z);
+        return new Vector3(tV.x, 0, tV.z);
     }
 
 
@@ -86,7 +86,7 @@ public class BitArray2D
         currentWaiting--;
     }
 
-    public (Vector3,Vector2Int) FindBestPositionAndAdd()
+    public (Vector3, Vector2Int) FindBestPositionAndAdd()
     {
         Vector2Int coord = new Vector2Int(-1, -1);
         if (!IsFull())
@@ -104,7 +104,7 @@ public class BitArray2D
                     break;
             }
         }
-        return (GetRealWorldCords(coord),coord);
+        return (GetRealWorldCords(coord), coord);
     }
 
     private Vector2Int AddInFront()
@@ -154,7 +154,7 @@ public class BitArray2D
         }
         return new Vector2Int(-1, -1);
     }
-  
+
     public bool IsFull()
     {
         return currentWaiting == kapa;

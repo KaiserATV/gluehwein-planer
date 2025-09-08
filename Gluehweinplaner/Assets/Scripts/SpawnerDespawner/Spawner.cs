@@ -1,6 +1,6 @@
 using UnityEngine;
-
-public class Spawner : MonoBehaviour
+/// <inheritdoc cref="ISpawner"/>
+public class Spawner : MonoBehaviour, ISpawner
 {
     private GameObject prop;
     public float minWorldLimitX = 0;
@@ -42,33 +42,34 @@ public class Spawner : MonoBehaviour
             }
             else if (sm.CanAddPlayer())
             {
-                (Vector3 position,Vector3 egal) = GenerateRandomPosition();
+                (Vector3 position, Vector3 egal) = GenerateRandomPosition();
                 Quaternion rotation = Quaternion.Euler(0, 0, 0);
-                if (iac.GetStoredCount()>0)
+                if (iac.GetStoredCount() > 0)
                 {
                     NPC ac = iac.GetAgent();
                     ac.Respawn();
                     sm.inactivePlayerCount--;
-                    sm!.addPlayer(ac);
+                    sm!.AddPlayer(ac);
                 }
-                else 
+                else
                 {
-                    if (position != null) {
+                    if (position != null)
+                    {
                         GameObject agent = Instantiate(prop, position, rotation);
                         agent.transform.SetParent(transform, false);
                         sm.playerCount++;
                     }
                 }
-                    zeitVergangen = spawnTime;
+                zeitVergangen = spawnTime;
             }
 
         }
     }
 
-
     //public Vector3? GenerateRandomPosition() { return this.transform.position; }
-    public (Vector3,Vector3) GenerateRandomPosition()
+    public (Vector3, Vector3) GenerateRandomPosition()
     {
+        //currently not working
         //Vector3 position = new Vector3(minWorldLimitX,1.5f,minWorldLimitZ);
         //do
         //{
@@ -82,6 +83,6 @@ public class Spawner : MonoBehaviour
 
     public SpawnJSON ToJSON()
     {
-        return new SpawnJSON(this.transform.position.x,this.transform.position.z, this.transform.rotation.y, spawnTime);   
+        return new SpawnJSON(this.transform.position.x, this.transform.position.z, this.transform.rotation.y, spawnTime);
     }
 }

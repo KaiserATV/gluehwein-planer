@@ -1,0 +1,23 @@
+\doxysection{Exit.\+cs}
+\hypertarget{_exit_8cs_source}{}\label{_exit_8cs_source}\index{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/SpawnerDespawner/Exit.cs@{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/SpawnerDespawner/Exit.cs}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_exit_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }UnityEngine;}
+\DoxyCodeLine{\Hypertarget{_exit_8cs_source_l00003}\mbox{\hyperlink{class_exit}{00003}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_exit}{Exit}}\ :\ MonoBehaviour,\ \mbox{\hyperlink{interface_i_exit}{IExit}}}
+\DoxyCodeLine{\Hypertarget{_exit_8cs_source_l00004}00004\ \{}
+\DoxyCodeLine{\Hypertarget{_exit_8cs_source_l00005}00005\ \ \ \ \ \textcolor{keyword}{private}\ Bounds\ b;}
+\DoxyCodeLine{\Hypertarget{_exit_8cs_source_l00006}00006\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ Start()}
+\DoxyCodeLine{\Hypertarget{_exit_8cs_source_l00007}00007\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_exit_8cs_source_l00008}00008\ \ \ \ \ \ \ \ \ b\ =\ GetComponentInChildren<MeshRenderer>().bounds;}
+\DoxyCodeLine{\Hypertarget{_exit_8cs_source_l00009}00009\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_exit_8cs_source_l00010}\mbox{\hyperlink{class_exit_a4a80c5164105de1d121b6a11865058cb}{00010}}\ \ \ \ \ \textcolor{keyword}{public}\ Vector3\ \mbox{\hyperlink{class_exit_a4a80c5164105de1d121b6a11865058cb}{GetPosition}}()}
+\DoxyCodeLine{\Hypertarget{_exit_8cs_source_l00011}00011\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_exit_8cs_source_l00012}00012\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this.transform.position;}
+\DoxyCodeLine{\Hypertarget{_exit_8cs_source_l00013}00013\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_exit_8cs_source_l00014}\mbox{\hyperlink{class_exit_a13e2e9ee41ff9c4622e0157ecd8512ca}{00014}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_exit_j_s_o_n}{ExitJSON}}\ \mbox{\hyperlink{class_exit_a13e2e9ee41ff9c4622e0157ecd8512ca}{ToJSON}}()}
+\DoxyCodeLine{\Hypertarget{_exit_8cs_source_l00015}00015\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_exit_8cs_source_l00016}00016\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_exit_j_s_o_n}{ExitJSON}}(this.transform.position.x,\ \textcolor{keyword}{this}.transform.position.z,\ \textcolor{keyword}{this}.transform.rotation.y);}
+\DoxyCodeLine{\Hypertarget{_exit_8cs_source_l00017}00017\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_exit_8cs_source_l00018}00018\ \}}
+
+\end{DoxyCode}

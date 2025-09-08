@@ -1,0 +1,531 @@
+\doxysection{NPC Class Reference}
+\hypertarget{class_n_p_c}{}\label{class_n_p_c}\index{NPC@{NPC}}
+
+
+ 
+
+
+Inheritance diagram for NPC\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_n_p_c}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_n_p_c_aac472b75ea2ef93c2dcb1d53cd618b08}{Bude\+Moved}} (\mbox{\hyperlink{class_bude}{Bude}} moved\+Bude)
+\begin{DoxyCompactList}\small\item\em The function gets called if a bude to whichs goalnode the agent currently is pathing is moved. Causeing the agent to repath to the new position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_n_p_c_a9e2bb20eb9f2cbb655ae8e882c1108b3}{Bude\+Destroyed}} (\mbox{\hyperlink{class_bude}{Bude}} moved\+Bude)
+\begin{DoxyCompactList}\small\item\em The function gets called if a bude to whichs goalnode the agent currently is pathing is destroyed. Causeing the agent to repath to a new goal. 
+\begin{DoxyParams}{Parameters}
+{\em moved\+Bude} & The \doxylink{class_bude}{Bude} that moved.\\
+\hline
+\end{DoxyParams}
+\end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_n_p_c_a848bdd558e03e6b39b3ee9125710ee0f}{Respawn}} ()
+\begin{DoxyCompactList}\small\item\em The function beeing called if the agent is beeing respawned. Resetting all values and spawning from an new positio. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_n_p_c_a52216833b077a89afb05b1f9d1510c81}{Set\+Inactive}} (Vector3 inactive\+Postion)
+\begin{DoxyCompactList}\small\item\em Sets the agents as inactive and moves it to the inactive container. Agent no more moves. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_n_p_c_ad4c5808368509dcbb0bb4fed7ec3eec0}{Stop}} ()
+\begin{DoxyCompactList}\small\item\em Stops the agent. If the scene is paused. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_n_p_c_ac7c73f1ac13663f2b08af8f9f7a37d0c}{Resume}} ()
+\begin{DoxyCompactList}\small\item\em The function resumes the movement of the agent, if the agent was paused bevore. \end{DoxyCompactList}\item 
+Vector3 \mbox{\hyperlink{class_n_p_c_addedf8ec2918a5bc638e7de57bc37c62}{Get\+Position}} ()
+\begin{DoxyCompactList}\small\item\em The function to get the position of the agent. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_goal_node}{Goal\+Node}}? \mbox{\hyperlink{class_n_p_c_a0ccd7e68f8e7ce132d0ca286e8315858}{current\+Goal\+Node}} = null
+\item 
+bool \mbox{\hyperlink{class_n_p_c_a005c0e72474eae60638de00f902db66b}{animated}} = false
+\item 
+Vector3? \mbox{\hyperlink{class_n_p_c_a3db06ea0cc15da15cf8155c054b09742}{waiting\+Spot}}
+\item 
+Vector3? \mbox{\hyperlink{class_n_p_c_aaa2f07f0baac51b9ab1f9fad56b3c60b}{next\+Way\+Point}}
+\item 
+Vector3? \mbox{\hyperlink{class_n_p_c_a846074eb2ff67c996125e4456025aa18}{prev\+Way\+Point}}
+\item 
+Vector3? \mbox{\hyperlink{class_n_p_c_a7134c67fc09a8825608a48d4abfa1cc7}{exit}} = null
+\item 
+Queue$<$ Vector3 $>$ \mbox{\hyperlink{class_n_p_c_a39d1b2afd450a60d28ba6ee0d980e4a3}{move\+List}} = new Queue$<$Vector3$>$()
+\item 
+float \mbox{\hyperlink{class_n_p_c_a1ff4c824759ae05a03c0d1a10e14c626}{speed}} = 2f
+\item 
+float \mbox{\hyperlink{class_n_p_c_adc059f062d7023fb4a879f215feb0fa2}{patience\+Lost}}
+\item 
+float \mbox{\hyperlink{class_n_p_c_aa8d8682a9692b8e9428a9817939d3576}{time\+Left\+Waiting}} = 0.\+0f
+\item 
+int \mbox{\hyperlink{class_n_p_c_a37c841b2dc0363eef54ae9907fdb0637}{goals\+Before\+Exit}}
+\item 
+float \mbox{\hyperlink{class_n_p_c_a82a045e3f41979d6df7c42a96b399364}{check\+For\+Change\+Intervall}} = 1f
+\item 
+bool \mbox{\hyperlink{class_n_p_c_a49bf061270ba4a5c9234cf804bd55470}{random\+Exit\+Goal\+Number}} = true
+\item 
+bool \mbox{\hyperlink{class_n_p_c_a877399b1b6dbdc8a198a242bdd84a462}{inactive}} = false
+\item 
+bool \mbox{\hyperlink{class_n_p_c_a51fb45f20ca581f03203961a887e8b23}{stopped}} = false
+\item 
+bool \mbox{\hyperlink{class_n_p_c_a865e21aab1480d876ee80d7b9e85f740}{waiting}} = false
+\item 
+bool \mbox{\hyperlink{class_n_p_c_a0f1388acc3bc7d0d6f7b89ba5c603df5}{exiting}} = false
+\item 
+bool \mbox{\hyperlink{class_n_p_c_a53db3caea04355441bffc795182538db}{on\+Way\+To\+Bude}} = false
+\item 
+bool \mbox{\hyperlink{class_n_p_c_ac9773e6a10d5fc6a6215fa9ea1c7bf7e}{on\+Way\+To\+Start}} = true
+\item 
+bool \mbox{\hyperlink{class_n_p_c_a86f9eafe4478e901a6d5588c8bdde942}{on\+Way\+To\+Goal\+Node}} = false
+\item 
+bool \mbox{\hyperlink{class_n_p_c_a0706890d4a077303cf022f04d13ab7b1}{on\+Way\+To\+Exit}} = false
+\item 
+bool \mbox{\hyperlink{class_n_p_c_a67638727c2d6057e1b2b692a37715120}{on\+Way\+Back\+From\+Bude}} = false
+\item 
+bool \mbox{\hyperlink{class_n_p_c_a2866faf725bdf106c84b0ce9a3243aad}{lost\+Patience}} = false
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const float \mbox{\hyperlink{class_n_p_c_a526ea9ee609302726ffffd6ce1ccb9d5}{patience}} = 120f
+\item 
+const float \mbox{\hyperlink{class_n_p_c_a07634cde512523f3cd00739814c61e38}{waiting\+Tolerance}} = 0.\+2f
+\item 
+const float \mbox{\hyperlink{class_n_p_c_a1010052358db77bea3ad2ff254be5f81}{exit\+Tolerance}} = 0.\+1f
+\item 
+const float \mbox{\hyperlink{class_n_p_c_a537a1938d7d36ba60b518401b0f3ada4}{way\+Point\+Tolerance}} = 0.\+3f
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00005}{5}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_n_p_c_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_n_p_c_a9e2bb20eb9f2cbb655ae8e882c1108b3}\index{NPC@{NPC}!BudeDestroyed@{BudeDestroyed}}
+\index{BudeDestroyed@{BudeDestroyed}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{BudeDestroyed()}{BudeDestroyed()}}
+{\footnotesize\ttfamily \label{class_n_p_c_a9e2bb20eb9f2cbb655ae8e882c1108b3} 
+void NPC.\+Bude\+Destroyed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_bude}{Bude}}}]{moved\+Bude}{}\end{DoxyParamCaption})}
+
+
+
+The function gets called if a bude to whichs goalnode the agent currently is pathing is destroyed. Causeing the agent to repath to a new goal. 
+\begin{DoxyParams}{Parameters}
+{\em moved\+Bude} & The \doxylink{class_bude}{Bude} that moved.\\
+\hline
+\end{DoxyParams}
+
+
+
+
+Implements \mbox{\hyperlink{interface_i_n_p_c_af216207f3d576dcb40c985654a89043e}{INPC}}.
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00295}{295}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_aac472b75ea2ef93c2dcb1d53cd618b08}\index{NPC@{NPC}!BudeMoved@{BudeMoved}}
+\index{BudeMoved@{BudeMoved}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{BudeMoved()}{BudeMoved()}}
+{\footnotesize\ttfamily \label{class_n_p_c_aac472b75ea2ef93c2dcb1d53cd618b08} 
+void NPC.\+Bude\+Moved (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_bude}{Bude}}}]{moved\+Bude}{}\end{DoxyParamCaption})}
+
+
+
+The function gets called if a bude to whichs goalnode the agent currently is pathing is moved. Causeing the agent to repath to the new position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em moved\+Bude} & The bude beeng moved.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_n_p_c_a7c06c10e4a1d6efde673c770d619c2be}{INPC}}.
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00279}{279}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_addedf8ec2918a5bc638e7de57bc37c62}\index{NPC@{NPC}!GetPosition@{GetPosition}}
+\index{GetPosition@{GetPosition}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{GetPosition()}{GetPosition()}}
+{\footnotesize\ttfamily \label{class_n_p_c_addedf8ec2918a5bc638e7de57bc37c62} 
+Vector3 NPC.\+Get\+Position (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+The function to get the position of the agent. 
+
+\begin{DoxyReturn}{Returns}
+The Position of the agent.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_n_p_c_ad5ed262947c2aeae8d223f54b35a1319}{INPC}}.
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00396}{396}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a848bdd558e03e6b39b3ee9125710ee0f}\index{NPC@{NPC}!Respawn@{Respawn}}
+\index{Respawn@{Respawn}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{Respawn()}{Respawn()}}
+{\footnotesize\ttfamily \label{class_n_p_c_a848bdd558e03e6b39b3ee9125710ee0f} 
+void NPC.\+Respawn (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+The function beeing called if the agent is beeing respawned. Resetting all values and spawning from an new positio. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_n_p_c_a2bbc67294924ca40e603bf521787477a}{INPC}}.
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00322}{322}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_ac7c73f1ac13663f2b08af8f9f7a37d0c}\index{NPC@{NPC}!Resume@{Resume}}
+\index{Resume@{Resume}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{Resume()}{Resume()}}
+{\footnotesize\ttfamily \label{class_n_p_c_ac7c73f1ac13663f2b08af8f9f7a37d0c} 
+void NPC.\+Resume (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+The function resumes the movement of the agent, if the agent was paused bevore. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_n_p_c_aa27ca9e2eee2b7cbcbd2bdaa1d03d14f}{INPC}}.
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00392}{392}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a52216833b077a89afb05b1f9d1510c81}\index{NPC@{NPC}!SetInactive@{SetInactive}}
+\index{SetInactive@{SetInactive}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{SetInactive()}{SetInactive()}}
+{\footnotesize\ttfamily \label{class_n_p_c_a52216833b077a89afb05b1f9d1510c81} 
+void NPC.\+Set\+Inactive (\begin{DoxyParamCaption}\item[{Vector3}]{inactive\+Postion}{}\end{DoxyParamCaption})}
+
+
+
+Sets the agents as inactive and moves it to the inactive container. Agent no more moves. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em inactive\+Postion} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_n_p_c_a5fd5cc8f74bf4ed3a59bef8f3823121d}{INPC}}.
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00377}{377}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_ad4c5808368509dcbb0bb4fed7ec3eec0}\index{NPC@{NPC}!Stop@{Stop}}
+\index{Stop@{Stop}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{Stop()}{Stop()}}
+{\footnotesize\ttfamily \label{class_n_p_c_ad4c5808368509dcbb0bb4fed7ec3eec0} 
+void NPC.\+Stop (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Stops the agent. If the scene is paused. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_n_p_c_aadd53d7eb6483a48b66aa081dc73e6a4}{INPC}}.
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00388}{388}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_n_p_c_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_n_p_c_a005c0e72474eae60638de00f902db66b}\index{NPC@{NPC}!animated@{animated}}
+\index{animated@{animated}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{animated}{animated}}
+{\footnotesize\ttfamily \label{class_n_p_c_a005c0e72474eae60638de00f902db66b} 
+bool NPC.\+animated = false}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00008}{8}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a82a045e3f41979d6df7c42a96b399364}\index{NPC@{NPC}!checkForChangeIntervall@{checkForChangeIntervall}}
+\index{checkForChangeIntervall@{checkForChangeIntervall}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{checkForChangeIntervall}{checkForChangeIntervall}}
+{\footnotesize\ttfamily \label{class_n_p_c_a82a045e3f41979d6df7c42a96b399364} 
+float NPC.\+check\+For\+Change\+Intervall = 1f}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00032}{32}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a0ccd7e68f8e7ce132d0ca286e8315858}\index{NPC@{NPC}!currentGoalNode@{currentGoalNode}}
+\index{currentGoalNode@{currentGoalNode}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{currentGoalNode}{currentGoalNode}}
+{\footnotesize\ttfamily \label{class_n_p_c_a0ccd7e68f8e7ce132d0ca286e8315858} 
+\mbox{\hyperlink{class_goal_node}{Goal\+Node}}? NPC.\+current\+Goal\+Node = null}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00007}{7}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a7134c67fc09a8825608a48d4abfa1cc7}\index{NPC@{NPC}!exit@{exit}}
+\index{exit@{exit}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{exit}{exit}}
+{\footnotesize\ttfamily \label{class_n_p_c_a7134c67fc09a8825608a48d4abfa1cc7} 
+Vector3? NPC.\+exit = null}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00013}{13}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a0f1388acc3bc7d0d6f7b89ba5c603df5}\index{NPC@{NPC}!exiting@{exiting}}
+\index{exiting@{exiting}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{exiting}{exiting}}
+{\footnotesize\ttfamily \label{class_n_p_c_a0f1388acc3bc7d0d6f7b89ba5c603df5} 
+bool NPC.\+exiting = false}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00038}{38}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a1010052358db77bea3ad2ff254be5f81}\index{NPC@{NPC}!exitTolerance@{exitTolerance}}
+\index{exitTolerance@{exitTolerance}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{exitTolerance}{exitTolerance}}
+{\footnotesize\ttfamily \label{class_n_p_c_a1010052358db77bea3ad2ff254be5f81} 
+const float NPC.\+exit\+Tolerance = 0.\+1f\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00025}{25}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a37c841b2dc0363eef54ae9907fdb0637}\index{NPC@{NPC}!goalsBeforeExit@{goalsBeforeExit}}
+\index{goalsBeforeExit@{goalsBeforeExit}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{goalsBeforeExit}{goalsBeforeExit}}
+{\footnotesize\ttfamily \label{class_n_p_c_a37c841b2dc0363eef54ae9907fdb0637} 
+int NPC.\+goals\+Before\+Exit}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00031}{31}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a877399b1b6dbdc8a198a242bdd84a462}\index{NPC@{NPC}!inactive@{inactive}}
+\index{inactive@{inactive}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{inactive}{inactive}}
+{\footnotesize\ttfamily \label{class_n_p_c_a877399b1b6dbdc8a198a242bdd84a462} 
+bool NPC.\+inactive = false}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00035}{35}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a2866faf725bdf106c84b0ce9a3243aad}\index{NPC@{NPC}!lostPatience@{lostPatience}}
+\index{lostPatience@{lostPatience}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{lostPatience}{lostPatience}}
+{\footnotesize\ttfamily \label{class_n_p_c_a2866faf725bdf106c84b0ce9a3243aad} 
+bool NPC.\+lost\+Patience = false}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00044}{44}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a39d1b2afd450a60d28ba6ee0d980e4a3}\index{NPC@{NPC}!moveList@{moveList}}
+\index{moveList@{moveList}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{moveList}{moveList}}
+{\footnotesize\ttfamily \label{class_n_p_c_a39d1b2afd450a60d28ba6ee0d980e4a3} 
+Queue$<$Vector3$>$ NPC.\+move\+List = new Queue$<$Vector3$>$()}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00020}{20}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_aaa2f07f0baac51b9ab1f9fad56b3c60b}\index{NPC@{NPC}!nextWayPoint@{nextWayPoint}}
+\index{nextWayPoint@{nextWayPoint}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{nextWayPoint}{nextWayPoint}}
+{\footnotesize\ttfamily \label{class_n_p_c_aaa2f07f0baac51b9ab1f9fad56b3c60b} 
+Vector3? NPC.\+next\+Way\+Point}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00011}{11}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a67638727c2d6057e1b2b692a37715120}\index{NPC@{NPC}!onWayBackFromBude@{onWayBackFromBude}}
+\index{onWayBackFromBude@{onWayBackFromBude}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{onWayBackFromBude}{onWayBackFromBude}}
+{\footnotesize\ttfamily \label{class_n_p_c_a67638727c2d6057e1b2b692a37715120} 
+bool NPC.\+on\+Way\+Back\+From\+Bude = false}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00043}{43}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a53db3caea04355441bffc795182538db}\index{NPC@{NPC}!onWayToBude@{onWayToBude}}
+\index{onWayToBude@{onWayToBude}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{onWayToBude}{onWayToBude}}
+{\footnotesize\ttfamily \label{class_n_p_c_a53db3caea04355441bffc795182538db} 
+bool NPC.\+on\+Way\+To\+Bude = false}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00039}{39}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a0706890d4a077303cf022f04d13ab7b1}\index{NPC@{NPC}!onWayToExit@{onWayToExit}}
+\index{onWayToExit@{onWayToExit}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{onWayToExit}{onWayToExit}}
+{\footnotesize\ttfamily \label{class_n_p_c_a0706890d4a077303cf022f04d13ab7b1} 
+bool NPC.\+on\+Way\+To\+Exit = false}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00042}{42}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a86f9eafe4478e901a6d5588c8bdde942}\index{NPC@{NPC}!onWayToGoalNode@{onWayToGoalNode}}
+\index{onWayToGoalNode@{onWayToGoalNode}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{onWayToGoalNode}{onWayToGoalNode}}
+{\footnotesize\ttfamily \label{class_n_p_c_a86f9eafe4478e901a6d5588c8bdde942} 
+bool NPC.\+on\+Way\+To\+Goal\+Node = false}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00041}{41}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_ac9773e6a10d5fc6a6215fa9ea1c7bf7e}\index{NPC@{NPC}!onWayToStart@{onWayToStart}}
+\index{onWayToStart@{onWayToStart}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{onWayToStart}{onWayToStart}}
+{\footnotesize\ttfamily \label{class_n_p_c_ac9773e6a10d5fc6a6215fa9ea1c7bf7e} 
+bool NPC.\+on\+Way\+To\+Start = true}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00040}{40}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a526ea9ee609302726ffffd6ce1ccb9d5}\index{NPC@{NPC}!patience@{patience}}
+\index{patience@{patience}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{patience}{patience}}
+{\footnotesize\ttfamily \label{class_n_p_c_a526ea9ee609302726ffffd6ce1ccb9d5} 
+const float NPC.\+patience = 120f\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00023}{23}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_adc059f062d7023fb4a879f215feb0fa2}\index{NPC@{NPC}!patienceLost@{patienceLost}}
+\index{patienceLost@{patienceLost}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{patienceLost}{patienceLost}}
+{\footnotesize\ttfamily \label{class_n_p_c_adc059f062d7023fb4a879f215feb0fa2} 
+float NPC.\+patience\+Lost}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00029}{29}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a846074eb2ff67c996125e4456025aa18}\index{NPC@{NPC}!prevWayPoint@{prevWayPoint}}
+\index{prevWayPoint@{prevWayPoint}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{prevWayPoint}{prevWayPoint}}
+{\footnotesize\ttfamily \label{class_n_p_c_a846074eb2ff67c996125e4456025aa18} 
+Vector3? NPC.\+prev\+Way\+Point}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00012}{12}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a49bf061270ba4a5c9234cf804bd55470}\index{NPC@{NPC}!randomExitGoalNumber@{randomExitGoalNumber}}
+\index{randomExitGoalNumber@{randomExitGoalNumber}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{randomExitGoalNumber}{randomExitGoalNumber}}
+{\footnotesize\ttfamily \label{class_n_p_c_a49bf061270ba4a5c9234cf804bd55470} 
+bool NPC.\+random\+Exit\+Goal\+Number = true}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00034}{34}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a1ff4c824759ae05a03c0d1a10e14c626}\index{NPC@{NPC}!speed@{speed}}
+\index{speed@{speed}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{speed}{speed}}
+{\footnotesize\ttfamily \label{class_n_p_c_a1ff4c824759ae05a03c0d1a10e14c626} 
+float NPC.\+speed = 2f}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00028}{28}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a51fb45f20ca581f03203961a887e8b23}\index{NPC@{NPC}!stopped@{stopped}}
+\index{stopped@{stopped}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{stopped}{stopped}}
+{\footnotesize\ttfamily \label{class_n_p_c_a51fb45f20ca581f03203961a887e8b23} 
+bool NPC.\+stopped = false}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00036}{36}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_aa8d8682a9692b8e9428a9817939d3576}\index{NPC@{NPC}!timeLeftWaiting@{timeLeftWaiting}}
+\index{timeLeftWaiting@{timeLeftWaiting}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{timeLeftWaiting}{timeLeftWaiting}}
+{\footnotesize\ttfamily \label{class_n_p_c_aa8d8682a9692b8e9428a9817939d3576} 
+float NPC.\+time\+Left\+Waiting = 0.\+0f}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00030}{30}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a865e21aab1480d876ee80d7b9e85f740}\index{NPC@{NPC}!waiting@{waiting}}
+\index{waiting@{waiting}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{waiting}{waiting}}
+{\footnotesize\ttfamily \label{class_n_p_c_a865e21aab1480d876ee80d7b9e85f740} 
+bool NPC.\+waiting = false}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00037}{37}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a3db06ea0cc15da15cf8155c054b09742}\index{NPC@{NPC}!waitingSpot@{waitingSpot}}
+\index{waitingSpot@{waitingSpot}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{waitingSpot}{waitingSpot}}
+{\footnotesize\ttfamily \label{class_n_p_c_a3db06ea0cc15da15cf8155c054b09742} 
+Vector3? NPC.\+waiting\+Spot}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00010}{10}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a07634cde512523f3cd00739814c61e38}\index{NPC@{NPC}!waitingTolerance@{waitingTolerance}}
+\index{waitingTolerance@{waitingTolerance}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{waitingTolerance}{waitingTolerance}}
+{\footnotesize\ttfamily \label{class_n_p_c_a07634cde512523f3cd00739814c61e38} 
+const float NPC.\+waiting\+Tolerance = 0.\+2f\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00024}{24}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+\Hypertarget{class_n_p_c_a537a1938d7d36ba60b518401b0f3ada4}\index{NPC@{NPC}!wayPointTolerance@{wayPointTolerance}}
+\index{wayPointTolerance@{wayPointTolerance}!NPC@{NPC}}
+\doxysubsubsection{\texorpdfstring{wayPointTolerance}{wayPointTolerance}}
+{\footnotesize\ttfamily \label{class_n_p_c_a537a1938d7d36ba60b518401b0f3ada4} 
+const float NPC.\+way\+Point\+Tolerance = 0.\+3f\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_n_p_c_8cs_source_l00026}{26}} of file \mbox{\hyperlink{_n_p_c_8cs_source}{NPC.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Max\+Friedrich/\+Documents/gluehwein-\/planer/\+Gluehweinplaner/\+Assets/\+Scripts/\+Game\+Logik/NPC.\+cs\end{DoxyCompactItemize}

@@ -48,7 +48,7 @@ namespace Varjo.XR
             {
                 if (s_streamsInstances.Count > instanceIndex)
                 {
-                    s_streamsInstances[instanceIndex] = null;                
+                    s_streamsInstances[instanceIndex] = null;
                 }
 
                 //trim empty space:

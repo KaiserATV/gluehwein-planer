@@ -3,8 +3,6 @@ using UnityEditor;
 
 
 #pragma warning disable IDE0005
-using Serilog = Meryel.Serilog;
-using MQTTnet = Meryel.UnityCodeAssist.MQTTnet;
 #pragma warning restore IDE0005
 
 
@@ -73,7 +71,7 @@ namespace Meryel.UnityCodeAssist.Editor
 
             //Serilog.Log.Debug("MQTTnet constructing");
             Publisher = new MQTTnetPublisher();
-            
+
             RunOnShutdown(OnShutDown);
             Serilog.Log.Debug("MQTTnet initialized");
         }

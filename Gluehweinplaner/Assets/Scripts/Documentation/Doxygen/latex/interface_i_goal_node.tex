@@ -1,0 +1,198 @@
+\doxysection{IGoal\+Node Interface Reference}
+\hypertarget{interface_i_goal_node}{}\label{interface_i_goal_node}\index{IGoalNode@{IGoalNode}}
+Inheritance diagram for IGoal\+Node\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{interface_i_goal_node}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_i_goal_node_aff5665521d65563cb3530bef6aaa9b09}{Add\+Bude}} (\mbox{\hyperlink{class_bude}{Bude}} bude)
+\begin{DoxyCompactList}\small\item\em Function to add a Goal to an \doxylink{class_goal_node}{Goal\+Node}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_goal_node_a95b104dee1c54d330aa15db3850e7032}{Using\+Goalnode\+Add}} (\mbox{\hyperlink{class_n_p_c}{NPC}} npc)
+\begin{DoxyCompactList}\small\item\em The function used to register a \doxylink{class_n_p_c}{NPC} with the goalnode. The \doxylink{class_n_p_c}{NPC} must be registered with the goalnode they are visiting to warrent notification if a \doxylink{class_bude}{Bude} contained in the goalnode moves. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_goal_node_a3e789cdd8a0278a22c285ea979e3355a}{Bude\+Destroyed}} (\mbox{\hyperlink{class_bude}{Bude}} bude)
+\begin{DoxyCompactList}\small\item\em The Function gets called when a \doxylink{class_bude}{Bude} is beeing destroyed. This Function notifies all NPCs currently registered with a goalnode that they should repath. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_goal_node_a8b45055e60f05df856ac7503832b4c12}{Bude\+Moved}} (\mbox{\hyperlink{class_bude}{Bude}} bude)
+\begin{DoxyCompactList}\small\item\em The Function beeing called when a \doxylink{class_bude}{Bude} gets moved. This Function notifies all NPCs currently registered with a goalnode that they should repath. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_goal_node_a014ca2eb868d3540aed55f5ec7f93eb4}{Calculate\+Position}} ()
+\begin{DoxyCompactList}\small\item\em The Function to calculate the Position of the goalnode. This function takes into account every position of the contained Bude.\+It tries to find a point in the middle, where is assumed that the point has line of sight to a \doxylink{class_bude}{Bude}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_goal_node_a370252697157a31f621f089c5b08713b}{Remove\+Bude}} (\mbox{\hyperlink{class_bude}{Bude}} bude)
+\begin{DoxyCompactList}\small\item\em The function used to remove a \doxylink{class_bude}{Bude} from the list with lineofsight to. Should only be used in certain situations. Use \doxylink{interface_i_goal_node_a8b45055e60f05df856ac7503832b4c12}{Bude\+Moved()} or \doxylink{interface_i_goal_node_a3e789cdd8a0278a22c285ea979e3355a}{Bude\+Destroyed()} instead. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_goal_node_a42ce391bf51ebb0eced38cdc4bac627b}{Remove\+NPC}} (\mbox{\hyperlink{class_n_p_c}{NPC}} npc)
+\begin{DoxyCompactList}\small\item\em Function used to unregister a npc with the goalnode. Should be called, if they are exiting or on the way to a new goalnode. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_plate}{Plate}} \mbox{\hyperlink{interface_i_goal_node_aac2bd81e08b8c69d6de8cbc686e8b3eb}{On\+Plate}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The \doxylink{class_plate}{Plate} on which the goalnode currently is placed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_i_goal_node_8cs_source_l00001}{1}} of file \mbox{\hyperlink{_i_goal_node_8cs_source}{IGoal\+Node.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{interface_i_goal_node_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interface_i_goal_node_aff5665521d65563cb3530bef6aaa9b09}\index{IGoalNode@{IGoalNode}!AddBude@{AddBude}}
+\index{AddBude@{AddBude}!IGoalNode@{IGoalNode}}
+\doxysubsubsection{\texorpdfstring{AddBude()}{AddBude()}}
+{\footnotesize\ttfamily \label{interface_i_goal_node_aff5665521d65563cb3530bef6aaa9b09} 
+void IGoal\+Node.\+Add\+Bude (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_bude}{Bude}}}]{bude}{}\end{DoxyParamCaption})}
+
+
+
+Function to add a Goal to an \doxylink{class_goal_node}{Goal\+Node}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bude} & The \doxylink{class_bude}{Bude} to be added to the line of sight of a goalnode\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_goal_node_a4fdbb9b70833bf20e3b282f80ce5f918}{Goal\+Node}}.
+
+\Hypertarget{interface_i_goal_node_a3e789cdd8a0278a22c285ea979e3355a}\index{IGoalNode@{IGoalNode}!BudeDestroyed@{BudeDestroyed}}
+\index{BudeDestroyed@{BudeDestroyed}!IGoalNode@{IGoalNode}}
+\doxysubsubsection{\texorpdfstring{BudeDestroyed()}{BudeDestroyed()}}
+{\footnotesize\ttfamily \label{interface_i_goal_node_a3e789cdd8a0278a22c285ea979e3355a} 
+void IGoal\+Node.\+Bude\+Destroyed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_bude}{Bude}}}]{bude}{}\end{DoxyParamCaption})}
+
+
+
+The Function gets called when a \doxylink{class_bude}{Bude} is beeing destroyed. This Function notifies all NPCs currently registered with a goalnode that they should repath. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bude} & The \doxylink{class_bude}{Bude} beeing destroyed.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_goal_node_a0bfb120d48bc64a160c13bb41d6fc5b3}{Goal\+Node}}.
+
+\Hypertarget{interface_i_goal_node_a8b45055e60f05df856ac7503832b4c12}\index{IGoalNode@{IGoalNode}!BudeMoved@{BudeMoved}}
+\index{BudeMoved@{BudeMoved}!IGoalNode@{IGoalNode}}
+\doxysubsubsection{\texorpdfstring{BudeMoved()}{BudeMoved()}}
+{\footnotesize\ttfamily \label{interface_i_goal_node_a8b45055e60f05df856ac7503832b4c12} 
+void IGoal\+Node.\+Bude\+Moved (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_bude}{Bude}}}]{bude}{}\end{DoxyParamCaption})}
+
+
+
+The Function beeing called when a \doxylink{class_bude}{Bude} gets moved. This Function notifies all NPCs currently registered with a goalnode that they should repath. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bude} & The \doxylink{class_bude}{Bude} beeing moved.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_goal_node_aded8137140a91d73845f0a124b5813ff}{Goal\+Node}}.
+
+\Hypertarget{interface_i_goal_node_a014ca2eb868d3540aed55f5ec7f93eb4}\index{IGoalNode@{IGoalNode}!CalculatePosition@{CalculatePosition}}
+\index{CalculatePosition@{CalculatePosition}!IGoalNode@{IGoalNode}}
+\doxysubsubsection{\texorpdfstring{CalculatePosition()}{CalculatePosition()}}
+{\footnotesize\ttfamily \label{interface_i_goal_node_a014ca2eb868d3540aed55f5ec7f93eb4} 
+void IGoal\+Node.\+Calculate\+Position (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+The Function to calculate the Position of the goalnode. This function takes into account every position of the contained Bude.\+It tries to find a point in the middle, where is assumed that the point has line of sight to a \doxylink{class_bude}{Bude}. 
+
+
+
+Implemented in \mbox{\hyperlink{class_goal_node_ab6e546f1c3bbdd51f89984cff5a801bc}{Goal\+Node}}.
+
+\Hypertarget{interface_i_goal_node_a370252697157a31f621f089c5b08713b}\index{IGoalNode@{IGoalNode}!RemoveBude@{RemoveBude}}
+\index{RemoveBude@{RemoveBude}!IGoalNode@{IGoalNode}}
+\doxysubsubsection{\texorpdfstring{RemoveBude()}{RemoveBude()}}
+{\footnotesize\ttfamily \label{interface_i_goal_node_a370252697157a31f621f089c5b08713b} 
+void IGoal\+Node.\+Remove\+Bude (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_bude}{Bude}}}]{bude}{}\end{DoxyParamCaption})}
+
+
+
+The function used to remove a \doxylink{class_bude}{Bude} from the list with lineofsight to. Should only be used in certain situations. Use \doxylink{interface_i_goal_node_a8b45055e60f05df856ac7503832b4c12}{Bude\+Moved()} or \doxylink{interface_i_goal_node_a3e789cdd8a0278a22c285ea979e3355a}{Bude\+Destroyed()} instead. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bude} & The \doxylink{class_bude}{Bude} to be Removed\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_goal_node_ae5fb76d989aa4de3f8f0cbc4885bc598}{Goal\+Node}}.
+
+\Hypertarget{interface_i_goal_node_a42ce391bf51ebb0eced38cdc4bac627b}\index{IGoalNode@{IGoalNode}!RemoveNPC@{RemoveNPC}}
+\index{RemoveNPC@{RemoveNPC}!IGoalNode@{IGoalNode}}
+\doxysubsubsection{\texorpdfstring{RemoveNPC()}{RemoveNPC()}}
+{\footnotesize\ttfamily \label{interface_i_goal_node_a42ce391bf51ebb0eced38cdc4bac627b} 
+void IGoal\+Node.\+Remove\+NPC (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_n_p_c}{NPC}}}]{npc}{}\end{DoxyParamCaption})}
+
+
+
+Function used to unregister a npc with the goalnode. Should be called, if they are exiting or on the way to a new goalnode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em npc} & \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_goal_node_a750fb86a14acfea48393f2713e02f073}{Goal\+Node}}.
+
+\Hypertarget{interface_i_goal_node_a95b104dee1c54d330aa15db3850e7032}\index{IGoalNode@{IGoalNode}!UsingGoalnodeAdd@{UsingGoalnodeAdd}}
+\index{UsingGoalnodeAdd@{UsingGoalnodeAdd}!IGoalNode@{IGoalNode}}
+\doxysubsubsection{\texorpdfstring{UsingGoalnodeAdd()}{UsingGoalnodeAdd()}}
+{\footnotesize\ttfamily \label{interface_i_goal_node_a95b104dee1c54d330aa15db3850e7032} 
+void IGoal\+Node.\+Using\+Goalnode\+Add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_n_p_c}{NPC}}}]{npc}{}\end{DoxyParamCaption})}
+
+
+
+The function used to register a \doxylink{class_n_p_c}{NPC} with the goalnode. The \doxylink{class_n_p_c}{NPC} must be registered with the goalnode they are visiting to warrent notification if a \doxylink{class_bude}{Bude} contained in the goalnode moves. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em npc} & The \doxylink{class_n_p_c}{NPC} to be registered.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_goal_node_a17e2f154e667303195d38b7dabf2eaf7}{Goal\+Node}}.
+
+
+
+\label{doc-property-members}
+\Hypertarget{interface_i_goal_node_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{interface_i_goal_node_aac2bd81e08b8c69d6de8cbc686e8b3eb}\index{IGoalNode@{IGoalNode}!OnPlate@{OnPlate}}
+\index{OnPlate@{OnPlate}!IGoalNode@{IGoalNode}}
+\doxysubsubsection{\texorpdfstring{OnPlate}{OnPlate}}
+{\footnotesize\ttfamily \label{interface_i_goal_node_aac2bd81e08b8c69d6de8cbc686e8b3eb} 
+\mbox{\hyperlink{class_plate}{Plate}} IGoal\+Node.\+On\+Plate\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+The \doxylink{class_plate}{Plate} on which the goalnode currently is placed. 
+
+
+
+Implemented in \mbox{\hyperlink{class_goal_node_ad8f345087dac3086bfffa3cefee4b179}{Goal\+Node}}.
+
+
+
+Definition at line \mbox{\hyperlink{_i_goal_node_8cs_source_l00006}{6}} of file \mbox{\hyperlink{_i_goal_node_8cs_source}{IGoal\+Node.\+cs}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Max\+Friedrich/\+Documents/gluehwein-\/planer/\+Gluehweinplaner/\+Assets/\+Scripts/\+Documentation/IGoal\+Node.\+cs\end{DoxyCompactItemize}

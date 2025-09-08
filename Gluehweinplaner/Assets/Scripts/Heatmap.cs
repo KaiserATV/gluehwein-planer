@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-
-public class Heatmap : MonoBehaviour
+/// <inheritdoc cref="IHeatmap"/>
+public class Heatmap : MonoBehaviour, IHeatmap
 {
     public bool showMax = false;
     public bool showClear = true;
@@ -16,7 +16,7 @@ public class Heatmap : MonoBehaviour
     public Material material;
 
     private Bounds b;
-  
+
     private int statCounter = 0;
 
     public void Start()
@@ -35,7 +35,7 @@ public class Heatmap : MonoBehaviour
         material.SetVector("_MinVals", new Vector2(b.min.x, b.min.z));
     }
 
-   
+
     public void Reset()
     {
         properties = new float[2000];
@@ -55,7 +55,7 @@ public class Heatmap : MonoBehaviour
         {
             showCurrentAlpha();
             showClear = false;
-            showMax = false;        
+            showMax = false;
         }
         else if (statCounter == 1)
         {
@@ -70,7 +70,7 @@ public class Heatmap : MonoBehaviour
             showMax = false;
         }
 
-        statCounter = (statCounter+1) % 3;
+        statCounter = (statCounter + 1) % 3;
     }
 
     private void showClearArray()
@@ -100,20 +100,21 @@ public class Heatmap : MonoBehaviour
 
     public void Spawned(Vector3 spawnedPos)
     {
-        if(spawnedPos.x < b.min.x || spawnedPos.x > b.max.x || spawnedPos.z < b.min.z || spawnedPos.z > b.max.z) { return; }
+        if (spawnedPos.x < b.min.x || spawnedPos.x > b.max.x || spawnedPos.z < b.min.z || spawnedPos.z > b.max.z) { return; }
         Vector2Int inArray = new Vector2Int(
-            Mathf.FloorToInt((spawnedPos.x - b.min.x)/RowHeight)
+            Mathf.FloorToInt((spawnedPos.x - b.min.x) / RowHeight)
             ,
-            Mathf.FloorToInt((spawnedPos.z - b.min.z)/ColWidth)
+            Mathf.FloorToInt((spawnedPos.z - b.min.z) / ColWidth)
             );
         int index = Cols * inArray.x + inArray.y;
-        if (index < 0 || index >=2000) { return; }
+        if (index < 0 || index >= 2000) { return; }
         playCellCount[index] += 1;
         int c = playCellCount[index];
         int cM = playMaxCount[index];
         if (c > cM) playMaxCount[index] = c;
         properties[index] = determineAlpha(showMax ? cM : c);
-        if (showClear) { 
+        if (showClear)
+        {
             material.SetFloatArray("_Properties", clear);
         }
         else
@@ -124,14 +125,14 @@ public class Heatmap : MonoBehaviour
 
     public void ClearPos(Vector3 pos)
     {
-        if(pos.x < b.min.x || pos.x > b.max.x || pos.z < b.min.z || pos.z > b.max.z) { return; }
+        if (pos.x < b.min.x || pos.x > b.max.x || pos.z < b.min.z || pos.z > b.max.z) { return; }
         Vector2Int inArray = new Vector2Int(
         Mathf.FloorToInt((pos.x - b.min.x) / RowHeight)
         ,
         Mathf.FloorToInt((pos.z - b.min.z) / ColWidth)
         );
         int index = Cols * inArray.x + inArray.y;
-        if (index < 0 || index >=2000) { return; }
+        if (index < 0 || index >= 2000) { return; }
         int c = playCellCount[index];
         if (c > 0)
         {
@@ -151,15 +152,16 @@ public class Heatmap : MonoBehaviour
             Mathf.FloorToInt((from.z - b.min.z) / ColWidth)
             );
         int indexFrom = Cols * inArrayFrom.x + inArrayFrom.y;
-        
+
         Vector2Int inArrayTo = new Vector2Int(
             Mathf.FloorToInt((to.x - b.min.x) / RowHeight)
             ,
             Mathf.FloorToInt((to.z - b.min.z) / ColWidth)
             );
         int indexTo = Cols * inArrayTo.x + inArrayTo.y;
-        if(indexFrom == indexTo) { return; }
-        if (from.x < b.min.x || from.x > b.max.x || from.z < b.min.z || from.z > b.max.z) { 
+        if (indexFrom == indexTo) { return; }
+        if (from.x < b.min.x || from.x > b.max.x || from.z < b.min.z || from.z > b.max.z)
+        {
             if (to.x < b.min.x || to.x > b.max.x || to.z < b.min.z || to.z > b.max.z) { return; }
             playCellCount[indexTo] += 1;
             if (playCellCount[indexTo] > playMaxCount[indexTo]) { playMaxCount[indexTo] = playCellCount[indexTo]; }
@@ -174,7 +176,8 @@ public class Heatmap : MonoBehaviour
         }
         else
         {
-            if (to.x >= b.min.x && to.x <= b.max.x && to.z >= b.min.z && to.z <= b.max.z) {
+            if (to.x >= b.min.x && to.x <= b.max.x && to.z >= b.min.z && to.z <= b.max.z)
+            {
                 playCellCount[indexTo] += 1;
                 if (playCellCount[indexTo] > playMaxCount[indexTo]) { playMaxCount[indexTo] = playCellCount[indexTo]; }
                 if (showMax)
@@ -208,24 +211,25 @@ public class Heatmap : MonoBehaviour
 
     public float determineAlpha(int usage)
     {
-        if(usage == 0)
+        if (usage == 0)
         {
             return 0;
         }
-        if(usage <= usageCat.low)
+        if (usage <= usageCat.low)
         {
             return alphaCat.low;
         }
         else if (usage >= usageCat.high)
         {
-                return alphaCat.high;
+            return alphaCat.high;
         }
         else
         {
-            if(usage < usageCat.medium)
+            if (usage < usageCat.medium)
             {
                 return alphaCat.mediumLow;
-            }else if(usage < usageCat.mediumHigh)
+            }
+            else if (usage < usageCat.mediumHigh)
             {
                 return alphaCat.medium;
             }

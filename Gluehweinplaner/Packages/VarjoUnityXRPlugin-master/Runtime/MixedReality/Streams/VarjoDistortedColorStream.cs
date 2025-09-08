@@ -2,9 +2,8 @@
 
 using System;
 using System.Runtime.InteropServices;
-using Unity.Collections.LowLevel.Unsafe;
-
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 
 
 namespace Varjo.XR
@@ -84,7 +83,8 @@ namespace Varjo.XR
             rightBufferMetadata = Native.MRDistortedColorStream_GetLastFrameBufferMetadata(VarjoStreamChannel.Right);
             right = new NativeArray<byte>(rightBufferMetadata.byteSize, allocator, NativeArrayOptions.UninitializedMemory);
 
-            unsafe {
+            unsafe
+            {
                 void* pleft = NativeArrayUnsafeUtility.GetUnsafeBufferPointerWithoutChecks<byte>(left);
                 void* pright = NativeArrayUnsafeUtility.GetUnsafeBufferPointerWithoutChecks<byte>(right);
 
@@ -105,7 +105,8 @@ namespace Varjo.XR
 
         internal void ConvertNV12ToRGBA32(NativeArray<byte> cpuData, in VarjoBufferMetadata metadata, IntPtr destination, int destinationSize)
         {
-            unsafe {
+            unsafe
+            {
                 void* pdata = NativeArrayUnsafeUtility.GetUnsafeBufferPointerWithoutChecks<byte>(cpuData);
                 Native.MRConvertNV12ToRGBA32((IntPtr)pdata, in metadata, destination, destinationSize);
             }
@@ -113,7 +114,8 @@ namespace Varjo.XR
 
         internal void GetYPlane(NativeArray<byte> cpuData, in VarjoBufferMetadata metadata, IntPtr destination, int destinationSize)
         {
-            unsafe {
+            unsafe
+            {
                 void* pdata = NativeArrayUnsafeUtility.GetUnsafeBufferPointerWithoutChecks<byte>(cpuData);
                 Native.MRGetYPlane((IntPtr)pdata, in metadata, destination, destinationSize);
             }

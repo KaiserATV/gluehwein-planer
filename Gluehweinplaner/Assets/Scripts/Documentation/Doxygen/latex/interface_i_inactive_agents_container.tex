@@ -1,0 +1,106 @@
+\doxysection{IInactive\+Agents\+Container Interface Reference}
+\hypertarget{interface_i_inactive_agents_container}{}\label{interface_i_inactive_agents_container}\index{IInactiveAgentsContainer@{IInactiveAgentsContainer}}
+Inheritance diagram for IInactive\+Agents\+Container\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{interface_i_inactive_agents_container}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_i_inactive_agents_container_ab13b5a8f24d957e12229d36605fbbb1e}{Add\+Agent}} (\mbox{\hyperlink{class_n_p_c}{NPC}} npc)
+\begin{DoxyCompactList}\small\item\em Adds an Agent to the Inactiveagentscontainer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_n_p_c}{NPC}} \mbox{\hyperlink{interface_i_inactive_agents_container_a344854bd775d2396b6ade9f967a3fb7d}{Get\+Agent}} ()
+\begin{DoxyCompactList}\small\item\em Gets the first stored agent. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{interface_i_inactive_agents_container_a725f4e5a6a23ac397ed62cbc157a2e4c}{Get\+Stored\+Count}} ()
+\begin{DoxyCompactList}\small\item\em This function gets the amount of stored agents. \end{DoxyCompactList}\item 
+Vector3 \mbox{\hyperlink{interface_i_inactive_agents_container_a5ba68565b00ded906f5834a4866d3a00}{Get\+World\+Coords}} ()
+\begin{DoxyCompactList}\small\item\em Gets the worldcoordinates of the inactive agentcontainer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_i_inactive_agents_container_8cs_source_l00003}{3}} of file \mbox{\hyperlink{_i_inactive_agents_container_8cs_source}{IInactive\+Agents\+Container.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{interface_i_inactive_agents_container_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interface_i_inactive_agents_container_ab13b5a8f24d957e12229d36605fbbb1e}\index{IInactiveAgentsContainer@{IInactiveAgentsContainer}!AddAgent@{AddAgent}}
+\index{AddAgent@{AddAgent}!IInactiveAgentsContainer@{IInactiveAgentsContainer}}
+\doxysubsubsection{\texorpdfstring{AddAgent()}{AddAgent()}}
+{\footnotesize\ttfamily \label{interface_i_inactive_agents_container_ab13b5a8f24d957e12229d36605fbbb1e} 
+void IInactive\+Agents\+Container.\+Add\+Agent (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_n_p_c}{NPC}}}]{npc}{}\end{DoxyParamCaption})}
+
+
+
+Adds an Agent to the Inactiveagentscontainer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em npc} & The Agent to add\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_inactive_agents_container_a27a9f88c5c90736554cc496244f605e9}{Inactive\+Agents\+Container}}.
+
+\Hypertarget{interface_i_inactive_agents_container_a344854bd775d2396b6ade9f967a3fb7d}\index{IInactiveAgentsContainer@{IInactiveAgentsContainer}!GetAgent@{GetAgent}}
+\index{GetAgent@{GetAgent}!IInactiveAgentsContainer@{IInactiveAgentsContainer}}
+\doxysubsubsection{\texorpdfstring{GetAgent()}{GetAgent()}}
+{\footnotesize\ttfamily \label{interface_i_inactive_agents_container_a344854bd775d2396b6ade9f967a3fb7d} 
+\mbox{\hyperlink{class_n_p_c}{NPC}} IInactive\+Agents\+Container.\+Get\+Agent (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Gets the first stored agent. 
+
+\begin{DoxyReturn}{Returns}
+The first stored agent(npc).
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_inactive_agents_container_a2305c45ff8ff31d3c2d707be886c5656}{Inactive\+Agents\+Container}}.
+
+\Hypertarget{interface_i_inactive_agents_container_a725f4e5a6a23ac397ed62cbc157a2e4c}\index{IInactiveAgentsContainer@{IInactiveAgentsContainer}!GetStoredCount@{GetStoredCount}}
+\index{GetStoredCount@{GetStoredCount}!IInactiveAgentsContainer@{IInactiveAgentsContainer}}
+\doxysubsubsection{\texorpdfstring{GetStoredCount()}{GetStoredCount()}}
+{\footnotesize\ttfamily \label{interface_i_inactive_agents_container_a725f4e5a6a23ac397ed62cbc157a2e4c} 
+int IInactive\+Agents\+Container.\+Get\+Stored\+Count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+This function gets the amount of stored agents. 
+
+\begin{DoxyReturn}{Returns}
+Number of stored agents.
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_inactive_agents_container_a67a4b505c8d525be4f931413f035ddf3}{Inactive\+Agents\+Container}}.
+
+\Hypertarget{interface_i_inactive_agents_container_a5ba68565b00ded906f5834a4866d3a00}\index{IInactiveAgentsContainer@{IInactiveAgentsContainer}!GetWorldCoords@{GetWorldCoords}}
+\index{GetWorldCoords@{GetWorldCoords}!IInactiveAgentsContainer@{IInactiveAgentsContainer}}
+\doxysubsubsection{\texorpdfstring{GetWorldCoords()}{GetWorldCoords()}}
+{\footnotesize\ttfamily \label{interface_i_inactive_agents_container_a5ba68565b00ded906f5834a4866d3a00} 
+Vector3 IInactive\+Agents\+Container.\+Get\+World\+Coords (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Gets the worldcoordinates of the inactive agentcontainer. 
+
+\begin{DoxyReturn}{Returns}
+The worldcoordinates of the iac.
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_inactive_agents_container_aff4be1a0209b6d9e3662b7816848f03b}{Inactive\+Agents\+Container}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Max\+Friedrich/\+Documents/gluehwein-\/planer/\+Gluehweinplaner/\+Assets/\+Scripts/\+Documentation/IInactive\+Agents\+Container.\+cs\end{DoxyCompactItemize}

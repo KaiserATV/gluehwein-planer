@@ -1,0 +1,210 @@
+\doxysection{Bit\+Array2D Class Reference}
+\hypertarget{class_bit_array2_d}{}\label{class_bit_array2_d}\index{BitArray2D@{BitArray2D}}
+
+
+ 
+
+
+Inheritance diagram for Bit\+Array2D\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_bit_array2_d}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_bit_array2_d_ab8995ce17d9b3e1d102ccdc5ee8475d6}{Bit\+Array2D}} (Bounds b, Transform child, int p, float ax, float az)
+\item 
+void \mbox{\hyperlink{class_bit_array2_d_a260ea758760bf408df2f44f5b76aa083}{Reset}} ()
+\begin{DoxyCompactList}\small\item\em Resets all values to default. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_bit_array2_d_a4137eac132954f4d198550bc5042b2f2}{Get\+Kapa}} ()
+\begin{DoxyCompactList}\small\item\em Gets the total capacity of the waiting area. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{interface_i_bit_array2_d_a4a2e61f55d9573a5b5d8163098487671}{Vector3}} \mbox{\hyperlink{class_bit_array2_d_ae59935157ed567a33e149f6688691413}{Get\+Real\+World\+Cords}} (Vector2\+Int cells)
+\begin{DoxyCompactList}\small\item\em This Function returns the worldcoordinates of an provided waiting spot provided by the waiting area in the grid. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_bit_array2_d_a57e0fb106b2817c16331021fc1969b6c}{Remove\+Player}} (Vector2\+Int pos)
+\begin{DoxyCompactList}\small\item\em Function to remove a player from the waiting area and free up the spot. \end{DoxyCompactList}\item 
+Vector2\+Int \mbox{\hyperlink{class_bit_array2_d_a4e8fccd57441d077da3bfeac5723dee2}{Find\+Best\+Position\+And\+Add}} ()
+\item 
+bool \mbox{\hyperlink{class_bit_array2_d_aa21a6217d10fbfb03ce5ba3c9e334aab}{Is\+Full}} ()
+\begin{DoxyCompactList}\small\item\em This function checks if there is no more space to wait at in the waiting area. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_bit_array2_d_a9091538d950fbdce41a5d643ab32ed91}{Vector3}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{interface_i_bit_array2_d}{IBit\+Array2D}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interface_i_bit_array2_d_a4a2e61f55d9573a5b5d8163098487671}{Vector3}}
+\begin{DoxyCompactList}\small\item\em Finds the best poition to add an player and adds it there. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_bit_array2_d_8cs_source_l00004}{4}} of file \mbox{\hyperlink{_bit_array2_d_8cs_source}{Bit\+Array2\+D.\+cs}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_bit_array2_d_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_bit_array2_d_ab8995ce17d9b3e1d102ccdc5ee8475d6}\index{BitArray2D@{BitArray2D}!BitArray2D@{BitArray2D}}
+\index{BitArray2D@{BitArray2D}!BitArray2D@{BitArray2D}}
+\doxysubsubsection{\texorpdfstring{BitArray2D()}{BitArray2D()}}
+{\footnotesize\ttfamily \label{class_bit_array2_d_ab8995ce17d9b3e1d102ccdc5ee8475d6} 
+Bit\+Array2\+D.\+Bit\+Array2D (\begin{DoxyParamCaption}\item[{Bounds}]{b}{, }\item[{Transform}]{child}{, }\item[{int}]{p}{, }\item[{float}]{ax}{, }\item[{float}]{az}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_bit_array2_d_8cs_source_l00023}{23}} of file \mbox{\hyperlink{_bit_array2_d_8cs_source}{Bit\+Array2\+D.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_bit_array2_d_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_bit_array2_d_a4e8fccd57441d077da3bfeac5723dee2}\index{BitArray2D@{BitArray2D}!FindBestPositionAndAdd@{FindBestPositionAndAdd}}
+\index{FindBestPositionAndAdd@{FindBestPositionAndAdd}!BitArray2D@{BitArray2D}}
+\doxysubsubsection{\texorpdfstring{FindBestPositionAndAdd()}{FindBestPositionAndAdd()}}
+{\footnotesize\ttfamily \label{class_bit_array2_d_a4e8fccd57441d077da3bfeac5723dee2} 
+Vector2\+Int Bit\+Array2\+D.\+Find\+Best\+Position\+And\+Add (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Implements \mbox{\hyperlink{interface_i_bit_array2_d}{IBit\+Array2D}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bit_array2_d_8cs_source_l00089}{89}} of file \mbox{\hyperlink{_bit_array2_d_8cs_source}{Bit\+Array2\+D.\+cs}}.
+
+\Hypertarget{class_bit_array2_d_a4137eac132954f4d198550bc5042b2f2}\index{BitArray2D@{BitArray2D}!GetKapa@{GetKapa}}
+\index{GetKapa@{GetKapa}!BitArray2D@{BitArray2D}}
+\doxysubsubsection{\texorpdfstring{GetKapa()}{GetKapa()}}
+{\footnotesize\ttfamily \label{class_bit_array2_d_a4137eac132954f4d198550bc5042b2f2} 
+int Bit\+Array2\+D.\+Get\+Kapa (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Gets the total capacity of the waiting area. 
+
+\begin{DoxyReturn}{Returns}
+The total capacity of the waiting Area.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_bit_array2_d_a6c28a825aa451243c7c136dc82fe4925}{IBit\+Array2D}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bit_array2_d_8cs_source_l00051}{51}} of file \mbox{\hyperlink{_bit_array2_d_8cs_source}{Bit\+Array2\+D.\+cs}}.
+
+\Hypertarget{class_bit_array2_d_ae59935157ed567a33e149f6688691413}\index{BitArray2D@{BitArray2D}!GetRealWorldCords@{GetRealWorldCords}}
+\index{GetRealWorldCords@{GetRealWorldCords}!BitArray2D@{BitArray2D}}
+\doxysubsubsection{\texorpdfstring{GetRealWorldCords()}{GetRealWorldCords()}}
+{\footnotesize\ttfamily \label{class_bit_array2_d_ae59935157ed567a33e149f6688691413} 
+\mbox{\hyperlink{interface_i_bit_array2_d_a4a2e61f55d9573a5b5d8163098487671}{Vector3}} Bit\+Array2\+D.\+Get\+Real\+World\+Cords (\begin{DoxyParamCaption}\item[{Vector2\+Int}]{cells}{}\end{DoxyParamCaption})}
+
+
+
+This Function returns the worldcoordinates of an provided waiting spot provided by the waiting area in the grid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cells} & The waiting position within the grid.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The realdworld coordinates.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_bit_array2_d_a66fd719d6bce0e61e212698492474da2}{IBit\+Array2D}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bit_array2_d_8cs_source_l00063}{63}} of file \mbox{\hyperlink{_bit_array2_d_8cs_source}{Bit\+Array2\+D.\+cs}}.
+
+\Hypertarget{class_bit_array2_d_aa21a6217d10fbfb03ce5ba3c9e334aab}\index{BitArray2D@{BitArray2D}!IsFull@{IsFull}}
+\index{IsFull@{IsFull}!BitArray2D@{BitArray2D}}
+\doxysubsubsection{\texorpdfstring{IsFull()}{IsFull()}}
+{\footnotesize\ttfamily \label{class_bit_array2_d_aa21a6217d10fbfb03ce5ba3c9e334aab} 
+bool Bit\+Array2\+D.\+Is\+Full (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+This function checks if there is no more space to wait at in the waiting area. 
+
+\begin{DoxyReturn}{Returns}
+True if the waiting area is full and no spot to wait are left.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_bit_array2_d_aad021048bba4c5d06e8c6332bb5fb8bf}{IBit\+Array2D}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bit_array2_d_8cs_source_l00158}{158}} of file \mbox{\hyperlink{_bit_array2_d_8cs_source}{Bit\+Array2\+D.\+cs}}.
+
+\Hypertarget{class_bit_array2_d_a57e0fb106b2817c16331021fc1969b6c}\index{BitArray2D@{BitArray2D}!RemovePlayer@{RemovePlayer}}
+\index{RemovePlayer@{RemovePlayer}!BitArray2D@{BitArray2D}}
+\doxysubsubsection{\texorpdfstring{RemovePlayer()}{RemovePlayer()}}
+{\footnotesize\ttfamily \label{class_bit_array2_d_a57e0fb106b2817c16331021fc1969b6c} 
+void Bit\+Array2\+D.\+Remove\+Player (\begin{DoxyParamCaption}\item[{Vector2\+Int}]{pos}{}\end{DoxyParamCaption})}
+
+
+
+Function to remove a player from the waiting area and free up the spot. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & Position to free up.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_bit_array2_d_a9e3e30a14e47cf3f99827a3bdfedbd0e}{IBit\+Array2D}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bit_array2_d_8cs_source_l00083}{83}} of file \mbox{\hyperlink{_bit_array2_d_8cs_source}{Bit\+Array2\+D.\+cs}}.
+
+\Hypertarget{class_bit_array2_d_a260ea758760bf408df2f44f5b76aa083}\index{BitArray2D@{BitArray2D}!Reset@{Reset}}
+\index{Reset@{Reset}!BitArray2D@{BitArray2D}}
+\doxysubsubsection{\texorpdfstring{Reset()}{Reset()}}
+{\footnotesize\ttfamily \label{class_bit_array2_d_a260ea758760bf408df2f44f5b76aa083} 
+void Bit\+Array2\+D.\+Reset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Resets all values to default. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_bit_array2_d_ac9758bc01d2bbb34b83d481e0849b9f7}{IBit\+Array2D}}.
+
+
+
+Definition at line \mbox{\hyperlink{_bit_array2_d_8cs_source_l00047}{47}} of file \mbox{\hyperlink{_bit_array2_d_8cs_source}{Bit\+Array2\+D.\+cs}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_bit_array2_d_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_bit_array2_d_a9091538d950fbdce41a5d643ab32ed91}\index{BitArray2D@{BitArray2D}!Vector3@{Vector3}}
+\index{Vector3@{Vector3}!BitArray2D@{BitArray2D}}
+\doxysubsubsection{\texorpdfstring{Vector3}{Vector3}}
+{\footnotesize\ttfamily \label{class_bit_array2_d_a9091538d950fbdce41a5d643ab32ed91} 
+Bit\+Array2\+D.\+Vector3}
+
+
+
+Definition at line \mbox{\hyperlink{_bit_array2_d_8cs_source_l00089}{89}} of file \mbox{\hyperlink{_bit_array2_d_8cs_source}{Bit\+Array2\+D.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Max\+Friedrich/\+Documents/gluehwein-\/planer/\+Gluehweinplaner/\+Assets/\+Scripts/\+Buden/Bit\+Array2\+D.\+cs\end{DoxyCompactItemize}

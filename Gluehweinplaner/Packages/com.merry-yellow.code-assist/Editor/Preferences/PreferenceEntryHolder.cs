@@ -3,7 +3,6 @@ using UnityEngine;
 
 
 #pragma warning disable IDE0005
-using Serilog = Meryel.Serilog;
 #pragma warning restore IDE0005
 
 

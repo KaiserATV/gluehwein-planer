@@ -1,0 +1,786 @@
+\doxysection{Plate Class Reference}
+\hypertarget{class_plate}{}\label{class_plate}\index{Plate@{Plate}}
+
+
+ 
+
+
+Inheritance diagram for Plate\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_plate}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_plate_a7bb39b9967504b7e6a5a2550769cfd0e}{Plate}} (Vector3 pos, int\mbox{[},\mbox{]} bcm, bool d)
+\item 
+void \mbox{\hyperlink{class_plate_a5d9541aea5f81fa1d6b6ea4924e07edb}{Check\+For\+Portal\+Nodes}} (Exit\+Direction.\+Exit\+Directions dir)
+\begin{DoxyCompactList}\small\item\em Function to Check for a \doxylink{class_portal}{Portal} on specific side of an plate specified by the provided direction. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plate_a2347e1bee6d828db0b866e2aa69a878b}{Calculate\+Portal\+Nodes}} ()
+\begin{DoxyCompactList}\small\item\em Function used to Calulate ever \doxylink{class_portal}{Portal} on the \doxylink{class_plate}{Plate}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plate_a045c43d528947814feed81abc4aa5238}{Add\+Goal\+Node}} (\mbox{\hyperlink{class_goal_node}{Goal\+Node}} goal\+Node)
+\begin{DoxyCompactList}\small\item\em Function used to add an goalnode to the plate which is on the plate. Also adds the flowfield corresponding goal node to the dictonary. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_portal}{Portal}}? \mbox{\hyperlink{class_plate_a6ab6f39223127b6eef2ba571e2fdf66c}{Get\+Clostest\+Portal}} (Vector3 goal, Exit\+Direction.\+Exit\+Directions exit)
+\begin{DoxyCompactList}\small\item\em Returns the closest \doxylink{class_portal}{Portal} to an specific goal in an certain direction. \end{DoxyCompactList}\item 
+List$<$ Vector3 $>$ \mbox{\hyperlink{class_plate_afe91aaa87022f68796ac54fd611defe4}{Get\+Shortest\+Path\+To\+To\+Next\+Plate\+V3}} (\mbox{\hyperlink{class_portal}{Portal}} portal, Vector3 start)
+\begin{DoxyCompactList}\small\item\em Retunrs the shortest Path to an exitpoint. \end{DoxyCompactList}\item 
+List$<$ Vector2\+Int $>$ \mbox{\hyperlink{class_plate_ab67d4a32f81d9a5a76ed5430f9b8f477}{Get\+Shortest\+Path\+To\+To\+Next\+Plate\+V2}} (\mbox{\hyperlink{class_portal}{Portal}} portal, Vector2\+Int start\+Array)
+\begin{DoxyCompactList}\small\item\em Retunrs the shortest Path to an exitpoint. \end{DoxyCompactList}\item 
+List$<$ Vector3 $>$ \mbox{\hyperlink{class_plate_aa69d49a7b64c3d6b25b1e14e2eb36152}{Get\+Shortest\+Path\+To\+Goal\+Within}} (Vector3 \+\_\+start, Vector3 goal)
+\begin{DoxyCompactList}\small\item\em Returns a Path of Vector3 which represent a shortest Path from a starting position within the plate to a goal within a plate. \end{DoxyCompactList}\item 
+Vector3 \mbox{\hyperlink{class_plate_a357488ef22be07de19a80daeca4526c4}{Get\+Sub\+Tile\+Center\+World\+Coordinates}} (Vector2\+Int pos)
+\begin{DoxyCompactList}\small\item\em The function converts an position of Vector2\+Int within the plate to realworldcoordinates in relation to the plate. \end{DoxyCompactList}\item 
+Vector3 \mbox{\hyperlink{class_plate_a375903408cd81d9d1eaac10a6cd03346}{Get\+Sub\+Tile\+Center\+World\+Coordinates}} (int rows, int cols)
+\begin{DoxyCompactList}\small\item\em The function converts an position specifided by rowposition and columnposition within the plate to realworldcoordinates in relation to the plate. \end{DoxyCompactList}\item 
+Vector2\+Int \mbox{\hyperlink{class_plate_a7669aa9e14f19bfb887015604d559244}{Get\+Position\+In\+Array}} (Vector3 position\+Vector3, bool safe)
+\begin{DoxyCompactList}\small\item\em Converts an Vector3 to an Vector2\+Int that represents the tile within the plate. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_plate_ab499658e64e4e2ea18afec618d0db779}{Get\+Base\+Value\+At\+Position}} (Vector3 position, bool safe)
+\begin{DoxyCompactList}\small\item\em Returns the Value in the Basecostmatrix at the specific position. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_plate_ab7cf2e9ab03c2487157e2985d789475d}{Get\+Base\+Value\+At\+Position}} (int row, int column)
+\begin{DoxyCompactList}\small\item\em Returns the Value in the Basecostmatrix at the specific position. \end{DoxyCompactList}\item 
+Vector2\+Int \mbox{\hyperlink{class_plate_a9096841f21d0d683fb24f871cf32546c}{Occupy\+Spaces}} (\mbox{\hyperlink{class_bude}{Bude}} bude, Vector2\+Int start, Vector3 exit\+World)
+\begin{DoxyCompactList}\small\item\em The function to change the positions occupied by a bude on the plate in the basecostmatrix to not pathable. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plate_a02a8f675166e11dd74357322354a5419}{Bude\+Removed}} (\mbox{\hyperlink{class_bude}{Bude}} bude)
+\begin{DoxyCompactList}\small\item\em Function to remove an \doxylink{class_bude}{Bude} from the plate. \end{DoxyCompactList}\item 
+Vector2\+Int \mbox{\hyperlink{class_plate_a3f5b20170725f51d04a3afcb25383ac5}{Closer\+Vector2\+Int\+To\+Goal}} (Vector2\+Int a, Vector2\+Int b, Vector3 exit)
+\begin{DoxyCompactList}\small\item\em Returns the Vector2\+Int which is closer to the goal. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plate_abd3587491c653574c690214d028e70c6}{Recalc\+Wakable}} ()
+\begin{DoxyCompactList}\small\item\em Function to recalculate wether an plate can be walked on. Specificly recalculates Has\+Only\+Obstacles and Has\+No\+Obstcles. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_plate_aba87f2232596cddb0068050ea404a008}{Contains}} (Vector2\+Int check)
+\begin{DoxyCompactList}\small\item\em Checks if a Vector2\+Int is contained on an plate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_plate_a26f1e55a43508a0674a2cb9dda34ba0a}{can\+Path\+Diagonal}} = false
+\item 
+bool \mbox{\hyperlink{class_plate_a31fa70bad2aca68d0f931414c8d19ce6}{has\+Changed}} = false
+\item 
+bool \mbox{\hyperlink{class_plate_a97366a1f8a43b971100e5b75dabdc0a2}{Has\+No\+Obstacles}} = false
+\item 
+bool \mbox{\hyperlink{class_plate_a576729c1603c8c63fe56f1872799240d}{Has\+Only\+Obstacles}} = false
+\item 
+Dictionary$<$ Exit\+Direction.\+Exit\+Directions, List$<$ \mbox{\hyperlink{class_portal}{Portal}} $>$ $>$ \mbox{\hyperlink{class_plate_a6a5340cbceee2f78ddfd74f06fa6bb03}{exit\+Direction\+To\+Portals}} = new Dictionary$<$Exit\+Direction.\+Exit\+Directions, List$<$\mbox{\hyperlink{class_portal}{Portal}}$>$$>$()
+\item 
+Dictionary$<$(Vector2\+Int, Vector2\+Int), List$<$ Vector3 $>$ $>$ \mbox{\hyperlink{class_plate_a70dc32fafaa0e5d6f12a95cd7cdfcd1e}{paths\+Taken}} = new Dictionary$<$(Vector2\+Int, Vector2\+Int), List$<$Vector3$>$$>$()
+\item 
+Dictionary$<$ \mbox{\hyperlink{class_bude}{Bude}}, List$<$ Vector2\+Int $>$ $>$ \mbox{\hyperlink{class_plate_a6d108c568e3926d5b9cc55cc401ab7c6}{bude\+To\+Occupied\+Spaces}} = new Dictionary$<$\mbox{\hyperlink{class_bude}{Bude}}, List$<$Vector2\+Int$>$$>$()
+\item 
+Dictionary$<$(Vector2\+Int, Vector3), List$<$ Vector3 $>$ $>$ \mbox{\hyperlink{class_plate_aa5104b5ef71e70bef3cf83c86b791ec7}{final\+Paths}} = new Dictionary$<$(Vector2\+Int, Vector3), List$<$Vector3$>$$>$()
+\item 
+Dictionary$<$ Vector3, byte\mbox{[},\mbox{]}$>$ \mbox{\hyperlink{class_plate_afe7fe7142a0875078364b5d808c8b009}{final\+Flow\+Fields}} = new Dictionary$<$Vector3, byte\mbox{[},\mbox{]}$>$()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Vector3 \mbox{\hyperlink{class_plate_a72fd4613ad0d81bb2b1a648516f206f9}{Center}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The Center of the plate in realworld coordinates. \end{DoxyCompactList}\item 
+Vector3 \mbox{\hyperlink{class_plate_aa1b23b11b6144edc60b205c1051eef00}{Size}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The Size of the plate in each direction. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_plate_adde1e19fd07f33a370f625fe3d01e8af}{Rows}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The number of rows the plate has. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_plate_afb6dbab4f50d7620b37b44fb36a6372f}{Columns}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The number of columns the plate has. \end{DoxyCompactList}\item 
+int\mbox{[},\mbox{]} \mbox{\hyperlink{class_plate_ad8c31f9ffde7a0cc0dd4841facd0a0f9}{Base\+Cost\+Matrix}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The Basecostmatrix of the plate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00008}{8}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_plate_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_plate_a7bb39b9967504b7e6a5a2550769cfd0e}\index{Plate@{Plate}!Plate@{Plate}}
+\index{Plate@{Plate}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{Plate()}{Plate()}}
+{\footnotesize\ttfamily \label{class_plate_a7bb39b9967504b7e6a5a2550769cfd0e} 
+Plate.\+Plate (\begin{DoxyParamCaption}\item[{Vector3}]{pos}{, }\item[{int}]{bcm}{\mbox{[},\mbox{]}, }\item[{bool}]{d}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00010}{10}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_plate_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_plate_a045c43d528947814feed81abc4aa5238}\index{Plate@{Plate}!AddGoalNode@{AddGoalNode}}
+\index{AddGoalNode@{AddGoalNode}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{AddGoalNode()}{AddGoalNode()}}
+{\footnotesize\ttfamily \label{class_plate_a045c43d528947814feed81abc4aa5238} 
+void Plate.\+Add\+Goal\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_goal_node}{Goal\+Node}}}]{goal\+Node}{}\end{DoxyParamCaption})}
+
+
+
+Function used to add an goalnode to the plate which is on the plate. Also adds the flowfield corresponding goal node to the dictonary. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em goal\+Node} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_plate_a824605c1c29d0c67508b41b9b1501733}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00151}{151}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_a02a8f675166e11dd74357322354a5419}\index{Plate@{Plate}!BudeRemoved@{BudeRemoved}}
+\index{BudeRemoved@{BudeRemoved}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{BudeRemoved()}{BudeRemoved()}}
+{\footnotesize\ttfamily \label{class_plate_a02a8f675166e11dd74357322354a5419} 
+void Plate.\+Bude\+Removed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_bude}{Bude}}}]{bude}{}\end{DoxyParamCaption})}
+
+
+
+Function to remove an \doxylink{class_bude}{Bude} from the plate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bude} & The bude to be removed.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_plate_a1bfe1acc3448b15d747ca70fef47a207}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00369}{369}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_a2347e1bee6d828db0b866e2aa69a878b}\index{Plate@{Plate}!CalculatePortalNodes@{CalculatePortalNodes}}
+\index{CalculatePortalNodes@{CalculatePortalNodes}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{CalculatePortalNodes()}{CalculatePortalNodes()}}
+{\footnotesize\ttfamily \label{class_plate_a2347e1bee6d828db0b866e2aa69a878b} 
+void Plate.\+Calculate\+Portal\+Nodes (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Function used to Calulate ever \doxylink{class_portal}{Portal} on the \doxylink{class_plate}{Plate}. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_plate_a70858bad0794cf1c7d4d764fa980e0e1}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00088}{88}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_a5d9541aea5f81fa1d6b6ea4924e07edb}\index{Plate@{Plate}!CheckForPortalNodes@{CheckForPortalNodes}}
+\index{CheckForPortalNodes@{CheckForPortalNodes}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{CheckForPortalNodes()}{CheckForPortalNodes()}}
+{\footnotesize\ttfamily \label{class_plate_a5d9541aea5f81fa1d6b6ea4924e07edb} 
+void Plate.\+Check\+For\+Portal\+Nodes (\begin{DoxyParamCaption}\item[{Exit\+Direction.\+Exit\+Directions}]{dir}{}\end{DoxyParamCaption})}
+
+
+
+Function to Check for a \doxylink{class_portal}{Portal} on specific side of an plate specified by the provided direction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir} & Direction on which the sides to be calculated.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_plate_a667f732b91eaf1f3aaa56b443f4a5249}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00039}{39}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_a3f5b20170725f51d04a3afcb25383ac5}\index{Plate@{Plate}!CloserVector2IntToGoal@{CloserVector2IntToGoal}}
+\index{CloserVector2IntToGoal@{CloserVector2IntToGoal}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{CloserVector2IntToGoal()}{CloserVector2IntToGoal()}}
+{\footnotesize\ttfamily \label{class_plate_a3f5b20170725f51d04a3afcb25383ac5} 
+Vector2\+Int Plate.\+Closer\+Vector2\+Int\+To\+Goal (\begin{DoxyParamCaption}\item[{Vector2\+Int}]{a}{, }\item[{Vector2\+Int}]{b}{, }\item[{Vector3}]{exit}{}\end{DoxyParamCaption})}
+
+
+
+Returns the Vector2\+Int which is closer to the goal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The first Vector2\+Int to compare.\\
+\hline
+{\em b} & The second Vector2\+Int to compare.\\
+\hline
+{\em exit} & The Vector from which the distance is calculated.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The closer Vector2\+Int.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_plate_accf1c71e68ed791361c07c53b4d7be61}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00383}{383}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_aba87f2232596cddb0068050ea404a008}\index{Plate@{Plate}!Contains@{Contains}}
+\index{Contains@{Contains}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{Contains()}{Contains()}}
+{\footnotesize\ttfamily \label{class_plate_aba87f2232596cddb0068050ea404a008} 
+bool Plate.\+Contains (\begin{DoxyParamCaption}\item[{Vector2\+Int}]{check}{}\end{DoxyParamCaption})}
+
+
+
+Checks if a Vector2\+Int is contained on an plate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em check} & The Vector2\+Int to check.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if contained, false else
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_plate_a854a7a2472ba2d7149dad9f9ca6dd1c0}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00424}{424}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_ab7cf2e9ab03c2487157e2985d789475d}\index{Plate@{Plate}!GetBaseValueAtPosition@{GetBaseValueAtPosition}}
+\index{GetBaseValueAtPosition@{GetBaseValueAtPosition}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{GetBaseValueAtPosition()}{GetBaseValueAtPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_plate_ab7cf2e9ab03c2487157e2985d789475d} 
+int Plate.\+Get\+Base\+Value\+At\+Position (\begin{DoxyParamCaption}\item[{int}]{row}{, }\item[{int}]{column}{}\end{DoxyParamCaption})}
+
+
+
+Returns the Value in the Basecostmatrix at the specific position. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_plate_ab499658e64e4e2ea18afec618d0db779}{Get\+Base\+Value\+At\+Position(\+Vector3, bool)}
+
+
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em row} & The row in which the tile is.\\
+\hline
+{\em column} & The column in which the tile is.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the Basecostmatrix at the position.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_plate_ae8774475e3cab63746d7931e26ab0466}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00293}{293}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_ab499658e64e4e2ea18afec618d0db779}\index{Plate@{Plate}!GetBaseValueAtPosition@{GetBaseValueAtPosition}}
+\index{GetBaseValueAtPosition@{GetBaseValueAtPosition}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{GetBaseValueAtPosition()}{GetBaseValueAtPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_plate_ab499658e64e4e2ea18afec618d0db779} 
+int Plate.\+Get\+Base\+Value\+At\+Position (\begin{DoxyParamCaption}\item[{Vector3}]{position}{, }\item[{bool}]{safe}{}\end{DoxyParamCaption})}
+
+
+
+Returns the Value in the Basecostmatrix at the specific position. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_plate_ab7cf2e9ab03c2487157e2985d789475d}{Get\+Base\+Value\+At\+Position(int, int)}
+
+
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em position} & The position to be checked.\\
+\hline
+{\em safe} & Wether or not the Value is only considered within the bounds.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the Basecostmatrix at the position.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_plate_aa83c6af251936d2380ed52b181ff6ad9}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00288}{288}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_a6ab6f39223127b6eef2ba571e2fdf66c}\index{Plate@{Plate}!GetClostestPortal@{GetClostestPortal}}
+\index{GetClostestPortal@{GetClostestPortal}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{GetClostestPortal()}{GetClostestPortal()}}
+{\footnotesize\ttfamily \label{class_plate_a6ab6f39223127b6eef2ba571e2fdf66c} 
+\mbox{\hyperlink{class_portal}{Portal}}? Plate.\+Get\+Clostest\+Portal (\begin{DoxyParamCaption}\item[{Vector3}]{goal}{, }\item[{Exit\+Direction.\+Exit\+Directions}]{exit}{}\end{DoxyParamCaption})}
+
+
+
+Returns the closest \doxylink{class_portal}{Portal} to an specific goal in an certain direction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em goal} & The goal to which the Portalposition is compared.\\
+\hline
+{\em exit} & The exitdirection of which the portals are considered.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The Closest \doxylink{class_portal}{Portal}. Null if there is no \doxylink{class_portal}{Portal} in that direction.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_plate_a2fe65a60e2301c62643e5e9062adf4e6}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00174}{174}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_a7669aa9e14f19bfb887015604d559244}\index{Plate@{Plate}!GetPositionInArray@{GetPositionInArray}}
+\index{GetPositionInArray@{GetPositionInArray}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{GetPositionInArray()}{GetPositionInArray()}}
+{\footnotesize\ttfamily \label{class_plate_a7669aa9e14f19bfb887015604d559244} 
+Vector2\+Int Plate.\+Get\+Position\+In\+Array (\begin{DoxyParamCaption}\item[{Vector3}]{position\+Vector3}{, }\item[{bool}]{safe}{}\end{DoxyParamCaption})}
+
+
+
+Converts an Vector3 to an Vector2\+Int that represents the tile within the plate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position\+Vector3} & The position to convert.\\
+\hline
+{\em safe} & Wether the values should be clamped to values that are contained in the plate.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tile/\+Array position of the vector3.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_plate_a17fa94ed25d291a4ce0ae512d1d7df9a}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00275}{275}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_aa69d49a7b64c3d6b25b1e14e2eb36152}\index{Plate@{Plate}!GetShortestPathToGoalWithin@{GetShortestPathToGoalWithin}}
+\index{GetShortestPathToGoalWithin@{GetShortestPathToGoalWithin}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{GetShortestPathToGoalWithin()}{GetShortestPathToGoalWithin()}}
+{\footnotesize\ttfamily \label{class_plate_aa69d49a7b64c3d6b25b1e14e2eb36152} 
+List$<$ Vector3 $>$ Plate.\+Get\+Shortest\+Path\+To\+Goal\+Within (\begin{DoxyParamCaption}\item[{Vector3}]{\+\_\+start}{, }\item[{Vector3}]{goal}{}\end{DoxyParamCaption})}
+
+
+
+Returns a Path of Vector3 which represent a shortest Path from a starting position within the plate to a goal within a plate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+start} & The starting position.\\
+\hline
+{\em goal} & The end position.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The path taken in realworld coordinates.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_plate_ad25c6d4cd4ec2e1fa4bdaf33e71c0e6d}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00234}{234}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_ab67d4a32f81d9a5a76ed5430f9b8f477}\index{Plate@{Plate}!GetShortestPathToToNextPlateV2@{GetShortestPathToToNextPlateV2}}
+\index{GetShortestPathToToNextPlateV2@{GetShortestPathToToNextPlateV2}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{GetShortestPathToToNextPlateV2()}{GetShortestPathToToNextPlateV2()}}
+{\footnotesize\ttfamily \label{class_plate_ab67d4a32f81d9a5a76ed5430f9b8f477} 
+List$<$ Vector2\+Int $>$ Plate.\+Get\+Shortest\+Path\+To\+To\+Next\+Plate\+V2 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_portal}{Portal}}}]{portal}{, }\item[{Vector2\+Int}]{start\+Array}{}\end{DoxyParamCaption})}
+
+
+
+Retunrs the shortest Path to an exitpoint. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_plate_afe91aaa87022f68796ac54fd611defe4}{Get\+Shortest\+Path\+To\+To\+Next\+Plate\+V3(\+Portal, Vector3)}
+
+
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em portal} & The portal to take to the next plate.\\
+\hline
+{\em start\+Array} & The starting position within the array.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The steps to be taken in Vector2\+Int.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_plate_a48f263d2653ad6ebb4340495a0ac30b2}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00206}{206}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_afe91aaa87022f68796ac54fd611defe4}\index{Plate@{Plate}!GetShortestPathToToNextPlateV3@{GetShortestPathToToNextPlateV3}}
+\index{GetShortestPathToToNextPlateV3@{GetShortestPathToToNextPlateV3}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{GetShortestPathToToNextPlateV3()}{GetShortestPathToToNextPlateV3()}}
+{\footnotesize\ttfamily \label{class_plate_afe91aaa87022f68796ac54fd611defe4} 
+List$<$ Vector3 $>$ Plate.\+Get\+Shortest\+Path\+To\+To\+Next\+Plate\+V3 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_portal}{Portal}}}]{portal}{, }\item[{Vector3}]{start}{}\end{DoxyParamCaption})}
+
+
+
+Retunrs the shortest Path to an exitpoint. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_plate_afe91aaa87022f68796ac54fd611defe4}{Get\+Shortest\+Path\+To\+To\+Next\+Plate\+V3(\+Portal, Vector3)}
+
+
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em portal} & The portal to take to the next plate.\\
+\hline
+{\em start\+Array} & The starting position within the array.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The steps to be taken in realworldcoordinates.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_plate_a14aa2ea9414d455695db6dba15bf9c51}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00194}{194}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_a375903408cd81d9d1eaac10a6cd03346}\index{Plate@{Plate}!GetSubTileCenterWorldCoordinates@{GetSubTileCenterWorldCoordinates}}
+\index{GetSubTileCenterWorldCoordinates@{GetSubTileCenterWorldCoordinates}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{GetSubTileCenterWorldCoordinates()}{GetSubTileCenterWorldCoordinates()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_plate_a375903408cd81d9d1eaac10a6cd03346} 
+Vector3 Plate.\+Get\+Sub\+Tile\+Center\+World\+Coordinates (\begin{DoxyParamCaption}\item[{int}]{rows}{, }\item[{int}]{cols}{}\end{DoxyParamCaption})}
+
+
+
+The function converts an position specifided by rowposition and columnposition within the plate to realworldcoordinates in relation to the plate. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_plate_a357488ef22be07de19a80daeca4526c4}{Get\+Sub\+Tile\+Center\+World\+Coordinates(\+Vector2\+Int)}
+
+
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em rows} & The row position of the value.\\
+\hline
+{\em cols} & The column position of the value.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The realworld coordinates of the specified position in relation to the plate.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_plate_a0ab06625929f5c8e14985a186764d4ef}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00271}{271}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_a357488ef22be07de19a80daeca4526c4}\index{Plate@{Plate}!GetSubTileCenterWorldCoordinates@{GetSubTileCenterWorldCoordinates}}
+\index{GetSubTileCenterWorldCoordinates@{GetSubTileCenterWorldCoordinates}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{GetSubTileCenterWorldCoordinates()}{GetSubTileCenterWorldCoordinates()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_plate_a357488ef22be07de19a80daeca4526c4} 
+Vector3 Plate.\+Get\+Sub\+Tile\+Center\+World\+Coordinates (\begin{DoxyParamCaption}\item[{Vector2\+Int}]{pos}{}\end{DoxyParamCaption})}
+
+
+
+The function converts an position of Vector2\+Int within the plate to realworldcoordinates in relation to the plate. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_plate_a375903408cd81d9d1eaac10a6cd03346}{Get\+Sub\+Tile\+Center\+World\+Coordinates(int, int)}
+
+
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em rows} & The row position of the value.\\
+\hline
+{\em cols} & The column position of the value.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The realworld coordinates of the specified position in relation to the plate.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_plate_a8b6793fe7668cd1c7941f6440baba8e1}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00267}{267}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_a9096841f21d0d683fb24f871cf32546c}\index{Plate@{Plate}!OccupySpaces@{OccupySpaces}}
+\index{OccupySpaces@{OccupySpaces}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{OccupySpaces()}{OccupySpaces()}}
+{\footnotesize\ttfamily \label{class_plate_a9096841f21d0d683fb24f871cf32546c} 
+Vector2\+Int Plate.\+Occupy\+Spaces (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_bude}{Bude}}}]{bude}{, }\item[{Vector2\+Int}]{start}{, }\item[{Vector3}]{exit\+World}{}\end{DoxyParamCaption})}
+
+
+
+The function to change the positions occupied by a bude on the plate in the basecostmatrix to not pathable. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bude} & The bude from which the positions are taken.\\
+\hline
+{\em start} & The Starting position of the corner in the tiles.\\
+\hline
+{\em exit\+World} & The exitposition in realworldposition.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The position which is the last occupied space on the plate.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_plate_a64c628e4af55d4e7530f6452c3b19527}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00299}{299}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_abd3587491c653574c690214d028e70c6}\index{Plate@{Plate}!RecalcWakable@{RecalcWakable}}
+\index{RecalcWakable@{RecalcWakable}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{RecalcWakable()}{RecalcWakable()}}
+{\footnotesize\ttfamily \label{class_plate_abd3587491c653574c690214d028e70c6} 
+void Plate.\+Recalc\+Wakable (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Function to recalculate wether an plate can be walked on. Specificly recalculates Has\+Only\+Obstacles and Has\+No\+Obstcles. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_plate_a75257f562cb5bcc6604367e801ef457f}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00388}{388}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_plate_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_plate_a6d108c568e3926d5b9cc55cc401ab7c6}\index{Plate@{Plate}!budeToOccupiedSpaces@{budeToOccupiedSpaces}}
+\index{budeToOccupiedSpaces@{budeToOccupiedSpaces}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{budeToOccupiedSpaces}{budeToOccupiedSpaces}}
+{\footnotesize\ttfamily \label{class_plate_a6d108c568e3926d5b9cc55cc401ab7c6} 
+Dictionary$<$\mbox{\hyperlink{class_bude}{Bude}}, List$<$Vector2\+Int$>$ $>$ Plate.\+bude\+To\+Occupied\+Spaces = new Dictionary$<$\mbox{\hyperlink{class_bude}{Bude}}, List$<$Vector2\+Int$>$$>$()}
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00034}{34}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_a26f1e55a43508a0674a2cb9dda34ba0a}\index{Plate@{Plate}!canPathDiagonal@{canPathDiagonal}}
+\index{canPathDiagonal@{canPathDiagonal}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{canPathDiagonal}{canPathDiagonal}}
+{\footnotesize\ttfamily \label{class_plate_a26f1e55a43508a0674a2cb9dda34ba0a} 
+bool Plate.\+can\+Path\+Diagonal = false}
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00016}{16}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_a6a5340cbceee2f78ddfd74f06fa6bb03}\index{Plate@{Plate}!exitDirectionToPortals@{exitDirectionToPortals}}
+\index{exitDirectionToPortals@{exitDirectionToPortals}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{exitDirectionToPortals}{exitDirectionToPortals}}
+{\footnotesize\ttfamily \label{class_plate_a6a5340cbceee2f78ddfd74f06fa6bb03} 
+Dictionary$<$Exit\+Direction.\+Exit\+Directions, List$<$\mbox{\hyperlink{class_portal}{Portal}}$>$ $>$ Plate.\+exit\+Direction\+To\+Portals = new Dictionary$<$Exit\+Direction.\+Exit\+Directions, List$<$\mbox{\hyperlink{class_portal}{Portal}}$>$$>$()}
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00031}{31}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_afe7fe7142a0875078364b5d808c8b009}\index{Plate@{Plate}!finalFlowFields@{finalFlowFields}}
+\index{finalFlowFields@{finalFlowFields}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{finalFlowFields}{finalFlowFields}}
+{\footnotesize\ttfamily \label{class_plate_afe7fe7142a0875078364b5d808c8b009} 
+Dictionary$<$Vector3, byte\mbox{[},\mbox{]}$>$ Plate.\+final\+Flow\+Fields = new Dictionary$<$Vector3, byte\mbox{[},\mbox{]}$>$()}
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00037}{37}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_aa5104b5ef71e70bef3cf83c86b791ec7}\index{Plate@{Plate}!finalPaths@{finalPaths}}
+\index{finalPaths@{finalPaths}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{finalPaths}{finalPaths}}
+{\footnotesize\ttfamily \label{class_plate_aa5104b5ef71e70bef3cf83c86b791ec7} 
+Dictionary$<$(Vector2\+Int, Vector3), List$<$Vector3$>$ $>$ Plate.\+final\+Paths = new Dictionary$<$(Vector2\+Int, Vector3), List$<$Vector3$>$$>$()}
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00036}{36}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_a31fa70bad2aca68d0f931414c8d19ce6}\index{Plate@{Plate}!hasChanged@{hasChanged}}
+\index{hasChanged@{hasChanged}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{hasChanged}{hasChanged}}
+{\footnotesize\ttfamily \label{class_plate_a31fa70bad2aca68d0f931414c8d19ce6} 
+bool Plate.\+has\+Changed = false}
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00017}{17}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_a97366a1f8a43b971100e5b75dabdc0a2}\index{Plate@{Plate}!HasNoObstacles@{HasNoObstacles}}
+\index{HasNoObstacles@{HasNoObstacles}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{HasNoObstacles}{HasNoObstacles}}
+{\footnotesize\ttfamily \label{class_plate_a97366a1f8a43b971100e5b75dabdc0a2} 
+bool Plate.\+Has\+No\+Obstacles = false}
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00022}{22}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_a576729c1603c8c63fe56f1872799240d}\index{Plate@{Plate}!HasOnlyObstacles@{HasOnlyObstacles}}
+\index{HasOnlyObstacles@{HasOnlyObstacles}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{HasOnlyObstacles}{HasOnlyObstacles}}
+{\footnotesize\ttfamily \label{class_plate_a576729c1603c8c63fe56f1872799240d} 
+bool Plate.\+Has\+Only\+Obstacles = false}
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00024}{24}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_a70dc32fafaa0e5d6f12a95cd7cdfcd1e}\index{Plate@{Plate}!pathsTaken@{pathsTaken}}
+\index{pathsTaken@{pathsTaken}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{pathsTaken}{pathsTaken}}
+{\footnotesize\ttfamily \label{class_plate_a70dc32fafaa0e5d6f12a95cd7cdfcd1e} 
+Dictionary$<$(Vector2\+Int, Vector2\+Int), List$<$Vector3$>$ $>$ Plate.\+paths\+Taken = new Dictionary$<$(Vector2\+Int, Vector2\+Int), List$<$Vector3$>$$>$()}
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00032}{32}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+
+
+\label{doc-property-members}
+\Hypertarget{class_plate_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{class_plate_ad8c31f9ffde7a0cc0dd4841facd0a0f9}\index{Plate@{Plate}!BaseCostMatrix@{BaseCostMatrix}}
+\index{BaseCostMatrix@{BaseCostMatrix}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{BaseCostMatrix}{BaseCostMatrix}}
+{\footnotesize\ttfamily \label{class_plate_ad8c31f9ffde7a0cc0dd4841facd0a0f9} 
+int \mbox{[},\mbox{]} Plate.\+Base\+Cost\+Matrix\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+The Basecostmatrix of the plate. 
+
+\begin{DoxySeeAlso}{See also}
+Generate\+Matrix.\+Generate\+Base\+Cost\+Matrix(int, int, System.\+Func$<$int, int, bool$>$, out bool, out bool)
+
+
+\end{DoxySeeAlso}
+
+
+Implements \mbox{\hyperlink{interface_i_plate_a16ccceec9dd345ffa869b8400c31ee5c}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00027}{27}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_a72fd4613ad0d81bb2b1a648516f206f9}\index{Plate@{Plate}!Center@{Center}}
+\index{Center@{Center}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{Center}{Center}}
+{\footnotesize\ttfamily \label{class_plate_a72fd4613ad0d81bb2b1a648516f206f9} 
+Vector3 Plate.\+Center\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+The Center of the plate in realworld coordinates. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_plate_aeb2c96e9834d6c53b59ce40dc7475ed2}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00019}{19}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_afb6dbab4f50d7620b37b44fb36a6372f}\index{Plate@{Plate}!Columns@{Columns}}
+\index{Columns@{Columns}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{Columns}{Columns}}
+{\footnotesize\ttfamily \label{class_plate_afb6dbab4f50d7620b37b44fb36a6372f} 
+int Plate.\+Columns\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+The number of columns the plate has. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_plate_a273aa36aa73941fcb7cff464dcc7f752}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00026}{26}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_adde1e19fd07f33a370f625fe3d01e8af}\index{Plate@{Plate}!Rows@{Rows}}
+\index{Rows@{Rows}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{Rows}{Rows}}
+{\footnotesize\ttfamily \label{class_plate_adde1e19fd07f33a370f625fe3d01e8af} 
+int Plate.\+Rows\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+The number of rows the plate has. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_plate_a456edcf787d529b5bb575d806da10f85}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00025}{25}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+\Hypertarget{class_plate_aa1b23b11b6144edc60b205c1051eef00}\index{Plate@{Plate}!Size@{Size}}
+\index{Size@{Size}!Plate@{Plate}}
+\doxysubsubsection{\texorpdfstring{Size}{Size}}
+{\footnotesize\ttfamily \label{class_plate_aa1b23b11b6144edc60b205c1051eef00} 
+Vector3 Plate.\+Size\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+The Size of the plate in each direction. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_plate_a38483204dd732829b0f44e19fba9fd01}{IPlate}}.
+
+
+
+Definition at line \mbox{\hyperlink{_plate_8cs_source_l00020}{20}} of file \mbox{\hyperlink{_plate_8cs_source}{Plate.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Max\+Friedrich/\+Documents/gluehwein-\/planer/\+Gluehweinplaner/\+Assets/\+Scripts/\+Flow\+Field\+Setup/Plate.\+cs\end{DoxyCompactItemize}

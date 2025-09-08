@@ -1,0 +1,169 @@
+\doxysection{Spawner Class Reference}
+\hypertarget{class_spawner}{}\label{class_spawner}\index{Spawner@{Spawner}}
+
+
+ 
+
+
+Inheritance diagram for Spawner\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_spawner}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interface_i_spawner_a8f3cb2d54275a0df984545522dd0108e}{Vector3}} \mbox{\hyperlink{class_spawner_a0a5b7b0e640bf2b6851156884e50f5c5}{Generate\+Random\+Position}} ()
+\item 
+\mbox{\hyperlink{class_spawn_j_s_o_n}{Spawn\+JSON}} \mbox{\hyperlink{class_spawner_a4aa245e14fad43f36ca9a4fc62d36fc8}{To\+JSON}} ()
+\begin{DoxyCompactList}\small\item\em Converts the current state of the spawner to the spawner\+JSON object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{class_spawner_ab801b1ea8f12e7cd9fd63e4cd5061026}{min\+World\+LimitX}} = 0
+\item 
+float \mbox{\hyperlink{class_spawner_a2b2721bf1323bb40e168d76910c7d40c}{max\+World\+LimitX}} = 0
+\item 
+float \mbox{\hyperlink{class_spawner_a2720ba0bd75a0c027ddaa8e37048f0bb}{min\+World\+LimitZ}} = 0
+\item 
+float \mbox{\hyperlink{class_spawner_ac73cf33d8e15d0d0dac46641696d2322}{max\+World\+LimitZ}} = 0
+\item 
+float \mbox{\hyperlink{class_spawner_a9b6a29d21a28c356872d27dbeed1b13c}{spawn\+Time}} = 1f
+\item 
+float \mbox{\hyperlink{class_spawner_a5d764ac0896299561a98370c4f822fec}{agentradius}} = 1f
+\item 
+\mbox{\hyperlink{class_spawner_af89540d4b6ad179ef8374b0dc4618605}{Vector3}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{interface_i_spawner}{ISpawner}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interface_i_spawner_a8f3cb2d54275a0df984545522dd0108e}{Vector3}}
+\begin{DoxyCompactList}\small\item\em Generates a new random spawnposition. -\/ currently only the center of the of the spawner because of a bug with Physics.\+Check\+Sphere. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_spawner_8cs_source_l00003}{3}} of file \mbox{\hyperlink{_spawner_8cs_source}{Spawner.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_spawner_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_spawner_a0a5b7b0e640bf2b6851156884e50f5c5}\index{Spawner@{Spawner}!GenerateRandomPosition@{GenerateRandomPosition}}
+\index{GenerateRandomPosition@{GenerateRandomPosition}!Spawner@{Spawner}}
+\doxysubsubsection{\texorpdfstring{GenerateRandomPosition()}{GenerateRandomPosition()}}
+{\footnotesize\ttfamily \label{class_spawner_a0a5b7b0e640bf2b6851156884e50f5c5} 
+\mbox{\hyperlink{interface_i_spawner_a8f3cb2d54275a0df984545522dd0108e}{Vector3}} Spawner.\+Generate\+Random\+Position (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Implements \mbox{\hyperlink{interface_i_spawner}{ISpawner}}.
+
+
+
+Definition at line \mbox{\hyperlink{_spawner_8cs_source_l00070}{70}} of file \mbox{\hyperlink{_spawner_8cs_source}{Spawner.\+cs}}.
+
+\Hypertarget{class_spawner_a4aa245e14fad43f36ca9a4fc62d36fc8}\index{Spawner@{Spawner}!ToJSON@{ToJSON}}
+\index{ToJSON@{ToJSON}!Spawner@{Spawner}}
+\doxysubsubsection{\texorpdfstring{ToJSON()}{ToJSON()}}
+{\footnotesize\ttfamily \label{class_spawner_a4aa245e14fad43f36ca9a4fc62d36fc8} 
+\mbox{\hyperlink{class_spawn_j_s_o_n}{Spawn\+JSON}} Spawner.\+To\+JSON (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Converts the current state of the spawner to the spawner\+JSON object. 
+
+\begin{DoxyReturn}{Returns}
+The representative \doxylink{class_spawn_j_s_o_n}{Spawn\+JSON} object..
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_spawner_ad75df2862503533a99c6125ba39dd6d3}{ISpawner}}.
+
+
+
+Definition at line \mbox{\hyperlink{_spawner_8cs_source_l00084}{84}} of file \mbox{\hyperlink{_spawner_8cs_source}{Spawner.\+cs}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_spawner_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_spawner_a5d764ac0896299561a98370c4f822fec}\index{Spawner@{Spawner}!agentradius@{agentradius}}
+\index{agentradius@{agentradius}!Spawner@{Spawner}}
+\doxysubsubsection{\texorpdfstring{agentradius}{agentradius}}
+{\footnotesize\ttfamily \label{class_spawner_a5d764ac0896299561a98370c4f822fec} 
+float Spawner.\+agentradius = 1f}
+
+
+
+Definition at line \mbox{\hyperlink{_spawner_8cs_source_l00011}{11}} of file \mbox{\hyperlink{_spawner_8cs_source}{Spawner.\+cs}}.
+
+\Hypertarget{class_spawner_a2b2721bf1323bb40e168d76910c7d40c}\index{Spawner@{Spawner}!maxWorldLimitX@{maxWorldLimitX}}
+\index{maxWorldLimitX@{maxWorldLimitX}!Spawner@{Spawner}}
+\doxysubsubsection{\texorpdfstring{maxWorldLimitX}{maxWorldLimitX}}
+{\footnotesize\ttfamily \label{class_spawner_a2b2721bf1323bb40e168d76910c7d40c} 
+float Spawner.\+max\+World\+LimitX = 0}
+
+
+
+Definition at line \mbox{\hyperlink{_spawner_8cs_source_l00007}{7}} of file \mbox{\hyperlink{_spawner_8cs_source}{Spawner.\+cs}}.
+
+\Hypertarget{class_spawner_ac73cf33d8e15d0d0dac46641696d2322}\index{Spawner@{Spawner}!maxWorldLimitZ@{maxWorldLimitZ}}
+\index{maxWorldLimitZ@{maxWorldLimitZ}!Spawner@{Spawner}}
+\doxysubsubsection{\texorpdfstring{maxWorldLimitZ}{maxWorldLimitZ}}
+{\footnotesize\ttfamily \label{class_spawner_ac73cf33d8e15d0d0dac46641696d2322} 
+float Spawner.\+max\+World\+LimitZ = 0}
+
+
+
+Definition at line \mbox{\hyperlink{_spawner_8cs_source_l00009}{9}} of file \mbox{\hyperlink{_spawner_8cs_source}{Spawner.\+cs}}.
+
+\Hypertarget{class_spawner_ab801b1ea8f12e7cd9fd63e4cd5061026}\index{Spawner@{Spawner}!minWorldLimitX@{minWorldLimitX}}
+\index{minWorldLimitX@{minWorldLimitX}!Spawner@{Spawner}}
+\doxysubsubsection{\texorpdfstring{minWorldLimitX}{minWorldLimitX}}
+{\footnotesize\ttfamily \label{class_spawner_ab801b1ea8f12e7cd9fd63e4cd5061026} 
+float Spawner.\+min\+World\+LimitX = 0}
+
+
+
+Definition at line \mbox{\hyperlink{_spawner_8cs_source_l00006}{6}} of file \mbox{\hyperlink{_spawner_8cs_source}{Spawner.\+cs}}.
+
+\Hypertarget{class_spawner_a2720ba0bd75a0c027ddaa8e37048f0bb}\index{Spawner@{Spawner}!minWorldLimitZ@{minWorldLimitZ}}
+\index{minWorldLimitZ@{minWorldLimitZ}!Spawner@{Spawner}}
+\doxysubsubsection{\texorpdfstring{minWorldLimitZ}{minWorldLimitZ}}
+{\footnotesize\ttfamily \label{class_spawner_a2720ba0bd75a0c027ddaa8e37048f0bb} 
+float Spawner.\+min\+World\+LimitZ = 0}
+
+
+
+Definition at line \mbox{\hyperlink{_spawner_8cs_source_l00008}{8}} of file \mbox{\hyperlink{_spawner_8cs_source}{Spawner.\+cs}}.
+
+\Hypertarget{class_spawner_a9b6a29d21a28c356872d27dbeed1b13c}\index{Spawner@{Spawner}!spawnTime@{spawnTime}}
+\index{spawnTime@{spawnTime}!Spawner@{Spawner}}
+\doxysubsubsection{\texorpdfstring{spawnTime}{spawnTime}}
+{\footnotesize\ttfamily \label{class_spawner_a9b6a29d21a28c356872d27dbeed1b13c} 
+float Spawner.\+spawn\+Time = 1f}
+
+
+
+Definition at line \mbox{\hyperlink{_spawner_8cs_source_l00010}{10}} of file \mbox{\hyperlink{_spawner_8cs_source}{Spawner.\+cs}}.
+
+\Hypertarget{class_spawner_af89540d4b6ad179ef8374b0dc4618605}\index{Spawner@{Spawner}!Vector3@{Vector3}}
+\index{Vector3@{Vector3}!Spawner@{Spawner}}
+\doxysubsubsection{\texorpdfstring{Vector3}{Vector3}}
+{\footnotesize\ttfamily \label{class_spawner_af89540d4b6ad179ef8374b0dc4618605} 
+Spawner.\+Vector3}
+
+
+
+Definition at line \mbox{\hyperlink{_spawner_8cs_source_l00070}{70}} of file \mbox{\hyperlink{_spawner_8cs_source}{Spawner.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Max\+Friedrich/\+Documents/gluehwein-\/planer/\+Gluehweinplaner/\+Assets/\+Scripts/\+Spawner\+Despawner/Spawner.\+cs\end{DoxyCompactItemize}

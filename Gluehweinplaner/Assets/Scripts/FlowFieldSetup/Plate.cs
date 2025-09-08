@@ -147,7 +147,7 @@ public class Plate : IPlate
         exitDirectionToPortals.Add(dir, portalNodes);
     }
 
-   
+
     public void AddGoalNode(GoalNode goalNode)
     {
         if (goalNodes.Contains(goalNode)) { return; }
@@ -368,12 +368,17 @@ public class Plate : IPlate
     }
     public void BudeRemoved(Bude bude)
     {
-        List<Vector2Int> allOccupied = budeToOccupiedSpaces[b];
+        List<Vector2Int> allOccupied = budeToOccupiedSpaces[bude];
         foreach (Vector2Int step in allOccupied)
         {
             BaseCostMatrix[step.x, step.y] -= GenerateMatrix.MatrixObstacleValue;
         }
         hasChanged = true;
+
+        exitDirectionToPortals = new Dictionary<ExitDirection.ExitDirections, List<Portal>>();
+        pathsTaken = new Dictionary<(Vector2Int, Vector2Int), List<Vector3>>();
+        finalPaths = new Dictionary<(Vector2Int, Vector3), List<Vector3>>();
+        finalFlowFields = new Dictionary<Vector3, byte[,]>();
     }
     public Vector2Int CloserVector2IntToGoal(Vector2Int a, Vector2Int b, Vector3 exit)
     {

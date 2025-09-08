@@ -1,7 +1,7 @@
-using UnityEngine;
-using TMPro;
 using System;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour
     public Heatmap heatmapScript;
     private float scoreCount = 0;
     public SceneManager sceneManager;
-  
+
     void Start()
     {
         this.gameObject.SetActive(false);
@@ -25,7 +25,7 @@ public class ScoreManager : MonoBehaviour
         {
             if (bude != null)
             {
-                if (bude.CheckAuslastung()) BusyBuden++;
+                if (bude.CheckOccupation()) BusyBuden++;
             }
         }
 
@@ -73,7 +73,7 @@ public class ScoreManager : MonoBehaviour
     public void ToggleEffizenzScore()
     {
         this.gameObject.SetActive(!this.gameObject.activeInHierarchy);
-        if(this.gameObject.activeInHierarchy == true)
+        if (this.gameObject.activeInHierarchy == true)
         {
             Transform referenceTransform = Camera.main.transform;
             float distance = 1.75f;

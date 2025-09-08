@@ -1,14 +1,9 @@
 // Copyright 2019 Varjo Technologies Oy. All rights reserved.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
-using System.Linq;
-using UnityEngine;
-using UnityEngine.Profiling;
-using UnityEngine.Rendering;
 using System.Runtime.InteropServices;
+using UnityEngine;
 
 namespace Varjo.XR
 {

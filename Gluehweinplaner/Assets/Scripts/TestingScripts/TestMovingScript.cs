@@ -36,7 +36,7 @@ public class TestMovingScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(transform.position,towards) > 0.5f)
+        if (Vector3.Distance(transform.position, towards) > 0.5f)
         {
             Vector3 dir = Center - transform.position;
             if (dir != Vector3.zero)
@@ -52,9 +52,10 @@ public class TestMovingScript : MonoBehaviour
 
     void SetNewDirectionAndTowards(Vector3 old)
     {
-        if(old.x == topRight.x)
+        if (old.x == topRight.x)
         {
-            if (old.z == topRight.z) {
+            if (old.z == topRight.z)
+            {
                 currentDir = Direction.Down;
                 movingDirection = GetDirectionVector(Direction.Down);
                 towards = bottomRight;
@@ -95,14 +96,15 @@ public class TestMovingScript : MonoBehaviour
                 return new(-1, 0, 0);
             case Direction.Down:
                 return new(1, 0, 0);
-                default:
+            default:
                 return new(0, 0, 0);
         }
     }
 
 }
 
-public enum Direction{
+public enum Direction
+{
     Right,
     Left,
     Up,

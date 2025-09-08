@@ -1,0 +1,191 @@
+\doxysection{Bude.\+cs}
+\hypertarget{_bude_8cs_source}{}\label{_bude_8cs_source}\index{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/Buden/Bude.cs@{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/Buden/Bude.cs}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }UnityEngine;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00004}\mbox{\hyperlink{class_bude}{00004}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_bude}{Bude}}\ :\ MonoBehaviour,\ \mbox{\hyperlink{interface_i_bude}{IBude}}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00005}00005\ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00006}00006\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ WaitTime\ =\ 20;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00007}00007\ \ \ \ \ \textcolor{keyword}{public}\ GameObject\ Agent;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00008}00008\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ AgentWidthX\ =\ 2f;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00009}00009\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ AgentWidthZ\ =\ 2f;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00010}00010\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ attraktivitaet\ =\ 5;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00011}00011\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ kapazitaet;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00012}00012\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ delayBeforeNotBusy\ =\ 5f;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00013}00013\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{float}\ timeGoneBy\ =\ 0f;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00014}00014\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ busy\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00016}00016\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ tilesX;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00017}00017\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ tilesZ;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00019}00019\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{int}\ typeIndex;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00021}00021\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ attrakIncr\ =\ 10;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00022}00022\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ waitIncr\ =\ 5;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00024}00024\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{class_bit_array2_d}{BitArray2D}}\ wait\_L;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00025}00025\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{class_bit_array2_d}{BitArray2D}}\ wait\_R;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00026}00026\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{class_bit_array2_d}{BitArray2D}}\ ziel;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00028}00028\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_goal_node}{GoalNode}}\ goalNode;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00029}00029\ \ \ \ \ \textcolor{keyword}{public}\ List<Plate>\ onplates;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00031}\mbox{\hyperlink{class_bude_a713ac6f028b43d0614f6b21d902c7443}{00031}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_bude_a713ac6f028b43d0614f6b21d902c7443}{Start}}()}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00032}00032\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00033}00033\ \ \ \ \ \ \ \ \ transform.hasChanged\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00034}00034\ \ \ \ \ \ \ \ \ Bounds\ b\ =\ Agent!.GetComponentInChildren<MeshRenderer>().bounds;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00035}00035\ \ \ \ \ \ \ \ \ AgentWidthX\ =\ b.size.x;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ AgentWidthZ\ =\ b.size.z;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ !!!!IMPORTANT!!!!\ the\ number\ of\ the\ children\ specifies\ the\ position\ in\ the\ prefab,\ if\ changed,\ chang\ number\ here!!!!!!!}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1\ -\/\ Wait\_L,\ 2\ -\/\ Wait\_R,\ 3\ -\/\ Ziel}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Ziel\ Array}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ Transform\ child\ =\ transform.GetChild(3);}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00043}00043\ \ \ \ \ \ \ \ \ Bounds\ bound\ =\ child.GetComponent<MeshRenderer>().localBounds;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00044}00044\ \ \ \ \ \ \ \ \ ziel\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_bit_array2_d}{BitArray2D}}(bound,\ child,\ 0,\ AgentWidthX,\ AgentWidthZ);}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Wait\_L\ Array}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00047}00047\ \ \ \ \ \ \ \ \ child\ =\ transform.GetChild(1);}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00048}00048\ \ \ \ \ \ \ \ \ bound\ =\ child.GetComponent<MeshRenderer>().localBounds;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00049}00049\ \ \ \ \ \ \ \ \ wait\_L\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_bit_array2_d}{BitArray2D}}(bound,\ child,\ 1,\ AgentWidthX,\ AgentWidthZ);}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Wait\_R\ Array}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ child\ =\ transform.GetChild(2);}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00053}00053\ \ \ \ \ \ \ \ \ bound\ =\ child.GetComponent<MeshRenderer>().localBounds;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ wait\_R\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_bit_array2_d}{BitArray2D}}(bound,\ child,\ 2,\ AgentWidthX,\ AgentWidthZ);}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ CalcKapa();}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00057}00057\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00058}00058\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ Update()}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00059}00059\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (timeGoneBy\ <\ delayBeforeNotBusy)}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ timeGoneBy\ +=\ Time.deltaTime;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00063}00063\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00065}00065\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ busy\ =\ \mbox{\hyperlink{class_bude_a52243c921c4254c6545b1d3c7b6d0ba5}{CheckOccupation}}();}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ timeGoneBy\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00068}00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00069}00069\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00070}00070\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ CalcKapa()}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00071}00071\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00072}00072\ \ \ \ \ \ \ \ \ kapazitaet\ =\ ziel.GetKapa()\ +\ wait\_L.GetKapa()\ +\ wait\_R.GetKapa();}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00073}00073\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00074}\mbox{\hyperlink{class_bude_a99655bd57579b33a2e6b070c1c7b5948}{00074}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_bude_a99655bd57579b33a2e6b070c1c7b5948}{Reset}}()}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00075}00075\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00076}00076\ \ \ \ \ \ \ \ \ ziel.Reset();}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00077}00077\ \ \ \ \ \ \ \ \ wait\_L.Reset();}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00078}00078\ \ \ \ \ \ \ \ \ wait\_R.Reset();}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00079}00079\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00080}\mbox{\hyperlink{class_bude_a2e1cb51f2082eb72c339bddecdbf47ab}{00080}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_bude_a2e1cb51f2082eb72c339bddecdbf47ab}{BudeMoved}}()}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00081}00081\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00082}00082\ \ \ \ \ \ \ \ \ goalNode.BudeMoved(\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00083}00083\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00084}\mbox{\hyperlink{class_bude_a03dd47fe6349e5e2232db89f12eb3fef}{00084}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_bude_a03dd47fe6349e5e2232db89f12eb3fef}{BudeRemove}}()}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00085}00085\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00086}00086\ \ \ \ \ \ \ \ \ goalNode.BudeDestroyed(\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00087}00087\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00088}00088\ \ \ \ \ \textcolor{keyword}{public}\ (Vector3?,\ Vector3Int?)\ GetNewPosition()}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00089}00089\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00090}00090\ \ \ \ \ \ \ \ \ Vector3\ cellCoord;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00091}00091\ \ \ \ \ \ \ \ \ Vector2Int\ arrayPos;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00092}00092\ \ \ \ \ \ \ \ \ Vector3Int\ returnVector;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00093}00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ziel.\mbox{\hyperlink{class_bit_array2_d_aa21a6217d10fbfb03ce5ba3c9e334aab}{IsFull}}())}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00094}00094\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ (cellCoord,\ arrayPos)\ =\ ziel.FindBestPositionAndAdd();}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ returnVector\ =\ \textcolor{keyword}{new}(0,\ arrayPos.x,\ arrayPos.y);}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00097}00097\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (!wait\_L.IsFull())}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00099}00099\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ (cellCoord,\ arrayPos)\ =\ wait\_L.FindBestPositionAndAdd();}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ returnVector\ =\ \textcolor{keyword}{new}(1,\ arrayPos.x,\ arrayPos.y);}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00102}00102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (!wait\_R.IsFull())}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00104}00104\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ (cellCoord,\ arrayPos)\ =\ wait\_R.FindBestPositionAndAdd();}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ returnVector\ =\ \textcolor{keyword}{new}(2,\ arrayPos.x,\ arrayPos.y);}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00107}00107\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00109}00109\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{null},\ \textcolor{keyword}{null});}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00111}00111\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cellCoord,\ returnVector);}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00113}00113\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00114}\mbox{\hyperlink{class_bude_ac2b3cadb03050d692ee8771e17b7e25e}{00114}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_bude_ac2b3cadb03050d692ee8771e17b7e25e}{RemovePlayer}}(Vector3Int\ pos)}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00115}00115\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (pos.x)}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00117}00117\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ziel.RemovePlayer(\textcolor{keyword}{new}(pos.y,\ pos.z));}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ wait\_L.RemovePlayer(\textcolor{keyword}{new}(pos.y,\ pos.z));}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ wait\_R.RemovePlayer(\textcolor{keyword}{new}(pos.y,\ pos.z));}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00127}00127\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00128}00128\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00129}\mbox{\hyperlink{class_bude_a52243c921c4254c6545b1d3c7b6d0ba5}{00129}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_bude_a52243c921c4254c6545b1d3c7b6d0ba5}{CheckOccupation}}()}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00130}00130\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00131}00131\ \ \ \ \ \ \ \ \ busy\ =\ busy\ ||\ (ziel.IsFull()\ \&\&\ wait\_L.IsFull()\ \&\&\ wait\_R.IsFull());}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00132}00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ziel.IsFull()\ \&\&\ wait\_L.IsFull()\ \&\&\ wait\_R.IsFull();}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00133}00133\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00134}\mbox{\hyperlink{class_bude_abdf1fcd0fa0a65643bc9e2b6b6af97c0}{00134}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_bude_abdf1fcd0fa0a65643bc9e2b6b6af97c0}{increaseAttractivness}}()}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00135}00135\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00136}00136\ \ \ \ \ \ \ \ \ attraktivitaet++;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00138}00138\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00139}\mbox{\hyperlink{class_bude_a4830f11ea77a396a6e9b810d79e2afd1}{00139}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_bude_a4830f11ea77a396a6e9b810d79e2afd1}{decreaseAttractivness}}()}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00140}00140\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (attraktivitaet\ -\/\ attrakIncr\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00142}00142\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ attraktivitaet-\/-\/;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00144}00144\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00145}00145\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00146}\mbox{\hyperlink{class_bude_a3f539dcd168aa1b4019046b4ecbdadb4}{00146}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_bude_a3f539dcd168aa1b4019046b4ecbdadb4}{increaseWaittime}}()}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00147}00147\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00148}00148\ \ \ \ \ \ \ \ \ WaitTime++;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00150}00150\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00151}\mbox{\hyperlink{class_bude_ace7128912dd8922315ad2a3664a051b3}{00151}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_bude_ace7128912dd8922315ad2a3664a051b3}{decreaseWaittime}}()}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00152}00152\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00153}00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (WaitTime\ -\/\ waitIncr\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00154}00154\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ WaitTime-\/-\/;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00156}00156\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00157}00157\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00158}\mbox{\hyperlink{class_bude_a82a5de885b448d7a09ad0b5e4071b375}{00158}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_buden_j_s_o_n}{BudenJSON}}\ \mbox{\hyperlink{class_bude_a82a5de885b448d7a09ad0b5e4071b375}{GetBudenJSON}}()}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00159}00159\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00160}00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_buden_j_s_o_n}{BudenJSON}}(transform.position.x,\ transform.position.z,\ transform.eulerAngles.y,\ typeIndex,\ attraktivitaet,\ WaitTime);}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00161}00161\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00162}\mbox{\hyperlink{class_bude_aad9ce44c3274aba62595086e5ffcb847}{00162}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_bude_aad9ce44c3274aba62595086e5ffcb847}{SetTypeIndex}}(\textcolor{keywordtype}{int}\ i)}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00163}00163\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00164}00164\ \ \ \ \ \ \ \ \ typeIndex\ =\ i;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00165}00165\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00166}\mbox{\hyperlink{class_bude_a979b843196f38a3a1a94aaacbf43d9b3}{00166}}\ \ \ \ \ \textcolor{keyword}{public}\ Vector3\ \mbox{\hyperlink{class_bude_a979b843196f38a3a1a94aaacbf43d9b3}{GetPosition}}()\ \{\ \textcolor{keywordflow}{return}\ transform.position;\ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00167}\mbox{\hyperlink{class_bude_ac5e0386548e6c10723dd19837edd9c2f}{00167}}\ \ \ \ \ \textcolor{keyword}{public}\ List<Vector3>\ \mbox{\hyperlink{class_bude_ac5e0386548e6c10723dd19837edd9c2f}{GetAllCornerPoints}}()}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00168}00168\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00169}00169\ \ \ \ \ \ \ \ \ Transform\ t\ =\ this.transform.GetChild(4);}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00170}00170\ \ \ \ \ \ \ \ \ Bounds\ b\ =\ this.transform.GetChild(4).GetComponent<MeshRenderer>().localBounds;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00171}00171\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ List<Vector3>}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00172}00172\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ t.transform.TransformPoint(\textcolor{keyword}{new}\ Vector3(-\/b.size.x/2,\ 0,\ -\/b.size.z/2)),\textcolor{comment}{//Top\ Left}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ t.transform.TransformPoint(\textcolor{keyword}{new}\ Vector3(-\/b.size.x/2,\ 0,\ b.size.z/2)),\textcolor{comment}{//Top\ Right}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ t.transform.TransformPoint(\textcolor{keyword}{new}\ Vector3(b.size.x/2,\ 0,\ -\/b.size.z/2)),\textcolor{comment}{//Bottom\ Left}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ t.transform.TransformPoint(\textcolor{keyword}{new}\ Vector3(b.size.x/2,\ 0,\ b.size.z/2))\textcolor{comment}{//Bottom\ Right}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00177}00177\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00178}00178\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00179}\mbox{\hyperlink{class_bude_a4521d04fe57a4d48da5c6ff55f13ab61}{00179}}\ \ \ \ \ \textcolor{keyword}{public}\ Vector3\ \mbox{\hyperlink{class_bude_a4521d04fe57a4d48da5c6ff55f13ab61}{GetFacingDirection}}()\ \{\ \textcolor{keywordflow}{return}\ transform.GetChild(3).transform.position\ -\/\ transform.GetChild(0).transform.position;\ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00180}\mbox{\hyperlink{class_bude_aa552970bcf0f0ee53a8cd80985bfb671}{00180}}\ \ \ \ \ \textcolor{keyword}{public}\ Vector3\ \mbox{\hyperlink{class_bude_aa552970bcf0f0ee53a8cd80985bfb671}{GetFarestPoint}}()}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00181}00181\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00182}00182\ \ \ \ \ \ \ \ \ Transform\ t\ =\ this.transform.GetChild(3);}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00183}00183\ \ \ \ \ \ \ \ \ Bounds\ b\ =\ t.GetComponent<MeshRenderer>().localBounds;}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00184}00184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ t.TransformPoint(\textcolor{keyword}{new}\ Vector3(-\/b.size.x\ /\ 2,\ 0,\ 0));}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00185}00185\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_bude_8cs_source_l00186}00186\ \}}
+
+\end{DoxyCode}

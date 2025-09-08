@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 #nullable enable
-
-public class NPC : MonoBehaviour
+/// <inheritdoc cref="INPC"/>
+public class NPC : MonoBehaviour, INPC
 {
     public GoalNode? currentGoalNode = null;
+    public bool animated = false;
     private Vector3Int? waitingAt;
     public Vector3? waitingSpot;
     public Vector3? nextWayPoint;
@@ -12,7 +13,7 @@ public class NPC : MonoBehaviour
     public Vector3? exit = null;
     private Bude? bude = null;
     private SceneManager? sm = null;
-    //private Animator? animator;
+    private Animator animator;
     private string walkingName = "Walking";
     private string waitingName = "Waiting";
 
@@ -49,10 +50,10 @@ public class NPC : MonoBehaviour
         (Vector3 pos, Vector3 start) = sm!.GetNewSpawnPoint();
         this.transform.position = pos;
         prevWayPoint = start;
-        //animator = this.GetComponent<Animator>();
+
         sm!.Spawned(this.transform.position);
         patienceLost = patience;
-        //budenToVisit = sm!.CalcNewWeightedBuden(UnityEngine.Random.Range(0, sm!.GetGoalNoteCount() + 1));
+        //budenToVisit = sm!.CalcNewWeightedBuden(UnityEngine.Random.Range(0, sm!.GetGoalNodeCount() + 1));
         budenToVisit = sm!.CalcNewWeightedBuden(1);
         goalsBeforeExit = budenToVisit.Count;
         if (budenToVisit.Count == 0) { exiting = true; }
@@ -69,9 +70,12 @@ public class NPC : MonoBehaviour
                 onWayToGoalNode = true;
             }
         }
-        //animator.SetBool(walkingName, true);
+        if (animated)
+        {
+            animator = this.GetComponent<Animator>();
+            animator.SetBool(walkingName, true);
+        }
     }
-
     private void FixedUpdate()
     {
         if (!stopped)
@@ -176,7 +180,7 @@ public class NPC : MonoBehaviour
                                         exiting = true;
                                     }
                                 }
-                                
+
                             }
                         }
                         else
@@ -189,7 +193,10 @@ public class NPC : MonoBehaviour
                             {
                                 timeLeftWaiting = bude!.WaitTime;
                                 waiting = true;
-                                //animator!.SetBool(waitingName, true);
+                                if (animated)
+                                {
+                                    animator!.SetBool(waitingName, true);
+                                }
                                 onWayToBude = false;
                             }
                         }
@@ -210,7 +217,10 @@ public class NPC : MonoBehaviour
                         onWayToGoalNode = false;
                         waiting = false;
                         waitingSpot = null;
-                        //animator!.SetBool(waitingName, false);
+                        if (animated)
+                        {
+                            animator!.SetBool(waitingName, false);
+                        }
                     }
                 }
 
@@ -266,7 +276,6 @@ public class NPC : MonoBehaviour
             }
         }//stopped
     }
-
     public void BudeMoved(Bude movedBude)
     {
         if (bude == movedBude)
@@ -310,7 +319,6 @@ public class NPC : MonoBehaviour
             }
         }
     }
-
     public void Respawn()
     {
         (Vector3 pos, Vector3 start) = sm!.GetNewSpawnPoint();
@@ -333,7 +341,7 @@ public class NPC : MonoBehaviour
 
         exit = null;
 
-        goalsBeforeExit = UnityEngine.Random.Range(0, sm.GetGoalNoteCount() + 1);//In future mayy goal here
+        goalsBeforeExit = UnityEngine.Random.Range(0, sm.GetGoalNodeCount() + 1);//In future mayy goal here
         budenToVisit = sm!.CalcNewWeightedBuden(goalsBeforeExit);
         if (budenToVisit.Count == 0) { exiting = true; }
         else
@@ -348,9 +356,11 @@ public class NPC : MonoBehaviour
                 onWayToGoalNode = true;
             }
         }
-        //animator!.SetBool(walkingName, true);
+        if (animated)
+        {
+            animator!.SetBool(walkingName, true);
+        }
     }
-
     private void MoveTo(Vector3 towards, float timeSinceLastMove, bool showMoved)
     {
         Vector3 dir = towards - transform.position;
@@ -364,59 +374,25 @@ public class NPC : MonoBehaviour
             sm!.Moved(before, transform.position);
         }
     }
-
     public void SetInactive(Vector3 inactivePostion)
     {
         sm!.removePlayer(this);
         stopped = true;
         this.transform.position = inactivePostion;
-        //animator!.SetBool(waitingName, false);
-        //animator!.SetBool(walkingName, false);
+        if (animated)
+        {
+            animator!.SetBool(waitingName, false);
+            animator!.SetBool(walkingName, false);
+        }
     }
-
-    public void BudeDestroyed()
-    {
-        bude = null;
-
-        if (budenToVisit.Count == 0)
-        {
-            exiting = true;
-            currentGoalNode = null;
-        }
-        else
-        {
-            bude = budenToVisit.Dequeue();
-            currentGoalNode = bude.goalNode;
-        }
-
-        waiting = false;
-        if (sm!.simulating)
-        {
-            stopped = false;
-        }
-        else
-        {
-            stopped = true;
-        }
-        timeLeftWaiting = 0.0f;
-    }
-
     public void Stop()
     {
         stopped = true;
     }
-
     public void Resume()
     {
         stopped = false;
     }
-
-    public void SetMoveList(Queue<Vector3> list)
-    {
-        this.moveList = list;
-        nextWayPoint = moveList.Dequeue();
-    }
-
     public Vector3 GetPosition()
     {
         return this.transform.position;

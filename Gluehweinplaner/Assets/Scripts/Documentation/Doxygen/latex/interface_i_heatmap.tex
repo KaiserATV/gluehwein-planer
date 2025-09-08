@@ -1,0 +1,165 @@
+\doxysection{IHeatmap Interface Reference}
+\hypertarget{interface_i_heatmap}{}\label{interface_i_heatmap}\index{IHeatmap@{IHeatmap}}
+Inheritance diagram for IHeatmap\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{interface_i_heatmap}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_i_heatmap_af92eeadba8a2a81777b02f9bb19f5455}{Clear\+Pos}} (Vector3 pos)
+\begin{DoxyCompactList}\small\item\em Subtracts one from a position in the current list of positions. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{interface_i_heatmap_a6a68df12921f69cba0b5999c0906a0ca}{determine\+Alpha}} (int usage)
+\begin{DoxyCompactList}\small\item\em Determines the Color, or alpha, determined by he usage-\/ anount of agents at a position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_heatmap_ad1221f0d1ec07fe32251a611cc87e847}{Moved}} (Vector3 from, Vector3 to)
+\begin{DoxyCompactList}\small\item\em Moves the value from one position to another. This happens when an agents moves. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_heatmap_a16212a7a89073f940e5d406de7ed04c8}{Reset}} ()
+\begin{DoxyCompactList}\small\item\em Resets all values in the heatmap. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_heatmap_accc65c378ffcaac8f5194874eef734a9}{Spawned}} (Vector3 spawned\+Pos)
+\begin{DoxyCompactList}\small\item\em Thats into account when an agent spawns at an poition in the heatmap. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_heatmap_a492d16c26d262e6048d1ec8a614892dc}{Start}} ()
+\begin{DoxyCompactList}\small\item\em Initializes all fields. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_heatmap_a31baca75e02232de54a91666ab6c26b3}{Toggle\+Alpha\+Mode}} ()
+\begin{DoxyCompactList}\small\item\em Toggles the Alpha\+Mode between Max, Current and Clear. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_i_heatmap_8cs_source_l00003}{3}} of file \mbox{\hyperlink{_i_heatmap_8cs_source}{IHeatmap.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{interface_i_heatmap_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interface_i_heatmap_af92eeadba8a2a81777b02f9bb19f5455}\index{IHeatmap@{IHeatmap}!ClearPos@{ClearPos}}
+\index{ClearPos@{ClearPos}!IHeatmap@{IHeatmap}}
+\doxysubsubsection{\texorpdfstring{ClearPos()}{ClearPos()}}
+{\footnotesize\ttfamily \label{interface_i_heatmap_af92eeadba8a2a81777b02f9bb19f5455} 
+void IHeatmap.\+Clear\+Pos (\begin{DoxyParamCaption}\item[{Vector3}]{pos}{}\end{DoxyParamCaption})}
+
+
+
+Subtracts one from a position in the current list of positions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & The position where it should be subtracted.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_heatmap_a323ea113f6681e1139d46718f7389c4c}{Heatmap}}.
+
+\Hypertarget{interface_i_heatmap_a6a68df12921f69cba0b5999c0906a0ca}\index{IHeatmap@{IHeatmap}!determineAlpha@{determineAlpha}}
+\index{determineAlpha@{determineAlpha}!IHeatmap@{IHeatmap}}
+\doxysubsubsection{\texorpdfstring{determineAlpha()}{determineAlpha()}}
+{\footnotesize\ttfamily \label{interface_i_heatmap_a6a68df12921f69cba0b5999c0906a0ca} 
+float IHeatmap.\+determine\+Alpha (\begin{DoxyParamCaption}\item[{int}]{usage}{}\end{DoxyParamCaption})}
+
+
+
+Determines the Color, or alpha, determined by he usage-\/ anount of agents at a position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em usage} & The amount of agents at a position.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The alpha value corresponding to the agentcount.
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_heatmap_aec2021531cd41f6873f465123d1ce2c4}{Heatmap}}.
+
+\Hypertarget{interface_i_heatmap_ad1221f0d1ec07fe32251a611cc87e847}\index{IHeatmap@{IHeatmap}!Moved@{Moved}}
+\index{Moved@{Moved}!IHeatmap@{IHeatmap}}
+\doxysubsubsection{\texorpdfstring{Moved()}{Moved()}}
+{\footnotesize\ttfamily \label{interface_i_heatmap_ad1221f0d1ec07fe32251a611cc87e847} 
+void IHeatmap.\+Moved (\begin{DoxyParamCaption}\item[{Vector3}]{from}{, }\item[{Vector3}]{to}{}\end{DoxyParamCaption})}
+
+
+
+Moves the value from one position to another. This happens when an agents moves. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em from} & The position from where an agent moved.\\
+\hline
+{\em to} & The position to which an agent moved.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_heatmap_a75118becb7aeffaa28c21a8aae379b5b}{Heatmap}}.
+
+\Hypertarget{interface_i_heatmap_a16212a7a89073f940e5d406de7ed04c8}\index{IHeatmap@{IHeatmap}!Reset@{Reset}}
+\index{Reset@{Reset}!IHeatmap@{IHeatmap}}
+\doxysubsubsection{\texorpdfstring{Reset()}{Reset()}}
+{\footnotesize\ttfamily \label{interface_i_heatmap_a16212a7a89073f940e5d406de7ed04c8} 
+void IHeatmap.\+Reset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Resets all values in the heatmap. 
+
+
+
+Implemented in \mbox{\hyperlink{class_heatmap_abc124429398a53983f77fe306d669c3d}{Heatmap}}.
+
+\Hypertarget{interface_i_heatmap_accc65c378ffcaac8f5194874eef734a9}\index{IHeatmap@{IHeatmap}!Spawned@{Spawned}}
+\index{Spawned@{Spawned}!IHeatmap@{IHeatmap}}
+\doxysubsubsection{\texorpdfstring{Spawned()}{Spawned()}}
+{\footnotesize\ttfamily \label{interface_i_heatmap_accc65c378ffcaac8f5194874eef734a9} 
+void IHeatmap.\+Spawned (\begin{DoxyParamCaption}\item[{Vector3}]{spawned\+Pos}{}\end{DoxyParamCaption})}
+
+
+
+Thats into account when an agent spawns at an poition in the heatmap. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em spawned\+Pos} & The position at which the agent spawned.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_heatmap_acfa94c7ecab4429cf9f115b27fba6caf}{Heatmap}}.
+
+\Hypertarget{interface_i_heatmap_a492d16c26d262e6048d1ec8a614892dc}\index{IHeatmap@{IHeatmap}!Start@{Start}}
+\index{Start@{Start}!IHeatmap@{IHeatmap}}
+\doxysubsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily \label{interface_i_heatmap_a492d16c26d262e6048d1ec8a614892dc} 
+void IHeatmap.\+Start (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes all fields. 
+
+
+
+Implemented in \mbox{\hyperlink{class_heatmap_a42f87d22cb539167ee43e26294538cdc}{Heatmap}}.
+
+\Hypertarget{interface_i_heatmap_a31baca75e02232de54a91666ab6c26b3}\index{IHeatmap@{IHeatmap}!ToggleAlphaMode@{ToggleAlphaMode}}
+\index{ToggleAlphaMode@{ToggleAlphaMode}!IHeatmap@{IHeatmap}}
+\doxysubsubsection{\texorpdfstring{ToggleAlphaMode()}{ToggleAlphaMode()}}
+{\footnotesize\ttfamily \label{interface_i_heatmap_a31baca75e02232de54a91666ab6c26b3} 
+void IHeatmap.\+Toggle\+Alpha\+Mode (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Toggles the Alpha\+Mode between Max, Current and Clear. 
+
+
+
+Implemented in \mbox{\hyperlink{class_heatmap_a814ac46c13b5ee2f1971eb1d3ffaf2e1}{Heatmap}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Max\+Friedrich/\+Documents/gluehwein-\/planer/\+Gluehweinplaner/\+Assets/\+Scripts/\+Documentation/IHeatmap.\+cs\end{DoxyCompactItemize}

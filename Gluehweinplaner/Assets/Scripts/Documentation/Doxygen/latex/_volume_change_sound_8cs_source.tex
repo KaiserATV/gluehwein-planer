@@ -1,0 +1,61 @@
+\doxysection{Volume\+Change\+Sound.\+cs}
+\hypertarget{_volume_change_sound_8cs_source}{}\label{_volume_change_sound_8cs_source}\index{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/Audio/VolumeChangeSound.cs@{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/Audio/VolumeChangeSound.cs}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }UnityEngine;}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }UnityEngine.EventSystems;}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00004}00004\ [RequireComponent(typeof(EventTrigger))]}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00006}\mbox{\hyperlink{class_volume_change_sound}{00006}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_volume_change_sound}{VolumeChangeSound}}\ :\ MonoBehaviour}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00007}00007\ \{}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00008}00008\ \ \ \ \ [SerializeField]\ \textcolor{keyword}{private}\ AudioClip\ hoverSound;}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00009}00009\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{bool}\ isHovering;}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00011}00011\ \ \ \ \ [Header(\textcolor{stringliteral}{"{}Hover\ Settings"{}})]}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00012}00012\ \ \ \ \ [SerializeField]\ \textcolor{keyword}{private}\ \textcolor{keywordtype}{float}\ cooldown\ =\ 0.2f;}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00013}00013\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{float}\ lastPlayTime;}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00015}00015\ \ \ \ \ \textcolor{keywordtype}{void}\ Start()}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00016}00016\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00017}00017\ \ \ \ \ \ \ \ \ AddHoverTrigger();}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00018}00018\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00020}00020\ \ \ \ \ \textcolor{keywordtype}{void}\ AddHoverTrigger()}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00021}00021\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00022}00022\ \ \ \ \ \ \ \ \ EventTrigger\ trigger\ =\ GetComponent<EventTrigger>();}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00024}00024\ \ \ \ \ \ \ \ \ EventTrigger.Entry\ entry\ =\ \textcolor{keyword}{new}\ EventTrigger.Entry}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00025}00025\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ eventID\ =\ EventTriggerType.PointerEnter}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00027}00027\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00029}00029\ \ \ \ \ \ \ \ \ entry.callback.AddListener((data)\ =>\ \{\ OnPointerEnter();\ \});}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ trigger.triggers.Add(entry);}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00031}00031\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00033}00033\ \ \ \ \ \textcolor{keywordtype}{void}\ OnPointerEnter()}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00034}00034\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!isHovering)}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_f_x_manager}{SoundFXManager}}.instance.PlaySoundFXClip(hoverSound,\ transform,\ 0.8f);}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ isHovering\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00039}00039\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Time.time\ >\ lastPlayTime\ +\ cooldown)}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sound_f_x_manager}{SoundFXManager}}.instance.PlaySoundFXClip(hoverSound,\ transform,\ 0.8f);}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ lastPlayTime\ =\ Time.time;}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00046}00046\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00048}00048\ \ \ \ \ \textcolor{comment}{//\ Optional:\ Add\ pointer\ exit\ reset}}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00049}00049\ \ \ \ \ \textcolor{keywordtype}{void}\ OnPointerExit()}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00050}00050\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00051}00051\ \ \ \ \ \ \ \ \ isHovering\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00052}00052\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00053}00053\ \}}
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{_volume_change_sound_8cs_source_l00055}00055\ }
+
+\end{DoxyCode}

@@ -1,0 +1,300 @@
+\doxysection{Godmode\+Controller Class Reference}
+\hypertarget{class_godmode_controller}{}\label{class_godmode_controller}\index{GodmodeController@{GodmodeController}}
+Inheritance diagram for Godmode\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_godmode_controller}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+IEnumerator \mbox{\hyperlink{class_godmode_controller_aab0563c0b519bbccb78bc801da4e1757}{Toggle\+Godmode}} ()
+\item 
+void \mbox{\hyperlink{class_godmode_controller_abcbffc5d65b604d7dca458f56dcd82ef}{Start\+Placing\+Object}} ()
+\item 
+void \mbox{\hyperlink{class_godmode_controller_aa37fbf6faa0f67970d4ff45559dafced}{Stop\+Placing\+Object}} ()
+\item 
+bool \mbox{\hyperlink{class_godmode_controller_a3ddabf6aa1c700aa88bfce37120d4af4}{Is\+Godmode\+Active}} ()
+\item 
+void \mbox{\hyperlink{class_godmode_controller_a588cd1ba3dd84a21a0382c2c2db63e9b}{Toggle\+Godmode\+From\+Radial\+Menu}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Game\+Object \mbox{\hyperlink{class_godmode_controller_a890fd7b48d4c7761366845dad6701394}{xr\+Rig}}
+\item 
+float \mbox{\hyperlink{class_godmode_controller_adfbfd5d47cc54fae3a2d296a56bd93b2}{move\+Speed}} = 3f
+\item 
+float \mbox{\hyperlink{class_godmode_controller_a1c5f463fee5516ce7b373f0e017af187}{vertical\+Speed}} = 2f
+\item 
+float \mbox{\hyperlink{class_godmode_controller_a0fd8d72a71514391a81245448984e574}{transition\+Duration}} = 1f
+\item 
+float \mbox{\hyperlink{class_godmode_controller_a94cc16ca895770f50d1c0706f78ff001}{ground\+Threshold}} = 0.\+5f
+\item 
+float \mbox{\hyperlink{class_godmode_controller_a11f127a66e00df0746f22ad5469f0ab8}{camera\+Standard\+Height}} = 1.\+8f
+\item 
+float \mbox{\hyperlink{class_godmode_controller_ac2f996b4a4d1689576a490faebccda2e}{godmode\+Lift\+Height}} = 5f
+\item 
+float \mbox{\hyperlink{class_godmode_controller_aec711aac82404befa28b90a9197105a8}{vignette\+Size\+Godmode}} = 0.\+85f
+\item 
+float \mbox{\hyperlink{class_godmode_controller_a892b69e1c8b36688875b6adc0f274f44}{vignette\+Size\+During\+Reset}} = 0.\+65f
+\item 
+Input\+Action\+Reference \mbox{\hyperlink{class_godmode_controller_a11ed00849b1127742730e4b0482d1b03}{vertical\+Move\+Action}}
+\item 
+Input\+Action\+Reference \mbox{\hyperlink{class_godmode_controller_a43c9044e9a8554e53e7e3c03315ede52}{horizontal\+Move\+Action}}
+\item 
+Input\+Action\+Reference \mbox{\hyperlink{class_godmode_controller_aaefd056b6c28a9141ac8dda6e2773d66}{grab\+Action}}
+\item 
+Teleportation\+Provider \mbox{\hyperlink{class_godmode_controller_ab3f99caf6ae257b097c7d248ec754a40}{teleport\+Provider}}
+\item 
+Locomotion\+Provider \mbox{\hyperlink{class_godmode_controller_ace88b21c94cedb0529aafb3378d687a7}{snap\+Turn\+Provider}}
+\item 
+XRRay\+Interactor \mbox{\hyperlink{class_godmode_controller_a71761773e205d5e83cc4aaf80861aa5b}{teleport\+Ray\+Interactor}}
+\item 
+Locomotion\+Vignette\+Provider \mbox{\hyperlink{class_godmode_controller_af427213cb9befd9590aabca8f54d0fd7}{godmode\+Vignette\+Provider}}
+\item 
+Tunneling\+Vignette\+Controller \mbox{\hyperlink{class_godmode_controller_a4468f3530477d96ce46c84f1fc300c50}{tunneling\+Vignette\+Controller}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00006}{6}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_godmode_controller_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_godmode_controller_a3ddabf6aa1c700aa88bfce37120d4af4}\index{GodmodeController@{GodmodeController}!IsGodmodeActive@{IsGodmodeActive}}
+\index{IsGodmodeActive@{IsGodmodeActive}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{IsGodmodeActive()}{IsGodmodeActive()}}
+{\footnotesize\ttfamily \label{class_godmode_controller_a3ddabf6aa1c700aa88bfce37120d4af4} 
+bool Godmode\+Controller.\+Is\+Godmode\+Active (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00205}{205}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_abcbffc5d65b604d7dca458f56dcd82ef}\index{GodmodeController@{GodmodeController}!StartPlacingObject@{StartPlacingObject}}
+\index{StartPlacingObject@{StartPlacingObject}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{StartPlacingObject()}{StartPlacingObject()}}
+{\footnotesize\ttfamily \label{class_godmode_controller_abcbffc5d65b604d7dca458f56dcd82ef} 
+void Godmode\+Controller.\+Start\+Placing\+Object (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00195}{195}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_aa37fbf6faa0f67970d4ff45559dafced}\index{GodmodeController@{GodmodeController}!StopPlacingObject@{StopPlacingObject}}
+\index{StopPlacingObject@{StopPlacingObject}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{StopPlacingObject()}{StopPlacingObject()}}
+{\footnotesize\ttfamily \label{class_godmode_controller_aa37fbf6faa0f67970d4ff45559dafced} 
+void Godmode\+Controller.\+Stop\+Placing\+Object (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00200}{200}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_aab0563c0b519bbccb78bc801da4e1757}\index{GodmodeController@{GodmodeController}!ToggleGodmode@{ToggleGodmode}}
+\index{ToggleGodmode@{ToggleGodmode}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{ToggleGodmode()}{ToggleGodmode()}}
+{\footnotesize\ttfamily \label{class_godmode_controller_aab0563c0b519bbccb78bc801da4e1757} 
+IEnumerator Godmode\+Controller.\+Toggle\+Godmode (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00067}{67}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_a588cd1ba3dd84a21a0382c2c2db63e9b}\index{GodmodeController@{GodmodeController}!ToggleGodmodeFromRadialMenu@{ToggleGodmodeFromRadialMenu}}
+\index{ToggleGodmodeFromRadialMenu@{ToggleGodmodeFromRadialMenu}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{ToggleGodmodeFromRadialMenu()}{ToggleGodmodeFromRadialMenu()}}
+{\footnotesize\ttfamily \label{class_godmode_controller_a588cd1ba3dd84a21a0382c2c2db63e9b} 
+void Godmode\+Controller.\+Toggle\+Godmode\+From\+Radial\+Menu (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00210}{210}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_godmode_controller_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_godmode_controller_a11f127a66e00df0746f22ad5469f0ab8}\index{GodmodeController@{GodmodeController}!cameraStandardHeight@{cameraStandardHeight}}
+\index{cameraStandardHeight@{cameraStandardHeight}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{cameraStandardHeight}{cameraStandardHeight}}
+{\footnotesize\ttfamily \label{class_godmode_controller_a11f127a66e00df0746f22ad5469f0ab8} 
+float Godmode\+Controller.\+camera\+Standard\+Height = 1.\+8f}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00013}{13}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_ac2f996b4a4d1689576a490faebccda2e}\index{GodmodeController@{GodmodeController}!godmodeLiftHeight@{godmodeLiftHeight}}
+\index{godmodeLiftHeight@{godmodeLiftHeight}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{godmodeLiftHeight}{godmodeLiftHeight}}
+{\footnotesize\ttfamily \label{class_godmode_controller_ac2f996b4a4d1689576a490faebccda2e} 
+float Godmode\+Controller.\+godmode\+Lift\+Height = 5f}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00014}{14}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_af427213cb9befd9590aabca8f54d0fd7}\index{GodmodeController@{GodmodeController}!godmodeVignetteProvider@{godmodeVignetteProvider}}
+\index{godmodeVignetteProvider@{godmodeVignetteProvider}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{godmodeVignetteProvider}{godmodeVignetteProvider}}
+{\footnotesize\ttfamily \label{class_godmode_controller_af427213cb9befd9590aabca8f54d0fd7} 
+Locomotion\+Vignette\+Provider Godmode\+Controller.\+godmode\+Vignette\+Provider}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00032}{32}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_aaefd056b6c28a9141ac8dda6e2773d66}\index{GodmodeController@{GodmodeController}!grabAction@{grabAction}}
+\index{grabAction@{grabAction}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{grabAction}{grabAction}}
+{\footnotesize\ttfamily \label{class_godmode_controller_aaefd056b6c28a9141ac8dda6e2773d66} 
+Input\+Action\+Reference Godmode\+Controller.\+grab\+Action}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00026}{26}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_a94cc16ca895770f50d1c0706f78ff001}\index{GodmodeController@{GodmodeController}!groundThreshold@{groundThreshold}}
+\index{groundThreshold@{groundThreshold}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{groundThreshold}{groundThreshold}}
+{\footnotesize\ttfamily \label{class_godmode_controller_a94cc16ca895770f50d1c0706f78ff001} 
+float Godmode\+Controller.\+ground\+Threshold = 0.\+5f}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00012}{12}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_a43c9044e9a8554e53e7e3c03315ede52}\index{GodmodeController@{GodmodeController}!horizontalMoveAction@{horizontalMoveAction}}
+\index{horizontalMoveAction@{horizontalMoveAction}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{horizontalMoveAction}{horizontalMoveAction}}
+{\footnotesize\ttfamily \label{class_godmode_controller_a43c9044e9a8554e53e7e3c03315ede52} 
+Input\+Action\+Reference Godmode\+Controller.\+horizontal\+Move\+Action}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00025}{25}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_adfbfd5d47cc54fae3a2d296a56bd93b2}\index{GodmodeController@{GodmodeController}!moveSpeed@{moveSpeed}}
+\index{moveSpeed@{moveSpeed}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{moveSpeed}{moveSpeed}}
+{\footnotesize\ttfamily \label{class_godmode_controller_adfbfd5d47cc54fae3a2d296a56bd93b2} 
+float Godmode\+Controller.\+move\+Speed = 3f}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00009}{9}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_ace88b21c94cedb0529aafb3378d687a7}\index{GodmodeController@{GodmodeController}!snapTurnProvider@{snapTurnProvider}}
+\index{snapTurnProvider@{snapTurnProvider}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{snapTurnProvider}{snapTurnProvider}}
+{\footnotesize\ttfamily \label{class_godmode_controller_ace88b21c94cedb0529aafb3378d687a7} 
+Locomotion\+Provider Godmode\+Controller.\+snap\+Turn\+Provider}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00029}{29}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_ab3f99caf6ae257b097c7d248ec754a40}\index{GodmodeController@{GodmodeController}!teleportProvider@{teleportProvider}}
+\index{teleportProvider@{teleportProvider}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{teleportProvider}{teleportProvider}}
+{\footnotesize\ttfamily \label{class_godmode_controller_ab3f99caf6ae257b097c7d248ec754a40} 
+Teleportation\+Provider Godmode\+Controller.\+teleport\+Provider}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00028}{28}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_a71761773e205d5e83cc4aaf80861aa5b}\index{GodmodeController@{GodmodeController}!teleportRayInteractor@{teleportRayInteractor}}
+\index{teleportRayInteractor@{teleportRayInteractor}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{teleportRayInteractor}{teleportRayInteractor}}
+{\footnotesize\ttfamily \label{class_godmode_controller_a71761773e205d5e83cc4aaf80861aa5b} 
+XRRay\+Interactor Godmode\+Controller.\+teleport\+Ray\+Interactor}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00030}{30}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_a0fd8d72a71514391a81245448984e574}\index{GodmodeController@{GodmodeController}!transitionDuration@{transitionDuration}}
+\index{transitionDuration@{transitionDuration}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{transitionDuration}{transitionDuration}}
+{\footnotesize\ttfamily \label{class_godmode_controller_a0fd8d72a71514391a81245448984e574} 
+float Godmode\+Controller.\+transition\+Duration = 1f}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00011}{11}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_a4468f3530477d96ce46c84f1fc300c50}\index{GodmodeController@{GodmodeController}!tunnelingVignetteController@{tunnelingVignetteController}}
+\index{tunnelingVignetteController@{tunnelingVignetteController}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{tunnelingVignetteController}{tunnelingVignetteController}}
+{\footnotesize\ttfamily \label{class_godmode_controller_a4468f3530477d96ce46c84f1fc300c50} 
+Tunneling\+Vignette\+Controller Godmode\+Controller.\+tunneling\+Vignette\+Controller}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00033}{33}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_a11ed00849b1127742730e4b0482d1b03}\index{GodmodeController@{GodmodeController}!verticalMoveAction@{verticalMoveAction}}
+\index{verticalMoveAction@{verticalMoveAction}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{verticalMoveAction}{verticalMoveAction}}
+{\footnotesize\ttfamily \label{class_godmode_controller_a11ed00849b1127742730e4b0482d1b03} 
+Input\+Action\+Reference Godmode\+Controller.\+vertical\+Move\+Action}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00024}{24}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_a1c5f463fee5516ce7b373f0e017af187}\index{GodmodeController@{GodmodeController}!verticalSpeed@{verticalSpeed}}
+\index{verticalSpeed@{verticalSpeed}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{verticalSpeed}{verticalSpeed}}
+{\footnotesize\ttfamily \label{class_godmode_controller_a1c5f463fee5516ce7b373f0e017af187} 
+float Godmode\+Controller.\+vertical\+Speed = 2f}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00010}{10}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_a892b69e1c8b36688875b6adc0f274f44}\index{GodmodeController@{GodmodeController}!vignetteSizeDuringReset@{vignetteSizeDuringReset}}
+\index{vignetteSizeDuringReset@{vignetteSizeDuringReset}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{vignetteSizeDuringReset}{vignetteSizeDuringReset}}
+{\footnotesize\ttfamily \label{class_godmode_controller_a892b69e1c8b36688875b6adc0f274f44} 
+float Godmode\+Controller.\+vignette\+Size\+During\+Reset = 0.\+65f}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00017}{17}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_aec711aac82404befa28b90a9197105a8}\index{GodmodeController@{GodmodeController}!vignetteSizeGodmode@{vignetteSizeGodmode}}
+\index{vignetteSizeGodmode@{vignetteSizeGodmode}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{vignetteSizeGodmode}{vignetteSizeGodmode}}
+{\footnotesize\ttfamily \label{class_godmode_controller_aec711aac82404befa28b90a9197105a8} 
+float Godmode\+Controller.\+vignette\+Size\+Godmode = 0.\+85f}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00016}{16}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+\Hypertarget{class_godmode_controller_a890fd7b48d4c7761366845dad6701394}\index{GodmodeController@{GodmodeController}!xrRig@{xrRig}}
+\index{xrRig@{xrRig}!GodmodeController@{GodmodeController}}
+\doxysubsubsection{\texorpdfstring{xrRig}{xrRig}}
+{\footnotesize\ttfamily \label{class_godmode_controller_a890fd7b48d4c7761366845dad6701394} 
+Game\+Object Godmode\+Controller.\+xr\+Rig}
+
+
+
+Definition at line \mbox{\hyperlink{_godmode_controller_8cs_source_l00008}{8}} of file \mbox{\hyperlink{_godmode_controller_8cs_source}{Godmode\+Controller.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Max\+Friedrich/\+Documents/gluehwein-\/planer/\+Gluehweinplaner/\+Assets/\+Scripts/\+Movement/Godmode\+Controller.\+cs\end{DoxyCompactItemize}

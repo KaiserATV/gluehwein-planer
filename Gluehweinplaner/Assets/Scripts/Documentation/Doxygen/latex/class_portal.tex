@@ -1,0 +1,171 @@
+\doxysection{Portal Class Reference}
+\hypertarget{class_portal}{}\label{class_portal}\index{Portal@{Portal}}
+
+
+ 
+
+
+Inheritance diagram for Portal\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_portal}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_portal_a08118dab79ef198f89791c970f2193b5}{Portal}} (List$<$ Vector2\+Int $>$ pos2)
+\item 
+void \mbox{\hyperlink{class_portal_afb7092105c03266a522c637fa2eb0802}{Generate\+Flow\+Field}} (\mbox{\hyperlink{class_plate}{Plate}} plate)
+\begin{DoxyCompactList}\small\item\em Function to initialize the generation of the flowfield to a certain Exit/\+Portal. \end{DoxyCompactList}\item 
+Vector2\+Int \mbox{\hyperlink{class_portal_a072f2a3a5d24ea5d343ab19d64e57d86}{Get\+Clostest\+To\+Start}} (Vector2\+Int start)
+\begin{DoxyCompactList}\small\item\em Function to get the closest Point of exitpoints in the portal to a start point. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Vector2\+Int \mbox{\hyperlink{class_portal_a15800bd3f48481b74c5548e2f5482c17}{Center}}
+\item 
+List$<$ Vector2\+Int $>$ \mbox{\hyperlink{class_portal_a7d64db3934131347650a98c0c5aca9e5}{Goal\+Positions2}}
+\item 
+bool \mbox{\hyperlink{class_portal_a42b61847a98d5c54b432aec586403ace}{Has\+Flow\+Field}} = false
+\item 
+byte\mbox{[},\mbox{]} \mbox{\hyperlink{class_portal_a9e73d0c06209b7eb1dc7de7cde700e03}{flowfield}}
+\item 
+Dictionary$<$ Vector2\+Int, Vector2\+Int $>$ \mbox{\hyperlink{class_portal_a4835cfe2731e8b3d95142e3d3f1efbb2}{start\+To\+Exit}} = new Dictionary$<$Vector2\+Int, Vector2\+Int$>$()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_portal_8cs_source_l00005}{5}} of file \mbox{\hyperlink{_portal_8cs_source}{Portal.\+cs}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_portal_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_portal_a08118dab79ef198f89791c970f2193b5}\index{Portal@{Portal}!Portal@{Portal}}
+\index{Portal@{Portal}!Portal@{Portal}}
+\doxysubsubsection{\texorpdfstring{Portal()}{Portal()}}
+{\footnotesize\ttfamily \label{class_portal_a08118dab79ef198f89791c970f2193b5} 
+Portal.\+Portal (\begin{DoxyParamCaption}\item[{List$<$ Vector2\+Int $>$}]{pos2}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_portal_8cs_source_l00013}{13}} of file \mbox{\hyperlink{_portal_8cs_source}{Portal.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_portal_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_portal_afb7092105c03266a522c637fa2eb0802}\index{Portal@{Portal}!GenerateFlowField@{GenerateFlowField}}
+\index{GenerateFlowField@{GenerateFlowField}!Portal@{Portal}}
+\doxysubsubsection{\texorpdfstring{GenerateFlowField()}{GenerateFlowField()}}
+{\footnotesize\ttfamily \label{class_portal_afb7092105c03266a522c637fa2eb0802} 
+void Portal.\+Generate\+Flow\+Field (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plate}{Plate}}}]{plate}{}\end{DoxyParamCaption})}
+
+
+
+Function to initialize the generation of the flowfield to a certain Exit/\+Portal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em plate} & The \doxylink{class_plate}{Plate} of whichs basecostmatrix the Flowfield is generated.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_portal_acb896571e749ce36e7899c7aef186126}{IPortal}}.
+
+
+
+Definition at line \mbox{\hyperlink{_portal_8cs_source_l00018}{18}} of file \mbox{\hyperlink{_portal_8cs_source}{Portal.\+cs}}.
+
+\Hypertarget{class_portal_a072f2a3a5d24ea5d343ab19d64e57d86}\index{Portal@{Portal}!GetClostestToStart@{GetClostestToStart}}
+\index{GetClostestToStart@{GetClostestToStart}!Portal@{Portal}}
+\doxysubsubsection{\texorpdfstring{GetClostestToStart()}{GetClostestToStart()}}
+{\footnotesize\ttfamily \label{class_portal_a072f2a3a5d24ea5d343ab19d64e57d86} 
+Vector2\+Int Portal.\+Get\+Clostest\+To\+Start (\begin{DoxyParamCaption}\item[{Vector2\+Int}]{start}{}\end{DoxyParamCaption})}
+
+
+
+Function to get the closest Point of exitpoints in the portal to a start point. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em start} & The start point from which the closest point is calculated.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The closest point.
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_i_portal_a43d2e137dfb0410d16b4e06c8af8016d}{IPortal}}.
+
+
+
+Definition at line \mbox{\hyperlink{_portal_8cs_source_l00023}{23}} of file \mbox{\hyperlink{_portal_8cs_source}{Portal.\+cs}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_portal_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_portal_a15800bd3f48481b74c5548e2f5482c17}\index{Portal@{Portal}!Center@{Center}}
+\index{Center@{Center}!Portal@{Portal}}
+\doxysubsubsection{\texorpdfstring{Center}{Center}}
+{\footnotesize\ttfamily \label{class_portal_a15800bd3f48481b74c5548e2f5482c17} 
+Vector2\+Int Portal.\+Center}
+
+
+
+Definition at line \mbox{\hyperlink{_portal_8cs_source_l00007}{7}} of file \mbox{\hyperlink{_portal_8cs_source}{Portal.\+cs}}.
+
+\Hypertarget{class_portal_a9e73d0c06209b7eb1dc7de7cde700e03}\index{Portal@{Portal}!flowfield@{flowfield}}
+\index{flowfield@{flowfield}!Portal@{Portal}}
+\doxysubsubsection{\texorpdfstring{flowfield}{flowfield}}
+{\footnotesize\ttfamily \label{class_portal_a9e73d0c06209b7eb1dc7de7cde700e03} 
+byte \mbox{[},\mbox{]} Portal.\+flowfield}
+
+
+
+Definition at line \mbox{\hyperlink{_portal_8cs_source_l00010}{10}} of file \mbox{\hyperlink{_portal_8cs_source}{Portal.\+cs}}.
+
+\Hypertarget{class_portal_a7d64db3934131347650a98c0c5aca9e5}\index{Portal@{Portal}!GoalPositions2@{GoalPositions2}}
+\index{GoalPositions2@{GoalPositions2}!Portal@{Portal}}
+\doxysubsubsection{\texorpdfstring{GoalPositions2}{GoalPositions2}}
+{\footnotesize\ttfamily \label{class_portal_a7d64db3934131347650a98c0c5aca9e5} 
+List$<$Vector2\+Int$>$ Portal.\+Goal\+Positions2}
+
+
+
+Definition at line \mbox{\hyperlink{_portal_8cs_source_l00008}{8}} of file \mbox{\hyperlink{_portal_8cs_source}{Portal.\+cs}}.
+
+\Hypertarget{class_portal_a42b61847a98d5c54b432aec586403ace}\index{Portal@{Portal}!HasFlowField@{HasFlowField}}
+\index{HasFlowField@{HasFlowField}!Portal@{Portal}}
+\doxysubsubsection{\texorpdfstring{HasFlowField}{HasFlowField}}
+{\footnotesize\ttfamily \label{class_portal_a42b61847a98d5c54b432aec586403ace} 
+bool Portal.\+Has\+Flow\+Field = false}
+
+
+
+Definition at line \mbox{\hyperlink{_portal_8cs_source_l00009}{9}} of file \mbox{\hyperlink{_portal_8cs_source}{Portal.\+cs}}.
+
+\Hypertarget{class_portal_a4835cfe2731e8b3d95142e3d3f1efbb2}\index{Portal@{Portal}!startToExit@{startToExit}}
+\index{startToExit@{startToExit}!Portal@{Portal}}
+\doxysubsubsection{\texorpdfstring{startToExit}{startToExit}}
+{\footnotesize\ttfamily \label{class_portal_a4835cfe2731e8b3d95142e3d3f1efbb2} 
+Dictionary$<$Vector2\+Int, Vector2\+Int$>$ Portal.\+start\+To\+Exit = new Dictionary$<$Vector2\+Int, Vector2\+Int$>$()}
+
+
+
+Definition at line \mbox{\hyperlink{_portal_8cs_source_l00011}{11}} of file \mbox{\hyperlink{_portal_8cs_source}{Portal.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Max\+Friedrich/\+Documents/gluehwein-\/planer/\+Gluehweinplaner/\+Assets/\+Scripts/\+Flow\+Field\+Setup/Portal.\+cs\end{DoxyCompactItemize}

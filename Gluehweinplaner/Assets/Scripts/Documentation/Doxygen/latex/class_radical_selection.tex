@@ -1,0 +1,444 @@
+\doxysection{Radical\+Selection Class Reference}
+\hypertarget{class_radical_selection}{}\label{class_radical_selection}\index{RadicalSelection@{RadicalSelection}}
+Inheritance diagram for Radical\+Selection\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_radical_selection}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_radical_selection_a546903f20e240ef2453af320acd7b553}{Get\+Selected\+Radial\+Part}} (float time)
+\item 
+void \mbox{\hyperlink{class_radical_selection_a2232cf7d45dd777d81a191cbf4db66c6}{Toggle\+Volume\+Menu}} ()
+\item 
+void \mbox{\hyperlink{class_radical_selection_a34ad3915e620a81fcdc45cc8791045e0}{Spawn\+Radial\+Part}} ()
+\item 
+void \mbox{\hyperlink{class_radical_selection_a1c6356a5813b6d007a596d30dd16ce75}{Increase\+Attrak\+Selec\+Bude}} ()
+\item 
+void \mbox{\hyperlink{class_radical_selection_a08244f383251d976076bf80d358e58d0}{Decrease\+Attrak\+Selec\+Bude}} ()
+\item 
+void \mbox{\hyperlink{class_radical_selection_a34290ce0758df51ef61b1fc65d3265ba}{Increase\+Wait\+Time}} ()
+\item 
+void \mbox{\hyperlink{class_radical_selection_a8e1d44f11265095647a57a9544db7e73}{Decrease\+Wait\+Time}} ()
+\item 
+void \mbox{\hyperlink{class_radical_selection_a137a52e7092849b05d4f7cac4cd49876}{Delete\+Building}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_radical_selection_a8505eb50f4bfd5ac64afc66e6f459d51}{number\+Of\+Radial\+Part}}
+\item 
+int \mbox{\hyperlink{class_radical_selection_a4d65e679cb491bb68d40f7a89b030182}{number\+Of\+House\+Parts}}
+\item 
+int \mbox{\hyperlink{class_radical_selection_abb61fd70f409ffd5823f9d86451e3c0b}{number\+Of\+Left\+Parts}}
+\item 
+Game\+Object \mbox{\hyperlink{class_radical_selection_a436bd5c960e6fa9c9cc409641da0db21}{radial\+Part\+Prefab}}
+\item 
+Transform \mbox{\hyperlink{class_radical_selection_a96cd44cbbe513b53245a63d47fcdf2e6}{radial\+Part\+Canvas}}
+\item 
+float \mbox{\hyperlink{class_radical_selection_a98bb16e6335fc5123a59e9cc8f7c433d}{angle\+Between\+Part}} = 10
+\item 
+Transform \mbox{\hyperlink{class_radical_selection_a57f36fb4f02a95bcb5db3ac45f3563a7}{hand\+Transform}}
+\item 
+Transform \mbox{\hyperlink{class_radical_selection_a961637d73870a349b313d38e3832aff2}{hand\+Transform\+Left}}
+\item 
+\mbox{\hyperlink{class_object_spawner}{Object\+Spawner}} \mbox{\hyperlink{class_radical_selection_aa229105c357f7ad537aea38f0d9a8929}{object\+Spawner}}
+\item 
+List$<$ Unity\+Event$<$ int $>$ $>$ \mbox{\hyperlink{class_radical_selection_a1047ad87d89bb477ca0f37f8e96a8ef3}{part\+To\+Function}}
+\item 
+List$<$ Unity\+Event$<$ int $>$ $>$ \mbox{\hyperlink{class_radical_selection_a4aa8d8fc3046e343143ebab36891099b}{part\+To\+Function\+House}}
+\item 
+List$<$ Unity\+Event$<$ int $>$ $>$ \mbox{\hyperlink{class_radical_selection_a4767dbf68e1aa48e780d367dc150e0fe}{part\+To\+Function\+Left}}
+\item 
+Gradient \mbox{\hyperlink{class_radical_selection_aa95477fffceabdcbe1ebb3aaf066d221}{gradient}} = new Gradient()
+\item 
+List$<$ string $>$ \mbox{\hyperlink{class_radical_selection_a62f3a38e714bde55534165ed72da6a56}{button\+Labels}}
+\item 
+List$<$ string $>$ \mbox{\hyperlink{class_radical_selection_adf93978ce0d7a4a00fff04cb709e35ee}{button\+Labels\+House}}
+\item 
+List$<$ string $>$ \mbox{\hyperlink{class_radical_selection_ad261181adaef15ee24ad4e15cdefef78}{button\+Labels\+Left}}
+\item 
+float \mbox{\hyperlink{class_radical_selection_a52469ded54b4c011af398219fc08e0ca}{text\+Rotation\+Offset}} = 90f
+\item 
+Input\+Action\+Reference \mbox{\hyperlink{class_radical_selection_a44958a83b2e843a8ed5999c851888301}{menu\+Activate\+Action}}
+\item 
+Input\+Action\+Reference \mbox{\hyperlink{class_radical_selection_ac3911de33195ed3e0cebc5ab6f2db74d}{menu\+Activate\+Action\+Left}}
+\item 
+float \mbox{\hyperlink{class_radical_selection_a8b991491dca9918a148812bfa581c833}{wait\+Time\+Until\+Activation}} = 1.\+0f
+\item 
+float \mbox{\hyperlink{class_radical_selection_a78a0b2d8959f89f151ef182c72ac150b}{time\+Waited}} = 0
+\item 
+int \mbox{\hyperlink{class_radical_selection_a2ad04791c9ea1d009d8e28c183983a39}{waiting\+At}} = -\/1
+\item 
+Game\+Object \mbox{\hyperlink{class_radical_selection_a587e6f8d05f7882d3c3fbd6fbbf81295}{volume\+Canvas}}
+\item 
+Unity\+Event \mbox{\hyperlink{class_radical_selection_a0974b53389d3a468918d5ab16ef09c09}{on\+Volume\+Menu\+Open}}
+\item 
+Unity\+Event \mbox{\hyperlink{class_radical_selection_afe06595162a99aa2bd9dec14133865f0}{on\+Volume\+Menu\+Close}}
+\item 
+bool \mbox{\hyperlink{class_radical_selection_ac2f78ec3c14ca343b0fc22e46f1ab2b7}{is\+Bude}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00010}{10}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_radical_selection_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_radical_selection_a08244f383251d976076bf80d358e58d0}\index{RadicalSelection@{RadicalSelection}!DecreaseAttrakSelecBude@{DecreaseAttrakSelecBude}}
+\index{DecreaseAttrakSelecBude@{DecreaseAttrakSelecBude}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{DecreaseAttrakSelecBude()}{DecreaseAttrakSelecBude()}}
+{\footnotesize\ttfamily \label{class_radical_selection_a08244f383251d976076bf80d358e58d0} 
+void Radical\+Selection.\+Decrease\+Attrak\+Selec\+Bude (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00298}{298}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a8e1d44f11265095647a57a9544db7e73}\index{RadicalSelection@{RadicalSelection}!DecreaseWaitTime@{DecreaseWaitTime}}
+\index{DecreaseWaitTime@{DecreaseWaitTime}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{DecreaseWaitTime()}{DecreaseWaitTime()}}
+{\footnotesize\ttfamily \label{class_radical_selection_a8e1d44f11265095647a57a9544db7e73} 
+void Radical\+Selection.\+Decrease\+Wait\+Time (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00314}{314}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a137a52e7092849b05d4f7cac4cd49876}\index{RadicalSelection@{RadicalSelection}!DeleteBuilding@{DeleteBuilding}}
+\index{DeleteBuilding@{DeleteBuilding}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{DeleteBuilding()}{DeleteBuilding()}}
+{\footnotesize\ttfamily \label{class_radical_selection_a137a52e7092849b05d4f7cac4cd49876} 
+void Radical\+Selection.\+Delete\+Building (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00322}{322}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a546903f20e240ef2453af320acd7b553}\index{RadicalSelection@{RadicalSelection}!GetSelectedRadialPart@{GetSelectedRadialPart}}
+\index{GetSelectedRadialPart@{GetSelectedRadialPart}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{GetSelectedRadialPart()}{GetSelectedRadialPart()}}
+{\footnotesize\ttfamily \label{class_radical_selection_a546903f20e240ef2453af320acd7b553} 
+void Radical\+Selection.\+Get\+Selected\+Radial\+Part (\begin{DoxyParamCaption}\item[{float}]{time}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00150}{150}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a1c6356a5813b6d007a596d30dd16ce75}\index{RadicalSelection@{RadicalSelection}!IncreaseAttrakSelecBude@{IncreaseAttrakSelecBude}}
+\index{IncreaseAttrakSelecBude@{IncreaseAttrakSelecBude}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{IncreaseAttrakSelecBude()}{IncreaseAttrakSelecBude()}}
+{\footnotesize\ttfamily \label{class_radical_selection_a1c6356a5813b6d007a596d30dd16ce75} 
+void Radical\+Selection.\+Increase\+Attrak\+Selec\+Bude (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00290}{290}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a34290ce0758df51ef61b1fc65d3265ba}\index{RadicalSelection@{RadicalSelection}!IncreaseWaitTime@{IncreaseWaitTime}}
+\index{IncreaseWaitTime@{IncreaseWaitTime}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{IncreaseWaitTime()}{IncreaseWaitTime()}}
+{\footnotesize\ttfamily \label{class_radical_selection_a34290ce0758df51ef61b1fc65d3265ba} 
+void Radical\+Selection.\+Increase\+Wait\+Time (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00306}{306}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a34ad3915e620a81fcdc45cc8791045e0}\index{RadicalSelection@{RadicalSelection}!SpawnRadialPart@{SpawnRadialPart}}
+\index{SpawnRadialPart@{SpawnRadialPart}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{SpawnRadialPart()}{SpawnRadialPart()}}
+{\footnotesize\ttfamily \label{class_radical_selection_a34ad3915e620a81fcdc45cc8791045e0} 
+void Radical\+Selection.\+Spawn\+Radial\+Part (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00223}{223}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a2232cf7d45dd777d81a191cbf4db66c6}\index{RadicalSelection@{RadicalSelection}!ToggleVolumeMenu@{ToggleVolumeMenu}}
+\index{ToggleVolumeMenu@{ToggleVolumeMenu}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{ToggleVolumeMenu()}{ToggleVolumeMenu()}}
+{\footnotesize\ttfamily \label{class_radical_selection_a2232cf7d45dd777d81a191cbf4db66c6} 
+void Radical\+Selection.\+Toggle\+Volume\+Menu (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00195}{195}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_radical_selection_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_radical_selection_a98bb16e6335fc5123a59e9cc8f7c433d}\index{RadicalSelection@{RadicalSelection}!angleBetweenPart@{angleBetweenPart}}
+\index{angleBetweenPart@{angleBetweenPart}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{angleBetweenPart}{angleBetweenPart}}
+{\footnotesize\ttfamily \label{class_radical_selection_a98bb16e6335fc5123a59e9cc8f7c433d} 
+float Radical\+Selection.\+angle\+Between\+Part = 10}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00020}{20}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a62f3a38e714bde55534165ed72da6a56}\index{RadicalSelection@{RadicalSelection}!buttonLabels@{buttonLabels}}
+\index{buttonLabels@{buttonLabels}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{buttonLabels}{buttonLabels}}
+{\footnotesize\ttfamily \label{class_radical_selection_a62f3a38e714bde55534165ed72da6a56} 
+List$<$string$>$ Radical\+Selection.\+button\+Labels}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00032}{32}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_adf93978ce0d7a4a00fff04cb709e35ee}\index{RadicalSelection@{RadicalSelection}!buttonLabelsHouse@{buttonLabelsHouse}}
+\index{buttonLabelsHouse@{buttonLabelsHouse}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{buttonLabelsHouse}{buttonLabelsHouse}}
+{\footnotesize\ttfamily \label{class_radical_selection_adf93978ce0d7a4a00fff04cb709e35ee} 
+List$<$string$>$ Radical\+Selection.\+button\+Labels\+House}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00033}{33}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_ad261181adaef15ee24ad4e15cdefef78}\index{RadicalSelection@{RadicalSelection}!buttonLabelsLeft@{buttonLabelsLeft}}
+\index{buttonLabelsLeft@{buttonLabelsLeft}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{buttonLabelsLeft}{buttonLabelsLeft}}
+{\footnotesize\ttfamily \label{class_radical_selection_ad261181adaef15ee24ad4e15cdefef78} 
+List$<$string$>$ Radical\+Selection.\+button\+Labels\+Left}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00034}{34}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_aa95477fffceabdcbe1ebb3aaf066d221}\index{RadicalSelection@{RadicalSelection}!gradient@{gradient}}
+\index{gradient@{gradient}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{gradient}{gradient}}
+{\footnotesize\ttfamily \label{class_radical_selection_aa95477fffceabdcbe1ebb3aaf066d221} 
+Gradient Radical\+Selection.\+gradient = new Gradient()}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00027}{27}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a57f36fb4f02a95bcb5db3ac45f3563a7}\index{RadicalSelection@{RadicalSelection}!handTransform@{handTransform}}
+\index{handTransform@{handTransform}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{handTransform}{handTransform}}
+{\footnotesize\ttfamily \label{class_radical_selection_a57f36fb4f02a95bcb5db3ac45f3563a7} 
+Transform Radical\+Selection.\+hand\+Transform}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00021}{21}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a961637d73870a349b313d38e3832aff2}\index{RadicalSelection@{RadicalSelection}!handTransformLeft@{handTransformLeft}}
+\index{handTransformLeft@{handTransformLeft}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{handTransformLeft}{handTransformLeft}}
+{\footnotesize\ttfamily \label{class_radical_selection_a961637d73870a349b313d38e3832aff2} 
+Transform Radical\+Selection.\+hand\+Transform\+Left}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00022}{22}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_ac2f78ec3c14ca343b0fc22e46f1ab2b7}\index{RadicalSelection@{RadicalSelection}!isBude@{isBude}}
+\index{isBude@{isBude}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{isBude}{isBude}}
+{\footnotesize\ttfamily \label{class_radical_selection_ac2f78ec3c14ca343b0fc22e46f1ab2b7} 
+bool Radical\+Selection.\+is\+Bude = false}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00054}{54}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a44958a83b2e843a8ed5999c851888301}\index{RadicalSelection@{RadicalSelection}!menuActivateAction@{menuActivateAction}}
+\index{menuActivateAction@{menuActivateAction}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{menuActivateAction}{menuActivateAction}}
+{\footnotesize\ttfamily \label{class_radical_selection_a44958a83b2e843a8ed5999c851888301} 
+Input\+Action\+Reference Radical\+Selection.\+menu\+Activate\+Action}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00037}{37}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_ac3911de33195ed3e0cebc5ab6f2db74d}\index{RadicalSelection@{RadicalSelection}!menuActivateActionLeft@{menuActivateActionLeft}}
+\index{menuActivateActionLeft@{menuActivateActionLeft}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{menuActivateActionLeft}{menuActivateActionLeft}}
+{\footnotesize\ttfamily \label{class_radical_selection_ac3911de33195ed3e0cebc5ab6f2db74d} 
+Input\+Action\+Reference Radical\+Selection.\+menu\+Activate\+Action\+Left}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00038}{38}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a4d65e679cb491bb68d40f7a89b030182}\index{RadicalSelection@{RadicalSelection}!numberOfHouseParts@{numberOfHouseParts}}
+\index{numberOfHouseParts@{numberOfHouseParts}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{numberOfHouseParts}{numberOfHouseParts}}
+{\footnotesize\ttfamily \label{class_radical_selection_a4d65e679cb491bb68d40f7a89b030182} 
+int Radical\+Selection.\+number\+Of\+House\+Parts}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00015}{15}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_abb61fd70f409ffd5823f9d86451e3c0b}\index{RadicalSelection@{RadicalSelection}!numberOfLeftParts@{numberOfLeftParts}}
+\index{numberOfLeftParts@{numberOfLeftParts}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{numberOfLeftParts}{numberOfLeftParts}}
+{\footnotesize\ttfamily \label{class_radical_selection_abb61fd70f409ffd5823f9d86451e3c0b} 
+int Radical\+Selection.\+number\+Of\+Left\+Parts}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00017}{17}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a8505eb50f4bfd5ac64afc66e6f459d51}\index{RadicalSelection@{RadicalSelection}!numberOfRadialPart@{numberOfRadialPart}}
+\index{numberOfRadialPart@{numberOfRadialPart}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{numberOfRadialPart}{numberOfRadialPart}}
+{\footnotesize\ttfamily \label{class_radical_selection_a8505eb50f4bfd5ac64afc66e6f459d51} 
+int Radical\+Selection.\+number\+Of\+Radial\+Part}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00013}{13}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_aa229105c357f7ad537aea38f0d9a8929}\index{RadicalSelection@{RadicalSelection}!objectSpawner@{objectSpawner}}
+\index{objectSpawner@{objectSpawner}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{objectSpawner}{objectSpawner}}
+{\footnotesize\ttfamily \label{class_radical_selection_aa229105c357f7ad537aea38f0d9a8929} 
+\mbox{\hyperlink{class_object_spawner}{Object\+Spawner}} Radical\+Selection.\+object\+Spawner}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00023}{23}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_afe06595162a99aa2bd9dec14133865f0}\index{RadicalSelection@{RadicalSelection}!onVolumeMenuClose@{onVolumeMenuClose}}
+\index{onVolumeMenuClose@{onVolumeMenuClose}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{onVolumeMenuClose}{onVolumeMenuClose}}
+{\footnotesize\ttfamily \label{class_radical_selection_afe06595162a99aa2bd9dec14133865f0} 
+Unity\+Event Radical\+Selection.\+on\+Volume\+Menu\+Close}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00051}{51}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a0974b53389d3a468918d5ab16ef09c09}\index{RadicalSelection@{RadicalSelection}!onVolumeMenuOpen@{onVolumeMenuOpen}}
+\index{onVolumeMenuOpen@{onVolumeMenuOpen}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{onVolumeMenuOpen}{onVolumeMenuOpen}}
+{\footnotesize\ttfamily \label{class_radical_selection_a0974b53389d3a468918d5ab16ef09c09} 
+Unity\+Event Radical\+Selection.\+on\+Volume\+Menu\+Open}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00050}{50}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a1047ad87d89bb477ca0f37f8e96a8ef3}\index{RadicalSelection@{RadicalSelection}!partToFunction@{partToFunction}}
+\index{partToFunction@{partToFunction}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{partToFunction}{partToFunction}}
+{\footnotesize\ttfamily \label{class_radical_selection_a1047ad87d89bb477ca0f37f8e96a8ef3} 
+List$<$Unity\+Event$<$int$>$ $>$ Radical\+Selection.\+part\+To\+Function}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00024}{24}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a4aa8d8fc3046e343143ebab36891099b}\index{RadicalSelection@{RadicalSelection}!partToFunctionHouse@{partToFunctionHouse}}
+\index{partToFunctionHouse@{partToFunctionHouse}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{partToFunctionHouse}{partToFunctionHouse}}
+{\footnotesize\ttfamily \label{class_radical_selection_a4aa8d8fc3046e343143ebab36891099b} 
+List$<$Unity\+Event$<$int$>$ $>$ Radical\+Selection.\+part\+To\+Function\+House}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00025}{25}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a4767dbf68e1aa48e780d367dc150e0fe}\index{RadicalSelection@{RadicalSelection}!partToFunctionLeft@{partToFunctionLeft}}
+\index{partToFunctionLeft@{partToFunctionLeft}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{partToFunctionLeft}{partToFunctionLeft}}
+{\footnotesize\ttfamily \label{class_radical_selection_a4767dbf68e1aa48e780d367dc150e0fe} 
+List$<$Unity\+Event$<$int$>$ $>$ Radical\+Selection.\+part\+To\+Function\+Left}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00026}{26}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a96cd44cbbe513b53245a63d47fcdf2e6}\index{RadicalSelection@{RadicalSelection}!radialPartCanvas@{radialPartCanvas}}
+\index{radialPartCanvas@{radialPartCanvas}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{radialPartCanvas}{radialPartCanvas}}
+{\footnotesize\ttfamily \label{class_radical_selection_a96cd44cbbe513b53245a63d47fcdf2e6} 
+Transform Radical\+Selection.\+radial\+Part\+Canvas}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00019}{19}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a436bd5c960e6fa9c9cc409641da0db21}\index{RadicalSelection@{RadicalSelection}!radialPartPrefab@{radialPartPrefab}}
+\index{radialPartPrefab@{radialPartPrefab}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{radialPartPrefab}{radialPartPrefab}}
+{\footnotesize\ttfamily \label{class_radical_selection_a436bd5c960e6fa9c9cc409641da0db21} 
+Game\+Object Radical\+Selection.\+radial\+Part\+Prefab}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00018}{18}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a52469ded54b4c011af398219fc08e0ca}\index{RadicalSelection@{RadicalSelection}!textRotationOffset@{textRotationOffset}}
+\index{textRotationOffset@{textRotationOffset}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{textRotationOffset}{textRotationOffset}}
+{\footnotesize\ttfamily \label{class_radical_selection_a52469ded54b4c011af398219fc08e0ca} 
+float Radical\+Selection.\+text\+Rotation\+Offset = 90f}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00035}{35}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a78a0b2d8959f89f151ef182c72ac150b}\index{RadicalSelection@{RadicalSelection}!timeWaited@{timeWaited}}
+\index{timeWaited@{timeWaited}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{timeWaited}{timeWaited}}
+{\footnotesize\ttfamily \label{class_radical_selection_a78a0b2d8959f89f151ef182c72ac150b} 
+float Radical\+Selection.\+time\+Waited = 0}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00041}{41}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a587e6f8d05f7882d3c3fbd6fbbf81295}\index{RadicalSelection@{RadicalSelection}!volumeCanvas@{volumeCanvas}}
+\index{volumeCanvas@{volumeCanvas}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{volumeCanvas}{volumeCanvas}}
+{\footnotesize\ttfamily \label{class_radical_selection_a587e6f8d05f7882d3c3fbd6fbbf81295} 
+Game\+Object Radical\+Selection.\+volume\+Canvas}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00049}{49}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a2ad04791c9ea1d009d8e28c183983a39}\index{RadicalSelection@{RadicalSelection}!waitingAt@{waitingAt}}
+\index{waitingAt@{waitingAt}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{waitingAt}{waitingAt}}
+{\footnotesize\ttfamily \label{class_radical_selection_a2ad04791c9ea1d009d8e28c183983a39} 
+int Radical\+Selection.\+waiting\+At = -\/1}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00042}{42}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+\Hypertarget{class_radical_selection_a8b991491dca9918a148812bfa581c833}\index{RadicalSelection@{RadicalSelection}!waitTimeUntilActivation@{waitTimeUntilActivation}}
+\index{waitTimeUntilActivation@{waitTimeUntilActivation}!RadicalSelection@{RadicalSelection}}
+\doxysubsubsection{\texorpdfstring{waitTimeUntilActivation}{waitTimeUntilActivation}}
+{\footnotesize\ttfamily \label{class_radical_selection_a8b991491dca9918a148812bfa581c833} 
+float Radical\+Selection.\+wait\+Time\+Until\+Activation = 1.\+0f}
+
+
+
+Definition at line \mbox{\hyperlink{_radial_selection_8cs_source_l00040}{40}} of file \mbox{\hyperlink{_radial_selection_8cs_source}{Radial\+Selection.\+cs}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Max\+Friedrich/\+Documents/gluehwein-\/planer/\+Gluehweinplaner/\+Assets/\+Scripts/\+Menu/Radial\+Selection.\+cs\end{DoxyCompactItemize}

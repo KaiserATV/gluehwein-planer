@@ -1,0 +1,112 @@
+\doxysection{Goal\+Node.\+cs}
+\hypertarget{_goal_node_8cs_source}{}\label{_goal_node_8cs_source}\index{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/FlowFieldSetup/GoalNode.cs@{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/FlowFieldSetup/GoalNode.cs}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }UnityEngine;}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00005}\mbox{\hyperlink{class_goal_node}{00005}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }GoalNode\ :\ \mbox{\hyperlink{interface_i_goal_node}{IGoalNode}}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00006}00006\ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00007}00007\ \ \ \ \ \textcolor{keyword}{private}\ List<Bude>\ lineOfSightTo\ =\ \textcolor{keyword}{new}\ List<Bude>();}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00008}00008\ \ \ \ \ \textcolor{keyword}{public}\ Vector3\ Position;}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00009}00009\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{class_scene_manager}{SceneManager}}\ sm;}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00010}\mbox{\hyperlink{class_goal_node_ad8f345087dac3086bfffa3cefee4b179}{00010}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_plate}{Plate}}\ \mbox{\hyperlink{class_goal_node_ad8f345087dac3086bfffa3cefee4b179}{OnPlate}}\ \{\ \textcolor{keyword}{get};\ \textcolor{keyword}{set};\ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00011}00011\ \ \ \ \ \textcolor{keyword}{private}\ List<NPC>\ usingGoalNode\ =\ \textcolor{keyword}{new}\ List<NPC>();}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00012}00012\ \ \ \ \ Vector3\ maxValues;}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00013}00013\ \ \ \ \ Vector3\ minValues;}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00014}\mbox{\hyperlink{class_goal_node_a4fdbb9b70833bf20e3b282f80ce5f918}{00014}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_goal_node_a4fdbb9b70833bf20e3b282f80ce5f918}{AddBude}}(\mbox{\hyperlink{class_bude}{Bude}}\ bude)\ \{\ lineOfSightTo.Add(bude);\ bude.goalNode\ =\ \textcolor{keyword}{this};\ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00015}\mbox{\hyperlink{class_goal_node_ae5fb76d989aa4de3f8f0cbc4885bc598}{00015}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_goal_node_ae5fb76d989aa4de3f8f0cbc4885bc598}{RemoveBude}}(\mbox{\hyperlink{class_bude}{Bude}}\ bude)\ \{\ lineOfSightTo.Remove(bude);\ bude.goalNode\ =\ \textcolor{keyword}{null};\ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00016}\mbox{\hyperlink{class_goal_node_a17e2f154e667303195d38b7dabf2eaf7}{00016}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_goal_node_a17e2f154e667303195d38b7dabf2eaf7}{UsingGoalnodeAdd}}(\mbox{\hyperlink{class_n_p_c}{NPC}}\ npc)\ \{\ usingGoalNode.Add(npc);\ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00017}\mbox{\hyperlink{class_goal_node_a750fb86a14acfea48393f2713e02f073}{00017}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_goal_node_a750fb86a14acfea48393f2713e02f073}{RemoveNPC}}(\mbox{\hyperlink{class_n_p_c}{NPC}}\ npc)\ \{\ usingGoalNode.Remove(npc);\ \textcolor{keywordflow}{if}\ (lineOfSightTo.Count\ ==\ 0\ \&\&\ usingGoalNode.Count\ ==\ 0)\ \{\ sm.RemoveGoalNode(\textcolor{keyword}{this});\ \}\ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00018}00018\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_goal_node}{GoalNode}}(List<Bude>\ goals,\ \mbox{\hyperlink{class_plate}{Plate}}\ p,\ \mbox{\hyperlink{class_scene_manager}{SceneManager}}\ sceneManager)}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00019}00019\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00020}00020\ \ \ \ \ \ \ \ \ sm\ =\ sceneManager;}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00021}00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_goal_node_ad8f345087dac3086bfffa3cefee4b179}{OnPlate}}\ =\ p;}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00022}00022\ \ \ \ \ \ \ \ \ lineOfSightTo\ =\ goals;}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_bude}{Bude}}\ b\ \textcolor{keywordflow}{in}\ lineOfSightTo)\ \{\ b.goalNode\ =\ \textcolor{keyword}{this};\ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00024}00024\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_goal_node_ab6e546f1c3bbdd51f89984cff5a801bc}{CalculatePosition}}();}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00025}00025\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00026}\mbox{\hyperlink{class_goal_node_ab6e546f1c3bbdd51f89984cff5a801bc}{00026}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_goal_node_ab6e546f1c3bbdd51f89984cff5a801bc}{CalculatePosition}}()}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00027}00027\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00028}00028\ \ \ \ \ \ \ \ \ maxValues\ =\ minValues\ =\ lineOfSightTo[0].GetFarestPoint();}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{comment}{//First\ way\ of\ setting\ Position,\ needs\ to\ be\ improved\ upon}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{comment}{//ToDo:\ }}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{comment}{//1.\ Check\ if\ position\ is\ reachable\ from\ the\ goalnode}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{comment}{//2.\ Move\ position\ if\ not\ reachable}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{comment}{//3.\ Compare\ if\ the\ position\ is\ reachable\ from\ every\ position}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <\ lineOfSightTo.Count;\ i++)}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00035}00035\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_bude}{Bude}}\ goal\ =\ lineOfSightTo[i];}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ goal.goalNode\ =\ \textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (goal.\mbox{\hyperlink{class_bude_aa552970bcf0f0ee53a8cd80985bfb671}{GetFarestPoint}}().x\ >\ maxValues.x)}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maxValues.x\ =\ goal.\mbox{\hyperlink{class_bude_aa552970bcf0f0ee53a8cd80985bfb671}{GetFarestPoint}}().x;}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (goal.\mbox{\hyperlink{class_bude_aa552970bcf0f0ee53a8cd80985bfb671}{GetFarestPoint}}().x\ <\ minValues.x)}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minValues.x\ =\ goal.\mbox{\hyperlink{class_bude_aa552970bcf0f0ee53a8cd80985bfb671}{GetFarestPoint}}().x;}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (goal.\mbox{\hyperlink{class_bude_aa552970bcf0f0ee53a8cd80985bfb671}{GetFarestPoint}}().z\ >\ maxValues.z)}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maxValues.z\ =\ goal.\mbox{\hyperlink{class_bude_aa552970bcf0f0ee53a8cd80985bfb671}{GetFarestPoint}}().z;}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (goal.\mbox{\hyperlink{class_bude_aa552970bcf0f0ee53a8cd80985bfb671}{GetFarestPoint}}().z\ <\ minValues.z)}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minValues.z\ =\ goal.\mbox{\hyperlink{class_bude_aa552970bcf0f0ee53a8cd80985bfb671}{GetFarestPoint}}().z;}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00055}00055\ \ \ \ \ \ \ \ \ Vector3\ pot\ =\ \textcolor{keyword}{new}\ Vector3(minValues.x,\ 0,\ minValues.z);}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{class_goal_node_ad8f345087dac3086bfffa3cefee4b179}{OnPlate}}.GetBaseValueAtPosition(pot,\ \textcolor{keyword}{true})\ !=\ GenerateMatrix.MatrixIsPathableValue)}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00057}00057\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pot.x\ +\ GenerateMatrix.TileSizeX\ <\ maxValues.x)}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pot.x\ +=\ GenerateMatrix.TileSizeX;}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (pot.z\ +\ GenerateMatrix.TileSizeZ\ <\ maxValues.z)}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pot.z\ +=\ GenerateMatrix.TileSizeZ;}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{\ \textcolor{keywordflow}{break};\ \}\ \textcolor{comment}{//needs\ to\ do\ something}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00067}00067\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00068}00068\ \ \ \ \ \ \ \ \ Position\ =\ pot;}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00069}00069\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00070}\mbox{\hyperlink{class_goal_node_aded8137140a91d73845f0a124b5813ff}{00070}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_goal_node_aded8137140a91d73845f0a124b5813ff}{BudeMoved}}(\mbox{\hyperlink{class_bude}{Bude}}\ bude)}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00071}00071\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00072}00072\ \ \ \ \ \ \ \ \ sm.BudeMoved(bude);}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sm.WorldPositionToPlate(bude.\mbox{\hyperlink{class_bude_aa552970bcf0f0ee53a8cd80985bfb671}{GetFarestPoint}}())\ !=\ \mbox{\hyperlink{class_goal_node_ad8f345087dac3086bfffa3cefee4b179}{OnPlate}})}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00074}00074\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_goal_node_ae5fb76d989aa4de3f8f0cbc4885bc598}{RemoveBude}}(bude);}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00076}00076\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (lineOfSightTo.Count\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00078}00078\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_goal_node_ab6e546f1c3bbdd51f89984cff5a801bc}{CalculatePosition}}();}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00080}00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00081}00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00082}00082\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (usingGoalNode.Count\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sm.RemoveGoalNode(\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00087}00087\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_n_p_c}{NPC}}\ npc\ \textcolor{keywordflow}{in}\ usingGoalNode)}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00089}00089\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ npc.\mbox{\hyperlink{class_n_p_c_aac472b75ea2ef93c2dcb1d53cd618b08}{BudeMoved}}(bude);}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00091}00091\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00092}00092\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00093}\mbox{\hyperlink{class_goal_node_a0bfb120d48bc64a160c13bb41d6fc5b3}{00093}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_goal_node_a0bfb120d48bc64a160c13bb41d6fc5b3}{BudeDestroyed}}(\mbox{\hyperlink{class_bude}{Bude}}\ bude)}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00094}00094\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00095}00095\ \ \ \ \ \ \ \ \ sm.RemoveBude(bude);}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00096}00096\ \ \ \ \ \ \ \ \ usingGoalNode\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00097}00097\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_goal_node_ae5fb76d989aa4de3f8f0cbc4885bc598}{RemoveBude}}(bude);}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (lineOfSightTo.Count\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00099}00099\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_goal_node_ab6e546f1c3bbdd51f89984cff5a801bc}{CalculatePosition}}();}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00101}00101\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\mbox{\hyperlink{class_n_p_c}{NPC}}\ npc\ \textcolor{keywordflow}{in}\ usingGoalNode)}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00103}00103\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ npc.\mbox{\hyperlink{class_n_p_c_a9e2bb20eb9f2cbb655ae8e882c1108b3}{BudeDestroyed}}(bude);}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00105}00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00106}00106\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_goal_node_8cs_source_l00107}00107\ \}}
+
+\end{DoxyCode}

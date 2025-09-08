@@ -1,0 +1,34 @@
+\doxysection{Radial\+Slider.\+cs}
+\hypertarget{_radial_slider_8cs_source}{}\label{_radial_slider_8cs_source}\index{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/Audio/RadialSlider.cs@{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/Audio/RadialSlider.cs}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }TMPro;}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }UnityEngine;}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }UnityEngine.UI;}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00005}\mbox{\hyperlink{class_radial_slider}{00005}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_radial_slider}{RadialSlider}}\ :\ MonoBehaviour}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00006}00006\ \{}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00007}00007\ \ \ \ \ \textcolor{keyword}{public}\ Slider\ slider;}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00008}00008\ \ \ \ \ \textcolor{keyword}{public}\ TextMeshProUGUI\ valueText;}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00009}00009\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_volume_manager}{VolumeManager}}\ volumeManager;}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00011}00011\ \ \ \ \ \textcolor{keywordtype}{void}\ Start()}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00012}00012\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00013}00013\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ with\ saved\ volume}}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00014}00014\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ savedVolume\ =\ PlayerPrefs.GetFloat(\textcolor{stringliteral}{"{}MasterVolume"{}},\ 0.75f);}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00015}00015\ \ \ \ \ \ \ \ \ slider.value\ =\ savedVolume;}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00016}00016\ \ \ \ \ \ \ \ \ UpdateVolume(savedVolume);}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00017}00017\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00019}00019\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ UpdateVolume(\textcolor{keywordtype}{float}\ value)}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00020}00020\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ text\ and\ volume}}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00022}00022\ \ \ \ \ \ \ \ \ valueText.text\ =\ \$\textcolor{stringliteral}{"{}\{Mathf.RoundToInt(value\ *\ 100)\}\%"{}};}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00023}00023\ \ \ \ \ \ \ \ \ volumeManager.SetMasterVolume(value);}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Save\ preference}}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00026}00026\ \ \ \ \ \ \ \ \ PlayerPrefs.SetFloat(\textcolor{stringliteral}{"{}MasterVolume"{}},\ value);}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00027}00027\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_radial_slider_8cs_source_l00028}00028\ \}}
+
+\end{DoxyCode}

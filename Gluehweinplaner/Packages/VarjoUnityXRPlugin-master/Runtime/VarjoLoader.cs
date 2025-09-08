@@ -7,11 +7,9 @@ using System.Runtime.InteropServices;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.XR;
 using UnityEngine.XR.Management;
-using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
-using UnityEditor.XR.Management;
 #endif
 
 #if UNITY_INPUT_SYSTEM
@@ -60,11 +58,11 @@ namespace Varjo.XR
                     .WithManufacturer("Valve")
                     .WithProduct(@"(((SteamVR Controller \(Index Controller)).*)")
             );
-               InputSystem.RegisterLayout<VarjoSteamVRTrackerWithButtons>(
-                matches: new InputDeviceMatcher()
-                    .WithInterface(XRUtilities.InterfaceMatchAnyVersion)
-                    .WithProduct(@"(SteamVR Tracker \((Undefined)\))")
-            );
+            InputSystem.RegisterLayout<VarjoSteamVRTrackerWithButtons>(
+             matches: new InputDeviceMatcher()
+                 .WithInterface(XRUtilities.InterfaceMatchAnyVersion)
+                 .WithProduct(@"(SteamVR Tracker \((Undefined)\))")
+         );
             InputSystem.RegisterLayout<VarjoSteamVRTrackerHanded>(
                 matches: new InputDeviceMatcher()
                     .WithInterface(XRUtilities.InterfaceMatchAnyVersion)

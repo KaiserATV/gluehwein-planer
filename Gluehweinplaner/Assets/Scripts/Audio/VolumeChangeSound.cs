@@ -20,25 +20,25 @@ public class VolumeChangeSound : MonoBehaviour
     void AddHoverTrigger()
     {
         EventTrigger trigger = GetComponent<EventTrigger>();
-        
+
         EventTrigger.Entry entry = new EventTrigger.Entry
         {
             eventID = EventTriggerType.PointerEnter
         };
-        
+
         entry.callback.AddListener((data) => { OnPointerEnter(); });
         trigger.triggers.Add(entry);
     }
 
     void OnPointerEnter()
     {
-        if(!isHovering)
+        if (!isHovering)
         {
             SoundFXManager.instance.PlaySoundFXClip(hoverSound, transform, 0.8f);
             isHovering = true;
         }
 
-        if(Time.time > lastPlayTime + cooldown)
+        if (Time.time > lastPlayTime + cooldown)
         {
             SoundFXManager.instance.PlaySoundFXClip(hoverSound, transform, 0.8f);
             lastPlayTime = Time.time;

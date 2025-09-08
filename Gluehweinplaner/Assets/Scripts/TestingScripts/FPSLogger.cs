@@ -6,10 +6,10 @@ using Unity.Profiling;
 using UnityEditor;
 using UnityEngine;
 
-
-public class FPSLogger : MonoBehaviour
+/// <inheritdoc cref="IFPSLogger"/>
+public class FPSLogger : MonoBehaviour, IFPSLogger
 {
-    List<(int,float, int ,double, double, double, double)> stats = new List<(int, float, int, double, double, double, double)> ();
+    List<(int, float, int, double, double, double, double)> stats = new List<(int, float, int, double, double, double, double)>();
     SceneManager sc;
     StringBuilder advancedStats = new StringBuilder();
     StringBuilder fpsStats = new StringBuilder();
@@ -35,7 +35,7 @@ public class FPSLogger : MonoBehaviour
         passedFrames++;
         if (passedFrames % 10 == 0)
         {
-            stats.Add((passedFrames, Time.deltaTime, sc.playerCount ,Math.Round(GetRecorderFrameAverage(mainThreadTimeRecorder),3), Math.Round((double)systemMemoryRecorder.LastValue,3), Math.Round((double)CPUTotalFrameTimeRecorder.LastValue,3), Math.Round((double)GPUFrameTimeRecorder.LastValue,3)));
+            stats.Add((passedFrames, Time.deltaTime, sc.playerCount, Math.Round(GetRecorderFrameAverage(mainThreadTimeRecorder), 3), Math.Round((double)systemMemoryRecorder.LastValue, 3), Math.Round((double)CPUTotalFrameTimeRecorder.LastValue, 3), Math.Round((double)GPUFrameTimeRecorder.LastValue, 3)));
         }
         if (!sc.CanAddPlayer())
         {
@@ -51,7 +51,7 @@ public class FPSLogger : MonoBehaviour
         advancedStats.AppendLine("FrameNr.,FPS,agentCount,FrameTime in ms,System Memory in MB, CPU Frame Time in ms, GPU Frame Time in ms");
         foreach ((int, float, int, double, double, double, double) stat in stats)
         {
-            advancedStats.AppendLine($"{stat.Item1},{Math.Round(1f / stat.Item2,3)},{stat.Item3},{Math.Round(stat.Item4 * (1e-6f),3)},{Math.Round(stat.Item5 / (1024 * 1024),3)},{Math.Round(stat.Item6 / 1000000f,3)},{Math.Round(stat.Item7 / 1000000f,3)}");
+            advancedStats.AppendLine($"{stat.Item1},{Math.Round(1f / stat.Item2, 3)},{stat.Item3},{Math.Round(stat.Item4 * (1e-6f), 3)},{Math.Round(stat.Item5 / (1024 * 1024), 3)},{Math.Round(stat.Item6 / 1000000f, 3)},{Math.Round(stat.Item7 / 1000000f, 3)}");
         }
 
         using (StreamWriter writer = new StreamWriter(pathTwo, false))

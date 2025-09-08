@@ -1,15 +1,12 @@
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
+using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.XR.ARSubsystems;
-using Unity.Collections;
-
-using XRCpuImageHandle = System.Int32;
-
 using static UnityEngine.XR.ARSubsystems.XRCpuImage;
+using XRCpuImageHandle = System.Int32;
 
 
 namespace Varjo.XR
@@ -211,12 +208,14 @@ namespace Varjo.XR
                     return;
                 }
 
-                var task = new Task(() => {
+                var task = new Task(() =>
+                {
                     //size to store both left and right channels:
                     using (var buffer = new NativeArray<byte>(channelSizeBytes << 1, Allocator.TempJob, NativeArrayOptions.UninitializedMemory))
                     {
                         IntPtr dataPtr;
-                        unsafe {
+                        unsafe
+                        {
                             dataPtr = (IntPtr)NativeArrayUnsafeUtility.GetUnsafeBufferPointerWithoutChecks(buffer);
                         }
 
@@ -246,7 +245,8 @@ namespace Varjo.XR
                         status: AsyncConversionStatus.Pending
                     );
 
-                var task = new Task(() => {
+                var task = new Task(() =>
+                {
                     request.status = AsyncConversionStatus.Processing;
 
                     bool result = TryConvert(nativeHandle, conversionParams, request.DataPtr, channelSizeBytes, VarjoStreamChannel.Left) &

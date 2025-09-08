@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI.Table;
 #nullable enable
-
-public class SceneManager : MonoBehaviour
+/// <inheritdoc cref="ISceneManager"/>
+public class SceneManager : MonoBehaviour, ISceneManager
 {
     public static float maxGoalNodeDistance = 30.0f;//best case it is calculated if there are blocking pionts between the goals
-    
+
     public bool pathDiagonal = false;
     public bool simulating = false;
 
@@ -42,7 +41,7 @@ public class SceneManager : MonoBehaviour
     private Dictionary<(Vector3, Vector3), (List<Plate>, Queue<Vector3>)> allPositionsToGoals = new Dictionary<(Vector3, Vector3), (List<Plate>, Queue<Vector3>)>();
 
     private List<GoalNode> allGoalNodes = new List<GoalNode>();
-    private List<Bounds> allFloorBounds = new List<Bounds>(); 
+    private List<Bounds> allFloorBounds = new List<Bounds>();
     private List<NPC> alleCurrentAgents = new List<NPC>();
 
     public float normalPlateX = 0;
@@ -61,26 +60,26 @@ public class SceneManager : MonoBehaviour
         {
             allFloorBounds.Add(floor.bounds);
         }
-        
+
         allBudenScripts = GameObject.Find(budenContainerName).GetComponentsInChildren<Bude>().ToList();
         allSpawner = GameObject.Find(spawnerContainerName).GetComponentsInChildren<Spawner>();
         allExits = GameObject.Find(exitContainerName).GetComponentsInChildren<Exit>();
         hm = GameObject.Find(heatmapname).GetComponent<Heatmap>();
-       
-        
+
+
         CalcAllBudenWeight();
 
         //Generate for every floor the tiles and positions thereof
         foreach (Bounds floor in allFloorBounds)//vorerst nur ein floor, sonst problem
-            {
-                TransferType tt = PlateGenerator.CalculatePlatePositionsAndBaseCostMatrices(floor, plateCountX, plateCountZ, pathDiagonal);
-                allPlateArray = new Plate[plateCountX, plateCountZ];
-                allPlateArray = tt.Plates;
-                normalPlateX = tt.normalPlateX;
-                normalPlateZ = tt.normalPlateZ;
-                plateCountX = tt.plateCountX;
-                plateCountZ = tt.plateCountZ;
-            }
+        {
+            PlateGeneratorDto tt = PlateGenerator.CalculatePlatePositionsAndBaseCostMatrices(floor, plateCountX, plateCountZ, pathDiagonal);
+            allPlateArray = new Plate[plateCountX, plateCountZ];
+            allPlateArray = tt.Plates;
+            normalPlateX = tt.normalPlateX;
+            normalPlateZ = tt.normalPlateZ;
+            plateCountX = tt.plateCountX;
+            plateCountZ = tt.plateCountZ;
+        }
         show = true;
 
         foreach (Bude b in allBudenScripts)
@@ -100,7 +99,7 @@ public class SceneManager : MonoBehaviour
     {
         if (laden)
         {
-            LoadBudenFromJSON();
+            LoadSceneFromJSON();
             laden = false;
         }
         if (speichern)
@@ -130,10 +129,10 @@ public class SceneManager : MonoBehaviour
     public void StartSimulation() { simulating = true; }
     public void ResumeSimulation() { simulating = true; foreach (NPC ac in alleCurrentAgents) { ac.Resume(); } CalcAllBudenWeight(); }
     public void StopSimulation() { simulating = false; foreach (NPC ac in alleCurrentAgents) { ac.Stop(); } }
-    public void addPlayer(NPC npc) { if (!alleCurrentAgents.Contains(npc)) { alleCurrentAgents.Add(npc); playerCount++; } }
+    public void AddPlayer(NPC npc) { if (!alleCurrentAgents.Contains(npc)) { alleCurrentAgents.Add(npc); playerCount++; } }
     public void removePlayer(NPC npc) { playerCount--; alleCurrentAgents.Remove(npc); }
     public bool CanAddPlayer() { return playerCount < maxPlayerCount; }
-    public (Vector3,Vector3) GetNewSpawnPoint()
+    public (Vector3, Vector3) GetNewSpawnPoint()
     {
         return allSpawner![UnityEngine.Random.Range(0, allSpawner.Length)].GenerateRandomPosition();
     }
@@ -162,12 +161,20 @@ public class SceneManager : MonoBehaviour
     public void AddBude(Bude neueBude)
     {
         allBudenScripts!.Add(neueBude);
+        List<Vector3> cornerPos = neueBude.GetAllCornerPoints();/// Top left, Top right, Bottom Left, Bottom Right
+        List<Plate> affectedPlates = new List<Plate>();
+        affectedPlates.AddRange(ReserveBudenPosition(neueBude, cornerPos[0], cornerPos[1]));
+        affectedPlates.AddRange(ReserveBudenPosition(neueBude, cornerPos[1], cornerPos[3]));
+        affectedPlates.AddRange(ReserveBudenPosition(neueBude, cornerPos[3], cornerPos[2]));
+        affectedPlates.AddRange(ReserveBudenPosition(neueBude, cornerPos[2], cornerPos[0]));
+        neueBude.onplates = affectedPlates;
+        FindOrCreateNewGoalNode(neueBude);
         CalcAllBudenWeight();
     }
 
     public void RemoveBude(Bude wegBude)
     {
-        foreach(Plate plate in wegBude.onplates)
+        foreach (Plate plate in wegBude.onplates)
         {
             plate.BudeRemoved(wegBude);
         }
@@ -175,7 +182,24 @@ public class SceneManager : MonoBehaviour
         wegBude.BudeRemove();
         allBudenScripts!.Add(wegBude);
     }
-    public void Pausieren()
+    public void BudeMoved(Bude bude)
+    {
+        List<Plate> onplates = bude.onplates;
+        foreach (Plate plate in onplates)
+        {
+            plate.BudeRemoved(bude);
+        }
+        List<Vector3> cornerPos = bude.GetAllCornerPoints();/// Top left, Top right, Bottom Left, Bottom Right
+        List<Plate> affectedPlates = new List<Plate>();
+        affectedPlates.AddRange(ReserveBudenPosition(bude, cornerPos[0], cornerPos[1]));
+        affectedPlates.AddRange(ReserveBudenPosition(bude, cornerPos[1], cornerPos[3]));
+        affectedPlates.AddRange(ReserveBudenPosition(bude, cornerPos[3], cornerPos[2]));
+        affectedPlates.AddRange(ReserveBudenPosition(bude, cornerPos[2], cornerPos[0]));
+        bude.onplates = affectedPlates;
+        FindOrCreateNewGoalNode(bude);
+    }
+
+    public void Pause()
     {
         if (simulating)
         {
@@ -211,7 +235,7 @@ public class SceneManager : MonoBehaviour
     }
 
     private string CreateJSON()
-    { 
+    {
         AlleBudenJSON aB = new AlleBudenJSON(allBudenScripts!.Count);
         AlleExitJSON aE = new AlleExitJSON(allExits!.Length);
         AlleSpawnJSON aS = new AlleSpawnJSON(allSpawner!.Length);
@@ -224,7 +248,7 @@ public class SceneManager : MonoBehaviour
                 j++;
             }
         }
-        for(int i=0; i < allSpawner.Length; i++)
+        for (int i = 0; i < allSpawner.Length; i++)
         {
             aS.spawnArray[i] = allSpawner[i].ToJSON();
         }
@@ -282,7 +306,7 @@ public class SceneManager : MonoBehaviour
     }
 
 
-    public void LoadBudenFromJSON()
+    public void LoadSceneFromJSON()
     {
         GanzeSzene? gS = ReadJSON();
         GameObject? stand = Resources.Load("New_Stand") as GameObject;
@@ -337,22 +361,23 @@ public class SceneManager : MonoBehaviour
             Debug.LogWarning("Konnte keine Datei lesen von pfad: " + Application.persistentDataPath + "/Position.json");
         }
     }
-    public List<Plate> ReserveBudenPosition(Bude b,Vector3 _start, Vector3 _end)
+    public List<Plate> ReserveBudenPosition(Bude b, Vector3 _start, Vector3 _end)
     {
         Vector2Int start = WorldPositionToPlateArrayPosition(_start);
         Vector2Int end = WorldPositionToPlateArrayPosition(_end);
         Vector2Int dirEnd = end - start;
         Vector3 worldEnd = _end - _start;
-        List<Vector2Int> platePosToVisit = GenerateMatrix.InterpolateArray(start, end, ((Vector2Int a, Vector2Int b) toCompare) => (Vector3.Distance(allPlateArray![toCompare.a.x, toCompare.a.y].Center, _end) < Vector3.Distance(allPlateArray[toCompare.b.x, toCompare.b.y].Center, _end))? toCompare.a : toCompare.b , false, plateCountX, plateCountZ);
+        List<Vector2Int> platePosToVisit = GenerateMatrix.InterpolateArray(start, end, ((Vector2Int a, Vector2Int b) toCompare) => (Vector3.Distance(allPlateArray![toCompare.a.x, toCompare.a.y].Center, _end) < Vector3.Distance(allPlateArray[toCompare.b.x, toCompare.b.y].Center, _end)) ? toCompare.a : toCompare.b, false, plateCountX, plateCountZ);
         List<Plate> platesToVisit = new List<Plate>();
-        foreach (Vector2Int pos in platePosToVisit) {
+        foreach (Vector2Int pos in platePosToVisit)
+        {
             platesToVisit.Add(allPlateArray![pos.x, pos.y]);
         }
         Vector2Int startPos = allPlateArray![platePosToVisit[0].x, platePosToVisit[0].y].GetPositionInArray(_start, true);
         if (platePosToVisit.Count > 1)
         {
             Vector2Int dirToNextPlate = platePosToVisit[1] - platePosToVisit[0];
-            for (int i = 0; i < platePosToVisit.Count;i++)
+            for (int i = 0; i < platePosToVisit.Count; i++)
             {
                 if (i < platePosToVisit.Count - 1)
                 {
@@ -373,7 +398,7 @@ public class SceneManager : MonoBehaviour
                     }
                     else
                     {
-                        startPos.y = allPlateArray[platePosToVisit[i+1].x, platePosToVisit[i + 1].y].Columns - 1;
+                        startPos.y = allPlateArray[platePosToVisit[i + 1].x, platePosToVisit[i + 1].y].Columns - 1;
                     }
                 }
                 else
@@ -396,7 +421,7 @@ public class SceneManager : MonoBehaviour
         return platesToVisit;
     }
 
-   
+
     void GenerateGoalNodes()
     {
         List<List<Bude>> groups = new List<List<Bude>>();
@@ -504,7 +529,7 @@ public class SceneManager : MonoBehaviour
 
         foreach (List<Bude> goalGroup in groups)
         {
-            GoalNode gn = new GoalNode(goalGroup, WorldPositionToPlate(goalGroup[0].GetFarestPoint()),this);
+            GoalNode gn = new GoalNode(goalGroup, WorldPositionToPlate(goalGroup[0].GetFarestPoint()), this);
             allGoalNodes.Add(gn);
             gn.OnPlate.AddGoalNode(gn);
         }
@@ -513,13 +538,14 @@ public class SceneManager : MonoBehaviour
     public void FindOrCreateNewGoalNode(Bude bude)
     {
         Plate on = WorldPositionToPlate(bude.GetFarestPoint());
-        foreach (GoalNode gn1 in allGoalNodes) { 
-            if(gn1.OnPlate == on)
+        foreach (GoalNode gn1 in allGoalNodes)
+        {
+            if (gn1.OnPlate == on)
             {
                 gn1.AddBude(bude);
                 gn1.CalculatePosition();
                 return;
-            }        
+            }
         }
         GoalNode gn = new GoalNode(new List<Bude> { bude }, WorldPositionToPlate(bude.GetFarestPoint()), this);
         allGoalNodes.Add(gn);
@@ -536,10 +562,11 @@ public class SceneManager : MonoBehaviour
         return HandlePathRequest(start, goalNode.Position);
     }
 
-    
+
     public Queue<Vector3> HandlePathRequest(Vector3 start, Vector3 goal)
     {
-        if (allPositionsToGoals.ContainsKey((start,goal))) {
+        if (allPositionsToGoals.ContainsKey((start, goal)))
+        {
             if (PlatePathChanged(allPositionsToGoals[(start, goal)].Item1))
             {
                 return new Queue<Vector3>(allPositionsToGoals[(start, goal)].Item2);
@@ -548,7 +575,7 @@ public class SceneManager : MonoBehaviour
 
         Vector2Int arrayStart = WorldPositionToPlateArrayPosition(start);
         Vector2Int arrayGoal = WorldPositionToPlateArrayPosition(goal);
-        
+
         List<Vector2Int> platePosToVisit;
         byte[,] flowField;
         int[,] baseCostPlates;
@@ -562,13 +589,13 @@ public class SceneManager : MonoBehaviour
         else
         {
             baseCostPlates = GenerateMatrix.GenerateBaseCostMatrix(plateCountX, plateCountZ, (int row, int column) => !allPlateArray![row, column].HasOnlyObstacles, out bool onlyObstacles, out bool noObstacles);
-            (_,flowField) = GenerateMatrix.GenerateDistanceFieldAndFlowField(baseCostPlates, plateCountX, plateCountZ, new List<Vector2Int> { arrayGoal }, pathDiagonal);
+            (_, flowField) = GenerateMatrix.GenerateDistanceFieldAndFlowField(baseCostPlates, plateCountX, plateCountZ, new List<Vector2Int> { arrayGoal }, pathDiagonal);
         }
         platePosToVisit = GenerateMatrix.GetBestPathInFlowFieldFull(flowField, arrayStart);
         if (platePosToVisit.Count == 0) { return new Queue<Vector3>(); }//there is no way to path to the goal from the given position
 
         platesToVisit = new List<Plate>();
-       
+
         foreach (Vector2Int pos in platePosToVisit)
         {
             platesToVisit.Add(allPlateArray![pos.x, pos.y]);
@@ -595,7 +622,7 @@ public class SceneManager : MonoBehaviour
             {
                 Vector2Int platePos = WorldPositionToPlateArrayPosition(lastVisitedPlate!.Center);
                 baseCostPlates[platePos.x, platePos.y] = GenerateMatrix.MatrixObstacleValue;
-                (_, flowField) = GenerateMatrix.GenerateDistanceFieldAndFlowField(baseCostPlates, plateCountX, plateCountZ, new List<Vector2Int>{ arrayGoal }, pathDiagonal);
+                (_, flowField) = GenerateMatrix.GenerateDistanceFieldAndFlowField(baseCostPlates, plateCountX, plateCountZ, new List<Vector2Int> { arrayGoal }, pathDiagonal);
                 platePosToVisit = GenerateMatrix.GetBestPathInFlowFieldFull(flowField, arrayStart);
 
                 if (platePosToVisit.Count == 0) { return new Queue<Vector3>(); }//there is no way to path to the goal from the given position
@@ -605,12 +632,12 @@ public class SceneManager : MonoBehaviour
                 {
                     platesToVisit.Add(allPlateArray![pos.x, pos.y]);
                 }
-                
-                (Queue < Vector3> newWayPoints, Plate? lastPlate) = GenerateMatrix.GeneratePath(platesToVisit, start, goal, pathDiagonal);
+
+                (Queue<Vector3> newWayPoints, Plate? lastPlate) = GenerateMatrix.GeneratePath(platesToVisit, start, goal, pathDiagonal);
                 lastVisitedPlate = lastPlate;
                 if (lastPlate == null)
                 {
-                    if(allPositionsToGoals.ContainsKey((start, goal)))
+                    if (allPositionsToGoals.ContainsKey((start, goal)))
                     {
                         allPositionsToGoals.Remove((start, goal));
                     }
@@ -620,30 +647,13 @@ public class SceneManager : MonoBehaviour
                     }
                     allPositionsToGoals.Add((start, goal), (platesToVisit, new Queue<Vector3>(newWayPoints)));
                     goalPositionToFlowField.Add(goal, (baseCostPlates, flowField));
-                   
+
                     return newWayPoints;
                 }
                 tries++;
-            } while (tries < Mathf.Max(plateCountX,plateCountZ));
+            } while (tries < Mathf.Max(plateCountX, plateCountZ));
             return new Queue<Vector3>();//no path could be found
         }
-    }
-
-    public void BudeMoved(Bude bude)
-    {
-        List<Plate> onplates = bude.onplates;
-        foreach(Plate plate in onplates)
-        {
-            plate.BudeRemoved(bude);
-        }
-        List<Vector3> cornerPos = bude.GetAllCornerPoints();/// Top left, Top right, Bottom Left, Bottom Right
-        List<Plate> affectedPlates = new List<Plate>();
-        affectedPlates.AddRange(ReserveBudenPosition(bude, cornerPos[0], cornerPos[1]));
-        affectedPlates.AddRange(ReserveBudenPosition(bude, cornerPos[1], cornerPos[3]));
-        affectedPlates.AddRange(ReserveBudenPosition(bude, cornerPos[3], cornerPos[2]));
-        affectedPlates.AddRange(ReserveBudenPosition(bude, cornerPos[2], cornerPos[0]));
-        bude.onplates = affectedPlates;
-        FindOrCreateNewGoalNode(bude);
     }
 
     private void OnDrawGizmos()
@@ -738,14 +748,14 @@ public class SceneManager : MonoBehaviour
         hm!.ClearPos(pos);
     }
 
-   
+
     public Plate WorldPositionToPlate(Vector3 pos)
     {
         int plateNumberX = Mathf.FloorToInt((pos.x - allFloorBounds[0].min.x) / normalPlateX);
         int plateNumberZ = Mathf.FloorToInt((pos.z - allFloorBounds[0].min.z) / normalPlateZ);
         plateNumberX = Math.Clamp(plateNumberX, 0, plateCountX - 1);
         plateNumberZ = Math.Clamp(plateNumberZ, 0, plateCountZ - 1);
-        return allPlateArray![plateNumberX,plateNumberZ];
+        return allPlateArray![plateNumberX, plateNumberZ];
     }
 
 
@@ -756,13 +766,13 @@ public class SceneManager : MonoBehaviour
         plateNumberX = Math.Clamp(plateNumberX, 0, plateCountX - 1);
         plateNumberZ = Math.Clamp(plateNumberZ, 0, plateCountZ - 1);
         return new Vector2Int(plateNumberX, plateNumberZ);
-    }   
+    }
 
     public Vector3 GetRandomExitPosition()
     {
         return allExits![UnityEngine.Random.Range(0, allExits.Length)].GetPosition();
     }
-    public int GetGoalNoteCount()
+    public int GetGoalNodeCount()
     {
         return allGoalNodes.Count;
     }
@@ -790,7 +800,7 @@ public class SceneManager : MonoBehaviour
                 if (!returnBuden.Contains(bude))
                 {
                     rand -= bude.attraktivitaet;
-                    if (rand < 0) { allBuden.Remove(bude); tmpWeight -= bude.attraktivitaet ; returnBuden.Enqueue(bude); break; }
+                    if (rand < 0) { allBuden.Remove(bude); tmpWeight -= bude.attraktivitaet; returnBuden.Enqueue(bude); break; }
                 }
             }
         }
@@ -802,9 +812,9 @@ public class SceneManager : MonoBehaviour
     {
         maxKapazitaet = 0;
         allBudenWeigth = 0;
-        foreach(Bude b in allBudenScripts!)
+        foreach (Bude b in allBudenScripts!)
         {
-            if(b != null)
+            if (b != null)
             {
                 maxKapazitaet += b.kapazitaet;
                 allBudenWeigth += b.attraktivitaet;

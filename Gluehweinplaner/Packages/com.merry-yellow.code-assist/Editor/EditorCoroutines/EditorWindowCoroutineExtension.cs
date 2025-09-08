@@ -5,7 +5,6 @@
 
 using System.Collections;
 using UnityEditor;
-using UnityEngine;
 
 //namespace Unity.EditorCoroutines.Editor
 namespace Meryel.UnityCodeAssist.Editor.EditorCoroutines
@@ -80,13 +79,13 @@ namespace Meryel.UnityCodeAssist.Editor.EditorCoroutines
         /// <param name="coroutine"></param>
         public static void StopCoroutine(this EditorWindow window, EditorCoroutine coroutine)
         {
-            if(coroutine == null)
+            if (coroutine == null)
             {
                 Serilog.Log.Warning("Provided EditorCoroutine handle is null.");
                 return;
             }
 
-            if(coroutine.m_Owner == null)
+            if (coroutine.m_Owner == null)
             {
                 Serilog.Log.Error("The EditorCoroutine is ownerless. Please use EditorCoroutineEditor.StopCoroutine to terminate such coroutines.");
                 return;

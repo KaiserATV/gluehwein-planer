@@ -1,7 +1,4 @@
 using System;
-
-using UnityEngine;
-using UnityEngine.XR.Management;
 using System.Runtime.InteropServices;
 
 namespace Varjo.XR

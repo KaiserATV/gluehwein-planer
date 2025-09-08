@@ -1,15 +1,12 @@
 //using Meryel.UnityCodeAssist.Serilog;
 //using Meryel.UnityCodeAssist.Serilog.Core;
-using UnityEngine;
-using UnityEditor;
-using System.Linq;
-
 using Meryel.Serilog;
 using Meryel.Serilog.Core;
+using UnityEditor;
+using UnityEngine;
 
 
 #pragma warning disable IDE0005
-using Serilog = Meryel.Serilog;
 #pragma warning restore IDE0005
 
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Bude : MonoBehaviour
+/// <inheritdoc cref="IBude"/>
+public class Bude : MonoBehaviour, IBude
 {
     public int WaitTime = 20;
     public GameObject Agent;
@@ -18,7 +18,7 @@ public class Bude : MonoBehaviour
 
     private int typeIndex;
 
-    public int attrakIncr=10;
+    public int attrakIncr = 10;
     public int waitIncr = 5;
 
     private BitArray2D wait_L;
@@ -55,7 +55,6 @@ public class Bude : MonoBehaviour
 
         CalcKapa();
     }
-
     private void Update()
     {
         if (timeGoneBy < delayBeforeNotBusy)
@@ -64,34 +63,29 @@ public class Bude : MonoBehaviour
         }
         else
         {
-            busy = CheckAuslastung();
+            busy = CheckOccupation();
             timeGoneBy = 0;
         }
     }
-
     private void CalcKapa()
     {
         kapazitaet = ziel.GetKapa() + wait_L.GetKapa() + wait_R.GetKapa();
     }
-
     public void Reset()
     {
         ziel.Reset();
         wait_L.Reset();
         wait_R.Reset();
     }
-
     public void BudeMoved()
     {
         goalNode.BudeMoved(this);
     }
-
     public void BudeRemove()
     {
         goalNode.BudeDestroyed(this);
     }
-
-    public (Vector3?,Vector3Int?) GetNewPosition()
+    public (Vector3?, Vector3Int?) GetNewPosition()
     {
         Vector3 cellCoord;
         Vector2Int arrayPos;
@@ -113,11 +107,10 @@ public class Bude : MonoBehaviour
         }
         else
         {
-            return (null,null);
+            return (null, null);
         }
         return (cellCoord, returnVector);
     }
-
     public void RemovePlayer(Vector3Int pos)
     {
         switch (pos.x)
@@ -129,30 +122,27 @@ public class Bude : MonoBehaviour
                 wait_L.RemovePlayer(new(pos.y, pos.z));
                 break;
             case 2:
-            wait_R.RemovePlayer(new(pos.y, pos.z));
-            break;
+                wait_R.RemovePlayer(new(pos.y, pos.z));
+                break;
         }
     }
-
-    public bool CheckAuslastung()
+    public bool CheckOccupation()
     {
         busy = busy || (ziel.IsFull() && wait_L.IsFull() && wait_R.IsFull());
         return ziel.IsFull() && wait_L.IsFull() && wait_R.IsFull();
     }
-
-    public void increaseAttraktivitaet()
+    public void increaseAttractivness()
     {
         attraktivitaet++;
 
     }
-    public void decreaseAttraktivitaet()
+    public void decreaseAttractivness()
     {
         if (attraktivitaet - attrakIncr > 0)
         {
             attraktivitaet--;
         }
     }
-
     public void increaseWaittime()
     {
         WaitTime++;
@@ -160,28 +150,20 @@ public class Bude : MonoBehaviour
     }
     public void decreaseWaittime()
     {
-        if (WaitTime - waitIncr > 0) { 
+        if (WaitTime - waitIncr > 0)
+        {
             WaitTime--;
         }
     }
-
     public BudenJSON GetBudenJSON()
     {
         return new BudenJSON(transform.position.x, transform.position.z, transform.eulerAngles.y, typeIndex, attraktivitaet, WaitTime);
     }
-
     public void SetTypeIndex(int i)
     {
         typeIndex = i;
     }
-
     public Vector3 GetPosition() { return transform.position; }
-
-    /// <summary>
-    /// Gets all Corners of the Buden transform in order:
-    /// Top left, Top right, Bottom Left, Bottom Right
-    /// </summary>
-    /// <returns></returns>
     public List<Vector3> GetAllCornerPoints()
     {
         Transform t = this.transform.GetChild(4);
@@ -194,12 +176,9 @@ public class Bude : MonoBehaviour
             t.transform.TransformPoint(new Vector3(b.size.x/2, 0, b.size.z/2))//Bottom Right
         };
     }
-
-
-
     public Vector3 GetFacingDirection() { return transform.GetChild(3).transform.position - transform.GetChild(0).transform.position; }
-
-    public Vector3 GetFarestPoint() {
+    public Vector3 GetFarestPoint()
+    {
         Transform t = this.transform.GetChild(3);
         Bounds b = t.GetComponent<MeshRenderer>().localBounds;
         return t.TransformPoint(new Vector3(-b.size.x / 2, 0, 0));

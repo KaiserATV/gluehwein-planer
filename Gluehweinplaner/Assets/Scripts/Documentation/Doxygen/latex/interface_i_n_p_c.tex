@@ -1,0 +1,163 @@
+\doxysection{INPC Interface Reference}
+\hypertarget{interface_i_n_p_c}{}\label{interface_i_n_p_c}\index{INPC@{INPC}}
+Inheritance diagram for INPC\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{interface_i_n_p_c}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_i_n_p_c_af216207f3d576dcb40c985654a89043e}{Bude\+Destroyed}} (\mbox{\hyperlink{class_bude}{Bude}} moved\+Bude)
+\begin{DoxyCompactList}\small\item\em The function gets called if a bude to whichs goalnode the agent currently is pathing is destroyed. Causeing the agent to repath to a new goal. 
+\begin{DoxyParams}{Parameters}
+{\em moved\+Bude} & The \doxylink{class_bude}{Bude} that moved.\\
+\hline
+\end{DoxyParams}
+\end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_n_p_c_a7c06c10e4a1d6efde673c770d619c2be}{Bude\+Moved}} (\mbox{\hyperlink{class_bude}{Bude}} moved\+Bude)
+\begin{DoxyCompactList}\small\item\em The function gets called if a bude to whichs goalnode the agent currently is pathing is moved. Causeing the agent to repath to the new position. \end{DoxyCompactList}\item 
+Vector3 \mbox{\hyperlink{interface_i_n_p_c_ad5ed262947c2aeae8d223f54b35a1319}{Get\+Position}} ()
+\begin{DoxyCompactList}\small\item\em The function to get the position of the agent. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_n_p_c_a2bbc67294924ca40e603bf521787477a}{Respawn}} ()
+\begin{DoxyCompactList}\small\item\em The function beeing called if the agent is beeing respawned. Resetting all values and spawning from an new positio. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_n_p_c_aa27ca9e2eee2b7cbcbd2bdaa1d03d14f}{Resume}} ()
+\begin{DoxyCompactList}\small\item\em The function resumes the movement of the agent, if the agent was paused bevore. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_n_p_c_a5fd5cc8f74bf4ed3a59bef8f3823121d}{Set\+Inactive}} (Vector3 inactive\+Postion)
+\begin{DoxyCompactList}\small\item\em Sets the agents as inactive and moves it to the inactive container. Agent no more moves. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_n_p_c_aadd53d7eb6483a48b66aa081dc73e6a4}{Stop}} ()
+\begin{DoxyCompactList}\small\item\em Stops the agent. If the scene is paused. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_i_n_p_c_8cs_source_l00003}{3}} of file \mbox{\hyperlink{_i_n_p_c_8cs_source}{INPC.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{interface_i_n_p_c_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interface_i_n_p_c_af216207f3d576dcb40c985654a89043e}\index{INPC@{INPC}!BudeDestroyed@{BudeDestroyed}}
+\index{BudeDestroyed@{BudeDestroyed}!INPC@{INPC}}
+\doxysubsubsection{\texorpdfstring{BudeDestroyed()}{BudeDestroyed()}}
+{\footnotesize\ttfamily \label{interface_i_n_p_c_af216207f3d576dcb40c985654a89043e} 
+void INPC.\+Bude\+Destroyed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_bude}{Bude}}}]{moved\+Bude}{}\end{DoxyParamCaption})}
+
+
+
+The function gets called if a bude to whichs goalnode the agent currently is pathing is destroyed. Causeing the agent to repath to a new goal. 
+\begin{DoxyParams}{Parameters}
+{\em moved\+Bude} & The \doxylink{class_bude}{Bude} that moved.\\
+\hline
+\end{DoxyParams}
+
+
+
+
+Implemented in \mbox{\hyperlink{class_n_p_c_a9e2bb20eb9f2cbb655ae8e882c1108b3}{NPC}}.
+
+\Hypertarget{interface_i_n_p_c_a7c06c10e4a1d6efde673c770d619c2be}\index{INPC@{INPC}!BudeMoved@{BudeMoved}}
+\index{BudeMoved@{BudeMoved}!INPC@{INPC}}
+\doxysubsubsection{\texorpdfstring{BudeMoved()}{BudeMoved()}}
+{\footnotesize\ttfamily \label{interface_i_n_p_c_a7c06c10e4a1d6efde673c770d619c2be} 
+void INPC.\+Bude\+Moved (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_bude}{Bude}}}]{moved\+Bude}{}\end{DoxyParamCaption})}
+
+
+
+The function gets called if a bude to whichs goalnode the agent currently is pathing is moved. Causeing the agent to repath to the new position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em moved\+Bude} & The bude beeng moved.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_n_p_c_aac472b75ea2ef93c2dcb1d53cd618b08}{NPC}}.
+
+\Hypertarget{interface_i_n_p_c_ad5ed262947c2aeae8d223f54b35a1319}\index{INPC@{INPC}!GetPosition@{GetPosition}}
+\index{GetPosition@{GetPosition}!INPC@{INPC}}
+\doxysubsubsection{\texorpdfstring{GetPosition()}{GetPosition()}}
+{\footnotesize\ttfamily \label{interface_i_n_p_c_ad5ed262947c2aeae8d223f54b35a1319} 
+Vector3 INPC.\+Get\+Position (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+The function to get the position of the agent. 
+
+\begin{DoxyReturn}{Returns}
+The Position of the agent.
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_n_p_c_addedf8ec2918a5bc638e7de57bc37c62}{NPC}}.
+
+\Hypertarget{interface_i_n_p_c_a2bbc67294924ca40e603bf521787477a}\index{INPC@{INPC}!Respawn@{Respawn}}
+\index{Respawn@{Respawn}!INPC@{INPC}}
+\doxysubsubsection{\texorpdfstring{Respawn()}{Respawn()}}
+{\footnotesize\ttfamily \label{interface_i_n_p_c_a2bbc67294924ca40e603bf521787477a} 
+void INPC.\+Respawn (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+The function beeing called if the agent is beeing respawned. Resetting all values and spawning from an new positio. 
+
+
+
+Implemented in \mbox{\hyperlink{class_n_p_c_a848bdd558e03e6b39b3ee9125710ee0f}{NPC}}.
+
+\Hypertarget{interface_i_n_p_c_aa27ca9e2eee2b7cbcbd2bdaa1d03d14f}\index{INPC@{INPC}!Resume@{Resume}}
+\index{Resume@{Resume}!INPC@{INPC}}
+\doxysubsubsection{\texorpdfstring{Resume()}{Resume()}}
+{\footnotesize\ttfamily \label{interface_i_n_p_c_aa27ca9e2eee2b7cbcbd2bdaa1d03d14f} 
+void INPC.\+Resume (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+The function resumes the movement of the agent, if the agent was paused bevore. 
+
+
+
+Implemented in \mbox{\hyperlink{class_n_p_c_ac7c73f1ac13663f2b08af8f9f7a37d0c}{NPC}}.
+
+\Hypertarget{interface_i_n_p_c_a5fd5cc8f74bf4ed3a59bef8f3823121d}\index{INPC@{INPC}!SetInactive@{SetInactive}}
+\index{SetInactive@{SetInactive}!INPC@{INPC}}
+\doxysubsubsection{\texorpdfstring{SetInactive()}{SetInactive()}}
+{\footnotesize\ttfamily \label{interface_i_n_p_c_a5fd5cc8f74bf4ed3a59bef8f3823121d} 
+void INPC.\+Set\+Inactive (\begin{DoxyParamCaption}\item[{Vector3}]{inactive\+Postion}{}\end{DoxyParamCaption})}
+
+
+
+Sets the agents as inactive and moves it to the inactive container. Agent no more moves. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em inactive\+Postion} & \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_n_p_c_a52216833b077a89afb05b1f9d1510c81}{NPC}}.
+
+\Hypertarget{interface_i_n_p_c_aadd53d7eb6483a48b66aa081dc73e6a4}\index{INPC@{INPC}!Stop@{Stop}}
+\index{Stop@{Stop}!INPC@{INPC}}
+\doxysubsubsection{\texorpdfstring{Stop()}{Stop()}}
+{\footnotesize\ttfamily \label{interface_i_n_p_c_aadd53d7eb6483a48b66aa081dc73e6a4} 
+void INPC.\+Stop (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Stops the agent. If the scene is paused. 
+
+
+
+Implemented in \mbox{\hyperlink{class_n_p_c_ad4c5808368509dcbb0bb4fed7ec3eec0}{NPC}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Max\+Friedrich/\+Documents/gluehwein-\/planer/\+Gluehweinplaner/\+Assets/\+Scripts/\+Documentation/INPC.\+cs\end{DoxyCompactItemize}

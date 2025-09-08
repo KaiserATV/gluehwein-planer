@@ -90,7 +90,7 @@ public static class GenerateMatrix
     /// <returns>The distancefield and the flowfield.</returns>
     public static (int[,], byte[,]) GenerateDistanceFieldAndFlowField(Plate plate, Vector3 start, bool canPathDiagonal)
     {
-        List<Vector2Int> startPositions = new List<Vector2Int>{plate.GetPositionInArray(start, false)};
+        List<Vector2Int> startPositions = new List<Vector2Int> { plate.GetPositionInArray(start, false) };
         return GenerateDistanceFieldAndFlowField(plate.BaseCostMatrix, plate.Rows, plate.Columns, startPositions, canPathDiagonal);
     }
     /// <summary>
@@ -104,12 +104,13 @@ public static class GenerateMatrix
     /// <param name="startPositions">The List of starting positions from which the fields are calculated.</param>
     /// <param name="canPathDiagonal">Wether or not the agent can path diagonal.</param>
     /// <returns>The distancefield and the flowfield.</returns>
-    public static (int[,], byte[,]) GenerateDistanceFieldAndFlowField(int[,] baseCost, int rows, int cols, List<Vector2Int> startPositions,bool canPathDiagonal)
+    public static (int[,], byte[,]) GenerateDistanceFieldAndFlowField(int[,] baseCost, int rows, int cols, List<Vector2Int> startPositions, bool canPathDiagonal)
     {
         int[,] distanceMatrix = (int[,])baseCost.Clone();
         byte[,] returnField = new byte[rows, cols];
         Queue<Vector2Int> nextNodeToBeExpanded = new Queue<Vector2Int>();
-        foreach (Vector2Int pos in startPositions) {
+        foreach (Vector2Int pos in startPositions)
+        {
             nextNodeToBeExpanded.Enqueue(pos);
             distanceMatrix[pos.x, pos.y] = 0;
             returnField[pos.x, pos.y] = ExitDirection.IsExit;
@@ -138,7 +139,7 @@ public static class GenerateMatrix
                 }
             }
 
-            if(node.y != 0)
+            if (node.y != 0)
             {
                 Vector2Int nodeToBeChecked = new Vector2Int(node.x, node.y - 1);
                 if (distanceMatrix[nodeToBeChecked.x, nodeToBeChecked.y] == MatrixIsPathableValue)
@@ -171,7 +172,7 @@ public static class GenerateMatrix
                     }
                 }
             }
-            if(cols - node.y > 1)
+            if (cols - node.y > 1)
             {
 
                 Vector2Int nodeToBeChecked = new Vector2Int(node.x, node.y + 1);
@@ -206,7 +207,7 @@ public static class GenerateMatrix
                 }
             }
         } while (nextNodeToBeExpanded.Count != 0);
-        return (distanceMatrix,returnField);
+        return (distanceMatrix, returnField);
     }
     /// <summary>
     /// Function used to determine the clostest Vector2Int from a list of positions to a provieded goal Vector2Int. 
@@ -214,13 +215,13 @@ public static class GenerateMatrix
     /// <param name="list">Amount of positions to consider.</param>
     /// <param name="point">Point to which the closest position needs to be found.</param>
     /// <returns>Return the closest Vector2Int. to the provided point.</returns>
-    public static Vector2Int GetClostestV2(List<Vector2Int> list,Vector2Int point)
+    public static Vector2Int GetClostestV2(List<Vector2Int> list, Vector2Int point)
     {
         float distance = float.MaxValue;
-        Vector2Int clostestPoint = new(-1,-1);
-        foreach(Vector2Int potential in list)
+        Vector2Int clostestPoint = new(-1, -1);
+        foreach (Vector2Int potential in list)
         {
-            if(Vector2Int.Distance(potential,point) < distance)
+            if (Vector2Int.Distance(potential, point) < distance)
             {
                 clostestPoint = potential;
                 distance = Vector2Int.Distance(potential, point);
@@ -238,19 +239,19 @@ public static class GenerateMatrix
     /// <param name="rows">The number of rows.</param>
     /// <param name="cols">The number of columns.</param>
     /// <returns>A List of Vecto2Ints which represent the steps taken to interpolate between the two points inside the grid.</returns>
-    public static List<Vector2Int> InterpolateArray(Vector2Int start, Vector2Int goal, Func<(Vector2Int,Vector2Int),Vector2Int> decideNext, bool canPathDiagonal, int rows, int cols)
+    public static List<Vector2Int> InterpolateArray(Vector2Int start, Vector2Int goal, Func<(Vector2Int, Vector2Int), Vector2Int> decideNext, bool canPathDiagonal, int rows, int cols)
     {
         if (start == goal)
         {
-            return new List<Vector2Int> { start };            
+            return new List<Vector2Int> { start };
         }
         int dx = goal.x - start.x, dy = goal.y - start.y;
         int nx = Math.Abs(dx), ny = Math.Abs(dy);
         int sign_x = dx > 0 ? 1 : -1, sign_y = dy > 0 ? 1 : -1;
-        List<Vector2Int> points = new List<Vector2Int> {  };
+        List<Vector2Int> points = new List<Vector2Int> { };
         if (canPathDiagonal)
         {
-           
+
             for (int ix = 0, iy = 0; ix < nx || iy < ny;)
             {
                 points.Add(start);
@@ -258,7 +259,7 @@ public static class GenerateMatrix
                 if (decision == 0)
                 {
                     // next step is canPathDiagonal
-                    if (start.x+sign_x >=0 && start.x+sign_x < rows && start.y + sign_y >= 0 && start.y + sign_y < cols)
+                    if (start.x + sign_x >= 0 && start.x + sign_x < rows && start.y + sign_y >= 0 && start.y + sign_y < cols)
                     {
                         start.x += sign_x;
                         start.y += sign_y;
@@ -288,7 +289,7 @@ public static class GenerateMatrix
                 else
                 {
                     // next step is vertical
-                    if(start.y + sign_y >= 0 && start.y + sign_y < cols)
+                    if (start.y + sign_y >= 0 && start.y + sign_y < cols)
                     {
                         start.y += sign_y;
                     }
@@ -310,7 +311,7 @@ public static class GenerateMatrix
             {
                 if (dy > 0)
                 {
-                    diffToBorder = new Vector2Int(rows-1, cols-1)-start;
+                    diffToBorder = new Vector2Int(rows - 1, cols - 1) - start;
                 }
                 else
                 {
@@ -337,7 +338,7 @@ public static class GenerateMatrix
                 if ((0.5 + ix) / nx < (0.5 + iy) / ny)
                 {
                     // next step is horizontal
-                    if (diffToBorder.x > 0 )
+                    if (diffToBorder.x > 0)
                     {
                         p.x += sign_x;
                         ix++;
@@ -347,10 +348,11 @@ public static class GenerateMatrix
                     {
                         return points;
                     }
-                }else if ((0.5 + ix) / nx == (0.5 + iy) / ny)
+                }
+                else if ((0.5 + ix) / nx == (0.5 + iy) / ny)
                 {
                     Vector2Int next = decideNext((new Vector2Int(Mathf.FloorToInt(p.x + sign_x), Mathf.FloorToInt(p.y)), new Vector2Int(Mathf.FloorToInt(p.x), Mathf.FloorToInt(p.y + sign_y))));
-                    if(next == new Vector2Int(Mathf.FloorToInt(p.x + sign_x), Mathf.FloorToInt(p.y)))
+                    if (next == new Vector2Int(Mathf.FloorToInt(p.x + sign_x), Mathf.FloorToInt(p.y)))
                     {
                         if (diffToBorder.x > 0)
                         {
@@ -411,7 +413,8 @@ public static class GenerateMatrix
     {
         Vector2Int? ret = null;
         ret = FindBestPointToNextArrayAndGoal(goal, exitDirection, homePlate, neighborPlate);
-        if(ret == null){ return null; };
+        if (ret == null) { return null; }
+        ;
         return homePlate.GetSubTileCenterWorldCoordinates(ret!.Value);
     }
     /// <summary>
@@ -425,8 +428,9 @@ public static class GenerateMatrix
     /// <returns>Null if there is no valid exit. A Vector3 if there is an valid exit.</returns>
     public static Vector2Int? FindBestPointToNextArrayAndGoal(Vector3 goal, ExitDirection.ExitDirections exitDirection, Plate homePlate, Plate neighborPlate)
     {
-        Portal? clostestPortal = homePlate.GetClostestPortal(exitDirection);
-        if(clostestPortal == null){ return null; };
+        Portal? clostestPortal = homePlate.GetClostestPortal(goal, exitDirection);
+        if (clostestPortal == null) { return null; }
+        ;
         Vector2Int? clostestPoint = null;
         float currentSmallestDistance = float.MaxValue;
         foreach (Vector2Int posToBeChecked in clostestPortal.GoalPositions2)
@@ -438,7 +442,7 @@ public static class GenerateMatrix
                 {
                     if (exitDirection == ExitDirection.ExitDirections.North || exitDirection == ExitDirection.ExitDirections.South)
                     {
-                        if (neighborPlate.BaseCostMatrix[neighborPlate.Rows - (posToBeChecked.x+1), posToBeChecked.y] == MatrixIsPathableValue)
+                        if (neighborPlate.BaseCostMatrix[neighborPlate.Rows - (posToBeChecked.x + 1), posToBeChecked.y] == MatrixIsPathableValue)
                         {
                             clostestPoint = posToBeChecked;
                             currentSmallestDistance = distance;
@@ -446,7 +450,7 @@ public static class GenerateMatrix
                     }
                     else
                     {
-                        if (neighborPlate.BaseCostMatrix[posToBeChecked.x, neighborPlate.Columns - (posToBeChecked.y+1)] == MatrixIsPathableValue)
+                        if (neighborPlate.BaseCostMatrix[posToBeChecked.x, neighborPlate.Columns - (posToBeChecked.y + 1)] == MatrixIsPathableValue)
                         {
                             clostestPoint = posToBeChecked;
                             currentSmallestDistance = distance;
@@ -470,7 +474,7 @@ public static class GenerateMatrix
     /// The Queue of Vector3, the waypoints which the agent is ought to take. This list is null, when there couldn't be a path found with the provided plates could be found. 
     /// In that case the last Plate is returned.
     /// </returns>
-    public static (Queue<Vector3>,Plate?) GeneratePath(List<Plate> platesToVisit, Vector3 start, Vector3 goal, bool canPathDiagonal)
+    public static (Queue<Vector3>, Plate?) GeneratePath(List<Plate> platesToVisit, Vector3 start, Vector3 goal, bool canPathDiagonal)
     {
         List<Vector3> steps = new List<Vector3> { start };
         for (int i = 0; i < platesToVisit.Count - 1; i++)
@@ -480,47 +484,47 @@ public static class GenerateMatrix
             Vector3 diff = nextPlate.Center - currentPlate.Center;
             Vector3? closestPoint = null;
             Vector3 checkDirection;
-            Vector2Int nextDir = new(0,0);
-            if(canPathDiagonal && diff.x != 0 && diff.z != 0)
+            Vector2Int nextDir = new(0, 0);
+            if (canPathDiagonal && diff.x != 0 && diff.z != 0)
             {
-                if(diff.x > 0)
+                if (diff.x > 0)
                 {
-                    if(diff.z > 0)
+                    if (diff.z > 0)
                     {
-                        closestPoint = (nextPlate.BaseCostMatrix[0,0] == MatrixIsPathableValue && currentPlate.BaseCostMatrix[currentPlate.Rows - 1, currentPlate.Columns - 1] == MatrixIsPathableValue)? currentPlate.GetSubTileCenterWorldCoordinates(currentPlate.Rows-1, currentPlate.Columns-1) : null;
+                        closestPoint = (nextPlate.BaseCostMatrix[0, 0] == MatrixIsPathableValue && currentPlate.BaseCostMatrix[currentPlate.Rows - 1, currentPlate.Columns - 1] == MatrixIsPathableValue) ? currentPlate.GetSubTileCenterWorldCoordinates(currentPlate.Rows - 1, currentPlate.Columns - 1) : null;
                         checkDirection = new Vector3(GenerateMatrix.TileSizeX, 0, GenerateMatrix.TileSizeZ);
-                        nextDir = new(1,1);
+                        nextDir = new(1, 1);
                     }
                     else
                     {
-                        closestPoint = (nextPlate.BaseCostMatrix[0, nextPlate.Columns-1] == MatrixIsPathableValue && currentPlate.BaseCostMatrix[currentPlate.Rows - 1, 0] == MatrixIsPathableValue)? currentPlate.GetSubTileCenterWorldCoordinates(currentPlate.Rows - 1, 0):null;
+                        closestPoint = (nextPlate.BaseCostMatrix[0, nextPlate.Columns - 1] == MatrixIsPathableValue && currentPlate.BaseCostMatrix[currentPlate.Rows - 1, 0] == MatrixIsPathableValue) ? currentPlate.GetSubTileCenterWorldCoordinates(currentPlate.Rows - 1, 0) : null;
                         checkDirection = new Vector3(GenerateMatrix.TileSizeX, 0, -GenerateMatrix.TileSizeZ);
-                        nextDir = new(1,-1);
+                        nextDir = new(1, -1);
                     }
                 }
                 else
                 {
                     if (diff.z > 0)
                     {
-                        closestPoint = (nextPlate.BaseCostMatrix[nextPlate.Rows-1, 0] == MatrixIsPathableValue && currentPlate.BaseCostMatrix[0, currentPlate.Columns - 1] == MatrixIsPathableValue) ? currentPlate.GetSubTileCenterWorldCoordinates(0, currentPlate.Columns - 1):null;
+                        closestPoint = (nextPlate.BaseCostMatrix[nextPlate.Rows - 1, 0] == MatrixIsPathableValue && currentPlate.BaseCostMatrix[0, currentPlate.Columns - 1] == MatrixIsPathableValue) ? currentPlate.GetSubTileCenterWorldCoordinates(0, currentPlate.Columns - 1) : null;
                         checkDirection = new Vector3(-GenerateMatrix.TileSizeX, 0, GenerateMatrix.TileSizeZ);
-                        nextDir = new(-1,1);
+                        nextDir = new(-1, 1);
                     }
                     else
                     {
-                        closestPoint = (nextPlate.BaseCostMatrix[nextPlate.Rows - 1, nextPlate.Columns-1] == MatrixIsPathableValue && currentPlate.BaseCostMatrix[0,0] == MatrixIsPathableValue) ? currentPlate.GetSubTileCenterWorldCoordinates(0, 0):null;
+                        closestPoint = (nextPlate.BaseCostMatrix[nextPlate.Rows - 1, nextPlate.Columns - 1] == MatrixIsPathableValue && currentPlate.BaseCostMatrix[0, 0] == MatrixIsPathableValue) ? currentPlate.GetSubTileCenterWorldCoordinates(0, 0) : null;
                         checkDirection = new Vector3(-GenerateMatrix.TileSizeX, 0, -GenerateMatrix.TileSizeZ);
-                        nextDir = new(-1,-1);
+                        nextDir = new(-1, -1);
                     }
                 }
                 if (closestPoint != null)
                 {
                     Portal? p = currentPlate.GetClostestPortal(steps.Last(), ExitDirection.DirectionToExitDiretion(nextDir));
-                    if(p == null)
+                    if (p == null)
                     {
                         return (new Queue<Vector3>(), currentPlate);
                     }
-                    List <Vector3> subSteps = currentPlate.GetShortestPathToToNextPlateV3(p, steps.Last<Vector3>());
+                    List<Vector3> subSteps = currentPlate.GetShortestPathToToNextPlateV3(p, steps.Last<Vector3>());
                     if (subSteps.Count > 0)
                     {
                         steps.AddRange(subSteps);
@@ -544,13 +548,13 @@ public static class GenerateMatrix
                     {
                         closestPoint = GenerateMatrix.FindBestPointToNextArrayAndGoalV3(start, ExitDirection.ExitDirections.South, currentPlate, nextPlate);
                         checkDirection = new Vector3(GenerateMatrix.TileSizeX, 0, 0);
-                        nextDir = new(1,0);
+                        nextDir = new(1, 0);
                     }
                     else
                     {
                         closestPoint = GenerateMatrix.FindBestPointToNextArrayAndGoalV3(start, ExitDirection.ExitDirections.North, currentPlate, nextPlate);
                         checkDirection = new Vector3(-GenerateMatrix.TileSizeX, 0, 0);
-                        nextDir = new(-1,0);
+                        nextDir = new(-1, 0);
                     }
                 }
                 else
@@ -559,13 +563,13 @@ public static class GenerateMatrix
                     {
                         closestPoint = GenerateMatrix.FindBestPointToNextArrayAndGoalV3(start, ExitDirection.ExitDirections.East, currentPlate, nextPlate);
                         checkDirection = new Vector3(0, 0, GenerateMatrix.TileSizeZ);
-                        nextDir = new(0,1);
+                        nextDir = new(0, 1);
                     }
                     else
                     {
                         closestPoint = GenerateMatrix.FindBestPointToNextArrayAndGoalV3(start, ExitDirection.ExitDirections.West, currentPlate, nextPlate);
                         checkDirection = new Vector3(0, 0, -GenerateMatrix.TileSizeZ);
-                        nextDir = new(0,-1);
+                        nextDir = new(0, -1);
                     }
                 }
                 if (closestPoint != null)
@@ -602,7 +606,7 @@ public static class GenerateMatrix
     /// <param name="flowfield">The flowfield in which the path should be found.</param>
     /// <param name="start">The starting point of the path.</param>
     /// <returns>The List of Vector2Int of tiles to be visited in the flowfield to an goal position. The function only returns the points in the path on which the agent must chang their position.</returns>
-    public static List<Vector2Int> GetBestPathInFlowField(byte[,] flowfield,Vector2Int start)
+    public static List<Vector2Int> GetBestPathInFlowField(byte[,] flowfield, Vector2Int start)
     {
         List<Vector2Int> bestPath = new List<Vector2Int>();
         byte lastDir = 111;
@@ -633,7 +637,7 @@ public static class GenerateMatrix
     {
         List<Vector2Int> bestPath = new List<Vector2Int>();
         byte currByte = 0;
-        while (currByte != ExitDirection.IsExit )
+        while (currByte != ExitDirection.IsExit)
         {
             currByte = flowfield[start.x, start.y];
             bestPath.Add(start);
@@ -685,7 +689,7 @@ public static class GenerateMatrix
             string rowString = "";
             for (int j = 0; j < cols; j++)
             {
-                rowString += "    "+array[i, j] + "    ";
+                rowString += "    " + array[i, j] + "    ";
             }
             Debug.Log(rowString);
         }

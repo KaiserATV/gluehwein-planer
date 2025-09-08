@@ -11,7 +11,7 @@ public class ObjectSpawner : MonoBehaviour
     public GameObject budenContainer;
     public SceneManager am;
     public GodmodeController godmodeController;
-    
+
     public XRRayInteractor rayInteractor;
     private GameObject selectedObject = null;
 
@@ -40,17 +40,17 @@ public class ObjectSpawner : MonoBehaviour
 
     void Start()
     {
-        budenContainer = GameObject.Find("BudenContainer");    
+        budenContainer = GameObject.Find("BudenContainer");
         am = GameObject.Find("SceneManager").GetComponent<SceneManager>();
         cameraTransform = Camera.main.transform;
         godmodeController = FindObjectOfType<GodmodeController>();
 
         if (godmodeController == null)
             Debug.LogError("GodmodeController wurde nicht gefunden!");
-        
+
         if (rayInteractor == null)
             Debug.LogError("RayInteractor wurde nicht zugewiesen!");
-        
+
         grabAction.action.started += _ => TrySelectObject();
         grabAction.action.canceled += _ => DeselectObject();
     }
@@ -84,53 +84,53 @@ public class ObjectSpawner : MonoBehaviour
         Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
         float rotationInput = rotateAction.action.ReadValue<float>();
 
-        if (Mathf.Abs(rotationInput) > 0.01f) 
+        if (Mathf.Abs(rotationInput) > 0.01f)
         {
             lastRotationInput = rotationInput;
         }
 
         // **Bewegung auch für bestehende Buden ermöglichen**
-        if (moveInput.magnitude > 0.01f) 
-{
-    Vector3 forward = cameraTransform.forward;
-    Vector3 right = cameraTransform.right;
-
-    forward.y = 0; 
-    right.y = 0;
-    forward.Normalize();
-    right.Normalize();
-
-    Vector3 movement = (right * moveInput.x + forward * moveInput.y) * Time.deltaTime * 5f;
-
-    if (isPlacing && currentPreview != null)
-    {
-        placementPosition += movement;
-        hasUsedMoveInput = true;
-    }
-    else if (selectedObject != null)
-    {
-        Rigidbody rb = selectedObject.GetComponent<Rigidbody>();
-        XRGrabInteractable grabInteractable = selectedObject.GetComponent<XRGrabInteractable>();
-
-        if (rb != null)
+        if (moveInput.magnitude > 0.01f)
         {
-            bool wasKinematic = rb.isKinematic;
-            rb.isKinematic = false; // Physik-Kollisionen ausschalten, um Bewegung zu erlauben
-            selectedObject.transform.position += movement;
-            rb.isKinematic = wasKinematic; // Nach Bewegung zurücksetzen
-        }
-        else
-        {
-            selectedObject.transform.position += movement;
-        }
+            Vector3 forward = cameraTransform.forward;
+            Vector3 right = cameraTransform.right;
 
-        // Falls das Objekt ein XR Grab Interactable hat, verhindern, dass es beim Greifen "gezogen" wird
-        if (grabInteractable != null)
-        {
-            grabInteractable.movementType = XRBaseInteractable.MovementType.VelocityTracking; // Keine feste Bindung an den Controller
+            forward.y = 0;
+            right.y = 0;
+            forward.Normalize();
+            right.Normalize();
+
+            Vector3 movement = (right * moveInput.x + forward * moveInput.y) * Time.deltaTime * 5f;
+
+            if (isPlacing && currentPreview != null)
+            {
+                placementPosition += movement;
+                hasUsedMoveInput = true;
+            }
+            else if (selectedObject != null)
+            {
+                Rigidbody rb = selectedObject.GetComponent<Rigidbody>();
+                XRGrabInteractable grabInteractable = selectedObject.GetComponent<XRGrabInteractable>();
+
+                if (rb != null)
+                {
+                    bool wasKinematic = rb.isKinematic;
+                    rb.isKinematic = false; // Physik-Kollisionen ausschalten, um Bewegung zu erlauben
+                    selectedObject.transform.position += movement;
+                    rb.isKinematic = wasKinematic; // Nach Bewegung zurücksetzen
+                }
+                else
+                {
+                    selectedObject.transform.position += movement;
+                }
+
+                // Falls das Objekt ein XR Grab Interactable hat, verhindern, dass es beim Greifen "gezogen" wird
+                if (grabInteractable != null)
+                {
+                    grabInteractable.movementType = XRBaseInteractable.MovementType.VelocityTracking; // Keine feste Bindung an den Controller
+                }
+            }
         }
-    }
-}
 
         else if (!hasUsedMoveInput)
         {
@@ -138,36 +138,36 @@ public class ObjectSpawner : MonoBehaviour
         }
 
         // **Rotation für neue oder bestehende Bude**
-        if (rotateAction.action.WasPressedThisFrame()) 
-{
-    float rotationStep = (lastRotationInput > 0) ? 5f : -5f; 
+        if (rotateAction.action.WasPressedThisFrame())
+        {
+            float rotationStep = (lastRotationInput > 0) ? 5f : -5f;
 
-    if (isPlacing && currentPreview != null)
-    {
-        placementRotationY += rotationStep;
-    }
-    else if (selectedObject != null)
-    {
-        float currentRotation = selectedObject.transform.eulerAngles.y;
-        float newRotation = Mathf.Round((currentRotation + rotationStep) / 5f) * 5f; // Auf nächste 5° runden
-        selectedObject.transform.rotation = Quaternion.Euler(0, newRotation, 0);
-    }
+            if (isPlacing && currentPreview != null)
+            {
+                placementRotationY += rotationStep;
+            }
+            else if (selectedObject != null)
+            {
+                float currentRotation = selectedObject.transform.eulerAngles.y;
+                float newRotation = Mathf.Round((currentRotation + rotationStep) / 5f) * 5f; // Auf nächste 5° runden
+                selectedObject.transform.rotation = Quaternion.Euler(0, newRotation, 0);
+            }
 
-}
-else if (Mathf.Abs(rotationInput) > 0.01f) 
-{
-    float continuousRotation = rotationInput * rotationSpeed * Time.deltaTime;
-    
-    if (isPlacing && currentPreview != null)
-    {
-        placementRotationY += continuousRotation;
-    }
-    else if (selectedObject != null)
-    {
-        selectedObject.transform.rotation *= Quaternion.Euler(0, continuousRotation, 0);
-    }
+        }
+        else if (Mathf.Abs(rotationInput) > 0.01f)
+        {
+            float continuousRotation = rotationInput * rotationSpeed * Time.deltaTime;
 
-}
+            if (isPlacing && currentPreview != null)
+            {
+                placementRotationY += continuousRotation;
+            }
+            else if (selectedObject != null)
+            {
+                selectedObject.transform.rotation *= Quaternion.Euler(0, continuousRotation, 0);
+            }
+
+        }
 
 
         // **Vorschau-Objekt aktualisieren**
@@ -187,16 +187,16 @@ else if (Mathf.Abs(rotationInput) > 0.01f)
     void CreatePreviewObject()
     {
         if (currentPreview != null) Destroy(currentPreview);
-        
+
         currentPreview = Instantiate(objectPrefabs[selectedIndex], budenContainer.transform);
         SetMaterialTransparent(currentPreview);
     }
 
     void PlaceObject()
     {
-        GameObject newObj = Instantiate(objectPrefabs[selectedIndex], 
-            placementPosition, 
-            Quaternion.Euler(0, placementRotationY, 0), 
+        GameObject newObj = Instantiate(objectPrefabs[selectedIndex],
+            placementPosition,
+            Quaternion.Euler(0, placementRotationY, 0),
             budenContainer.transform);
         newObj.GetComponent<Bude>().SetTypeIndex(selectedIndex);
         am.AddBude(newObj.GetComponent<Bude>());
@@ -214,115 +214,115 @@ else if (Mathf.Abs(rotationInput) > 0.01f)
         }
     }
 
-void SetMaterialTransparent(GameObject obj)
-{
-    Transform budeTransform = obj.transform.Find("Bude"); // Sucht das Unterobjekt „Bude“
-    if (budeTransform != null)
+    void SetMaterialTransparent(GameObject obj)
     {
-        Renderer budeRenderer = budeTransform.GetComponent<Renderer>();
-        if (budeRenderer != null)
+        Transform budeTransform = obj.transform.Find("Bude"); // Sucht das Unterobjekt „Bude“
+        if (budeTransform != null)
         {
-            budeRenderer.material = previewMaterial;
+            Renderer budeRenderer = budeTransform.GetComponent<Renderer>();
+            if (budeRenderer != null)
+            {
+                budeRenderer.material = previewMaterial;
+            }
         }
     }
-}
 
 
     // **Objekt per Ray Interactor auswählen**
     void TrySelectObject()
-{
-    if (rayInteractor == null) 
     {
-        Debug.LogWarning("RayInteractor ist nicht zugewiesen!");
-        return;
-    }
-
-    RaycastHit hit;
-    if (rayInteractor.TryGetCurrent3DRaycastHit(out hit))
-    {
-        Debug.Log("Raycast hat etwas getroffen: " + hit.collider.gameObject.name);
-
-        Transform parent = hit.collider.transform;
-        while (parent.parent != null && !parent.name.Contains("Stand"))
+        if (rayInteractor == null)
         {
-            parent = parent.parent;
+            Debug.LogWarning("RayInteractor ist nicht zugewiesen!");
+            return;
         }
 
-        if (parent.name.Contains("Stand"))
+        RaycastHit hit;
+        if (rayInteractor.TryGetCurrent3DRaycastHit(out hit))
         {
-            selectedObject = parent.gameObject;
-            Debug.Log("Objekt erfolgreich ausgewählt: " + selectedObject.name);
+            Debug.Log("Raycast hat etwas getroffen: " + hit.collider.gameObject.name);
 
-            XRGrabInteractable grabInteractable = selectedObject.GetComponent<XRGrabInteractable>();
-            if (grabInteractable != null)
+            Transform parent = hit.collider.transform;
+            while (parent.parent != null && !parent.name.Contains("Stand"))
             {
-                grabInteractable.movementType = XRBaseInteractable.MovementType.VelocityTracking; // Verhindert Ziehen zum Controller
-                grabInteractable.attachTransform = selectedObject.transform; // Bleibt an Ort und Stelle
+                parent = parent.parent;
+            }
+
+            if (parent.name.Contains("Stand"))
+            {
+                selectedObject = parent.gameObject;
+                Debug.Log("Objekt erfolgreich ausgewählt: " + selectedObject.name);
+
+                XRGrabInteractable grabInteractable = selectedObject.GetComponent<XRGrabInteractable>();
+                if (grabInteractable != null)
+                {
+                    grabInteractable.movementType = XRBaseInteractable.MovementType.VelocityTracking; // Verhindert Ziehen zum Controller
+                    grabInteractable.attachTransform = selectedObject.transform; // Bleibt an Ort und Stelle
+                }
             }
         }
     }
-}
 
-void DeselectObject()
-{
-    if (selectedObject != null)
+    void DeselectObject()
     {
-        Debug.Log("Objekt losgelassen: " + selectedObject.name);
-
-        XRGrabInteractable grabInteractable = selectedObject.GetComponent<XRGrabInteractable>();
-        Rigidbody rb = selectedObject.GetComponent<Rigidbody>();
-        XRGazeAssistance gazeAssist = selectedObject.GetComponent<XRGazeAssistance>();
-
-   if (grabInteractable != null)
-{
-    Transform tempAttach = new GameObject("TempAttachPoint").transform;
-    tempAttach.position = grabInteractable.transform.position + Vector3.up * 0.5f; // 0.5m über dem Objekt
-    grabInteractable.attachTransform = tempAttach;
-}
-
-{
-    try
-    {
-        gazeAssist.enabled = false;
-    }
-    catch (System.Exception e)
-    {
-        Debug.LogWarning("Fehler beim Deaktivieren von XRGazeAssistance: " + e.Message);
-    }
-}
-
-
-        if (rb != null)
+        if (selectedObject != null)
         {
-            rb.isKinematic = false;
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            rb.isKinematic = true;
+            Debug.Log("Objekt losgelassen: " + selectedObject.name);
+
+            XRGrabInteractable grabInteractable = selectedObject.GetComponent<XRGrabInteractable>();
+            Rigidbody rb = selectedObject.GetComponent<Rigidbody>();
+            XRGazeAssistance gazeAssist = selectedObject.GetComponent<XRGazeAssistance>();
+
+            if (grabInteractable != null)
+            {
+                Transform tempAttach = new GameObject("TempAttachPoint").transform;
+                tempAttach.position = grabInteractable.transform.position + Vector3.up * 0.5f; // 0.5m über dem Objekt
+                grabInteractable.attachTransform = tempAttach;
+            }
+
+            {
+                try
+                {
+                    gazeAssist.enabled = false;
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogWarning("Fehler beim Deaktivieren von XRGazeAssistance: " + e.Message);
+                }
+            }
+
+
+            if (rb != null)
+            {
+                rb.isKinematic = false;
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                rb.isKinematic = true;
+            }
+
+            StartCoroutine(ResetGrabInteractable(grabInteractable, 0.1f));
         }
 
-        StartCoroutine(ResetGrabInteractable(grabInteractable, 0.1f));
+        selectedObject = null;
     }
 
-    selectedObject = null;
-}
+    private System.Collections.IEnumerator ResetGrabInteractable(XRGrabInteractable grabInteractable, float delay)
+    {
+        if (grabInteractable != null)
+        {
+            yield return new WaitForSeconds(delay);
+            grabInteractable.interactionLayers = -1; // Objekt wieder für Interaktionen aktivieren
+        }
+    }
 
-private System.Collections.IEnumerator ResetGrabInteractable(XRGrabInteractable grabInteractable, float delay)
-{
-    if (grabInteractable != null)
+    private System.Collections.IEnumerator ResetInteractionLayer(XRGrabInteractable grabInteractable, float delay)
     {
         yield return new WaitForSeconds(delay);
-        grabInteractable.interactionLayers = -1; // Objekt wieder für Interaktionen aktivieren
+        if (grabInteractable != null)
+        {
+            grabInteractable.interactionLayers = -1; // Reaktiviert das Objekt für Interaktionen
+        }
     }
-}
-
-private System.Collections.IEnumerator ResetInteractionLayer(XRGrabInteractable grabInteractable, float delay)
-{
-    yield return new WaitForSeconds(delay);
-    if (grabInteractable != null)
-    {
-        grabInteractable.interactionLayers = -1; // Reaktiviert das Objekt für Interaktionen
-    }
-}
 }
 
 

@@ -1,0 +1,73 @@
+\doxysection{IPortal Interface Reference}
+\hypertarget{interface_i_portal}{}\label{interface_i_portal}\index{IPortal@{IPortal}}
+Inheritance diagram for IPortal\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{interface_i_portal}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_i_portal_acb896571e749ce36e7899c7aef186126}{Generate\+Flow\+Field}} (\mbox{\hyperlink{class_plate}{Plate}} plate)
+\begin{DoxyCompactList}\small\item\em Function to initialize the generation of the flowfield to a certain Exit/\+Portal. \end{DoxyCompactList}\item 
+Vector2\+Int \mbox{\hyperlink{interface_i_portal_a43d2e137dfb0410d16b4e06c8af8016d}{Get\+Clostest\+To\+Start}} (Vector2\+Int start)
+\begin{DoxyCompactList}\small\item\em Function to get the closest Point of exitpoints in the portal to a start point. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_i_portal_8cs_source_l00003}{3}} of file \mbox{\hyperlink{_i_portal_8cs_source}{IPortal.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{interface_i_portal_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interface_i_portal_acb896571e749ce36e7899c7aef186126}\index{IPortal@{IPortal}!GenerateFlowField@{GenerateFlowField}}
+\index{GenerateFlowField@{GenerateFlowField}!IPortal@{IPortal}}
+\doxysubsubsection{\texorpdfstring{GenerateFlowField()}{GenerateFlowField()}}
+{\footnotesize\ttfamily \label{interface_i_portal_acb896571e749ce36e7899c7aef186126} 
+void IPortal.\+Generate\+Flow\+Field (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plate}{Plate}}}]{plate}{}\end{DoxyParamCaption})}
+
+
+
+Function to initialize the generation of the flowfield to a certain Exit/\+Portal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em plate} & The \doxylink{class_plate}{Plate} of whichs basecostmatrix the Flowfield is generated.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_portal_afb7092105c03266a522c637fa2eb0802}{Portal}}.
+
+\Hypertarget{interface_i_portal_a43d2e137dfb0410d16b4e06c8af8016d}\index{IPortal@{IPortal}!GetClostestToStart@{GetClostestToStart}}
+\index{GetClostestToStart@{GetClostestToStart}!IPortal@{IPortal}}
+\doxysubsubsection{\texorpdfstring{GetClostestToStart()}{GetClostestToStart()}}
+{\footnotesize\ttfamily \label{interface_i_portal_a43d2e137dfb0410d16b4e06c8af8016d} 
+Vector2\+Int IPortal.\+Get\+Clostest\+To\+Start (\begin{DoxyParamCaption}\item[{Vector2\+Int}]{start}{}\end{DoxyParamCaption})}
+
+
+
+Function to get the closest Point of exitpoints in the portal to a start point. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em start} & The start point from which the closest point is calculated.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The closest point.
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_portal_a072f2a3a5d24ea5d343ab19d64e57d86}{Portal}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Max\+Friedrich/\+Documents/gluehwein-\/planer/\+Gluehweinplaner/\+Assets/\+Scripts/\+Documentation/IPortal.\+cs\end{DoxyCompactItemize}

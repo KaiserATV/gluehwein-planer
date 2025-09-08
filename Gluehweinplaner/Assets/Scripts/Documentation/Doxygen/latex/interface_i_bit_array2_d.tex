@@ -1,0 +1,157 @@
+\doxysection{IBit\+Array2D Interface Reference}
+\hypertarget{interface_i_bit_array2_d}{}\label{interface_i_bit_array2_d}\index{IBitArray2D@{IBitArray2D}}
+Inheritance diagram for IBit\+Array2D\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{interface_i_bit_array2_d}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{interface_i_bit_array2_d_ad53610267255ca299c85dd12debdacfc}\label{interface_i_bit_array2_d_ad53610267255ca299c85dd12debdacfc} 
+Vector2\+Int {\bfseries Find\+Best\+Position\+And\+Add} ()
+\item 
+int \mbox{\hyperlink{interface_i_bit_array2_d_a6c28a825aa451243c7c136dc82fe4925}{Get\+Kapa}} ()
+\begin{DoxyCompactList}\small\item\em Gets the total capacity of the waiting area. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{interface_i_bit_array2_d_a4a2e61f55d9573a5b5d8163098487671}{Vector3}} \mbox{\hyperlink{interface_i_bit_array2_d_a66fd719d6bce0e61e212698492474da2}{Get\+Real\+World\+Cords}} (Vector2\+Int cells)
+\begin{DoxyCompactList}\small\item\em This Function returns the worldcoordinates of an provided waiting spot provided by the waiting area in the grid. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{interface_i_bit_array2_d_aad021048bba4c5d06e8c6332bb5fb8bf}{Is\+Full}} ()
+\begin{DoxyCompactList}\small\item\em This function checks if there is no more space to wait at in the waiting area. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_bit_array2_d_a9e3e30a14e47cf3f99827a3bdfedbd0e}{Remove\+Player}} (Vector2\+Int pos)
+\begin{DoxyCompactList}\small\item\em Function to remove a player from the waiting area and free up the spot. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_bit_array2_d_ac9758bc01d2bbb34b83d481e0849b9f7}{Reset}} ()
+\begin{DoxyCompactList}\small\item\em Resets all values to default. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interface_i_bit_array2_d_a4a2e61f55d9573a5b5d8163098487671}{Vector3}}
+\begin{DoxyCompactList}\small\item\em Finds the best poition to add an player and adds it there. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_i_bit_array2_d_8cs_source_l00003}{3}} of file \mbox{\hyperlink{_i_bit_array2_d_8cs_source}{IBit\+Array2\+D.\+cs}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{interface_i_bit_array2_d_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interface_i_bit_array2_d_a6c28a825aa451243c7c136dc82fe4925}\index{IBitArray2D@{IBitArray2D}!GetKapa@{GetKapa}}
+\index{GetKapa@{GetKapa}!IBitArray2D@{IBitArray2D}}
+\doxysubsubsection{\texorpdfstring{GetKapa()}{GetKapa()}}
+{\footnotesize\ttfamily \label{interface_i_bit_array2_d_a6c28a825aa451243c7c136dc82fe4925} 
+int IBit\+Array2\+D.\+Get\+Kapa (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Gets the total capacity of the waiting area. 
+
+\begin{DoxyReturn}{Returns}
+The total capacity of the waiting Area.
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_bit_array2_d_a4137eac132954f4d198550bc5042b2f2}{Bit\+Array2D}}.
+
+\Hypertarget{interface_i_bit_array2_d_a66fd719d6bce0e61e212698492474da2}\index{IBitArray2D@{IBitArray2D}!GetRealWorldCords@{GetRealWorldCords}}
+\index{GetRealWorldCords@{GetRealWorldCords}!IBitArray2D@{IBitArray2D}}
+\doxysubsubsection{\texorpdfstring{GetRealWorldCords()}{GetRealWorldCords()}}
+{\footnotesize\ttfamily \label{interface_i_bit_array2_d_a66fd719d6bce0e61e212698492474da2} 
+\mbox{\hyperlink{interface_i_bit_array2_d_a4a2e61f55d9573a5b5d8163098487671}{Vector3}} IBit\+Array2\+D.\+Get\+Real\+World\+Cords (\begin{DoxyParamCaption}\item[{Vector2\+Int}]{cells}{}\end{DoxyParamCaption})}
+
+
+
+This Function returns the worldcoordinates of an provided waiting spot provided by the waiting area in the grid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cells} & The waiting position within the grid.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The realdworld coordinates.
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_bit_array2_d_ae59935157ed567a33e149f6688691413}{Bit\+Array2D}}.
+
+\Hypertarget{interface_i_bit_array2_d_aad021048bba4c5d06e8c6332bb5fb8bf}\index{IBitArray2D@{IBitArray2D}!IsFull@{IsFull}}
+\index{IsFull@{IsFull}!IBitArray2D@{IBitArray2D}}
+\doxysubsubsection{\texorpdfstring{IsFull()}{IsFull()}}
+{\footnotesize\ttfamily \label{interface_i_bit_array2_d_aad021048bba4c5d06e8c6332bb5fb8bf} 
+bool IBit\+Array2\+D.\+Is\+Full (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+This function checks if there is no more space to wait at in the waiting area. 
+
+\begin{DoxyReturn}{Returns}
+True if the waiting area is full and no spot to wait are left.
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_bit_array2_d_aa21a6217d10fbfb03ce5ba3c9e334aab}{Bit\+Array2D}}.
+
+\Hypertarget{interface_i_bit_array2_d_a9e3e30a14e47cf3f99827a3bdfedbd0e}\index{IBitArray2D@{IBitArray2D}!RemovePlayer@{RemovePlayer}}
+\index{RemovePlayer@{RemovePlayer}!IBitArray2D@{IBitArray2D}}
+\doxysubsubsection{\texorpdfstring{RemovePlayer()}{RemovePlayer()}}
+{\footnotesize\ttfamily \label{interface_i_bit_array2_d_a9e3e30a14e47cf3f99827a3bdfedbd0e} 
+void IBit\+Array2\+D.\+Remove\+Player (\begin{DoxyParamCaption}\item[{Vector2\+Int}]{pos}{}\end{DoxyParamCaption})}
+
+
+
+Function to remove a player from the waiting area and free up the spot. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & Position to free up.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_bit_array2_d_a57e0fb106b2817c16331021fc1969b6c}{Bit\+Array2D}}.
+
+\Hypertarget{interface_i_bit_array2_d_ac9758bc01d2bbb34b83d481e0849b9f7}\index{IBitArray2D@{IBitArray2D}!Reset@{Reset}}
+\index{Reset@{Reset}!IBitArray2D@{IBitArray2D}}
+\doxysubsubsection{\texorpdfstring{Reset()}{Reset()}}
+{\footnotesize\ttfamily \label{interface_i_bit_array2_d_ac9758bc01d2bbb34b83d481e0849b9f7} 
+void IBit\+Array2\+D.\+Reset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Resets all values to default. 
+
+
+
+Implemented in \mbox{\hyperlink{class_bit_array2_d_a260ea758760bf408df2f44f5b76aa083}{Bit\+Array2D}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{interface_i_bit_array2_d_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{interface_i_bit_array2_d_a4a2e61f55d9573a5b5d8163098487671}\index{IBitArray2D@{IBitArray2D}!Vector3@{Vector3}}
+\index{Vector3@{Vector3}!IBitArray2D@{IBitArray2D}}
+\doxysubsubsection{\texorpdfstring{Vector3}{Vector3}}
+{\footnotesize\ttfamily \label{interface_i_bit_array2_d_a4a2e61f55d9573a5b5d8163098487671} 
+IBit\+Array2\+D.\+Vector3}
+
+
+
+Finds the best poition to add an player and adds it there. 
+
+\begin{DoxyReturn}{Returns}
+The worldcoordinates of the position and the Waiting spot in the array.
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_i_bit_array2_d_8cs_source_l00009}{9}} of file \mbox{\hyperlink{_i_bit_array2_d_8cs_source}{IBit\+Array2\+D.\+cs}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Max\+Friedrich/\+Documents/gluehwein-\/planer/\+Gluehweinplaner/\+Assets/\+Scripts/\+Documentation/IBit\+Array2\+D.\+cs\end{DoxyCompactItemize}

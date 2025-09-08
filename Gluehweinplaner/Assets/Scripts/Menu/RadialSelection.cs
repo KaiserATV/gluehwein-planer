@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
 using System;
-using UnityEngine.InputSystem;
+using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 
 public class RadicalSelection : MonoBehaviour
@@ -39,7 +39,7 @@ public class RadicalSelection : MonoBehaviour
 
     public float waitTimeUntilActivation = 1.0f;
     public float timeWaited = 0;
-    public int waitingAt=-1;
+    public int waitingAt = -1;
 
     [SerializeField] private AudioClip spawnRadialPartSoundClip;
     [SerializeField] private AudioClip[] selectionChangeSoundClip;
@@ -61,7 +61,7 @@ public class RadicalSelection : MonoBehaviour
 
     void Start()
     {
-    
+
         sm = GameObject.Find("SceneManager").GetComponent<SceneManager>();
 
         var colors = new GradientColorKey[2];
@@ -85,8 +85,9 @@ public class RadicalSelection : MonoBehaviour
             left = false;
             radialPartCanvas.gameObject.SetActive(true); // Show the radial menu
             SpawnRadialPart(); // Populate the radial menu
-        }else if (menuActivateActionLeft.action.triggered && !objectSpawner.IsPlacing)
-        {   
+        }
+        else if (menuActivateActionLeft.action.triggered && !objectSpawner.IsPlacing)
+        {
             left = true;
             radialPartCanvas.gameObject.SetActive(true); // Show the radial menu
             SpawnRadialPart(); // Populate the radial menu
@@ -118,7 +119,7 @@ public class RadicalSelection : MonoBehaviour
         if (timeWaited > waitTimeUntilActivation && currentSelectedRadialPart < count)
         {
             // Play confirmation sound before invoking action
-            if(selectionConfirmSoundClip != null)
+            if (selectionConfirmSoundClip != null)
             {
                 SoundFXManager.instance.PlaySoundFXClip(selectionConfirmSoundClip, transform, 1f);
             }
@@ -143,13 +144,13 @@ public class RadicalSelection : MonoBehaviour
         {
             selectedBude.gameObject.GetComponentInChildren<Renderer>().material = before;
         }
-            radialPartCanvas.gameObject.SetActive(false);
+        radialPartCanvas.gameObject.SetActive(false);
     }
 
     public void GetSelectedRadialPart(float time)
     {
         int number = (isBude) ? numberOfHouseParts : ((left) ? numberOfLeftParts : numberOfRadialPart);
-        Vector3 centerToHand = ((left)? handTransformLeft.position:handTransform.position) - radialPartCanvas.position;
+        Vector3 centerToHand = ((left) ? handTransformLeft.position : handTransform.position) - radialPartCanvas.position;
         Vector3 centerToHandProjected = Vector3.ProjectOnPlane(centerToHand, radialPartCanvas.forward);
 
         float angle = Vector3.SignedAngle(radialPartCanvas.up, centerToHandProjected, -radialPartCanvas.forward);
@@ -170,7 +171,7 @@ public class RadicalSelection : MonoBehaviour
             previousSelected = currentSelectedRadialPart;
         }
 
-        if(currentSelectedRadialPart != waitingAt)
+        if (currentSelectedRadialPart != waitingAt)
         {
             ResetWaitTimer(currentSelectedRadialPart);
         }
@@ -180,7 +181,7 @@ public class RadicalSelection : MonoBehaviour
         {
             if (i == currentSelectedRadialPart)
             {
-                spawnedParts[i].GetComponent<Image>().color = gradient.Evaluate(timeWaited/waitTimeUntilActivation);
+                spawnedParts[i].GetComponent<Image>().color = gradient.Evaluate(timeWaited / waitTimeUntilActivation);
                 spawnedParts[i].transform.localScale = 1.1f * UnityEngine.Vector3.one;
             }
             else
@@ -191,25 +192,25 @@ public class RadicalSelection : MonoBehaviour
         }
     }
 
-     public void ToggleVolumeMenu()
+    public void ToggleVolumeMenu()
     {
         inSubMenu = !inSubMenu;
         volumeCanvas.SetActive(inSubMenu);
         radialPartCanvas.gameObject.SetActive(!inSubMenu);
-        
-        if(inSubMenu) 
+
+        if (inSubMenu)
         {
             onVolumeMenuOpen.Invoke();
-            
-        Transform referenceTransform = Camera.main.transform;
-        float distance = 1.75f; 
 
-        // Positionierung des Volume-Menüs
-        Vector3 forwardDirection = Vector3.ProjectOnPlane(referenceTransform.forward, Vector3.up).normalized;
-        volumeCanvas.transform.position = referenceTransform.position + forwardDirection * distance;
+            Transform referenceTransform = Camera.main.transform;
+            float distance = 1.75f;
 
-        Quaternion lookRotation = Quaternion.LookRotation(forwardDirection, Vector3.up);
-        volumeCanvas.transform.rotation = lookRotation;
+            // Positionierung des Volume-Menüs
+            Vector3 forwardDirection = Vector3.ProjectOnPlane(referenceTransform.forward, Vector3.up).normalized;
+            volumeCanvas.transform.position = referenceTransform.position + forwardDirection * distance;
+
+            Quaternion lookRotation = Quaternion.LookRotation(forwardDirection, Vector3.up);
+            volumeCanvas.transform.rotation = lookRotation;
         }
         else
         {
@@ -226,7 +227,8 @@ public class RadicalSelection : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, maxDistance))
         {
-            if(hit.collider.gameObject.CompareTag("Bude")){
+            if (hit.collider.gameObject.CompareTag("Bude"))
+            {
                 isBude = true;
                 selectedBude = hit.collider.transform.parent.gameObject.GetComponentInChildren<Bude>();
                 if (selectedBude)
@@ -277,10 +279,10 @@ public class RadicalSelection : MonoBehaviour
             spawnedParts.Add(spawnedRadialPart);
 
             TextMeshProUGUI buttonText = spawnedRadialPart.GetComponentInChildren<TextMeshProUGUI>();
-            int count = (isBude) ? partToFunctionHouse.Count : (left)?partToFunctionLeft.Count :partToFunction.Count;
+            int count = (isBude) ? partToFunctionHouse.Count : (left) ? partToFunctionLeft.Count : partToFunction.Count;
             if (buttonText != null && i < count)
             {
-                buttonText.text = (isBude) ? buttonLabelsHouse[i] : (left) ? buttonLabelsLeft[i] :buttonLabels[i];
+                buttonText.text = (isBude) ? buttonLabelsHouse[i] : (left) ? buttonLabelsLeft[i] : buttonLabels[i];
             }
         }
     }
@@ -289,7 +291,7 @@ public class RadicalSelection : MonoBehaviour
     {
         if (selectedBude != null)
         {
-            selectedBude.increaseAttraktivitaet();
+            selectedBude.increaseAttractivness();
         }
     }
 
@@ -297,7 +299,7 @@ public class RadicalSelection : MonoBehaviour
     {
         if (selectedBude != null)
         {
-            selectedBude.decreaseAttraktivitaet();
+            selectedBude.decreaseAttractivness();
         }
     }
 
@@ -320,7 +322,7 @@ public class RadicalSelection : MonoBehaviour
     public void DeleteBuilding()
     {
         if (selectedBude != null)
-        {            
+        {
             sm.RemoveBude(selectedBude);
             Destroy(selectedBude.gameObject);
         }

@@ -1,0 +1,117 @@
+\doxysection{Plate\+Generator.\+cs}
+\hypertarget{_plate_generator_8cs_source}{}\label{_plate_generator_8cs_source}\index{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/FlowFieldSetup/PlateGenerator.cs@{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/FlowFieldSetup/PlateGenerator.cs}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }UnityEngine;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00003}00003\ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keyword}{class\ }PlateGenerator}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00004}00004\ \{}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00014}00014\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ PlateGeneratorDto\ CalculatePlatePositionsAndBaseCostMatrices(Bounds\ b,\ \textcolor{keywordtype}{int}\ plateCountX,\ \textcolor{keywordtype}{int}\ plateCountZ,\ \textcolor{keywordtype}{bool}\ pathDiagonal)}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00015}00015\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00016}00016\ \ \ \ \ \ \ \ \ Vector3\ size\ =\ b.size;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00017}00017\ \ \ \ \ \ \ \ \ PlateGeneratorDto\ tt\ =\ \textcolor{keyword}{new}\ PlateGeneratorDto();}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ totalTileCountX\ =\ Mathf.FloorToInt(size.x\ /\ GenerateMatrix.TileSizeX);}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ totalTileCountZ\ =\ Mathf.FloorToInt(size.z\ /\ GenerateMatrix.TileSizeX);}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00022}00022\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ tileCountX\ =\ Mathf.FloorToInt((\textcolor{keywordtype}{float})totalTileCountX\ /\ plateCountX);}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ tileCountZ\ =\ Mathf.FloorToInt((\textcolor{keywordtype}{float})totalTileCountZ\ /\ plateCountZ);}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ randTileCountX\ =\ totalTileCountX\ -\/\ (tileCountX\ *\ (plateCountX\ -\/\ 1));}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ randTileCountZ\ =\ totalTileCountZ\ -\/\ (tileCountZ\ *\ (plateCountZ\ -\/\ 1));}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tileCountX\ <\ 1)}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00029}00029\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ tileCountX\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ randTileCountX\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ plateCountX\ =\ totalTileCountX;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00033}00033\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tileCountZ\ <\ 1)}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00035}00035\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ tileCountZ\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ randTileCountZ\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ plateCountZ\ =\ totalTileCountZ;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00039}00039\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ Plate[,]\ allPlates\ =\ \textcolor{keyword}{new}\ Plate[plateCountX,\ plateCountZ];}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ plateCountX;\ i++)}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ plateCountZ;\ j++)}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ ==\ plateCountX\ -\/\ 1)}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (j\ ==\ plateCountZ\ -\/\ 1)}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vector3\ pos\ =\ \textcolor{keyword}{new}\ Vector3(b.min.x\ +\ i\ *\ (tileCountX\ *\ GenerateMatrix.TileSizeX)\ +\ (tileCountX\ *\ GenerateMatrix.TileSizeX)\ /\ 2,\ 0f,\ b.min.z\ +\ j\ *\ (tileCountZ\ *\ GenerateMatrix.TileSizeX)\ +\ (tileCountZ\ *\ GenerateMatrix.TileSizeX)\ /\ 2);}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j]\ =\ \textcolor{keyword}{new}\ Plate(pos,\ GenerateMatrix.GenerateBaseCostMatrix(randTileCountX,\ randTileCountZ,\ (\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ column)\ =>\ CheckIfWakable((row\ *\ GenerateMatrix.TileSizeX)\ +\ (pos.x\ -\/\ ((randTileCountX\ *\ GenerateMatrix.TileSizeX)\ /\ 2))\ +\ (GenerateMatrix.TileSizeX\ /\ 2),\ (column\ *\ GenerateMatrix.TileSizeZ)\ +\ (pos.z\ -\/\ ((randTileCountZ\ *\ GenerateMatrix.TileSizeZ)\ /\ 2))\ +\ (GenerateMatrix.TileSizeZ\ /\ 2)),\ out\ \textcolor{keywordtype}{bool}\ onlyObstacles,\ out\ \textcolor{keywordtype}{bool}\ noObstacles),\ pathDiagonal);}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_a72fd4613ad0d81bb2b1a648516f206f9}{Center}}\ =\ pos;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_adde1e19fd07f33a370f625fe3d01e8af}{Rows}}\ =\ randTileCountX;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_afb6dbab4f50d7620b37b44fb36a6372f}{Columns}}\ =\ randTileCountZ;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].HasNoObstacles\ =\ noObstacles;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].HasOnlyObstacles\ =\ onlyObstacles;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_aa1b23b11b6144edc60b205c1051eef00}{Size}}\ =\ \textcolor{keyword}{new}\ Vector3(allPlates[i,\ j].Rows\ *\ GenerateMatrix.TileSizeX,\ 0,\ allPlates[i,\ j].Columns\ *\ GenerateMatrix.TileSizeZ);}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_a2347e1bee6d828db0b866e2aa69a878b}{CalculatePortalNodes}}();}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vector3\ pos\ =\ \textcolor{keyword}{new}\ Vector3(b.min.x\ +\ i\ *\ (tileCountX\ *\ GenerateMatrix.TileSizeX)\ +\ (tileCountX\ *\ GenerateMatrix.TileSizeX)\ /\ 2,\ 0f,\ b.min.z\ +\ j\ *\ (tileCountZ\ *\ GenerateMatrix.TileSizeX)\ +\ (tileCountZ\ *\ GenerateMatrix.TileSizeX)\ /\ 2);}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j]\ =\ \textcolor{keyword}{new}\ Plate(pos,\ GenerateMatrix.GenerateBaseCostMatrix(randTileCountX,\ tileCountZ,\ (\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ column)\ =>\ CheckIfWakable((row\ *\ GenerateMatrix.TileSizeX)\ +\ (pos.x\ -\/\ ((randTileCountX\ *\ GenerateMatrix.TileSizeX)\ /\ 2))\ +\ (GenerateMatrix.TileSizeX\ /\ 2),\ (column\ *\ GenerateMatrix.TileSizeZ)\ +\ (pos.z\ -\/\ ((tileCountZ\ *\ GenerateMatrix.TileSizeZ)\ /\ 2))\ +\ (GenerateMatrix.TileSizeZ\ /\ 2)),\ out\ \textcolor{keywordtype}{bool}\ onlyObstacles,\ out\ \textcolor{keywordtype}{bool}\ noObstacles),\ pathDiagonal);}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_a72fd4613ad0d81bb2b1a648516f206f9}{Center}}\ =\ pos;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_adde1e19fd07f33a370f625fe3d01e8af}{Rows}}\ =\ randTileCountX;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_afb6dbab4f50d7620b37b44fb36a6372f}{Columns}}\ =\ tileCountZ;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_aa1b23b11b6144edc60b205c1051eef00}{Size}}\ =\ \textcolor{keyword}{new}\ Vector3(allPlates[i,\ j].Rows\ *\ GenerateMatrix.TileSizeX,\ 0,\ allPlates[i,\ j].Columns\ *\ GenerateMatrix.TileSizeZ);}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_a2347e1bee6d828db0b866e2aa69a878b}{CalculatePortalNodes}}();}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (j\ ==\ plateCountZ\ -\/\ 1)}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vector3\ pos\ =\ \textcolor{keyword}{new}\ Vector3(b.min.x\ +\ i\ *\ (tileCountX\ *\ GenerateMatrix.TileSizeX)\ +\ (tileCountX\ *\ GenerateMatrix.TileSizeX)\ /\ 2,\ 0f,\ b.min.z\ +\ j\ *\ (tileCountZ\ *\ GenerateMatrix.TileSizeX)\ +\ (tileCountZ\ *\ GenerateMatrix.TileSizeX)\ /\ 2);}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j]\ =\ \textcolor{keyword}{new}\ Plate(pos,\ GenerateMatrix.GenerateBaseCostMatrix(tileCountX,\ randTileCountZ,\ (\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ column)\ =>\ CheckIfWakable((row\ *\ GenerateMatrix.TileSizeX)\ +\ (pos.x\ -\/\ ((tileCountX\ *\ GenerateMatrix.TileSizeX)\ /\ 2))\ +\ (GenerateMatrix.TileSizeX\ /\ 2),\ (column\ *\ GenerateMatrix.TileSizeZ)\ +\ (pos.z\ -\/\ ((randTileCountZ\ *\ GenerateMatrix.TileSizeZ)\ /\ 2))\ +\ (GenerateMatrix.TileSizeZ\ /\ 2)),\ out\ \textcolor{keywordtype}{bool}\ onlyObstacles,\ out\ \textcolor{keywordtype}{bool}\ noObstacles),\ pathDiagonal);}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_a72fd4613ad0d81bb2b1a648516f206f9}{Center}}\ =\ pos;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_adde1e19fd07f33a370f625fe3d01e8af}{Rows}}\ =\ tileCountX;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_afb6dbab4f50d7620b37b44fb36a6372f}{Columns}}\ =\ randTileCountZ;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].HasNoObstacles\ =\ noObstacles;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].HasOnlyObstacles\ =\ onlyObstacles;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_aa1b23b11b6144edc60b205c1051eef00}{Size}}\ =\ \textcolor{keyword}{new}\ Vector3(allPlates[i,\ j].Rows\ *\ GenerateMatrix.TileSizeX,\ 0,\ allPlates[i,\ j].Columns\ *\ GenerateMatrix.TileSizeZ);}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_a2347e1bee6d828db0b866e2aa69a878b}{CalculatePortalNodes}}();}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vector3\ pos\ =\ \textcolor{keyword}{new}\ Vector3(b.min.x\ +\ i\ *\ (tileCountX\ *\ GenerateMatrix.TileSizeX)\ +\ (tileCountX\ *\ GenerateMatrix.TileSizeX)\ /\ 2,\ 0,\ b.min.z\ +\ j\ *\ (tileCountZ\ *\ GenerateMatrix.TileSizeX)\ +\ (tileCountZ\ *\ GenerateMatrix.TileSizeX)\ /\ 2);}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j]\ =\ \textcolor{keyword}{new}\ Plate(pos,\ GenerateMatrix.GenerateBaseCostMatrix(tileCountX,\ tileCountZ,\ (\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ column)\ =>\ CheckIfWakable((row\ *\ GenerateMatrix.TileSizeX)\ +\ (pos.x\ -\/\ ((tileCountX\ *\ GenerateMatrix.TileSizeX)\ /\ 2))\ +\ (GenerateMatrix.TileSizeX\ /\ 2),\ (column\ *\ GenerateMatrix.TileSizeZ)\ +\ (pos.z\ -\/\ ((tileCountZ\ *\ GenerateMatrix.TileSizeZ)\ /\ 2))\ +\ (GenerateMatrix.TileSizeZ\ /\ 2)),\ out\ \textcolor{keywordtype}{bool}\ onlyObstacles,\ out\ \textcolor{keywordtype}{bool}\ noObstacles),\ pathDiagonal);}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_a72fd4613ad0d81bb2b1a648516f206f9}{Center}}\ =\ pos;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_adde1e19fd07f33a370f625fe3d01e8af}{Rows}}\ =\ tileCountX;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_afb6dbab4f50d7620b37b44fb36a6372f}{Columns}}\ =\ tileCountZ;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].HasNoObstacles\ =\ noObstacles;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].HasOnlyObstacles\ =\ onlyObstacles;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_aa1b23b11b6144edc60b205c1051eef00}{Size}}\ =\ \textcolor{keyword}{new}\ Vector3(allPlates[i,\ j].Rows\ *\ GenerateMatrix.TileSizeX,\ 0,\ allPlates[i,\ j].Columns\ *\ GenerateMatrix.TileSizeZ);}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allPlates[i,\ j].\mbox{\hyperlink{class_plate_a2347e1bee6d828db0b866e2aa69a878b}{CalculatePortalNodes}}();}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00100}00100\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00102}00102\ \ \ \ \ \ \ \ \ tt.Plates\ =\ allPlates;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00103}00103\ \ \ \ \ \ \ \ \ tt.normalPlateX\ =\ tileCountX;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00104}00104\ \ \ \ \ \ \ \ \ tt.normalPlateZ\ =\ tileCountZ;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00105}00105\ \ \ \ \ \ \ \ \ tt.randPlateX\ =\ randTileCountX;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00106}00106\ \ \ \ \ \ \ \ \ tt.randPlateZ\ =\ randTileCountZ;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00107}00107\ \ \ \ \ \ \ \ \ tt.plateCountX\ =\ plateCountX;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00108}00108\ \ \ \ \ \ \ \ \ tt.plateCountZ\ =\ plateCountZ;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00109}00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tt;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00110}00110\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00117}00117\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ CheckIfWakable(\textcolor{keywordtype}{float}\ posX,\ \textcolor{keywordtype}{float}\ posY)}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00118}00118\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00119}00119\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isPlacable\ =\ !Physics.CheckSphere(}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ Vector3(posX,\ 0,\ posY),}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1f,}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GenerateMatrix.ObstacleLayer}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00124}00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ isPlacable;}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00125}00125\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_plate_generator_8cs_source_l00126}00126\ \}}
+
+\end{DoxyCode}

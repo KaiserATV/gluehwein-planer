@@ -1,0 +1,89 @@
+\doxysection{FPSLogger.\+cs}
+\hypertarget{_f_p_s_logger_8cs_source}{}\label{_f_p_s_logger_8cs_source}\index{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/TestingScripts/FPSLogger.cs@{C:/Users/MaxFriedrich/Documents/gluehwein-\/planer/Gluehweinplaner/Assets/Scripts/TestingScripts/FPSLogger.cs}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00001}00001\ \textcolor{keyword}{using\ }System;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00002}00002\ \textcolor{keyword}{using\ }System.Collections.Generic;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00003}00003\ \textcolor{keyword}{using\ }System.IO;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00004}00004\ \textcolor{keyword}{using\ }System.Text;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00005}00005\ \textcolor{keyword}{using\ }Unity.Profiling;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00006}00006\ \textcolor{keyword}{using\ }UnityEditor;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00007}00007\ \textcolor{keyword}{using\ }UnityEngine;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00010}\mbox{\hyperlink{class_f_p_s_logger}{00010}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_p_s_logger}{FPSLogger}}\ :\ MonoBehaviour,\ \mbox{\hyperlink{interface_i_f_p_s_logger}{IFPSLogger}}}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00011}00011\ \{}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00012}00012\ \ \ \ \ List<(int,\ float,\ int,\ double,\ double,\ double,\ double)>\ stats\ =\ \textcolor{keyword}{new}\ List<(\textcolor{keywordtype}{int},\ \textcolor{keywordtype}{float},\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{double},\ \textcolor{keywordtype}{double},\ \textcolor{keywordtype}{double},\ \textcolor{keywordtype}{double})>();}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00013}00013\ \ \ \ \ \mbox{\hyperlink{class_scene_manager}{SceneManager}}\ sc;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00014}00014\ \ \ \ \ StringBuilder\ advancedStats\ =\ \textcolor{keyword}{new}\ StringBuilder();}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00015}00015\ \ \ \ \ StringBuilder\ fpsStats\ =\ \textcolor{keyword}{new}\ StringBuilder();}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00016}00016\ \ \ \ \ \textcolor{comment}{//https://docs.unity3d.com/2020.3/Documentation/ScriptReference/Unity.Profiling.ProfilerRecorder.html}}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00017}00017\ \ \ \ \ ProfilerRecorder\ systemMemoryRecorder;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00018}00018\ \ \ \ \ ProfilerRecorder\ gcMemoryRecorder;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00019}00019\ \ \ \ \ ProfilerRecorder\ mainThreadTimeRecorder;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00020}00020\ \ \ \ \ ProfilerRecorder\ GPUFrameTimeRecorder;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00021}00021\ \ \ \ \ ProfilerRecorder\ CPUTotalFrameTimeRecorder;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00022}00022\ \ \ \ \ \textcolor{keywordtype}{int}\ passedFrames\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00023}00023\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ Start()}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00024}00024\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00025}00025\ \ \ \ \ \ \ \ \ sc\ =\ GameObject.Find(\textcolor{stringliteral}{"{}SceneManager"{}}).GetComponent<\mbox{\hyperlink{class_scene_manager}{SceneManager}}>();}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00026}00026\ \ \ \ \ \ \ \ \ mainThreadTimeRecorder\ =\ ProfilerRecorder.StartNew(ProfilerCategory.Internal,\ \textcolor{stringliteral}{"{}Main\ Thread"{}});}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00027}00027\ \ \ \ \ \ \ \ \ systemMemoryRecorder\ =\ ProfilerRecorder.StartNew(ProfilerCategory.Memory,\ \textcolor{stringliteral}{"{}Total\ Used\ Memory"{}});}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00028}00028\ \ \ \ \ \ \ \ \ CPUTotalFrameTimeRecorder\ =\ ProfilerRecorder.StartNew(ProfilerCategory.Memory,\ \textcolor{stringliteral}{"{}CPU\ Total\ Frame\ Time"{}});}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00029}00029\ \ \ \ \ \ \ \ \ GPUFrameTimeRecorder\ =\ ProfilerRecorder.StartNew(ProfilerCategory.Render,\ \textcolor{stringliteral}{"{}GPU\ Frame\ Time"{}});}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00030}00030\ \ \ \ \ \ \ \ \ passedFrames++;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00031}00031\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00033}00033\ \ \ \ \ \textcolor{keywordtype}{void}\ Update()}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00034}00034\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00035}00035\ \ \ \ \ \ \ \ \ passedFrames++;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (passedFrames\ \%\ 10\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00037}00037\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ stats.Add((passedFrames,\ Time.deltaTime,\ sc.playerCount,\ Math.Round(GetRecorderFrameAverage(mainThreadTimeRecorder),\ 3),\ Math.Round((\textcolor{keywordtype}{double})systemMemoryRecorder.LastValue,\ 3),\ Math.Round((\textcolor{keywordtype}{double})CPUTotalFrameTimeRecorder.LastValue,\ 3),\ Math.Round((\textcolor{keywordtype}{double})GPUFrameTimeRecorder.LastValue,\ 3)));}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00039}00039\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!sc.CanAddPlayer())}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00041}00041\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ stats.Add((passedFrames,\ Time.deltaTime,\ sc.playerCount,\ Math.Round(GetRecorderFrameAverage(mainThreadTimeRecorder),\ 3),\ Math.Round((\textcolor{keywordtype}{double})systemMemoryRecorder.LastValue,\ 3),\ Math.Round((\textcolor{keywordtype}{double})CPUTotalFrameTimeRecorder.LastValue,\ 3),\ Math.Round((\textcolor{keywordtype}{double})GPUFrameTimeRecorder.LastValue,\ 3)));}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ Application.Quit();}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ EditorApplication.isPlaying\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00045}00045\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00046}00046\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00048}\mbox{\hyperlink{class_f_p_s_logger_a666d60125baa78efbd2d1e3c5830210b}{00048}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_p_s_logger_a666d60125baa78efbd2d1e3c5830210b}{OnApplicationQuit}}()}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00049}00049\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ pathTwo\ =\ Application.persistentDataPath\ +\ \textcolor{stringliteral}{"{}/advanced-\/stats.csv"{}};}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00051}00051\ \ \ \ \ \ \ \ \ advancedStats.AppendLine(\textcolor{stringliteral}{"{}FrameNr.,FPS,agentCount,FrameTime\ in\ ms,System\ Memory\ in\ MB,\ CPU\ Frame\ Time\ in\ ms,\ GPU\ Frame\ Time\ in\ ms"{}});}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ ((\textcolor{keywordtype}{int},\ \textcolor{keywordtype}{float},\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{double},\ \textcolor{keywordtype}{double},\ \textcolor{keywordtype}{double},\ \textcolor{keywordtype}{double})\ stat\ in\ stats)}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00053}00053\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ advancedStats.AppendLine(\$\textcolor{stringliteral}{"{}\{stat.Item1\},\{Math.Round(1f\ /\ stat.Item2,\ 3)\},\{stat.Item3\},\{Math.Round(stat.Item4\ *\ (1e-\/6f),\ 3)\},\{Math.Round(stat.Item5\ /\ (1024\ *\ 1024),\ 3)\},\{Math.Round(stat.Item6\ /\ 1000000f,\ 3)\},\{Math.Round(stat.Item7\ /\ 1000000f,\ 3)\}"{}});}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00055}00055\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using}\ (StreamWriter\ writer\ =\ \textcolor{keyword}{new}\ StreamWriter(pathTwo,\ \textcolor{keyword}{false}))}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00058}00058\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ writer.Write(advancedStats.ToString());}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00060}00060\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00061}00061\ \ \ \ \ \ \ \ \ systemMemoryRecorder.Dispose();}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00062}00062\ \ \ \ \ \ \ \ \ gcMemoryRecorder.Dispose();}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00063}00063\ \ \ \ \ \ \ \ \ mainThreadTimeRecorder.Dispose();}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00064}00064\ \ \ \ \ \ \ \ \ GPUFrameTimeRecorder.Dispose();}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00065}00065\ \ \ \ \ \ \ \ \ CPUTotalFrameTimeRecorder.Dispose();}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00066}00066\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00067}00067\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ GetRecorderFrameAverage(ProfilerRecorder\ recorder)}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00068}00068\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00069}00069\ \ \ \ \ \ \ \ \ var\ samplesCount\ =\ recorder.Capacity;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (samplesCount\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ r\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00074}00074\ \ \ \ \ \ \ \ \ unsafe}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00075}00075\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ var\ samples\ =\ stackalloc\ ProfilerRecorderSample[samplesCount];}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ recorder.CopyTo(samples,\ samplesCount);}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (var\ i\ =\ 0;\ i\ <\ samplesCount;\ ++i)}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\ +=\ samples[i].Value;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ r\ /=\ samplesCount;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00081}00081\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ r;}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00083}00083\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_f_p_s_logger_8cs_source_l00084}00084\ \}}
+
+\end{DoxyCode}
