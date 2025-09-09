@@ -34,7 +34,7 @@ var annotated_dup =
     [ "ObjectSpawner", "class_object_spawner.html", null ],
     [ "Plate", "class_plate.html", "class_plate" ],
     [ "PlateGeneratorDto", "class_plate_generator_dto.html", null ],
-    [ "Portal", "class_portal.html", "class_portal" ],
+    [ "Portal", "class_portal.html", null ],
     [ "RadialSlider", "class_radial_slider.html", null ],
     [ "RadicalSelection", "class_radical_selection.html", null ],
     [ "SceneManager", "class_scene_manager.html", "class_scene_manager" ],

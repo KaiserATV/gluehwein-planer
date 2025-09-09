@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
-
+/// <summary>
+/// This script manages the movement of the npc.
+/// </summary>
+/// <seealso cref="ISpawner"/>
+/// <seealso cref="ISceneManager"/>
 public interface INPC
 {
     /// <summary>

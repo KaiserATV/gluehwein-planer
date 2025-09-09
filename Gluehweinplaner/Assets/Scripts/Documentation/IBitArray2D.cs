@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
-
+/// <summary>
+/// This Array is a bit array representing the waitingarea. This waitingarea manages the occupied positions and can return the waitingposition in realworld coordinates.
+/// </summary>
+/// <seealso cref="IBude"/>
 public interface IBitArray2D
 {
     /// <summary>

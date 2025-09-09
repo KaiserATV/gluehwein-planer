@@ -202,6 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 87688339}
   - component: {fileID: 87688340}
+  - component: {fileID: 87688341}
   m_Layer: 0
   m_Name: SoundFXManager
   m_TagString: Untagged
@@ -236,6 +237,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b33aece2adb6b24f9eac8f0a2989864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &87688341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87688338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbdaff2cf9f09b44ab8e8e9730e8c030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundFXObject: {fileID: 0}
 --- !u!1 &96101759
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +259,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 96101760}
-  - component: {fileID: 96101761}
   m_Layer: 0
   m_Name: BudenContainer
   m_TagString: Untagged
@@ -298,18 +311,6 @@ Transform:
   - {fileID: 147795895}
   m_Father: {fileID: 1341412598}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &96101761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 96101759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ad42d74507d65447988294ed3f24d42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &102811705
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,7 +1089,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 259717546}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
         m_MethodName: UpdateScore
         m_Mode: 1
@@ -1437,9 +1438,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 259717539}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9e3b57215e201e468fe5c85e857e77a, type: 3}
+  m_Script: {fileID: 11500000, guid: df36340e4d1013748aa37d8de2ac4ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 0}
+  heatmapScript: {fileID: 0}
+  sceneManager: {fileID: 0}
 --- !u!1 &262669073
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,9 +1488,72 @@ MonoBehaviour:
   m_GameObject: {fileID: 262669073}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf755a06d0d765b4499645d240daf35a, type: 3}
+  m_Script: {fileID: 11500000, guid: 86a9c710970663044b0d6022a46ce4f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberOfRadialPart: 2
+  numberOfHouseParts: 2
+  numberOfLeftParts: 2
+  radialPartPrefab: {fileID: 0}
+  radialPartCanvas: {fileID: 0}
+  angleBetweenPart: 10
+  handTransform: {fileID: 0}
+  handTransformLeft: {fileID: 0}
+  objectSpawner: {fileID: 0}
+  partToFunction: []
+  partToFunctionHouse: []
+  partToFunctionLeft: []
+  gradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  buttonLabels: []
+  buttonLabelsHouse: []
+  buttonLabelsLeft: []
+  textRotationOffset: 90
+  menuActivateAction: {fileID: 0}
+  menuActivateActionLeft: {fileID: 0}
+  waitTimeUntilActivation: 1
+  timeWaited: 0
+  waitingAt: -1
+  spawnRadialPartSoundClip: {fileID: 0}
+  selectionChangeSoundClip: []
+  selectionConfirmSoundClip: {fileID: 0}
+  volumeCanvas: {fileID: 0}
+  onVolumeMenuOpen:
+    m_PersistentCalls:
+      m_Calls: []
+  onVolumeMenuClose:
+    m_PersistentCalls:
+      m_Calls: []
+  isBude: 0
+  highlightMaterial: {fileID: 0}
 --- !u!1 &273305580
 GameObject:
   m_ObjectHideFlags: 0
@@ -3906,9 +3973,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 658049739}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f85f3296e9dfe7c4f92b4e4bcf6cfcac, type: 3}
+  m_Script: {fileID: 11500000, guid: 930f3a19bf6c6224382101e15695a0a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  radialSelection: {fileID: 0}
 --- !u!1001 &666194235
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5502,8 +5570,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1003827258}
   - component: {fileID: 1003827259}
-  - component: {fileID: 1003827260}
   - component: {fileID: 1003827261}
+  - component: {fileID: 1003827260}
   m_Layer: 5
   m_Name: VolumeSlider
   m_TagString: Untagged
@@ -5584,7 +5652,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1003827261}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: RadialSlider, Assembly-CSharp
         m_MethodName: UpdateVolume
         m_Mode: 0
@@ -5605,9 +5673,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1003827257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cca2df1d70709d644a7e982702b64ede, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a003f685d0fc6940a6da3e050b366fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverSound: {fileID: 0}
+  cooldown: 0.2
 --- !u!114 &1003827261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5617,9 +5687,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1003827257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be7990adbacb94c4782f69f4c229c530, type: 3}
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &1036096514
 GameObject:
   m_ObjectHideFlags: 0
@@ -5688,6 +5759,7 @@ MonoBehaviour:
   deleteSoundClip: {fileID: 0}
   saveSoundClip: {fileID: 0}
   loadSoundClip: {fileID: 0}
+  show: 0
   laden: 0
   speichern: 0
 --- !u!114 &1036096518
@@ -7918,7 +7990,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 259717546}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
         m_MethodName: ToggleEffizenzScore
         m_Mode: 1
@@ -8010,7 +8082,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1709099409}
-  - component: {fileID: 1709099410}
+  - component: {fileID: 1709099411}
   m_Layer: 0
   m_Name: ObjectSpawner
   m_TagString: Untagged
@@ -8033,7 +8105,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 262669075}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1709099410
+--- !u!114 &1709099411
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8042,9 +8114,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1709099408}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62a2309aac56ee246aea04cdac257d8e, type: 3}
+  m_Script: {fileID: 11500000, guid: cd221abb3d410869b9609f5f2013b482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectPrefabs: []
+  placementDistance: 7
+  previewMaterial: {fileID: 0}
+  budenContainer: {fileID: 0}
+  am: {fileID: 0}
+  godmodeController: {fileID: 0}
+  rayInteractor: {fileID: 0}
+  handTransform: {fileID: 0}
+  cameraTransform: {fileID: 0}
+  moveAction: {fileID: 0}
+  rotateAction: {fileID: 0}
+  confirmAction: {fileID: 0}
+  grabAction: {fileID: 0}
+  placementSoundClip: {fileID: 0}
 --- !u!1001 &1717035014
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8674,13 +8760,7 @@ PrefabInstance:
       addedObject: {fileID: 1731298973}
     - targetCorrespondingSourceObject: {fileID: 7696548424635294048, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1731298975}
-    - targetCorrespondingSourceObject: {fileID: 7696548424635294048, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1731298982}
-    - targetCorrespondingSourceObject: {fileID: 7696548424635294048, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1731298983}
     - targetCorrespondingSourceObject: {fileID: 9014170783809206332, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1731298972}
@@ -8766,18 +8846,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7696548424635294048, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
   m_PrefabInstance: {fileID: 1731298970}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1731298975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1731298974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c362699cab9b1df4eb2a26a974322454, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &1731298982
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8801,18 +8869,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1731298983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1731298974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2542d8108166d874d9f7fba37981bd74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1796759832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9494,9 +9550,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2038348456}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cca2df1d70709d644a7e982702b64ede, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a7fda031afa8b043a4fd9c49fc78b87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: d192ea2e258358048b51990f351ca565, type: 2}
 --- !u!1001 &2066836533
 PrefabInstance:
   m_ObjectHideFlags: 0

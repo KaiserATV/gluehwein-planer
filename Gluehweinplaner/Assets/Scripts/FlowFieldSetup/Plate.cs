@@ -15,12 +15,9 @@ public class Plate : IPlate
     }
     public bool canPathDiagonal = false;
     public bool hasChanged = false;
-    private bool addedAllSides = false;
     public Vector3 Center { get; set; }
     public Vector3 Size { get; set; }
-
     public bool HasNoObstacles = false;
-
     public bool HasOnlyObstacles = false;
     public int Rows { get; set; }
     public int Columns { get; set; }
@@ -36,7 +33,7 @@ public class Plate : IPlate
     public Dictionary<(Vector2Int, Vector3), List<Vector3>> finalPaths = new Dictionary<(Vector2Int, Vector3), List<Vector3>>();
     public Dictionary<Vector3, byte[,]> finalFlowFields = new Dictionary<Vector3, byte[,]>();
 
-    public void CheckForPortalNodes(ExitDirection.ExitDirections dir)
+    public void CheckForPortalNodes(ExitDirection.ExitDirections dir, Plate neighbor)
     {
         if (exitDirectionToPortals.ContainsKey(dir))
         {
@@ -45,106 +42,84 @@ public class Plate : IPlate
         switch (dir)
         {
             case ExitDirection.ExitDirections.North:
-                CalcPortalNodesForSide(ExitDirection.ExitDirections.North, new(0, 0), new(0, Columns - 1), new(0, 1));
+                CalcPortalNodesForSide(new(0, 0), new(0, Columns - 1), new(Rows - 1, 0), new(Rows - 1, Columns - 1), new(0, 1), ExitDirection.ExitDirections.North, ExitDirection.ExitDirections.South, neighbor);
                 return;
             case ExitDirection.ExitDirections.South:
-                CalcPortalNodesForSide(ExitDirection.ExitDirections.South, new(Rows - 1, Columns - 1), new(Rows - 1, 0), new(0, -1));
+                CalcPortalNodesForSide(new(Rows - 1, 0), new(Rows - 1, Columns - 1), new(0, 0), new(0, Columns - 1), new(0, 1), ExitDirection.ExitDirections.South, ExitDirection.ExitDirections.North, neighbor);
                 return;
             case ExitDirection.ExitDirections.West:
-                CalcPortalNodesForSide(ExitDirection.ExitDirections.West, new(Rows - 1, 0), new(0, 0), new(-1, 0));
+                CalcPortalNodesForSide(new(0, 0), new(Rows - 1, 0), new(0, Columns - 1), new(Rows - 1, Columns - 1), new(1, 0), ExitDirection.ExitDirections.West, ExitDirection.ExitDirections.East, neighbor);
                 return;
             case ExitDirection.ExitDirections.East:
-                CalcPortalNodesForSide(ExitDirection.ExitDirections.East, new(0, Columns - 1), new(Rows - 1, Columns - 1), new(1, 0));
+                CalcPortalNodesForSide(new(0, Columns - 1), new(Rows - 1, Columns - 1), new(0, 0), new(Rows - 1, 0), new(1, 0), ExitDirection.ExitDirections.East, ExitDirection.ExitDirections.West, neighbor);
                 return;
         }
         if (canPathDiagonal)
         {
-            List<Vector2Int> exitCoords = new List<Vector2Int> { new(Rows - 1, Columns - 1), new(0, 0), new(0, Columns - 1), new(Rows - 1, 0) };
-            Vector2Int exit;
+            (Vector2Int exitCords, Vector2Int inverseCords, ExitDirection.ExitDirections direction, ExitDirection.ExitDirections inverseDirection) stats;
             switch (dir)
             {
                 case ExitDirection.ExitDirections.NorthEast:
-                    exit = new(0, Columns - 1);
+                    stats = (new(0, Columns - 1), new(Rows - 1, 0),ExitDirection.ExitDirections.SouthWest, ExitDirection.ExitDirections.NorthEast);
                     break;
                 case ExitDirection.ExitDirections.NorthWest:
-                    exit = new(0, 0);
+                    stats = (new(Rows - 1, Columns - 1), new(0, 0), ExitDirection.ExitDirections.SouthEast, ExitDirection.ExitDirections.NorthWest);
                     break;
                 case ExitDirection.ExitDirections.SouthEast:
-                    exit = new(Rows - 1, Columns - 1);
+                    stats = (new(Rows - 1, Columns - 1), new(0, 0), ExitDirection.ExitDirections.SouthEast, ExitDirection.ExitDirections.NorthWest);
                     break;
                 default:
-                    exit = new(Rows - 1, 0);
+                    stats = (new(Rows - 1, 0), new(0, Columns - 1), ExitDirection.ExitDirections.NorthEast, ExitDirection.ExitDirections.SouthWest);
                     break;
             }
 
-            if (BaseCostMatrix[exit.x, exit.y] == GenerateMatrix.MatrixIsPathableValue)
+            if (BaseCostMatrix[stats.exitCords.x, stats.exitCords.y] == GenerateMatrix.MatrixIsPathableValue && neighbor.BaseCostMatrix[stats.inverseCords.x, stats.inverseCords.y] == GenerateMatrix.MatrixIsPathableValue)
             {
-                if (exitDirectionToPortals.ContainsKey(dir)) { exitDirectionToPortals.Remove(dir); }
-                exitDirectionToPortals.Add(dir, new List<Portal> { new Portal(new List<Vector2Int> { exit }) });
-            }
-        }
-    }
-
-    public void CalculatePortalNodes()
-    {
-        if (canPathDiagonal)
-        {
-            List<Vector2Int> exitCoords = new List<Vector2Int> { new(Rows - 1, Columns - 1), new(0, 0), new(0, Columns - 1), new(Rows - 1, 0) };
-            Queue<ExitDirection.ExitDirections> exitDirections = new Queue<ExitDirection.ExitDirections>();
-            exitDirections.Enqueue(ExitDirection.ExitDirections.SouthEast);
-            exitDirections.Enqueue(ExitDirection.ExitDirections.NorthWest);
-            exitDirections.Enqueue(ExitDirection.ExitDirections.SouthWest);
-            exitDirections.Enqueue(ExitDirection.ExitDirections.NorthEast);
-            foreach (Vector2Int exit in exitCoords)
-            {
-                ExitDirection.ExitDirections exitDirection = exitDirections.Dequeue();
-                if (BaseCostMatrix[exit.x, exit.y] == GenerateMatrix.MatrixIsPathableValue)
+                if (exitDirectionToPortals.ContainsKey(stats.direction) && hasChanged)
                 {
-                    if (exitDirectionToPortals.ContainsKey(exitDirection)) { exitDirectionToPortals.Remove(exitDirection); }
-                    exitDirectionToPortals.Add(exitDirection, new List<Portal> { new Portal(new List<Vector2Int> { exit }) });
-                    exitDirectionToPortals[exitDirection][0].GenerateFlowField(this);
+                    exitDirectionToPortals.Remove(stats.direction);
+                    neighbor.exitDirectionToPortals.Remove(stats.inverseDirection);
+                    Portal portal = new Portal(new List<Vector2Int> { stats.exitCords }, new List<Vector2Int> { stats.inverseCords }, this, neighbor);
+                    exitDirectionToPortals.Add(stats.direction, new List<Portal> { portal });
+                    neighbor.exitDirectionToPortals.Add(stats.inverseDirection, new List<Portal> { portal });
+                    portal.GenerateFlowFields();
                 }
             }
         }
-        List<(ExitDirection.ExitDirections, Vector2Int, Vector2Int, Vector2Int)> exits = new List<(ExitDirection.ExitDirections, Vector2Int, Vector2Int, Vector2Int)>();
-        exits.Add((ExitDirection.ExitDirections.North, new(0, 0), new(0, Columns - 1), new(0, 1)));
-        exits.Add((ExitDirection.ExitDirections.East, new(0, Columns - 1), new(Rows - 1, Columns - 1), new(1, 0)));
-        exits.Add((ExitDirection.ExitDirections.South, new(Rows - 1, Columns - 1), new(Rows - 1, 0), new(0, -1)));
-        exits.Add((ExitDirection.ExitDirections.West, new(Rows - 1, 0), new(0, 0), new(-1, 0)));
-        foreach ((ExitDirection.ExitDirections, Vector2Int, Vector2Int, Vector2Int) item in exits)
-        {
-            CalcPortalNodesForSide(item.Item1, item.Item2, item.Item3, item.Item4);
-        }
     }
-
-    private void CalcPortalNodesForSide(ExitDirection.ExitDirections dir, Vector2Int start, Vector2Int end, Vector2Int moveDirection)
+    private void CalcPortalNodesForSide(Vector2Int start, Vector2Int end, Vector2Int inverseStart, Vector2Int inverseEnd, Vector2Int moveDir, ExitDirection.ExitDirections direction, ExitDirection.ExitDirections inverseDirection, Plate neighbor)
     {
-        if (exitDirectionToPortals.ContainsKey(dir)) { exitDirectionToPortals.Remove(dir); }
+        if (exitDirectionToPortals.ContainsKey(direction)) { exitDirectionToPortals.Remove(direction); }
         List<Portal> portalNodes = new List<Portal>();
         List<Vector2Int> pos = new List<Vector2Int>();
+        List<Vector2Int> inversePos = new List<Vector2Int>();
         Vector2Int curr = start;
+        Vector2Int inverseCurr = inverseStart;
         bool added = false;
         while (curr != end)
         {
-            if (BaseCostMatrix[curr.x, curr.y] == GenerateMatrix.MatrixIsPathableValue && (curr != (end - moveDirection)))
+            if (BaseCostMatrix[curr.x, curr.y] == GenerateMatrix.MatrixIsPathableValue && neighbor.BaseCostMatrix[inverseCurr.x, inverseCurr.y] == GenerateMatrix.MatrixIsPathableValue && (curr != (end - moveDir)))
             {
                 added = false;
                 pos.Add(curr);
+                inversePos.Add(inverseCurr);
             }
             else
             {
-                if ((!added || (curr == (end - moveDirection))) && pos.Count != 0)
+                if ((!added || (curr == (end - moveDir))) && pos.Count != 0)
                 {
-                    portalNodes.Add(new Portal(pos));
-                    portalNodes.Last().GenerateFlowField(this);
+                    portalNodes.Add(new Portal(pos,inversePos,this,neighbor));
+                    portalNodes.Last().GenerateFlowFields();
                     added = true;
                     pos = new List<Vector2Int>();
+                    inversePos = new List<Vector2Int>();
                 }
-                start = curr + moveDirection;
             }
-            curr += moveDirection;
+            curr += moveDir;
+            inverseCurr += moveDir;
         }
-        exitDirectionToPortals.Add(dir, portalNodes);
+        exitDirectionToPortals.Add(direction, portalNodes);
+        neighbor.exitDirectionToPortals.Add(inverseDirection, portalNodes);
     }
 
 
@@ -171,15 +146,15 @@ public class Plate : IPlate
     //          South (+X)
     //
 
-    public Portal? GetClostestPortal(Vector3 goal, ExitDirection.ExitDirections exit)
+    public Portal? GetClostestPortal(Vector3 goal, ExitDirection.ExitDirections exit, Plate neighbor)
     {
-        CheckForPortalNodes(exit);
+        CheckForPortalNodes(exit, neighbor);
         if (exitDirectionToPortals[exit].Count == 0) { return null; }
         Portal? closest = null;
         float currDist = int.MaxValue;
         foreach (Portal p in exitDirectionToPortals[exit])
         {
-            float dist = Vector3.Distance(GetSubTileCenterWorldCoordinates(p.Center), goal);
+            float dist = Vector3.Distance(GetSubTileCenterWorldCoordinates(p.plateToData[this].Center), goal);
             if (dist < currDist)
             {
                 closest = p;
@@ -187,7 +162,7 @@ public class Plate : IPlate
             }
         }
         if (closest == null) { return null; }
-        if (!closest.HasFlowField) { closest.GenerateFlowField(this); }
+        if (closest.plateToFlowfield[this].Length==0) { closest.GenerateFlowFields(); }
         return closest;
     }
 
@@ -208,7 +183,7 @@ public class Plate : IPlate
         //calculate best Portal
         if (HasNoObstacles)
         {
-            Vector2Int close = portal.GetClostestToStart(startArray);
+            Vector2Int close = portal.GetClostestToStart(startArray,this);
             Vector3 clostest = GetSubTileCenterWorldCoordinates(close);
             if (canPathDiagonal)
             {
@@ -224,7 +199,7 @@ public class Plate : IPlate
         }
         else if (!HasNoObstacles && !HasOnlyObstacles)
         {
-            List<Vector2Int> path = GenerateMatrix.GetBestPathInFlowField(portal.flowfield, startArray);
+            List<Vector2Int> path = GenerateMatrix.GetBestPathInFlowField(portal.plateToFlowfield[this], startArray);
             return path;
         }
         return new List<Vector2Int>();

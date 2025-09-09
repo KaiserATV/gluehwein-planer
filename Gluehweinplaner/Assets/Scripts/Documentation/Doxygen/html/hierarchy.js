@@ -36,9 +36,7 @@ var hierarchy =
     [ "IPointerClickHandler", null, [
       [ "Clickable", "class_clickable.html", null ]
     ] ],
-    [ "IPortal", "interface_i_portal.html", [
-      [ "Portal", "class_portal.html", null ]
-    ] ],
+    [ "IPortal", "interface_i_portal.html", null ],
     [ "ISceneManager", "interface_i_scene_manager.html", [
       [ "SceneManager", "class_scene_manager.html", null ]
     ] ],
@@ -70,5 +68,6 @@ var hierarchy =
       [ "VolumeMenuCloser", "class_volume_menu_closer.html", null ]
     ] ],
     [ "PlateGeneratorDto", "class_plate_generator_dto.html", null ],
+    [ "Portal", "class_portal.html", null ],
     [ "SpawnJSON", "class_spawn_j_s_o_n.html", null ]
 ];

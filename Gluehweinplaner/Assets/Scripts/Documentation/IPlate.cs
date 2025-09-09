@@ -1,6 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// This script is the representation of each plate on the floor. It manages all things conerning it, from the flowfield, to the portals, to the goalnodes.
+/// </summary>
+/// <seealso cref="IGoalNode"/>
+/// <seealso cref="ISceneManager"/>
+/// <seealso cref="IPortal"/>
+/// <seealso cref="GenerateMatrix"/>
 public interface IPlate
 {
     /// <summary>
@@ -35,14 +41,11 @@ public interface IPlate
     /// <param name="bude">The bude to be removed.</param>
     void BudeRemoved(Bude bude);
     /// <summary>
-    /// Function used to Calulate ever Portal on the Plate.
-    /// </summary>
-    void CalculatePortalNodes();
-    /// <summary>
     /// Function to Check for a Portal on specific side of an plate specified by the provided direction.
     /// </summary>
     /// <param name="dir">Direction on which the sides to be calculated.</param>
-    void CheckForPortalNodes(ExitDirection.ExitDirections dir);
+    /// <param name="neighbor">The neighboring plate.</param>
+    void CheckForPortalNodes(ExitDirection.ExitDirections dir, Plate neighbor);
     /// <summary>
     /// Returns the Vector2Int which is closer to the goal.
     /// </summary>
@@ -78,8 +81,9 @@ public interface IPlate
     /// </summary>
     /// <param name="goal">The goal to which the Portalposition is compared.</param>
     /// <param name="exit">The exitdirection of which the portals are considered.</param>
+    /// <param name="plate">The neighboring plate.</param>
     /// <returns>The Closest Portal. Null if there is no Portal in that direction.</returns>
-    Portal GetClostestPortal(Vector3 goal, ExitDirection.ExitDirections exit);
+    Portal GetClostestPortal(Vector3 goal, ExitDirection.ExitDirections exit, Plate plate);
     /// <summary>
     /// Converts an Vector3 to an Vector2Int that represents the tile within the plate.
     /// </summary>

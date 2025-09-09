@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
-
+/// <summary>
+/// This is the script that is used to manage the colors on the heatmap as well as convert the positions of players to positions on the heatmap.
+/// </summary>
+/// <seealso cref="ISceneManager"/>
 public interface IHeatmap
 {
     /// <summary>

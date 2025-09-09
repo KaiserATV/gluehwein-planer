@@ -1,5 +1,10 @@
 \doxysection{IPlate Interface Reference}
 \hypertarget{interface_i_plate}{}\label{interface_i_plate}\index{IPlate@{IPlate}}
+
+
+This script is the representation of each plate on the floor. It manages all things conerning it, from the flowfield, to the portals, to the goalnodes.  
+
+
 Inheritance diagram for IPlate\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -13,9 +18,7 @@ void \mbox{\hyperlink{interface_i_plate_a824605c1c29d0c67508b41b9b1501733}{Add\+
 \begin{DoxyCompactList}\small\item\em Function used to add an goalnode to the plate which is on the plate. Also adds the flowfield corresponding goal node to the dictonary. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{interface_i_plate_a1bfe1acc3448b15d747ca70fef47a207}{Bude\+Removed}} (\mbox{\hyperlink{class_bude}{Bude}} bude)
 \begin{DoxyCompactList}\small\item\em Function to remove an \doxylink{class_bude}{Bude} from the plate. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{interface_i_plate_a70858bad0794cf1c7d4d764fa980e0e1}{Calculate\+Portal\+Nodes}} ()
-\begin{DoxyCompactList}\small\item\em Function used to Calulate ever \doxylink{class_portal}{Portal} on the \doxylink{class_plate}{Plate}. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{interface_i_plate_a667f732b91eaf1f3aaa56b443f4a5249}{Check\+For\+Portal\+Nodes}} (Exit\+Direction.\+Exit\+Directions dir)
+void \mbox{\hyperlink{interface_i_plate_aab284bd256daf3883db470af08037467}{Check\+For\+Portal\+Nodes}} (Exit\+Direction.\+Exit\+Directions dir, \mbox{\hyperlink{class_plate}{Plate}} neighbor)
 \begin{DoxyCompactList}\small\item\em Function to Check for a \doxylink{class_portal}{Portal} on specific side of an plate specified by the provided direction. \end{DoxyCompactList}\item 
 Vector2\+Int \mbox{\hyperlink{interface_i_plate_accf1c71e68ed791361c07c53b4d7be61}{Closer\+Vector2\+Int\+To\+Goal}} (Vector2\+Int a, Vector2\+Int b, Vector3 exit)
 \begin{DoxyCompactList}\small\item\em Returns the Vector2\+Int which is closer to the goal. \end{DoxyCompactList}\item 
@@ -25,7 +28,7 @@ int \mbox{\hyperlink{interface_i_plate_ae8774475e3cab63746d7931e26ab0466}{Get\+B
 \begin{DoxyCompactList}\small\item\em Returns the Value in the Basecostmatrix at the specific position. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{interface_i_plate_aa83c6af251936d2380ed52b181ff6ad9}{Get\+Base\+Value\+At\+Position}} (Vector3 position, bool safe)
 \begin{DoxyCompactList}\small\item\em Returns the Value in the Basecostmatrix at the specific position. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{class_portal}{Portal}} \mbox{\hyperlink{interface_i_plate_a2fe65a60e2301c62643e5e9062adf4e6}{Get\+Clostest\+Portal}} (Vector3 goal, Exit\+Direction.\+Exit\+Directions exit)
+\mbox{\hyperlink{class_portal}{Portal}} \mbox{\hyperlink{interface_i_plate_a956d5a1bcef1a6bd37b2faec771f7bdd}{Get\+Clostest\+Portal}} (Vector3 goal, Exit\+Direction.\+Exit\+Directions exit, \mbox{\hyperlink{class_plate}{Plate}} plate)
 \begin{DoxyCompactList}\small\item\em Returns the closest \doxylink{class_portal}{Portal} to an specific goal in an certain direction. \end{DoxyCompactList}\item 
 Vector2\+Int \mbox{\hyperlink{interface_i_plate_a17fa94ed25d291a4ce0ae512d1d7df9a}{Get\+Position\+In\+Array}} (Vector3 position\+Vector3, bool safe)
 \begin{DoxyCompactList}\small\item\em Converts an Vector3 to an Vector2\+Int that represents the tile within the plate. \end{DoxyCompactList}\item 
@@ -59,9 +62,16 @@ Vector3 \mbox{\hyperlink{interface_i_plate_a38483204dd732829b0f44e19fba9fd01}{Si
 
 
 \doxysubsection{Detailed Description}
+This script is the representation of each plate on the floor. It manages all things conerning it, from the flowfield, to the portals, to the goalnodes. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{interface_i_goal_node}{IGoal\+Node}, \doxylink{interface_i_scene_manager}{IScene\+Manager}, \doxylink{interface_i_portal}{IPortal}, Generate\+Matrix
 
 
-Definition at line \mbox{\hyperlink{_i_plate_8cs_source_l00004}{4}} of file \mbox{\hyperlink{_i_plate_8cs_source}{IPlate.\+cs}}.
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{_i_plate_8cs_source_l00010}{10}} of file \mbox{\hyperlink{_i_plate_8cs_source}{IPlate.\+cs}}.
 
 
 
@@ -106,25 +116,11 @@ Function to remove an \doxylink{class_bude}{Bude} from the plate.
 
 Implemented in \mbox{\hyperlink{class_plate_a02a8f675166e11dd74357322354a5419}{Plate}}.
 
-\Hypertarget{interface_i_plate_a70858bad0794cf1c7d4d764fa980e0e1}\index{IPlate@{IPlate}!CalculatePortalNodes@{CalculatePortalNodes}}
-\index{CalculatePortalNodes@{CalculatePortalNodes}!IPlate@{IPlate}}
-\doxysubsubsection{\texorpdfstring{CalculatePortalNodes()}{CalculatePortalNodes()}}
-{\footnotesize\ttfamily \label{interface_i_plate_a70858bad0794cf1c7d4d764fa980e0e1} 
-void IPlate.\+Calculate\+Portal\+Nodes (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
-
-
-
-Function used to Calulate ever \doxylink{class_portal}{Portal} on the \doxylink{class_plate}{Plate}. 
-
-
-
-Implemented in \mbox{\hyperlink{class_plate_a2347e1bee6d828db0b866e2aa69a878b}{Plate}}.
-
-\Hypertarget{interface_i_plate_a667f732b91eaf1f3aaa56b443f4a5249}\index{IPlate@{IPlate}!CheckForPortalNodes@{CheckForPortalNodes}}
+\Hypertarget{interface_i_plate_aab284bd256daf3883db470af08037467}\index{IPlate@{IPlate}!CheckForPortalNodes@{CheckForPortalNodes}}
 \index{CheckForPortalNodes@{CheckForPortalNodes}!IPlate@{IPlate}}
 \doxysubsubsection{\texorpdfstring{CheckForPortalNodes()}{CheckForPortalNodes()}}
-{\footnotesize\ttfamily \label{interface_i_plate_a667f732b91eaf1f3aaa56b443f4a5249} 
-void IPlate.\+Check\+For\+Portal\+Nodes (\begin{DoxyParamCaption}\item[{Exit\+Direction.\+Exit\+Directions}]{dir}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{interface_i_plate_aab284bd256daf3883db470af08037467} 
+void IPlate.\+Check\+For\+Portal\+Nodes (\begin{DoxyParamCaption}\item[{Exit\+Direction.\+Exit\+Directions}]{dir}{, }\item[{\mbox{\hyperlink{class_plate}{Plate}}}]{neighbor}{}\end{DoxyParamCaption})}
 
 
 
@@ -134,10 +130,12 @@ Function to Check for a \doxylink{class_portal}{Portal} on specific side of an p
 \begin{DoxyParams}{Parameters}
 {\em dir} & Direction on which the sides to be calculated.\\
 \hline
+{\em neighbor} & The neighboring plate.\\
+\hline
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{class_plate_a5d9541aea5f81fa1d6b6ea4924e07edb}{Plate}}.
+Implemented in \mbox{\hyperlink{class_plate_af3c6eb586c554acd66ecbed6285841e1}{Plate}}.
 
 \Hypertarget{interface_i_plate_accf1c71e68ed791361c07c53b4d7be61}\index{IPlate@{IPlate}!CloserVector2IntToGoal@{CloserVector2IntToGoal}}
 \index{CloserVector2IntToGoal@{CloserVector2IntToGoal}!IPlate@{IPlate}}
@@ -245,11 +243,11 @@ The value of the Basecostmatrix at the position.
 
 Implemented in \mbox{\hyperlink{class_plate_ab499658e64e4e2ea18afec618d0db779}{Plate}}.
 
-\Hypertarget{interface_i_plate_a2fe65a60e2301c62643e5e9062adf4e6}\index{IPlate@{IPlate}!GetClostestPortal@{GetClostestPortal}}
+\Hypertarget{interface_i_plate_a956d5a1bcef1a6bd37b2faec771f7bdd}\index{IPlate@{IPlate}!GetClostestPortal@{GetClostestPortal}}
 \index{GetClostestPortal@{GetClostestPortal}!IPlate@{IPlate}}
 \doxysubsubsection{\texorpdfstring{GetClostestPortal()}{GetClostestPortal()}}
-{\footnotesize\ttfamily \label{interface_i_plate_a2fe65a60e2301c62643e5e9062adf4e6} 
-\mbox{\hyperlink{class_portal}{Portal}} IPlate.\+Get\+Clostest\+Portal (\begin{DoxyParamCaption}\item[{Vector3}]{goal}{, }\item[{Exit\+Direction.\+Exit\+Directions}]{exit}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{interface_i_plate_a956d5a1bcef1a6bd37b2faec771f7bdd} 
+\mbox{\hyperlink{class_portal}{Portal}} IPlate.\+Get\+Clostest\+Portal (\begin{DoxyParamCaption}\item[{Vector3}]{goal}{, }\item[{Exit\+Direction.\+Exit\+Directions}]{exit}{, }\item[{\mbox{\hyperlink{class_plate}{Plate}}}]{plate}{}\end{DoxyParamCaption})}
 
 
 
@@ -261,13 +259,15 @@ Returns the closest \doxylink{class_portal}{Portal} to an specific goal in an ce
 \hline
 {\em exit} & The exitdirection of which the portals are considered.\\
 \hline
+{\em plate} & The neighboring plate.\\
+\hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 The Closest \doxylink{class_portal}{Portal}. Null if there is no \doxylink{class_portal}{Portal} in that direction.
 \end{DoxyReturn}
 
 
-Implemented in \mbox{\hyperlink{class_plate_a6ab6f39223127b6eef2ba571e2fdf66c}{Plate}}.
+Implemented in \mbox{\hyperlink{class_plate_a4cf3620edb56bc5e803d6bc4023b9916}{Plate}}.
 
 \Hypertarget{interface_i_plate_a17fa94ed25d291a4ce0ae512d1d7df9a}\index{IPlate@{IPlate}!GetPositionInArray@{GetPositionInArray}}
 \index{GetPositionInArray@{GetPositionInArray}!IPlate@{IPlate}}
@@ -499,7 +499,7 @@ Implemented in \mbox{\hyperlink{class_plate_ad8c31f9ffde7a0cc0dd4841facd0a0f9}{P
 
 
 
-Definition at line \mbox{\hyperlink{_i_plate_8cs_source_l00010}{10}} of file \mbox{\hyperlink{_i_plate_8cs_source}{IPlate.\+cs}}.
+Definition at line \mbox{\hyperlink{_i_plate_8cs_source_l00016}{16}} of file \mbox{\hyperlink{_i_plate_8cs_source}{IPlate.\+cs}}.
 
 \Hypertarget{interface_i_plate_aeb2c96e9834d6c53b59ce40dc7475ed2}\index{IPlate@{IPlate}!Center@{Center}}
 \index{Center@{Center}!IPlate@{IPlate}}
@@ -517,7 +517,7 @@ Implemented in \mbox{\hyperlink{class_plate_a72fd4613ad0d81bb2b1a648516f206f9}{P
 
 
 
-Definition at line \mbox{\hyperlink{_i_plate_8cs_source_l00014}{14}} of file \mbox{\hyperlink{_i_plate_8cs_source}{IPlate.\+cs}}.
+Definition at line \mbox{\hyperlink{_i_plate_8cs_source_l00020}{20}} of file \mbox{\hyperlink{_i_plate_8cs_source}{IPlate.\+cs}}.
 
 \Hypertarget{interface_i_plate_a273aa36aa73941fcb7cff464dcc7f752}\index{IPlate@{IPlate}!Columns@{Columns}}
 \index{Columns@{Columns}!IPlate@{IPlate}}
@@ -535,7 +535,7 @@ Implemented in \mbox{\hyperlink{class_plate_afb6dbab4f50d7620b37b44fb36a6372f}{P
 
 
 
-Definition at line \mbox{\hyperlink{_i_plate_8cs_source_l00018}{18}} of file \mbox{\hyperlink{_i_plate_8cs_source}{IPlate.\+cs}}.
+Definition at line \mbox{\hyperlink{_i_plate_8cs_source_l00024}{24}} of file \mbox{\hyperlink{_i_plate_8cs_source}{IPlate.\+cs}}.
 
 \Hypertarget{interface_i_plate_a456edcf787d529b5bb575d806da10f85}\index{IPlate@{IPlate}!Rows@{Rows}}
 \index{Rows@{Rows}!IPlate@{IPlate}}
@@ -553,7 +553,7 @@ Implemented in \mbox{\hyperlink{class_plate_adde1e19fd07f33a370f625fe3d01e8af}{P
 
 
 
-Definition at line \mbox{\hyperlink{_i_plate_8cs_source_l00022}{22}} of file \mbox{\hyperlink{_i_plate_8cs_source}{IPlate.\+cs}}.
+Definition at line \mbox{\hyperlink{_i_plate_8cs_source_l00028}{28}} of file \mbox{\hyperlink{_i_plate_8cs_source}{IPlate.\+cs}}.
 
 \Hypertarget{interface_i_plate_a38483204dd732829b0f44e19fba9fd01}\index{IPlate@{IPlate}!Size@{Size}}
 \index{Size@{Size}!IPlate@{IPlate}}
@@ -571,7 +571,7 @@ Implemented in \mbox{\hyperlink{class_plate_aa1b23b11b6144edc60b205c1051eef00}{P
 
 
 
-Definition at line \mbox{\hyperlink{_i_plate_8cs_source_l00026}{26}} of file \mbox{\hyperlink{_i_plate_8cs_source}{IPlate.\+cs}}.
+Definition at line \mbox{\hyperlink{_i_plate_8cs_source_l00032}{32}} of file \mbox{\hyperlink{_i_plate_8cs_source}{IPlate.\+cs}}.
 
 
 

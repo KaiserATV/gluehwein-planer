@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
-
+/// <summary>
+/// This is the class that is used to represent the state of an exit internally.
+/// </summary>
+/// <seealso cref="ISceneManager"/>
+/// <seealso cref="ISpawner"/>
 public interface IExit
 {
     /// <summary>

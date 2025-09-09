@@ -1,6 +1,15 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// This Scene is used to manage everthing in the scene. To handle the pathrequest of an player, to adding or removing a bude,... .
+/// </summary>
+/// <seealso cref="IBude"/>
+/// <seealso cref="ISpawner"/>
+/// <seealso cref="IExit"/>
+/// <seealso cref="IInactiveAgentsContainer"/>
+/// <seealso cref="INPC"/>
+/// <seealso cref="IHeatmap"/>
+/// <seealso cref="IPlate"/>
 public interface ISceneManager
 {
     /// <summary>
@@ -86,7 +95,7 @@ public interface ISceneManager
     /// </summary>
     void IncreaseMaxPlayerCount();
     /// <summary>
-    /// This function checks wether the first Vector is closer to the goal then the second Vector.
+    /// This function checks wether the the second Vector2Int is closer to the goal then the first
     /// </summary>
     /// <param name="currMin">The Vector, the second one is compared to.</param>
     /// <param name="toCheck">The second Vector2.</param>

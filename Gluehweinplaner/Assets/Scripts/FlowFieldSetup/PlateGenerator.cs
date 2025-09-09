@@ -38,9 +38,7 @@ public static class PlateGenerator
             plateCountZ = totalTileCountZ;
         }
 
-
         Plate[,] allPlates = new Plate[plateCountX, plateCountZ];
-
         for (int i = 0; i < plateCountX; i++)
         {
             for (int j = 0; j < plateCountZ; j++)
@@ -57,7 +55,6 @@ public static class PlateGenerator
                         allPlates[i, j].HasNoObstacles = noObstacles;
                         allPlates[i, j].HasOnlyObstacles = onlyObstacles;
                         allPlates[i, j].Size = new Vector3(allPlates[i, j].Rows * GenerateMatrix.TileSizeX, 0, allPlates[i, j].Columns * GenerateMatrix.TileSizeZ);
-                        allPlates[i, j].CalculatePortalNodes();
                     }
                     else
                     {
@@ -67,7 +64,6 @@ public static class PlateGenerator
                         allPlates[i, j].Rows = randTileCountX;
                         allPlates[i, j].Columns = tileCountZ;
                         allPlates[i, j].Size = new Vector3(allPlates[i, j].Rows * GenerateMatrix.TileSizeX, 0, allPlates[i, j].Columns * GenerateMatrix.TileSizeZ);
-                        allPlates[i, j].CalculatePortalNodes();
                     }
 
                 }
@@ -81,7 +77,6 @@ public static class PlateGenerator
                     allPlates[i, j].HasNoObstacles = noObstacles;
                     allPlates[i, j].HasOnlyObstacles = onlyObstacles;
                     allPlates[i, j].Size = new Vector3(allPlates[i, j].Rows * GenerateMatrix.TileSizeX, 0, allPlates[i, j].Columns * GenerateMatrix.TileSizeZ);
-                    allPlates[i, j].CalculatePortalNodes();
                 }
                 else
                 {
@@ -94,7 +89,6 @@ public static class PlateGenerator
                     allPlates[i, j].HasNoObstacles = noObstacles;
                     allPlates[i, j].HasOnlyObstacles = onlyObstacles;
                     allPlates[i, j].Size = new Vector3(allPlates[i, j].Rows * GenerateMatrix.TileSizeX, 0, allPlates[i, j].Columns * GenerateMatrix.TileSizeZ);
-                    allPlates[i, j].CalculatePortalNodes();
                 }
             }
         }

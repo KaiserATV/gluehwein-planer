@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
-
+/// <summary>
+/// This Script is called when there are to many agents in the scene and need to be stored in the container. As well as when new players are spawned and there might be some 
+/// left over in the in active container to be spawned.
+/// </summary>
+/// <seealso cref="ISpawner"/>
 public interface IInactiveAgentsContainer
 {
     /// <summary>

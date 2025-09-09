@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// This Class is used to represent the Bude and its state internally. This class is notifies if the bude moves and updates the position respectevly. Also manages all waiting areas.
+/// </summary>
+/// <seealso cref="IBitArray2D"/>
 public interface IBude
 {
     /// <summary>

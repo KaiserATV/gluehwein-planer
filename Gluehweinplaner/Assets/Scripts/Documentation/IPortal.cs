@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
-
+/// <summary>
+/// This script represents a Portal and its state with all flowfields and plates.
+/// </summary>
 public interface IPortal
 {
     /// <summary>

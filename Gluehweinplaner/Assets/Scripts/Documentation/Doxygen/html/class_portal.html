@@ -94,38 +94,25 @@ $(function(){initNavTree('class_portal.html','','class_portal-members'); });
 
 <p> 
  <a href="#details">More...</a></p>
-<div class="dynheader">
-Inheritance diagram for Portal:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="class_portal.png" usemap="#Portal_map" alt=""/>
-  <map id="Portal_map" name="Portal_map">
-<area href="interface_i_portal.html" alt="IPortal" shape="rect" coords="0,0,48,24"/>
-  </map>
-</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a08118dab79ef198f89791c970f2193b5" id="r_a08118dab79ef198f89791c970f2193b5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08118dab79ef198f89791c970f2193b5">Portal</a> (List&lt; Vector2Int &gt; pos2)</td></tr>
-<tr class="memitem:afb7092105c03266a522c637fa2eb0802" id="r_afb7092105c03266a522c637fa2eb0802"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb7092105c03266a522c637fa2eb0802">GenerateFlowField</a> (<a class="el" href="class_plate.html">Plate</a> plate)</td></tr>
-<tr class="memdesc:afb7092105c03266a522c637fa2eb0802"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to initialize the generation of the flowfield to a certain Exit/Portal.  <br /></td></tr>
-<tr class="memitem:a072f2a3a5d24ea5d343ab19d64e57d86" id="r_a072f2a3a5d24ea5d343ab19d64e57d86"><td class="memItemLeft" align="right" valign="top">Vector2Int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a072f2a3a5d24ea5d343ab19d64e57d86">GetClostestToStart</a> (Vector2Int start)</td></tr>
-<tr class="memdesc:a072f2a3a5d24ea5d343ab19d64e57d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to get the closest Point of exitpoints in the portal to a start point.  <br /></td></tr>
+<tr class="memitem:acaa2e5d583b8cdc29d3107c99d17719a" id="r_acaa2e5d583b8cdc29d3107c99d17719a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acaa2e5d583b8cdc29d3107c99d17719a">Portal</a> (List&lt; Vector2Int &gt; pos2plate1, List&lt; Vector2Int &gt; pos2plate2, <a class="el" href="class_plate.html">Plate</a> plate1, <a class="el" href="class_plate.html">Plate</a> plate2)</td></tr>
+<tr class="memitem:a4acdef391c145f61ab98074102dbbf46" id="r_a4acdef391c145f61ab98074102dbbf46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4acdef391c145f61ab98074102dbbf46">GenerateFlowFields</a> ()</td></tr>
+<tr class="memitem:a4a69ca29885fb7803f45fddd3b59ecda" id="r_a4a69ca29885fb7803f45fddd3b59ecda"><td class="memItemLeft" align="right" valign="top">Vector2Int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a69ca29885fb7803f45fddd3b59ecda">GetClostestToStart</a> (Vector2Int start, <a class="el" href="class_plate.html">Plate</a> plate)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a15800bd3f48481b74c5548e2f5482c17" id="r_a15800bd3f48481b74c5548e2f5482c17"><td class="memItemLeft" align="right" valign="top">Vector2Int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15800bd3f48481b74c5548e2f5482c17">Center</a></td></tr>
-<tr class="memitem:a7d64db3934131347650a98c0c5aca9e5" id="r_a7d64db3934131347650a98c0c5aca9e5"><td class="memItemLeft" align="right" valign="top">List&lt; Vector2Int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d64db3934131347650a98c0c5aca9e5">GoalPositions2</a></td></tr>
-<tr class="memitem:a42b61847a98d5c54b432aec586403ace" id="r_a42b61847a98d5c54b432aec586403ace"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42b61847a98d5c54b432aec586403ace">HasFlowField</a> = false</td></tr>
-<tr class="memitem:a9e73d0c06209b7eb1dc7de7cde700e03" id="r_a9e73d0c06209b7eb1dc7de7cde700e03"><td class="memItemLeft" align="right" valign="top">byte[,]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e73d0c06209b7eb1dc7de7cde700e03">flowfield</a></td></tr>
-<tr class="memitem:a4835cfe2731e8b3d95142e3d3f1efbb2" id="r_a4835cfe2731e8b3d95142e3d3f1efbb2"><td class="memItemLeft" align="right" valign="top">Dictionary&lt; Vector2Int, Vector2Int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4835cfe2731e8b3d95142e3d3f1efbb2">startToExit</a> = new Dictionary&lt;Vector2Int, Vector2Int&gt;()</td></tr>
+<tr class="memitem:a274e8037dd4d5cd2d8b7933dca18de21" id="r_a274e8037dd4d5cd2d8b7933dca18de21"><td class="memItemLeft" align="right" valign="top">Dictionary&lt;(<a class="el" href="class_plate.html">Plate</a>, Vector2Int), Vector2Int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a274e8037dd4d5cd2d8b7933dca18de21">startToExit</a> = new Dictionary&lt;(<a class="el" href="class_plate.html">Plate</a>, Vector2Int), Vector2Int&gt;()</td></tr>
+<tr class="memitem:afcaf514ac93c61547cc4b63f157cfabc" id="r_afcaf514ac93c61547cc4b63f157cfabc"><td class="memItemLeft" align="right" valign="top">Dictionary&lt; <a class="el" href="class_plate.html">Plate</a>,(Vector2Int Center, List&lt; Vector2Int &gt; goalPositions)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afcaf514ac93c61547cc4b63f157cfabc">plateToData</a> = new Dictionary&lt;<a class="el" href="class_plate.html">Plate</a>, (Vector2Int Center,List&lt;Vector2Int&gt; goalpositions)&gt;()</td></tr>
+<tr class="memitem:a9c3aa3deacf24234fbd472eeb9edf5e6" id="r_a9c3aa3deacf24234fbd472eeb9edf5e6"><td class="memItemLeft" align="right" valign="top">Dictionary&lt; <a class="el" href="class_plate.html">Plate</a>, byte[,]&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c3aa3deacf24234fbd472eeb9edf5e6">plateToFlowfield</a> = new Dictionary&lt;<a class="el" href="class_plate.html">Plate</a>, byte[,]&gt;()</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="_portal_8cs_source.html#l00005">5</a> of file <a class="el" href="_portal_8cs_source.html">Portal.cs</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a08118dab79ef198f89791c970f2193b5" name="a08118dab79ef198f89791c970f2193b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08118dab79ef198f89791c970f2193b5">&#9670;&#160;</a></span>Portal()</h2>
+<a id="acaa2e5d583b8cdc29d3107c99d17719a" name="acaa2e5d583b8cdc29d3107c99d17719a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaa2e5d583b8cdc29d3107c99d17719a">&#9670;&#160;</a></span>Portal()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -133,101 +120,22 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">Portal.Portal </td>
           <td>(</td>
-          <td class="paramtype">List&lt; Vector2Int &gt;</td>          <td class="paramname"><span class="paramname"><em>pos2</em></span></td><td>)</td>
+          <td class="paramtype">List&lt; Vector2Int &gt;</td>          <td class="paramname"><span class="paramname"><em>pos2plate1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">List&lt; Vector2Int &gt;</td>          <td class="paramname"><span class="paramname"><em>pos2plate2</em></span>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_portal_8cs_source.html#l00013">13</a> of file <a class="el" href="_portal_8cs_source.html">Portal.cs</a>.</p>
-
-</div>
-</div>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="afb7092105c03266a522c637fa2eb0802" name="afb7092105c03266a522c637fa2eb0802"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb7092105c03266a522c637fa2eb0802">&#9670;&#160;</a></span>GenerateFlowField()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">void Portal.GenerateFlowField </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_plate.html">Plate</a></td>          <td class="paramname"><span class="paramname"><em>plate</em></span></td><td>)</td>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="class_plate.html">Plate</a></td>          <td class="paramname"><span class="paramname"><em>plate1</em></span>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Function to initialize the generation of the flowfield to a certain Exit/Portal. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">plate</td><td>The <a class="el" href="class_plate.html">Plate</a> of whichs basecostmatrix the Flowfield is generated.</td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="interface_i_portal.html#acb896571e749ce36e7899c7aef186126">IPortal</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="_portal_8cs_source.html#l00018">18</a> of file <a class="el" href="_portal_8cs_source.html">Portal.cs</a>.</p>
-
-</div>
-</div>
-<a id="a072f2a3a5d24ea5d343ab19d64e57d86" name="a072f2a3a5d24ea5d343ab19d64e57d86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a072f2a3a5d24ea5d343ab19d64e57d86">&#9670;&#160;</a></span>GetClostestToStart()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">Vector2Int Portal.GetClostestToStart </td>
-          <td>(</td>
-          <td class="paramtype">Vector2Int</td>          <td class="paramname"><span class="paramname"><em>start</em></span></td><td>)</td>
+          <td class="paramkey"></td>
           <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Function to get the closest Point of exitpoints in the portal to a start point. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">start</td><td>The start point from which the closest point is calculated.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The closest point.</dd></dl>
-
-<p>Implements <a class="el" href="interface_i_portal.html#a43d2e137dfb0410d16b4e06c8af8016d">IPortal</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="_portal_8cs_source.html#l00023">23</a> of file <a class="el" href="_portal_8cs_source.html">Portal.cs</a>.</p>
-
-</div>
-</div>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a15800bd3f48481b74c5548e2f5482c17" name="a15800bd3f48481b74c5548e2f5482c17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15800bd3f48481b74c5548e2f5482c17">&#9670;&#160;</a></span>Center</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Vector2Int Portal.Center</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_portal_8cs_source.html#l00007">7</a> of file <a class="el" href="_portal_8cs_source.html">Portal.cs</a>.</p>
-
-</div>
-</div>
-<a id="a9e73d0c06209b7eb1dc7de7cde700e03" name="a9e73d0c06209b7eb1dc7de7cde700e03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e73d0c06209b7eb1dc7de7cde700e03">&#9670;&#160;</a></span>flowfield</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">byte [,] Portal.flowfield</td>
+          <td class="paramtype"><a class="el" href="class_plate.html">Plate</a></td>          <td class="paramname"><span class="paramname"><em>plate2</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -236,14 +144,58 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a7d64db3934131347650a98c0c5aca9e5" name="a7d64db3934131347650a98c0c5aca9e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d64db3934131347650a98c0c5aca9e5">&#9670;&#160;</a></span>GoalPositions2</h2>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a4acdef391c145f61ab98074102dbbf46" name="a4acdef391c145f61ab98074102dbbf46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4acdef391c145f61ab98074102dbbf46">&#9670;&#160;</a></span>GenerateFlowFields()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">List&lt;Vector2Int&gt; Portal.GoalPositions2</td>
+          <td class="memname">void Portal.GenerateFlowFields </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_portal_8cs_source.html#l00015">15</a> of file <a class="el" href="_portal_8cs_source.html">Portal.cs</a>.</p>
+
+</div>
+</div>
+<a id="a4a69ca29885fb7803f45fddd3b59ecda" name="a4a69ca29885fb7803f45fddd3b59ecda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a69ca29885fb7803f45fddd3b59ecda">&#9670;&#160;</a></span>GetClostestToStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Vector2Int Portal.GetClostestToStart </td>
+          <td>(</td>
+          <td class="paramtype">Vector2Int</td>          <td class="paramname"><span class="paramname"><em>start</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_plate.html">Plate</a></td>          <td class="paramname"><span class="paramname"><em>plate</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_portal_8cs_source.html#l00029">29</a> of file <a class="el" href="_portal_8cs_source.html">Portal.cs</a>.</p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="afcaf514ac93c61547cc4b63f157cfabc" name="afcaf514ac93c61547cc4b63f157cfabc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcaf514ac93c61547cc4b63f157cfabc">&#9670;&#160;</a></span>plateToData</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Dictionary&lt;<a class="el" href="class_plate.html">Plate</a>,(Vector2Int Center, List&lt;Vector2Int&gt; goalPositions)&gt; Portal.plateToData = new Dictionary&lt;<a class="el" href="class_plate.html">Plate</a>, (Vector2Int Center,List&lt;Vector2Int&gt; goalpositions)&gt;()</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -252,14 +204,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a42b61847a98d5c54b432aec586403ace" name="a42b61847a98d5c54b432aec586403ace"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42b61847a98d5c54b432aec586403ace">&#9670;&#160;</a></span>HasFlowField</h2>
+<a id="a9c3aa3deacf24234fbd472eeb9edf5e6" name="a9c3aa3deacf24234fbd472eeb9edf5e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c3aa3deacf24234fbd472eeb9edf5e6">&#9670;&#160;</a></span>plateToFlowfield</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool Portal.HasFlowField = false</td>
+          <td class="memname">Dictionary&lt;<a class="el" href="class_plate.html">Plate</a>, byte[,]&gt; Portal.plateToFlowfield = new Dictionary&lt;<a class="el" href="class_plate.html">Plate</a>, byte[,]&gt;()</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -268,19 +220,19 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a4835cfe2731e8b3d95142e3d3f1efbb2" name="a4835cfe2731e8b3d95142e3d3f1efbb2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4835cfe2731e8b3d95142e3d3f1efbb2">&#9670;&#160;</a></span>startToExit</h2>
+<a id="a274e8037dd4d5cd2d8b7933dca18de21" name="a274e8037dd4d5cd2d8b7933dca18de21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a274e8037dd4d5cd2d8b7933dca18de21">&#9670;&#160;</a></span>startToExit</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Dictionary&lt;Vector2Int, Vector2Int&gt; Portal.startToExit = new Dictionary&lt;Vector2Int, Vector2Int&gt;()</td>
+          <td class="memname">Dictionary&lt;(<a class="el" href="class_plate.html">Plate</a>,Vector2Int), Vector2Int&gt; Portal.startToExit = new Dictionary&lt;(<a class="el" href="class_plate.html">Plate</a>, Vector2Int), Vector2Int&gt;()</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_portal_8cs_source.html#l00011">11</a> of file <a class="el" href="_portal_8cs_source.html">Portal.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_portal_8cs_source.html#l00007">7</a> of file <a class="el" href="_portal_8cs_source.html">Portal.cs</a>.</p>
 
 </div>
 </div>

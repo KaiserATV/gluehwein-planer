@@ -1,4 +1,10 @@
-﻿public interface IGoalNode
+﻿/// <summary>
+/// This class represents the final destination of an agent before moving to a goal. This class manages all agents on the path on the way to the bude and als propagates the 
+/// change that occures, when a bude changes position to the Scenemanager.
+/// </summary>
+/// <seealso cref="IBude"/>
+/// <seealso cref="ISceneManager"/>
+public interface IGoalNode
 {
     /// <summary>
     /// The Plate on which the goalnode currently is placed. 

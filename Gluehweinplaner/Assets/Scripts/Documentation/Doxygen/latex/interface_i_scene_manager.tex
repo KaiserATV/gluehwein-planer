@@ -1,5 +1,10 @@
 \doxysection{IScene\+Manager Interface Reference}
 \hypertarget{interface_i_scene_manager}{}\label{interface_i_scene_manager}\index{ISceneManager@{ISceneManager}}
+
+
+This Scene is used to manage everthing in the scene. To handle the pathrequest of an player, to adding or removing a bude,... .  
+
+
 Inheritance diagram for IScene\+Manager\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -41,7 +46,7 @@ Queue$<$ \mbox{\hyperlink{interface_i_scene_manager_a940900a4430861add6e6e313d26
 void \mbox{\hyperlink{interface_i_scene_manager_a25a992b07f5e885f5647809f2efda678}{Increase\+Max\+Player\+Count}} ()
 \begin{DoxyCompactList}\small\item\em This function incresese the maximum playercount. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{interface_i_scene_manager_a767aad1b1d0d6bae1f6c09d9b033964d}{is\+Closer}} (Vector2\+Int curr\+Min, Vector2\+Int to\+Check, Vector2\+Int goal)
-\begin{DoxyCompactList}\small\item\em This function checks wether the first Vector is closer to the goal then the second Vector. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em This function checks wether the the second Vector2\+Int is closer to the goal then the first. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{interface_i_scene_manager_a19d271ceb69c4f4bb7e77b5eec4750da}{Load\+Scene\+From\+JSON}} ()
 \begin{DoxyCompactList}\small\item\em This function loads the whole scene from a supplied json. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{interface_i_scene_manager_addb7225fb7aa604aa722630543e6bfe2}{Lost\+Patience}} ()
@@ -82,9 +87,16 @@ void \mbox{\hyperlink{interface_i_scene_manager_afef485842b779be9752208b6f95483c
 
 
 \doxysubsection{Detailed Description}
+This Scene is used to manage everthing in the scene. To handle the pathrequest of an player, to adding or removing a bude,... . 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{interface_i_bude}{IBude}, \doxylink{interface_i_spawner}{ISpawner}, \doxylink{interface_i_exit}{IExit}, \doxylink{interface_i_inactive_agents_container}{IInactive\+Agents\+Container}, \doxylink{interface_i_n_p_c}{INPC}, \doxylink{interface_i_heatmap}{IHeatmap}, \doxylink{interface_i_plate}{IPlate}
 
 
-Definition at line \mbox{\hyperlink{_i_scene_manager_8cs_source_l00004}{4}} of file \mbox{\hyperlink{_i_scene_manager_8cs_source}{IScene\+Manager.\+cs}}.
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{_i_scene_manager_8cs_source_l00013}{13}} of file \mbox{\hyperlink{_i_scene_manager_8cs_source}{IScene\+Manager.\+cs}}.
 
 
 
@@ -372,7 +384,7 @@ bool IScene\+Manager.\+is\+Closer (\begin{DoxyParamCaption}\item[{Vector2\+Int}]
 
 
 
-This function checks wether the first Vector is closer to the goal then the second Vector. 
+This function checks wether the the second Vector2\+Int is closer to the goal then the first. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -706,7 +718,7 @@ The new position as well as the center of the spawner.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{_i_scene_manager_8cs_source_l00062}{62}} of file \mbox{\hyperlink{_i_scene_manager_8cs_source}{IScene\+Manager.\+cs}}.
+Definition at line \mbox{\hyperlink{_i_scene_manager_8cs_source_l00071}{71}} of file \mbox{\hyperlink{_i_scene_manager_8cs_source}{IScene\+Manager.\+cs}}.
 
 
 

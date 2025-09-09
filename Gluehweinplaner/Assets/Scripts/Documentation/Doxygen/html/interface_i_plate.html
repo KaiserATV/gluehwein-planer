@@ -91,6 +91,9 @@ $(function(){initNavTree('interface_i_plate.html','','interface_i_plate-members'
   <div class="headertitle"><div class="title">IPlate Interface Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>This script is the representation of each plate on the floor. It manages all things conerning it, from the flowfield, to the portals, to the goalnodes.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for IPlate:</div>
 <div class="dyncontent">
@@ -107,10 +110,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a824605c1c29d0c67508b41b9b1501733"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function used to add an goalnode to the plate which is on the plate. Also adds the flowfield corresponding goal node to the dictonary.  <br /></td></tr>
 <tr class="memitem:a1bfe1acc3448b15d747ca70fef47a207" id="r_a1bfe1acc3448b15d747ca70fef47a207"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1bfe1acc3448b15d747ca70fef47a207">BudeRemoved</a> (<a class="el" href="class_bude.html">Bude</a> bude)</td></tr>
 <tr class="memdesc:a1bfe1acc3448b15d747ca70fef47a207"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to remove an <a class="el" href="class_bude.html">Bude</a> from the plate.  <br /></td></tr>
-<tr class="memitem:a70858bad0794cf1c7d4d764fa980e0e1" id="r_a70858bad0794cf1c7d4d764fa980e0e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70858bad0794cf1c7d4d764fa980e0e1">CalculatePortalNodes</a> ()</td></tr>
-<tr class="memdesc:a70858bad0794cf1c7d4d764fa980e0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function used to Calulate ever <a class="el" href="class_portal.html">Portal</a> on the <a class="el" href="class_plate.html">Plate</a>.  <br /></td></tr>
-<tr class="memitem:a667f732b91eaf1f3aaa56b443f4a5249" id="r_a667f732b91eaf1f3aaa56b443f4a5249"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a667f732b91eaf1f3aaa56b443f4a5249">CheckForPortalNodes</a> (ExitDirection.ExitDirections dir)</td></tr>
-<tr class="memdesc:a667f732b91eaf1f3aaa56b443f4a5249"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to Check for a <a class="el" href="class_portal.html">Portal</a> on specific side of an plate specified by the provided direction.  <br /></td></tr>
+<tr class="memitem:aab284bd256daf3883db470af08037467" id="r_aab284bd256daf3883db470af08037467"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aab284bd256daf3883db470af08037467">CheckForPortalNodes</a> (ExitDirection.ExitDirections dir, <a class="el" href="class_plate.html">Plate</a> neighbor)</td></tr>
+<tr class="memdesc:aab284bd256daf3883db470af08037467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to Check for a <a class="el" href="class_portal.html">Portal</a> on specific side of an plate specified by the provided direction.  <br /></td></tr>
 <tr class="memitem:accf1c71e68ed791361c07c53b4d7be61" id="r_accf1c71e68ed791361c07c53b4d7be61"><td class="memItemLeft" align="right" valign="top">Vector2Int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#accf1c71e68ed791361c07c53b4d7be61">CloserVector2IntToGoal</a> (Vector2Int a, Vector2Int b, Vector3 exit)</td></tr>
 <tr class="memdesc:accf1c71e68ed791361c07c53b4d7be61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Vector2Int which is closer to the goal.  <br /></td></tr>
 <tr class="memitem:a854a7a2472ba2d7149dad9f9ca6dd1c0" id="r_a854a7a2472ba2d7149dad9f9ca6dd1c0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a854a7a2472ba2d7149dad9f9ca6dd1c0">Contains</a> (Vector2Int check)</td></tr>
@@ -119,8 +120,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae8774475e3cab63746d7931e26ab0466"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Value in the Basecostmatrix at the specific position.  <br /></td></tr>
 <tr class="memitem:aa83c6af251936d2380ed52b181ff6ad9" id="r_aa83c6af251936d2380ed52b181ff6ad9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa83c6af251936d2380ed52b181ff6ad9">GetBaseValueAtPosition</a> (Vector3 position, bool safe)</td></tr>
 <tr class="memdesc:aa83c6af251936d2380ed52b181ff6ad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Value in the Basecostmatrix at the specific position.  <br /></td></tr>
-<tr class="memitem:a2fe65a60e2301c62643e5e9062adf4e6" id="r_a2fe65a60e2301c62643e5e9062adf4e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_portal.html">Portal</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2fe65a60e2301c62643e5e9062adf4e6">GetClostestPortal</a> (Vector3 goal, ExitDirection.ExitDirections exit)</td></tr>
-<tr class="memdesc:a2fe65a60e2301c62643e5e9062adf4e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the closest <a class="el" href="class_portal.html">Portal</a> to an specific goal in an certain direction.  <br /></td></tr>
+<tr class="memitem:a956d5a1bcef1a6bd37b2faec771f7bdd" id="r_a956d5a1bcef1a6bd37b2faec771f7bdd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_portal.html">Portal</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a956d5a1bcef1a6bd37b2faec771f7bdd">GetClostestPortal</a> (Vector3 goal, ExitDirection.ExitDirections exit, <a class="el" href="class_plate.html">Plate</a> plate)</td></tr>
+<tr class="memdesc:a956d5a1bcef1a6bd37b2faec771f7bdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the closest <a class="el" href="class_portal.html">Portal</a> to an specific goal in an certain direction.  <br /></td></tr>
 <tr class="memitem:a17fa94ed25d291a4ce0ae512d1d7df9a" id="r_a17fa94ed25d291a4ce0ae512d1d7df9a"><td class="memItemLeft" align="right" valign="top">Vector2Int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a17fa94ed25d291a4ce0ae512d1d7df9a">GetPositionInArray</a> (Vector3 positionVector3, bool safe)</td></tr>
 <tr class="memdesc:a17fa94ed25d291a4ce0ae512d1d7df9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an Vector3 to an Vector2Int that represents the tile within the plate.  <br /></td></tr>
 <tr class="memitem:ad25c6d4cd4ec2e1fa4bdaf33e71c0e6d" id="r_ad25c6d4cd4ec2e1fa4bdaf33e71c0e6d"><td class="memItemLeft" align="right" valign="top">List&lt; Vector3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad25c6d4cd4ec2e1fa4bdaf33e71c0e6d">GetShortestPathToGoalWithin</a> (Vector3 _start, Vector3 goal)</td></tr>
@@ -152,8 +153,10 @@ Properties</h2></td></tr>
 <tr class="memdesc:a38483204dd732829b0f44e19fba9fd01"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Size of the plate in each direction.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_i_plate_8cs_source.html#l00004">4</a> of file <a class="el" href="_i_plate_8cs_source.html">IPlate.cs</a>.</p>
+<div class="textblock"><p>This script is the representation of each plate on the floor. It manages all things conerning it, from the flowfield, to the portals, to the goalnodes. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="interface_i_goal_node.html" title="This class represents the final destination of an agent before moving to a goal. This class manages a...">IGoalNode</a>, <a class="el" href="interface_i_scene_manager.html" title="This Scene is used to manage everthing in the scene. To handle the pathrequest of an player,...">ISceneManager</a>, <a class="el" href="interface_i_portal.html" title="This script represents a Portal and its state with all flowfields and plates.">IPortal</a>, GenerateMatrix</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_i_plate_8cs_source.html#l00010">10</a> of file <a class="el" href="_i_plate_8cs_source.html">IPlate.cs</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a824605c1c29d0c67508b41b9b1501733" name="a824605c1c29d0c67508b41b9b1501733"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a824605c1c29d0c67508b41b9b1501733">&#9670;&#160;</a></span>AddGoalNode()</h2>
@@ -209,29 +212,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a70858bad0794cf1c7d4d764fa980e0e1" name="a70858bad0794cf1c7d4d764fa980e0e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70858bad0794cf1c7d4d764fa980e0e1">&#9670;&#160;</a></span>CalculatePortalNodes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IPlate.CalculatePortalNodes </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Function used to Calulate ever <a class="el" href="class_portal.html">Portal</a> on the <a class="el" href="class_plate.html">Plate</a>. </p>
-
-<p>Implemented in <a class="el" href="class_plate.html#a2347e1bee6d828db0b866e2aa69a878b">Plate</a>.</p>
-
-</div>
-</div>
-<a id="a667f732b91eaf1f3aaa56b443f4a5249" name="a667f732b91eaf1f3aaa56b443f4a5249"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a667f732b91eaf1f3aaa56b443f4a5249">&#9670;&#160;</a></span>CheckForPortalNodes()</h2>
+<a id="aab284bd256daf3883db470af08037467" name="aab284bd256daf3883db470af08037467"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab284bd256daf3883db470af08037467">&#9670;&#160;</a></span>CheckForPortalNodes()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -239,8 +221,12 @@ Properties</h2></td></tr>
         <tr>
           <td class="memname">void IPlate.CheckForPortalNodes </td>
           <td>(</td>
-          <td class="paramtype">ExitDirection.ExitDirections</td>          <td class="paramname"><span class="paramname"><em>dir</em></span></td><td>)</td>
+          <td class="paramtype">ExitDirection.ExitDirections</td>          <td class="paramname"><span class="paramname"><em>dir</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="class_plate.html">Plate</a></td>          <td class="paramname"><span class="paramname"><em>neighbor</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -249,11 +235,12 @@ Properties</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dir</td><td>Direction on which the sides to be calculated.</td></tr>
+    <tr><td class="paramname">neighbor</td><td>The neighboring plate.</td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_plate.html#a5d9541aea5f81fa1d6b6ea4924e07edb">Plate</a>.</p>
+<p>Implemented in <a class="el" href="class_plate.html#af3c6eb586c554acd66ecbed6285841e1">Plate</a>.</p>
 
 </div>
 </div>
@@ -392,8 +379,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a2fe65a60e2301c62643e5e9062adf4e6" name="a2fe65a60e2301c62643e5e9062adf4e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2fe65a60e2301c62643e5e9062adf4e6">&#9670;&#160;</a></span>GetClostestPortal()</h2>
+<a id="a956d5a1bcef1a6bd37b2faec771f7bdd" name="a956d5a1bcef1a6bd37b2faec771f7bdd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a956d5a1bcef1a6bd37b2faec771f7bdd">&#9670;&#160;</a></span>GetClostestPortal()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -406,7 +393,12 @@ Properties</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ExitDirection.ExitDirections</td>          <td class="paramname"><span class="paramname"><em>exit</em></span>&#160;)</td>
+          <td class="paramtype">ExitDirection.ExitDirections</td>          <td class="paramname"><span class="paramname"><em>exit</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_plate.html">Plate</a></td>          <td class="paramname"><span class="paramname"><em>plate</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -416,12 +408,13 @@ Properties</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">goal</td><td>The goal to which the Portalposition is compared.</td></tr>
     <tr><td class="paramname">exit</td><td>The exitdirection of which the portals are considered.</td></tr>
+    <tr><td class="paramname">plate</td><td>The neighboring plate.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The Closest <a class="el" href="class_portal.html">Portal</a>. Null if there is no <a class="el" href="class_portal.html">Portal</a> in that direction.</dd></dl>
 
-<p>Implemented in <a class="el" href="class_plate.html#a6ab6f39223127b6eef2ba571e2fdf66c">Plate</a>.</p>
+<p>Implemented in <a class="el" href="class_plate.html#a4cf3620edb56bc5e803d6bc4023b9916">Plate</a>.</p>
 
 </div>
 </div>
@@ -709,7 +702,7 @@ Properties</h2></td></tr>
 
 <p>Implemented in <a class="el" href="class_plate.html#ad8c31f9ffde7a0cc0dd4841facd0a0f9">Plate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_i_plate_8cs_source.html#l00010">10</a> of file <a class="el" href="_i_plate_8cs_source.html">IPlate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_i_plate_8cs_source.html#l00016">16</a> of file <a class="el" href="_i_plate_8cs_source.html">IPlate.cs</a>.</p>
 
 </div>
 </div>
@@ -737,7 +730,7 @@ Properties</h2></td></tr>
 
 <p>Implemented in <a class="el" href="class_plate.html#a72fd4613ad0d81bb2b1a648516f206f9">Plate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_i_plate_8cs_source.html#l00014">14</a> of file <a class="el" href="_i_plate_8cs_source.html">IPlate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_i_plate_8cs_source.html#l00020">20</a> of file <a class="el" href="_i_plate_8cs_source.html">IPlate.cs</a>.</p>
 
 </div>
 </div>
@@ -765,7 +758,7 @@ Properties</h2></td></tr>
 
 <p>Implemented in <a class="el" href="class_plate.html#afb6dbab4f50d7620b37b44fb36a6372f">Plate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_i_plate_8cs_source.html#l00018">18</a> of file <a class="el" href="_i_plate_8cs_source.html">IPlate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_i_plate_8cs_source.html#l00024">24</a> of file <a class="el" href="_i_plate_8cs_source.html">IPlate.cs</a>.</p>
 
 </div>
 </div>
@@ -793,7 +786,7 @@ Properties</h2></td></tr>
 
 <p>Implemented in <a class="el" href="class_plate.html#adde1e19fd07f33a370f625fe3d01e8af">Plate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_i_plate_8cs_source.html#l00022">22</a> of file <a class="el" href="_i_plate_8cs_source.html">IPlate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_i_plate_8cs_source.html#l00028">28</a> of file <a class="el" href="_i_plate_8cs_source.html">IPlate.cs</a>.</p>
 
 </div>
 </div>
@@ -821,7 +814,7 @@ Properties</h2></td></tr>
 
 <p>Implemented in <a class="el" href="class_plate.html#aa1b23b11b6144edc60b205c1051eef00">Plate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_i_plate_8cs_source.html#l00026">26</a> of file <a class="el" href="_i_plate_8cs_source.html">IPlate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_i_plate_8cs_source.html#l00032">32</a> of file <a class="el" href="_i_plate_8cs_source.html">IPlate.cs</a>.</p>
 
 </div>
 </div>

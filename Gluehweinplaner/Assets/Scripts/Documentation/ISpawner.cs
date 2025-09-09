@@ -1,4 +1,10 @@
 ﻿using UnityEngine;
+/// <summary>
+/// This script represents the state of an spawner.
+/// </summary>
+/// <seealso cref="IInactiveAgentsContainer"/>
+/// <seealso cref="INPC"/>
+/// <seealso cref="ISceneManager"/>
 public interface ISpawner
 {
     /// <summary>

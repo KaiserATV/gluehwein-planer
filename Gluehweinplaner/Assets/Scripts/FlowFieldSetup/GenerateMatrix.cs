@@ -428,36 +428,31 @@ public static class GenerateMatrix
     /// <returns>Null if there is no valid exit. A Vector3 if there is an valid exit.</returns>
     public static Vector2Int? FindBestPointToNextArrayAndGoal(Vector3 goal, ExitDirection.ExitDirections exitDirection, Plate homePlate, Plate neighborPlate)
     {
-        Portal? clostestPortal = homePlate.GetClostestPortal(goal, exitDirection);
+        Portal? clostestPortal = homePlate.GetClostestPortal(goal, exitDirection,neighborPlate);
         if (clostestPortal == null) { return null; }
-        ;
         Vector2Int? clostestPoint = null;
         float currentSmallestDistance = float.MaxValue;
-        foreach (Vector2Int posToBeChecked in clostestPortal.GoalPositions2)
+        foreach (Vector2Int posToBeChecked in clostestPortal.plateToData[homePlate].goalPositions)
         {
-            if (homePlate.BaseCostMatrix[posToBeChecked.x, posToBeChecked.y] == MatrixIsPathableValue)
+            float distance = Vector3.Distance(goal, homePlate.GetSubTileCenterWorldCoordinates(posToBeChecked));
+            if (distance < currentSmallestDistance)
             {
-                float distance = Vector3.Distance(goal, homePlate.GetSubTileCenterWorldCoordinates(posToBeChecked));
-                if (distance < currentSmallestDistance)
+                if (exitDirection == ExitDirection.ExitDirections.North || exitDirection == ExitDirection.ExitDirections.South)
                 {
-                    if (exitDirection == ExitDirection.ExitDirections.North || exitDirection == ExitDirection.ExitDirections.South)
+                    if (neighborPlate.BaseCostMatrix[neighborPlate.Rows - (posToBeChecked.x + 1), posToBeChecked.y] == MatrixIsPathableValue)
                     {
-                        if (neighborPlate.BaseCostMatrix[neighborPlate.Rows - (posToBeChecked.x + 1), posToBeChecked.y] == MatrixIsPathableValue)
-                        {
-                            clostestPoint = posToBeChecked;
-                            currentSmallestDistance = distance;
-                        }
-                    }
-                    else
-                    {
-                        if (neighborPlate.BaseCostMatrix[posToBeChecked.x, neighborPlate.Columns - (posToBeChecked.y + 1)] == MatrixIsPathableValue)
-                        {
-                            clostestPoint = posToBeChecked;
-                            currentSmallestDistance = distance;
-                        }
+                        clostestPoint = posToBeChecked;
+                        currentSmallestDistance = distance;
                     }
                 }
-                else { break; }
+                else
+                {
+                    if (neighborPlate.BaseCostMatrix[posToBeChecked.x, neighborPlate.Columns - (posToBeChecked.y + 1)] == MatrixIsPathableValue)
+                    {
+                        clostestPoint = posToBeChecked;
+                        currentSmallestDistance = distance;
+                    }
+                }
             }
         }
         return clostestPoint;
@@ -519,7 +514,7 @@ public static class GenerateMatrix
                 }
                 if (closestPoint != null)
                 {
-                    Portal? p = currentPlate.GetClostestPortal(steps.Last(), ExitDirection.DirectionToExitDiretion(nextDir));
+                    Portal? p = currentPlate.GetClostestPortal(steps.Last(), ExitDirection.DirectionToExitDiretion(nextDir), nextPlate);
                     if (p == null)
                     {
                         return (new Queue<Vector3>(), currentPlate);
@@ -574,7 +569,7 @@ public static class GenerateMatrix
                 }
                 if (closestPoint != null)
                 {
-                    Portal? p = currentPlate.GetClostestPortal(steps.Last(), ExitDirection.DirectionToExitDiretion(nextDir));
+                    Portal? p = currentPlate.GetClostestPortal(steps.Last(), ExitDirection.DirectionToExitDiretion(nextDir),nextPlate);
                     if (p == null)
                     {
                         return (new Queue<Vector3>(), currentPlate);
@@ -609,10 +604,13 @@ public static class GenerateMatrix
     public static List<Vector2Int> GetBestPathInFlowField(byte[,] flowfield, Vector2Int start)
     {
         List<Vector2Int> bestPath = new List<Vector2Int>();
-        byte lastDir = 111;
-        int schutz = 100;
-        while (lastDir != ExitDirection.IsExit && schutz > 0)
+        byte lastDir = flowfield[start.x, start.y];
+        int schutz = 0;
+        DebugArrayOnlyValues<byte>(flowfield, 40, flowfield.GetLength(0));
+        while (lastDir != ExitDirection.IsExit && schutz < 100)
         {
+            Debug.Log(lastDir);
+            Debug.Log(start);
             byte currByte = flowfield[start.x, start.y];
             if (currByte != lastDir)
             {
@@ -621,29 +619,27 @@ public static class GenerateMatrix
             }
             lastDir = currByte;
             start += ExitDirection.ByteToVector(currByte);
-            schutz--;
+            schutz++;
         }
-        //Debug.Log(bestPath.Count);
         return bestPath;
     }
     /// <summary>
     /// The function returns the full path in the provided flowfield.
     /// </summary>
-    /// <seealso cref="GetBestPathInFlowFieldFull(byte[,], Vector2Int)"/>
+    /// <seealso cref="GetBestPathInFlowField(byte[,], Vector2Int)"/>
     /// <param name="flowfield">The flowfield in which the path should be found.</param>
     /// <param name="start">The starting point of the path.</param>
     /// <returns>Return the full path taken by the agent.</returns>
     public static List<Vector2Int> GetBestPathInFlowFieldFull(byte[,] flowfield, Vector2Int start)
     {
         List<Vector2Int> bestPath = new List<Vector2Int>();
-        byte currByte = 0;
+        byte currByte = flowfield[start.x, start.y];
         while (currByte != ExitDirection.IsExit)
         {
             currByte = flowfield[start.x, start.y];
             bestPath.Add(start);
             start += ExitDirection.ByteToVector(currByte);
         }
-        //Debug.Log(bestPath.Count);
         return bestPath;
     }
 

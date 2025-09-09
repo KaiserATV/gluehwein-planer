@@ -100,21 +100,19 @@ Inheritance diagram for Plate:</div>
  <div class="center">
   <img src="class_plate.png" usemap="#Plate_map" alt=""/>
   <map id="Plate_map" name="Plate_map">
-<area href="interface_i_plate.html" alt="IPlate" shape="rect" coords="0,0,43,24"/>
+<area href="interface_i_plate.html" title="This script is the representation of each plate on the floor. It manages all things conerning it,..." alt="IPlate" shape="rect" coords="0,0,43,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a7bb39b9967504b7e6a5a2550769cfd0e" id="r_a7bb39b9967504b7e6a5a2550769cfd0e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7bb39b9967504b7e6a5a2550769cfd0e">Plate</a> (Vector3 pos, int[,] bcm, bool d)</td></tr>
-<tr class="memitem:a5d9541aea5f81fa1d6b6ea4924e07edb" id="r_a5d9541aea5f81fa1d6b6ea4924e07edb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d9541aea5f81fa1d6b6ea4924e07edb">CheckForPortalNodes</a> (ExitDirection.ExitDirections dir)</td></tr>
-<tr class="memdesc:a5d9541aea5f81fa1d6b6ea4924e07edb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to Check for a <a class="el" href="class_portal.html">Portal</a> on specific side of an plate specified by the provided direction.  <br /></td></tr>
-<tr class="memitem:a2347e1bee6d828db0b866e2aa69a878b" id="r_a2347e1bee6d828db0b866e2aa69a878b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2347e1bee6d828db0b866e2aa69a878b">CalculatePortalNodes</a> ()</td></tr>
-<tr class="memdesc:a2347e1bee6d828db0b866e2aa69a878b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function used to Calulate ever <a class="el" href="class_portal.html">Portal</a> on the <a class="el" href="class_plate.html">Plate</a>.  <br /></td></tr>
+<tr class="memitem:af3c6eb586c554acd66ecbed6285841e1" id="r_af3c6eb586c554acd66ecbed6285841e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3c6eb586c554acd66ecbed6285841e1">CheckForPortalNodes</a> (ExitDirection.ExitDirections dir, <a class="el" href="class_plate.html">Plate</a> neighbor)</td></tr>
+<tr class="memdesc:af3c6eb586c554acd66ecbed6285841e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to Check for a <a class="el" href="class_portal.html">Portal</a> on specific side of an plate specified by the provided direction.  <br /></td></tr>
 <tr class="memitem:a045c43d528947814feed81abc4aa5238" id="r_a045c43d528947814feed81abc4aa5238"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a045c43d528947814feed81abc4aa5238">AddGoalNode</a> (<a class="el" href="class_goal_node.html">GoalNode</a> goalNode)</td></tr>
 <tr class="memdesc:a045c43d528947814feed81abc4aa5238"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function used to add an goalnode to the plate which is on the plate. Also adds the flowfield corresponding goal node to the dictonary.  <br /></td></tr>
-<tr class="memitem:a6ab6f39223127b6eef2ba571e2fdf66c" id="r_a6ab6f39223127b6eef2ba571e2fdf66c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_portal.html">Portal</a>?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ab6f39223127b6eef2ba571e2fdf66c">GetClostestPortal</a> (Vector3 goal, ExitDirection.ExitDirections exit)</td></tr>
-<tr class="memdesc:a6ab6f39223127b6eef2ba571e2fdf66c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the closest <a class="el" href="class_portal.html">Portal</a> to an specific goal in an certain direction.  <br /></td></tr>
+<tr class="memitem:a4cf3620edb56bc5e803d6bc4023b9916" id="r_a4cf3620edb56bc5e803d6bc4023b9916"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_portal.html">Portal</a>?&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4cf3620edb56bc5e803d6bc4023b9916">GetClostestPortal</a> (Vector3 goal, ExitDirection.ExitDirections exit, <a class="el" href="class_plate.html">Plate</a> neighbor)</td></tr>
+<tr class="memdesc:a4cf3620edb56bc5e803d6bc4023b9916"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the closest <a class="el" href="class_portal.html">Portal</a> to an specific goal in an certain direction.  <br /></td></tr>
 <tr class="memitem:afe91aaa87022f68796ac54fd611defe4" id="r_afe91aaa87022f68796ac54fd611defe4"><td class="memItemLeft" align="right" valign="top">List&lt; Vector3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe91aaa87022f68796ac54fd611defe4">GetShortestPathToToNextPlateV3</a> (<a class="el" href="class_portal.html">Portal</a> portal, Vector3 start)</td></tr>
 <tr class="memdesc:afe91aaa87022f68796ac54fd611defe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retunrs the shortest Path to an exitpoint.  <br /></td></tr>
 <tr class="memitem:ab67d4a32f81d9a5a76ed5430f9b8f477" id="r_ab67d4a32f81d9a5a76ed5430f9b8f477"><td class="memItemLeft" align="right" valign="top">List&lt; Vector2Int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab67d4a32f81d9a5a76ed5430f9b8f477">GetShortestPathToToNextPlateV2</a> (<a class="el" href="class_portal.html">Portal</a> portal, Vector2Int startArray)</td></tr>
@@ -225,7 +223,7 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#a824605c1c29d0c67508b41b9b1501733">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00151">151</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00126">126</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -254,35 +252,12 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#a1bfe1acc3448b15d747ca70fef47a207">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00369">369</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00344">344</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
-<a id="a2347e1bee6d828db0b866e2aa69a878b" name="a2347e1bee6d828db0b866e2aa69a878b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2347e1bee6d828db0b866e2aa69a878b">&#9670;&#160;</a></span>CalculatePortalNodes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Plate.CalculatePortalNodes </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Function used to Calulate ever <a class="el" href="class_portal.html">Portal</a> on the <a class="el" href="class_plate.html">Plate</a>. </p>
-
-<p>Implements <a class="el" href="interface_i_plate.html#a70858bad0794cf1c7d4d764fa980e0e1">IPlate</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00088">88</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
-
-</div>
-</div>
-<a id="a5d9541aea5f81fa1d6b6ea4924e07edb" name="a5d9541aea5f81fa1d6b6ea4924e07edb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d9541aea5f81fa1d6b6ea4924e07edb">&#9670;&#160;</a></span>CheckForPortalNodes()</h2>
+<a id="af3c6eb586c554acd66ecbed6285841e1" name="af3c6eb586c554acd66ecbed6285841e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3c6eb586c554acd66ecbed6285841e1">&#9670;&#160;</a></span>CheckForPortalNodes()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -290,8 +265,12 @@ Properties</h2></td></tr>
         <tr>
           <td class="memname">void Plate.CheckForPortalNodes </td>
           <td>(</td>
-          <td class="paramtype">ExitDirection.ExitDirections</td>          <td class="paramname"><span class="paramname"><em>dir</em></span></td><td>)</td>
+          <td class="paramtype">ExitDirection.ExitDirections</td>          <td class="paramname"><span class="paramname"><em>dir</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="class_plate.html">Plate</a></td>          <td class="paramname"><span class="paramname"><em>neighbor</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -300,13 +279,14 @@ Properties</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dir</td><td>Direction on which the sides to be calculated.</td></tr>
+    <tr><td class="paramname">neighbor</td><td>The neighboring plate.</td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="interface_i_plate.html#a667f732b91eaf1f3aaa56b443f4a5249">IPlate</a>.</p>
+<p>Implements <a class="el" href="interface_i_plate.html#aab284bd256daf3883db470af08037467">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00039">39</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00036">36</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -347,7 +327,7 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#accf1c71e68ed791361c07c53b4d7be61">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00383">383</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00358">358</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -377,7 +357,7 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#a854a7a2472ba2d7149dad9f9ca6dd1c0">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00424">424</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00399">399</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -413,7 +393,7 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#ae8774475e3cab63746d7931e26ab0466">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00293">293</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00268">268</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -449,12 +429,12 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#aa83c6af251936d2380ed52b181ff6ad9">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00288">288</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00263">263</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
-<a id="a6ab6f39223127b6eef2ba571e2fdf66c" name="a6ab6f39223127b6eef2ba571e2fdf66c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ab6f39223127b6eef2ba571e2fdf66c">&#9670;&#160;</a></span>GetClostestPortal()</h2>
+<a id="a4cf3620edb56bc5e803d6bc4023b9916" name="a4cf3620edb56bc5e803d6bc4023b9916"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cf3620edb56bc5e803d6bc4023b9916">&#9670;&#160;</a></span>GetClostestPortal()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -467,7 +447,12 @@ Properties</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ExitDirection.ExitDirections</td>          <td class="paramname"><span class="paramname"><em>exit</em></span>&#160;)</td>
+          <td class="paramtype">ExitDirection.ExitDirections</td>          <td class="paramname"><span class="paramname"><em>exit</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_plate.html">Plate</a></td>          <td class="paramname"><span class="paramname"><em>plate</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -477,14 +462,15 @@ Properties</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">goal</td><td>The goal to which the Portalposition is compared.</td></tr>
     <tr><td class="paramname">exit</td><td>The exitdirection of which the portals are considered.</td></tr>
+    <tr><td class="paramname">plate</td><td>The neighboring plate.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The Closest <a class="el" href="class_portal.html">Portal</a>. Null if there is no <a class="el" href="class_portal.html">Portal</a> in that direction.</dd></dl>
 
-<p>Implements <a class="el" href="interface_i_plate.html#a2fe65a60e2301c62643e5e9062adf4e6">IPlate</a>.</p>
+<p>Implements <a class="el" href="interface_i_plate.html#a956d5a1bcef1a6bd37b2faec771f7bdd">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00174">174</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00149">149</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -519,7 +505,7 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#a17fa94ed25d291a4ce0ae512d1d7df9a">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00275">275</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00250">250</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -554,7 +540,7 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#ad25c6d4cd4ec2e1fa4bdaf33e71c0e6d">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00234">234</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00209">209</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -590,7 +576,7 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#a48f263d2653ad6ebb4340495a0ac30b2">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00206">206</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00181">181</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -626,7 +612,7 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#a14aa2ea9414d455695db6dba15bf9c51">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00194">194</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00169">169</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -662,7 +648,7 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#a0ab06625929f5c8e14985a186764d4ef">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00271">271</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00246">246</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -694,7 +680,7 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#a8b6793fe7668cd1c7941f6440baba8e1">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00267">267</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00242">242</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -735,7 +721,7 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#a64c628e4af55d4e7530f6452c3b19527">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00299">299</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00274">274</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -758,7 +744,7 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#a75257f562cb5bcc6604367e801ef457f">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00388">388</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00363">363</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -775,7 +761,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00034">34</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00031">31</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -807,7 +793,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00031">31</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00028">28</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -823,7 +809,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00037">37</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00034">34</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -839,7 +825,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00036">36</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00033">33</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -871,7 +857,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00022">22</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00020">20</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -887,7 +873,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00024">24</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00021">21</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -903,7 +889,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00032">32</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00029">29</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -933,7 +919,7 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#a16ccceec9dd345ffa869b8400c31ee5c">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00027">27</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00024">24</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -961,7 +947,7 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#aeb2c96e9834d6c53b59ce40dc7475ed2">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00019">19</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00018">18</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -989,7 +975,7 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#a273aa36aa73941fcb7cff464dcc7f752">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00026">26</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00023">23</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -1017,7 +1003,7 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#a456edcf787d529b5bb575d806da10f85">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00025">25</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00022">22</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
@@ -1045,7 +1031,7 @@ Properties</h2></td></tr>
 
 <p>Implements <a class="el" href="interface_i_plate.html#a38483204dd732829b0f44e19fba9fd01">IPlate</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00020">20</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_plate_8cs_source.html#l00019">19</a> of file <a class="el" href="_plate_8cs_source.html">Plate.cs</a>.</p>
 
 </div>
 </div>
