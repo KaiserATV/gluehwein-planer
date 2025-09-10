@@ -12,13 +12,14 @@ public class SceneManager : MonoBehaviour, ISceneManager
     public bool pathDiagonal = false;
     public bool simulating = false;
 
-    public int maxPlayerCount = 1;
     public int plateCountX = 0;
     public int plateCountZ = 0;
 
+    public int maxPlayerCount = 1;
     public int playerCount = 0;
     public int inactivePlayerCount = 0;
     public int agentsLostPatience = 0;
+
     public int maxKapazitaet;
     public int allBudenWeigth;
 
@@ -230,7 +231,10 @@ public class SceneManager : MonoBehaviour, ISceneManager
             maxPlayerCount -= 50;
         }
     }
-
+    /// <summary>
+    /// This function creates the json string from all relevant objects in the scene.
+    /// </summary>
+    /// <returns>THe json-string representing the scene.</returns>
     private string CreateJSON()
     {
         AlleBudenJSON aB = new AlleBudenJSON(allBudenScripts!.Count);
@@ -265,8 +269,7 @@ public class SceneManager : MonoBehaviour, ISceneManager
         {
             writer.Write(CreateJSON());
         }
-
-        //SoundFXManager.instance.PlaySoundFXClip(saveSoundClip, transform, 1f);
+        SoundFXManager.instance.PlaySoundFXClip(saveSoundClip, transform, 1f);
     }
 
     private GanzeSzene? ReadJSON()
@@ -349,7 +352,7 @@ public class SceneManager : MonoBehaviour, ISceneManager
                     newObj.transform.parent = spawnerContainer;
                 }
             }
-            //SoundFXManager.instance.PlaySoundFXClip(loadSoundClip, transform, 1f);
+            SoundFXManager.instance.PlaySoundFXClip(loadSoundClip, transform, 1f);
         }
         else
         {
@@ -415,6 +418,10 @@ public class SceneManager : MonoBehaviour, ISceneManager
         }
         return platesToVisit;
     }
+    /// <summary>
+    /// This function generates all goalnodes. For that it takes a list of position from buden an groups then according to their distance and position. Furthermore this scripts checks wether or not the orientation
+    /// of the bude that would be added is correct or not, so that a common goalnode can be generated.
+    /// </summary>
     void GenerateGoalNodes()
     {
         List<List<Bude>> groups = new List<List<Bude>>();
@@ -434,7 +441,7 @@ public class SceneManager : MonoBehaviour, ISceneManager
                     //should divide by position
                     Vector3 displacement = groups[j][0].GetFarestPoint() - goal.GetFarestPoint();
                     float positionBudenToEachOther = Vector3.Dot(displacement.normalized, goalDirection.normalized);
-                    if (positionBudenToEachOther > 0)
+                    if (positionBudenToEachOther > 0)//checks if the bude has the matching facing diretion
                     {
                         //only invalid position here are
                         //1: If it is not in front by enough
@@ -544,9 +551,13 @@ public class SceneManager : MonoBehaviour, ISceneManager
     {
         if (allPositionsToGoals.ContainsKey((start, goal)))
         {
-            if (PlatePathChanged(allPositionsToGoals[(start, goal)].Item1))
+            if (!PlatePathChanged(allPositionsToGoals[(start, goal)].Item1))
             {
                 return new Queue<Vector3>(allPositionsToGoals[(start, goal)].Item2);
+            }
+            else
+            {
+                allPositionsToGoals.Remove((start, goal));
             }
         }
         Vector2Int arrayStart = WorldPositionToPlateArrayPosition(start);
@@ -585,9 +596,9 @@ public class SceneManager : MonoBehaviour, ISceneManager
             }
             return wayPoints;
         }
-        else
+        else // if the current plates to visit contain a plate that is not passable a new path needs to be generated
         {
-            int tries = 0; // try to find a route 3 times else go to the exit
+            int tries = 0;//amount of tries taken to generate a path
             Plate goalPlate = allPlateArray![arrayGoal.x, arrayGoal.y];
             do
             {
@@ -629,6 +640,11 @@ public class SceneManager : MonoBehaviour, ISceneManager
     {
         return Vector2Int.Distance(currMin, goal) > Vector2Int.Distance(toCheck, goal);
     }
+    /// <summary>
+    /// This function checks wether or not the path of plates contains a plate whichs path has been changed
+    /// </summary>
+    /// <param name="np"></param>
+    /// <returns>True if the path has changed.</returns>
     private bool PlatePathChanged(List<Plate> np)
     {
         bool changed = false;

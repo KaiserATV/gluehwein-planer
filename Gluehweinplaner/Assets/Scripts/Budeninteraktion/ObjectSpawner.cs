@@ -9,7 +9,7 @@ public class ObjectSpawner : MonoBehaviour
     public float placementDistance = 7f;
     public Material previewMaterial;
     public GameObject budenContainer;
-    public SceneManager am;
+    public SceneManager sceneManager;
     public GodmodeController godmodeController;
 
     public XRRayInteractor rayInteractor;
@@ -40,8 +40,6 @@ public class ObjectSpawner : MonoBehaviour
 
     void Start()
     {
-        budenContainer = GameObject.Find("BudenContainer");
-        am = GameObject.Find("SceneManager").GetComponent<SceneManager>();
         cameraTransform = Camera.main.transform;
         godmodeController = FindObjectOfType<GodmodeController>();
 
@@ -199,7 +197,7 @@ public class ObjectSpawner : MonoBehaviour
             Quaternion.Euler(0, placementRotationY, 0),
             budenContainer.transform);
         newObj.GetComponent<Bude>().SetTypeIndex(selectedIndex);
-        am.AddBude(newObj.GetComponent<Bude>());
+        sceneManager.AddBude(newObj.GetComponent<Bude>());
 
         //play Placement Sound Effect
         SoundFXManager.instance.PlaySoundFXClip(placementSoundClip, transform, 1f);

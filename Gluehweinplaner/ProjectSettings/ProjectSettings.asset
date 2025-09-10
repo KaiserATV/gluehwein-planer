@@ -144,6 +144,10 @@ PlayerSettings:
   preloadedAssets:
   - {fileID: 0}
   - {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  - {fileID: -6517218471499782410, guid: 1a4c68ca72a83449f938d669337cb305, type: 2}
+  - {fileID: 11400000, guid: 3dfb9478c9a0d264cae46824c779d617, type: 2}
+  - {fileID: 11400000, guid: 9986bd7656c1c8b4787b98b943d5ba44, type: 2}
+  - {fileID: 9090742143052837425, guid: 501f7efc631ee004a9743ae860a9e3c0, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -939,7 +943,7 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 20471bd5-301a-46ba-b549-465552c4c7dd
+  cloudProjectId: 
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: Gluehweinplaner 2025-01-08_21-14-47
