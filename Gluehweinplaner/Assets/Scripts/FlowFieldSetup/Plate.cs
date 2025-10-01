@@ -37,7 +37,7 @@ public class Plate : IPlate
     {
         if (exitDirectionToPortals.ContainsKey(dir))
         {
-            if (exitDirectionToPortals[dir].Count > 0) { return; }
+            if (exitDirectionToPortals[dir].Count > 0) {return; }
         }
         switch (dir)
         {
@@ -60,30 +60,29 @@ public class Plate : IPlate
             switch (dir)
             {
                 case ExitDirection.ExitDirections.NorthEast:
-                    stats = (new(0, Columns - 1), new(Rows - 1, 0),ExitDirection.ExitDirections.SouthWest, ExitDirection.ExitDirections.NorthEast);
+                    stats = (new(0, Columns - 1), new(Rows - 1, 0),ExitDirection.ExitDirections.NorthEast, ExitDirection.ExitDirections.SouthWest);
                     break;
                 case ExitDirection.ExitDirections.NorthWest:
-                    stats = (new(Rows - 1, Columns - 1), new(0, 0), ExitDirection.ExitDirections.SouthEast, ExitDirection.ExitDirections.NorthWest);
+                    stats = (new(Rows - 1, Columns - 1), new(0, 0), ExitDirection.ExitDirections.NorthWest, ExitDirection.ExitDirections.SouthEast);
                     break;
                 case ExitDirection.ExitDirections.SouthEast:
                     stats = (new(Rows - 1, Columns - 1), new(0, 0), ExitDirection.ExitDirections.SouthEast, ExitDirection.ExitDirections.NorthWest);
                     break;
                 default:
-                    stats = (new(Rows - 1, 0), new(0, Columns - 1), ExitDirection.ExitDirections.NorthEast, ExitDirection.ExitDirections.SouthWest);
+                    stats = (new(Rows - 1, 0), new(0, Columns - 1), ExitDirection.ExitDirections.SouthWest, ExitDirection.ExitDirections.NorthEast);
                     break;
             }
-
             if (BaseCostMatrix[stats.exitCords.x, stats.exitCords.y] == GenerateMatrix.MatrixIsPathableValue && neighbor.BaseCostMatrix[stats.inverseCords.x, stats.inverseCords.y] == GenerateMatrix.MatrixIsPathableValue)
             {
                 if (exitDirectionToPortals.ContainsKey(stats.direction) && hasChanged)
                 {
                     exitDirectionToPortals.Remove(stats.direction);
                     neighbor.exitDirectionToPortals.Remove(stats.inverseDirection);
-                    Portal portal = new Portal(new List<Vector2Int> { stats.exitCords }, new List<Vector2Int> { stats.inverseCords }, this, neighbor);
-                    exitDirectionToPortals.Add(stats.direction, new List<Portal> { portal });
-                    neighbor.exitDirectionToPortals.Add(stats.inverseDirection, new List<Portal> { portal });
-                    portal.GenerateFlowFields();
                 }
+                Portal portal = new Portal(new List<Vector2Int> { stats.exitCords }, new List<Vector2Int> { stats.inverseCords }, this, neighbor);
+                exitDirectionToPortals.Add(stats.direction, new List<Portal> { portal });
+                neighbor.exitDirectionToPortals.Add(stats.inverseDirection, new List<Portal> { portal });
+                portal.GenerateFlowFields();
             }
         }
     }
@@ -95,10 +94,10 @@ public class Plate : IPlate
         List<Vector2Int> inversePos = new List<Vector2Int>();
         Vector2Int curr = start;
         Vector2Int inverseCurr = inverseStart;
-        bool added = false;
+        bool added = true;
         while (curr != end)
         {
-            if (BaseCostMatrix[curr.x, curr.y] == GenerateMatrix.MatrixIsPathableValue && neighbor.BaseCostMatrix[inverseCurr.x, inverseCurr.y] == GenerateMatrix.MatrixIsPathableValue && (curr != (end - moveDir)))
+            if (BaseCostMatrix[curr.x, curr.y] == GenerateMatrix.MatrixIsPathableValue && neighbor.BaseCostMatrix[inverseCurr.x, inverseCurr.y] == GenerateMatrix.MatrixIsPathableValue)
             {
                 added = false;
                 pos.Add(curr);
@@ -117,6 +116,11 @@ public class Plate : IPlate
             }
             curr += moveDir;
             inverseCurr += moveDir;
+        }
+        if (!added)
+        {
+            portalNodes.Add(new Portal(pos, inversePos, this, neighbor));
+            portalNodes.Last().GenerateFlowFields();
         }
         exitDirectionToPortals.Add(direction, portalNodes);
         neighbor.exitDirectionToPortals.Add(inverseDirection, portalNodes);
@@ -149,7 +153,7 @@ public class Plate : IPlate
     public Portal? GetClostestPortal(Vector3 goal, ExitDirection.ExitDirections exit, Plate neighbor)
     {
         CheckForPortalNodes(exit, neighbor);
-        if (exitDirectionToPortals[exit].Count == 0) { return null; }
+        if (exitDirectionToPortals[exit].Count == 0) {return null; }
         Portal? closest = null;
         float currDist = int.MaxValue;
         foreach (Portal p in exitDirectionToPortals[exit])

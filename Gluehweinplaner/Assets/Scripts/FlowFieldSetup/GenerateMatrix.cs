@@ -606,11 +606,8 @@ public static class GenerateMatrix
         List<Vector2Int> bestPath = new List<Vector2Int>();
         byte lastDir = flowfield[start.x, start.y];
         int schutz = 0;
-        DebugArrayOnlyValues<byte>(flowfield, 40, flowfield.GetLength(0));
         while (lastDir != ExitDirection.IsExit && schutz < 100)
         {
-            Debug.Log(lastDir);
-            Debug.Log(start);
             byte currByte = flowfield[start.x, start.y];
             if (currByte != lastDir)
             {

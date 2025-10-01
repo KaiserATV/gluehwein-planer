@@ -547,6 +547,10 @@ public class SceneManager : MonoBehaviour, ISceneManager
     {
         return HandlePathRequest(start, goalNode.Position);
     }
+    List<Vector2Int> debugPlatePos = new List<Vector2Int>();
+    List<Vector3> debugSteps = new List<Vector3>();
+    bool debugging = false;
+
     public Queue<Vector3> HandlePathRequest(Vector3 start, Vector3 goal)
     {
         if (allPositionsToGoals.ContainsKey((start, goal)))
@@ -594,6 +598,9 @@ public class SceneManager : MonoBehaviour, ISceneManager
             {
                 allPositionsToGoals.Add((start, goal), (platesToVisit, new Queue<Vector3>(wayPoints)));
             }
+            debugPlatePos = platePosToVisit;
+            debugSteps = wayPoints.ToList();
+            debugging = true;
             return wayPoints;
         }
         else // if the current plates to visit contain a plate that is not passable a new path needs to be generated
@@ -629,11 +636,33 @@ public class SceneManager : MonoBehaviour, ISceneManager
                     }
                     allPositionsToGoals.Add((start, goal), (platesToVisit, new Queue<Vector3>(newWayPoints)));
                     goalPositionToFlowField.Add(goal, (baseCostPlates, flowField));
+                    debugPlatePos = platePosToVisit;
+                    debugSteps = wayPoints.ToList();
+                    debugging = true;
                     return newWayPoints;
                 }
                 tries++;
             } while (tries < Mathf.Max(plateCountX, plateCountZ));
             return new Queue<Vector3>();//no path could be found
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (debugging)
+        {
+            Gizmos.color = Color.green;
+            foreach (Vector2Int pos in debugPlatePos)
+            {
+                Gizmos.DrawCube(allPlateArray![pos.x, pos.y].Center, new(allPlateArray[pos.x, pos.y].Rows,0, allPlateArray[pos.x, pos.y].Columns));
+            }
+            Gizmos.color = Color.black;
+            foreach (Vector3 pos in debugSteps)
+            {
+                Gizmos.DrawCube(pos, new(1, 1, 1));
+            }
+
+
         }
     }
     public bool isCloser(Vector2Int currMin, Vector2Int toCheck, Vector2Int goal)
