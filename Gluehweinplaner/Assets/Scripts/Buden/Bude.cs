@@ -79,6 +79,11 @@ public class Bude : MonoBehaviour, IBude
     }
     public void BudeMoved()
     {
+        foreach(Plate p in onplates)
+        {
+            p.BudeRemoved(this);
+        }
+        onplates = new List<Plate>();
         goalNode.BudeMoved(this);
     }
     public void BudeRemove()

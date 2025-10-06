@@ -77,6 +77,8 @@ public class Plate : IPlate
                 if (exitDirectionToPortals.ContainsKey(stats.direction) && hasChanged)
                 {
                     exitDirectionToPortals.Remove(stats.direction);
+                }else if(neighbor.exitDirectionToPortals.ContainsKey(stats.inverseDirection) && hasChanged)
+                {
                     neighbor.exitDirectionToPortals.Remove(stats.inverseDirection);
                 }
                 Portal portal = new Portal(new List<Vector2Int> { stats.exitCords }, new List<Vector2Int> { stats.inverseCords }, this, neighbor);
@@ -88,7 +90,7 @@ public class Plate : IPlate
     }
     private void CalcPortalNodesForSide(Vector2Int start, Vector2Int end, Vector2Int inverseStart, Vector2Int inverseEnd, Vector2Int moveDir, ExitDirection.ExitDirections direction, ExitDirection.ExitDirections inverseDirection, Plate neighbor)
     {
-        if (exitDirectionToPortals.ContainsKey(direction)) { exitDirectionToPortals.Remove(direction); }
+        if (exitDirectionToPortals.ContainsKey(direction)) { exitDirectionToPortals.Remove(direction); neighbor.exitDirectionToPortals.Remove(inverseDirection); }
         List<Portal> portalNodes = new List<Portal>();
         List<Vector2Int> pos = new List<Vector2Int>();
         List<Vector2Int> inversePos = new List<Vector2Int>();
@@ -144,6 +146,11 @@ public class Plate : IPlate
         finalFlowFields.Add(goalNode.Position, flowField);
     }
 
+    public void RemoveGoalNode(GoalNode goalNode)
+    {
+        if (!goalNodes.Contains(goalNode)) { return; }
+        finalFlowFields.Remove(goalNode.Position);
+    }
 
     //          North (-X)
     //  West (-Z)        East (+Z)
@@ -153,7 +160,7 @@ public class Plate : IPlate
     public Portal? GetClostestPortal(Vector3 goal, ExitDirection.ExitDirections exit, Plate neighbor)
     {
         CheckForPortalNodes(exit, neighbor);
-        if (exitDirectionToPortals[exit].Count == 0) {return null; }
+        if (!exitDirectionToPortals.ContainsKey(exit) || exitDirectionToPortals[exit].Count == 0) {return null; }
         Portal? closest = null;
         float currDist = int.MaxValue;
         foreach (Portal p in exitDirectionToPortals[exit])
@@ -347,13 +354,14 @@ public class Plate : IPlate
     }
     public void BudeRemoved(Bude bude)
     {
+        if (!budeToOccupiedSpaces.ContainsKey(bude)){ return; }
         List<Vector2Int> allOccupied = budeToOccupiedSpaces[bude];
         foreach (Vector2Int step in allOccupied)
         {
             BaseCostMatrix[step.x, step.y] -= GenerateMatrix.MatrixObstacleValue;
         }
         hasChanged = true;
-
+        budeToOccupiedSpaces.Remove(bude);
         exitDirectionToPortals = new Dictionary<ExitDirection.ExitDirections, List<Portal>>();
         pathsTaken = new Dictionary<(Vector2Int, Vector2Int), List<Vector3>>();
         finalPaths = new Dictionary<(Vector2Int, Vector3), List<Vector3>>();

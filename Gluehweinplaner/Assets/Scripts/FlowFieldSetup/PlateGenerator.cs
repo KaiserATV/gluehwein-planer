@@ -110,9 +110,10 @@ public static class PlateGenerator
     /// <returns>True if the tile is wakable, elsewise false.</returns>
     static bool CheckIfWakable(float posX, float posY)
     {
-        bool isPlacable = !Physics.CheckSphere(
-                            new Vector3(posX, 0, posY),
-                            1f,
+        bool isPlacable = !Physics.Raycast(
+                            new Vector3(posX, -10f, posY),
+                            Vector3.up,
+                            15f,
                             GenerateMatrix.ObstacleLayer
                             );
         return isPlacable;

@@ -69,10 +69,15 @@ public class GoalNode : IGoalNode
     }
     public void BudeMoved(Bude bude)
     {
-        sm.BudeMoved(bude);
         if (sm.WorldPositionToPlate(bude.GetFarestPoint()) != OnPlate)
         {
             RemoveBude(bude);
+        }
+       
+        sm.BudeMoved(bude);
+        foreach (NPC npc in usingGoalNode)
+        {
+            npc.BudeMoved(bude);
         }
         if (lineOfSightTo.Count > 0)
         {
@@ -80,14 +85,8 @@ public class GoalNode : IGoalNode
         }
         else
         {
-            if (usingGoalNode.Count == 0)
-            {
-                sm.RemoveGoalNode(this);
-            }
-        }
-        foreach (NPC npc in usingGoalNode)
-        {
-            npc.BudeMoved(bude);
+            OnPlate.RemoveGoalNode(this);
+            sm.RemoveGoalNode(this);
         }
     }
     public void BudeDestroyed(Bude bude)

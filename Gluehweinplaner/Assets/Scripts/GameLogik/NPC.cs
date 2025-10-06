@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 #nullable enable
 /// <inheritdoc cref="INPC"/>
@@ -76,6 +77,16 @@ public class NPC : MonoBehaviour, INPC
             animator.SetBool(walkingName, true);
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.black;
+        if (Application.isPlaying)
+        {
+            Gizmos.DrawLineStrip(moveList.ToArray(),false);
+        }
+    }
+
     private void FixedUpdate()
     {
         if (!stopped)
@@ -283,7 +294,8 @@ public class NPC : MonoBehaviour, INPC
             onWayToGoalNode = true;
             onWayBackFromBude = true;
             nextWayPoint = null;
-
+            currentGoalNode = movedBude.goalNode;
+            currentGoalNode.UsingGoalnodeAdd(this);
             moveList = sm!.HandlePathRequest(this.transform.position, currentGoalNode!);
             nextWayPoint = moveList.Dequeue();
             onWayToGoalNode = true;
