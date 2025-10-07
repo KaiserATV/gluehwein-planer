@@ -566,9 +566,17 @@ public class SceneManager : MonoBehaviour, ISceneManager
         byte[,] flowField;
         int[,] baseCostPlates;
         List<Plate> platesToVisit;
-       
-        baseCostPlates = GenerateMatrix.GenerateBaseCostMatrix(plateCountX, plateCountZ, (int row, int column) => !allPlateArray![row, column].HasOnlyObstacles, out bool onlyObstacles, out bool noObstacles);
-        (_, flowField) = GenerateMatrix.GenerateDistanceFieldAndFlowField(baseCostPlates, plateCountX, plateCountZ, new List<Vector2Int> { arrayGoal }, pathDiagonal, canPathTo);
+
+        if (goalPositionToFlowField.ContainsKey(start))
+        {
+            (baseCostPlates,flowField) = goalPositionToFlowField[start];
+        }
+        else
+        {
+            baseCostPlates = GenerateMatrix.GenerateBaseCostMatrix(plateCountX, plateCountZ, (int row, int column) => !allPlateArray![row, column].HasOnlyObstacles, out bool onlyObstacles, out bool noObstacles);
+            (_, flowField) = GenerateMatrix.GenerateDistanceFieldAndFlowField(baseCostPlates, plateCountX, plateCountZ, new List<Vector2Int> { arrayGoal }, pathDiagonal, canPathTo);
+        }
+
         platePosToVisit = GenerateMatrix.GetBestPathInFlowFieldFull(flowField, arrayStart);
         if (platePosToVisit.Count == 0) { return new Queue<Vector3>(); }//there is no way to path to the goal from the given position
         platesToVisit = new List<Plate>();
@@ -587,6 +595,7 @@ public class SceneManager : MonoBehaviour, ISceneManager
             {
                 allPositionsToGoals.Add((start, goal), (platesToVisit, new Queue<Vector3>(wayPoints)));
             }
+            
             return wayPoints;
         }
         else // if the current plates to visit contain a plate that is not passable a new path needs to be generated
@@ -647,7 +656,6 @@ public class SceneManager : MonoBehaviour, ISceneManager
         foreach (Plate p in np)
         {
             changed |= p.hasChanged;
-            p.hasChanged = false;
         }
         return changed;
     }

@@ -5743,7 +5743,7 @@ MonoBehaviour:
   simulating: 1
   plateCountX: 400
   plateCountZ: 400
-  maxPlayerCount: 10
+  maxPlayerCount: 5000
   playerCount: 0
   inactivePlayerCount: 0
   agentsLostPatience: 0
@@ -5772,7 +5772,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1036096514}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad238ed33899215418b0b00f83e9c814, type: 3}
   m_Name: 

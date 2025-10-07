@@ -266,7 +266,10 @@ public class NPC : MonoBehaviour, INPC
                 }
                 else
                 {
-                    currentGoalNode!.RemoveNPC(this);
+                    if(currentGoalNode != null)
+                    {
+                        currentGoalNode!.RemoveNPC(this);
+                    }
                     sm!.LostPatience();
                     if (budenToVisit.Count == 0)
                     {
