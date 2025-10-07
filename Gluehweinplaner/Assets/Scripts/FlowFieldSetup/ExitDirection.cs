@@ -15,6 +15,14 @@ public static class ExitDirection
     public static byte SouthEast = 6;
     public static byte SouthWest = 7;
     public static byte NorthWest = 8;
+    public static Vector2Int NorthVector = new Vector2Int(-1, 0);
+    public static Vector2Int EastVector = new Vector2Int(0, 1);
+    public static Vector2Int SouthVector = new Vector2Int(1, 0);
+    public static Vector2Int WestVector = new Vector2Int(0, -1);
+    public static Vector2Int NorthWestVector = new Vector2Int(-1, -1);
+    public static Vector2Int NorthEastVector = new Vector2Int(-1, 1);
+    public static Vector2Int SouthEastVector = new Vector2Int(1, 1);
+    public static Vector2Int SouthWestVector = new Vector2Int(1, -1);
 
     /// <summary>
     /// Enum with all the Exitdirections.
@@ -55,14 +63,14 @@ public static class ExitDirection
     /// <returns>The Exitdirection corresponding to the provided byte.</returns>
     public static Vector2Int ByteToVector(byte byt)
     {
-        if (byt == North) { return new(-1, 0); }
-        else if (byt == South) { return new(1, 0); }
-        else if (byt == West) { return new(0, -1); }
-        else if (byt == East) { return new(0, 1); }
-        else if (byt == NorthEast) { return new(-1, 1); }
-        else if (byt == NorthWest) { return new(-1, -1); }
-        else if (byt == SouthEast) { return new(1, 1); }
-        else if (byt == SouthWest) { return new(1, -1); }
+        if (byt == North) { return NorthVector; }
+        else if (byt == South) { return SouthVector; }
+        else if (byt == West) { return WestVector; }
+        else if (byt == East) { return EastVector; }
+        else if (byt == NorthEast) { return NorthEastVector; }
+        else if (byt == NorthWest) { return NorthWestVector; }
+        else if (byt == SouthEast) { return SouthEastVector; }
+        else if (byt == SouthWest) { return SouthWestVector; }
         else { return new(0, 0); }
     }
     /// <summary>
@@ -129,7 +137,7 @@ public static class ExitDirection
     /// </summary>
     /// <param name="dir">The Vector2Int to convert to the corresponding Exitdirection.</param>
     /// <returns>The Exitdirection corresponding to the provided Vector2Int.</returns>
-    public static ExitDirections DirectionToExitDiretion(Vector2Int direction)
+    public static ExitDirections DirectionToExitDirection(Vector2Int direction)
     {
         if (direction.x == 0)
         {

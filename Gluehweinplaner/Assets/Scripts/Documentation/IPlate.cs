@@ -101,19 +101,19 @@ public interface IPlate
     /// <summary>
     /// Retunrs the shortest Path to an exitpoint.
     /// </summary>
-    /// <seealso cref="GetShortestPathToToNextPlateV3(Portal, Vector3)"/>
+    /// <seealso cref="GetShortestPathToPortalV3(Portal, Vector3)"/>
     /// <param name="portal">The portal to take to the next plate.</param>
     /// <param name="startArray">The starting position within the array.</param>
     /// <returns>The steps to be taken in Vector2Int.</returns>
-    List<Vector2Int> GetShortestPathToToNextPlateV2(Portal portal, Vector2Int startArray);
+    List<Vector2Int> GetShortestPathToPortalV2(Portal portal, Vector2Int startArray);
     /// <summary>
     /// Retunrs the shortest Path to an exitpoint.
     /// </summary>
-    /// <seealso cref="GetShortestPathToToNextPlateV3(Portal, Vector3)"/>
+    /// <seealso cref="GetShortestPathToPortalV3(Portal, Vector3)"/>
     /// <param name="portal">The portal to take to the next plate.</param>
     /// <param name="startArray">The starting position within the array.</param>
     /// <returns>The steps to be taken in realworldcoordinates.</returns>
-    List<Vector3> GetShortestPathToToNextPlateV3(Portal portal, Vector3 start);
+    List<Vector3> GetShortestPathToPortalV3(Portal portal, Vector3 start);
     /// <summary>
     /// The function converts an position specifided by rowposition and columnposition within the plate to realworldcoordinates in relation to the plate.
     /// </summary>

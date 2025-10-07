@@ -54,8 +54,7 @@ public class NPC : MonoBehaviour, INPC
 
         sm!.Spawned(this.transform.position);
         patienceLost = patience;
-        //budenToVisit = sm!.CalcNewWeightedBuden(UnityEngine.Random.Range(0, sm!.GetGoalNodeCount() + 1));
-        budenToVisit = sm!.CalcNewWeightedBuden(1);
+        budenToVisit = sm!.CalcNewWeightedBuden(UnityEngine.Random.Range(0, sm!.GetGoalNodeCount() + 1));
         goalsBeforeExit = budenToVisit.Count;
         if (budenToVisit.Count == 0) { exiting = true; }
         else

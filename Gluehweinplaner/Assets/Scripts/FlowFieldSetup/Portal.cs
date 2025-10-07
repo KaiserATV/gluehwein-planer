@@ -14,8 +14,9 @@ public class Portal
     }
     public void GenerateFlowFields()
     {
+        if(plateToFlowfield.Count > 0) { return; }
         foreach (KeyValuePair<Plate, (Vector2Int Center, List<Vector2Int> goalPositions)> kvp in plateToData) {
-            (_, byte[,] flowfield) = GenerateMatrix.GenerateDistanceFieldAndFlowField(kvp.Key.BaseCostMatrix, kvp.Key.Rows, kvp.Key.Columns, kvp.Value.goalPositions, kvp.Key.canPathDiagonal);
+            (_, byte[,] flowfield) = GenerateMatrix.GenerateDistanceFieldAndFlowField(kvp.Key.BaseCostMatrix, kvp.Key.Rows, kvp.Key.Columns, kvp.Value.goalPositions, kvp.Key.canPathDiagonal, (Vector2Int a, Vector2Int b)=>true);
             if (plateToFlowfield.ContainsKey(kvp.Key) && kvp.Key.hasChanged)
             {
                 plateToFlowfield[kvp.Key] = flowfield;

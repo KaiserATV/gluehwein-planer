@@ -568,7 +568,7 @@ public class SceneManager : MonoBehaviour, ISceneManager
         List<Plate> platesToVisit;
        
         baseCostPlates = GenerateMatrix.GenerateBaseCostMatrix(plateCountX, plateCountZ, (int row, int column) => !allPlateArray![row, column].HasOnlyObstacles, out bool onlyObstacles, out bool noObstacles);
-        (_, flowField) = GenerateMatrix.GenerateDistanceFieldAndFlowField(baseCostPlates, plateCountX, plateCountZ, new List<Vector2Int> { arrayGoal }, pathDiagonal);
+        (_, flowField) = GenerateMatrix.GenerateDistanceFieldAndFlowField(baseCostPlates, plateCountX, plateCountZ, new List<Vector2Int> { arrayGoal }, pathDiagonal, canPathTo);
         platePosToVisit = GenerateMatrix.GetBestPathInFlowFieldFull(flowField, arrayStart);
         if (platePosToVisit.Count == 0) { return new Queue<Vector3>(); }//there is no way to path to the goal from the given position
         platesToVisit = new List<Plate>();
@@ -576,7 +576,7 @@ public class SceneManager : MonoBehaviour, ISceneManager
         {
             platesToVisit.Add(allPlateArray![pos.x, pos.y]);
         }
-        (Queue<Vector3> wayPoints, Plate? lastVisitedPlate) = GenerateMatrix.GeneratePath(platesToVisit, start, goal, pathDiagonal);
+        (Queue<Vector3> wayPoints, Plate? lastVisitedPlate) = GenerateMatrix.GeneratePath(platesToVisit, start, goal);
         if (lastVisitedPlate == null)
         {
             if (!goalPositionToFlowField.ContainsKey(goal))
@@ -591,13 +591,14 @@ public class SceneManager : MonoBehaviour, ISceneManager
         }
         else // if the current plates to visit contain a plate that is not passable a new path needs to be generated
         {
+            //should theoretacly only be reached if within a plate no path to an portal an be found
             int tries = 0;//amount of tries taken to generate a path
             Plate goalPlate = allPlateArray![arrayGoal.x, arrayGoal.y];
             do
             {
                 Vector2Int platePos = WorldPositionToPlateArrayPosition(lastVisitedPlate!.Center);
                 baseCostPlates[platePos.x, platePos.y] = GenerateMatrix.MatrixObstacleValue;
-                (_, flowField) = GenerateMatrix.GenerateDistanceFieldAndFlowField(baseCostPlates, plateCountX, plateCountZ, new List<Vector2Int> { arrayGoal }, pathDiagonal);
+                (_, flowField) = GenerateMatrix.GenerateDistanceFieldAndFlowField(baseCostPlates, plateCountX, plateCountZ, new List<Vector2Int> { arrayGoal }, pathDiagonal, canPathTo);
                 platePosToVisit = GenerateMatrix.GetBestPathInFlowFieldFull(flowField, arrayStart);
                 if (platePosToVisit.Count == 0) { return new Queue<Vector3>(); }//there is no way to path to the goal from the given position
                 platesToVisit = new List<Plate>();
@@ -605,7 +606,7 @@ public class SceneManager : MonoBehaviour, ISceneManager
                 {
                     platesToVisit.Add(allPlateArray![pos.x, pos.y]);
                 }
-                (Queue<Vector3> newWayPoints, Plate? lastPlate) = GenerateMatrix.GeneratePath(platesToVisit, start, goal, pathDiagonal);
+                (Queue<Vector3> newWayPoints, Plate? lastPlate) = GenerateMatrix.GeneratePath(platesToVisit, start, goal);
                 lastVisitedPlate = lastPlate;
                 if (lastPlate == null)
                 {
@@ -630,6 +631,11 @@ public class SceneManager : MonoBehaviour, ISceneManager
     {
         return Vector2Int.Distance(currMin, goal) > Vector2Int.Distance(toCheck, goal);
     }
+    public bool canPathTo(Vector2Int startPlate, Vector2Int neighborPlate)
+    {
+        return allPlateArray![startPlate.x, startPlate.y].HasPortalInDirection(ExitDirection.DirectionToExitDirection(neighborPlate - startPlate), allPlateArray[neighborPlate.x, neighborPlate.y]);
+    }
+
     /// <summary>
     /// This function checks wether or not the path of plates contains a plate whichs path has been changed
     /// </summary>

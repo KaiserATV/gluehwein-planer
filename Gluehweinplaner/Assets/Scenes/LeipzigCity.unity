@@ -201,7 +201,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 87688339}
-  - component: {fileID: 87688340}
   - component: {fileID: 87688341}
   m_Layer: 0
   m_Name: SoundFXManager
@@ -225,18 +224,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1341412598}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &87688340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 87688338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b33aece2adb6b24f9eac8f0a2989864, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &87688341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4439,7 +4426,6 @@ GameObject:
   - component: {fileID: 754593272}
   - component: {fileID: 754593274}
   - component: {fileID: 754593273}
-  - component: {fileID: 754593275}
   - component: {fileID: 754593276}
   m_Layer: 5
   m_Name: Handle
@@ -4505,18 +4491,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 754593271}
   m_CullTransparentMesh: 1
---- !u!114 &754593275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 754593271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c353b8b92c2de694494a5e7bb8b066e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &754593276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5063,52 +5037,6 @@ MonoBehaviour:
   tilesZ: 0
   attrakIncr: 10
   waitIncr: 5
---- !u!1 &946965387
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 946965388}
-  - component: {fileID: 946965389}
-  m_Layer: 0
-  m_Name: XR Interaction Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &946965388
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 946965387}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 87.04796, y: -31.030706, z: -104.67385}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1341412598}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &946965389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 946965387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83e4e6cca11330d4088d729ab4fc9d9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
 --- !u!1001 &949713559
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5811,11 +5739,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d1076c75aea15adab998bcafe0aa30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathDiagonal: 0
+  pathDiagonal: 1
   simulating: 1
-  maxPlayerCount: 5000
-  plateCountX: 100
-  plateCountZ: 100
+  plateCountX: 400
+  plateCountZ: 400
+  maxPlayerCount: 10
   playerCount: 0
   inactivePlayerCount: 0
   agentsLostPatience: 0
@@ -5844,7 +5772,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1036096514}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad238ed33899215418b0b00f83e9c814, type: 3}
   m_Name: 
@@ -7185,7 +7113,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 728048209}
-  - {fileID: 946965388}
   - {fileID: 262669075}
   - {fileID: 1636704923}
   - {fileID: 96101760}
