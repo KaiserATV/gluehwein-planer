@@ -86,7 +86,7 @@ public class NPC : MonoBehaviour, INPC
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (!stopped)
         {
