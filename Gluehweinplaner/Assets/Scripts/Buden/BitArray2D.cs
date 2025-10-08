@@ -28,11 +28,11 @@ public class BitArray2D : IBitArray2D
         AgentWidthX = ax;
         AgentWidthZ = az;
 
-        spacearoundX = 1;
-        spacearoundZ = 1;//->for models
+        //spacearoundX = 1;
+        //spacearoundZ = 1;//->for models
 
-        //spacearoundX = 0.5f;
-        //spacearoundZ = 1;
+        spacearoundX = 0.5f;
+        spacearoundZ = 1;
 
         CalcWidthHeight();
         kapa = cellsX * cellsZ;

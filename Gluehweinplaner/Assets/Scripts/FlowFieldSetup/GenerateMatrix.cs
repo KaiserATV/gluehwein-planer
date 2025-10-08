@@ -485,7 +485,7 @@ public static class GenerateMatrix
             Portal? p = currentPlate.GetClostestPortal(goal, ExitDirection.DirectionToExitDirection(nextDir), nextPlate);
             if (p == null)
             {
-               //should not be reached, but just to be safe
+                //should not be reached, but just to be safe
                 return (new Queue<Vector3>(), nextPlate);
             }
             

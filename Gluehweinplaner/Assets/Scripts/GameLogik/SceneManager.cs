@@ -595,7 +595,6 @@ public class SceneManager : MonoBehaviour, ISceneManager
             {
                 allPositionsToGoals.Add((start, goal), (platesToVisit, new Queue<Vector3>(wayPoints)));
             }
-            
             return wayPoints;
         }
         else // if the current plates to visit contain a plate that is not passable a new path needs to be generated

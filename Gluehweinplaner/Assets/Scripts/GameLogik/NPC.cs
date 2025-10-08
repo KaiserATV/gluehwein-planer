@@ -6,7 +6,6 @@ using UnityEngine;
 public class NPC : MonoBehaviour, INPC
 {
     public GoalNode? currentGoalNode = null;
-    public bool animated = false;
     private Vector3Int? waitingAt;
     public Vector3? waitingSpot;
     public Vector3? nextWayPoint;
@@ -14,7 +13,6 @@ public class NPC : MonoBehaviour, INPC
     public Vector3? exit = null;
     private Bude? bude = null;
     private SceneManager? sm = null;
-    private Animator animator;
     private string walkingName = "Walking";
     private string waitingName = "Waiting";
 
@@ -70,11 +68,6 @@ public class NPC : MonoBehaviour, INPC
                 onWayToGoalNode = true;
             }
         }
-        if (animated)
-        {
-            animator = this.GetComponent<Animator>();
-            animator.SetBool(walkingName, true);
-        }
     }
 
     private void OnDrawGizmos()
@@ -86,7 +79,7 @@ public class NPC : MonoBehaviour, INPC
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!stopped)
         {
@@ -157,11 +150,18 @@ public class NPC : MonoBehaviour, INPC
                                 {
                                     bude = budenToVisit.Dequeue();
                                     currentGoalNode = bude!.goalNode;
-                                    patienceLost = patience;
                                     moveList = sm!.HandlePathRequest(this.transform.position, currentGoalNode!);
+                                    if (moveList.Count == 0)
+                                    {
+                                        onWayToBude = true;
+                                    }
+                                    else
+                                    {
+                                        nextWayPoint = moveList.Dequeue();
+                                        onWayToGoalNode = true;
+                                    }
+                                    patienceLost = patience;
                                     currentGoalNode!.UsingGoalnodeAdd(this);
-                                    nextWayPoint = moveList.Dequeue();
-                                    onWayToGoalNode = true;
                                 }
                                 onWayBackFromBude = false;
                             }
@@ -203,10 +203,6 @@ public class NPC : MonoBehaviour, INPC
                             {
                                 timeLeftWaiting = bude!.WaitTime;
                                 waiting = true;
-                                if (animated)
-                                {
-                                    animator!.SetBool(waitingName, true);
-                                }
                                 onWayToBude = false;
                             }
                         }
@@ -227,10 +223,6 @@ public class NPC : MonoBehaviour, INPC
                         onWayToGoalNode = false;
                         waiting = false;
                         waitingSpot = null;
-                        if (animated)
-                        {
-                            animator!.SetBool(waitingName, false);
-                        }
                     }
                 }
 
@@ -278,11 +270,20 @@ public class NPC : MonoBehaviour, INPC
                     else
                     {
                         bude = budenToVisit.Dequeue();
-                        currentGoalNode = bude.goalNode;
+                        currentGoalNode = bude!.goalNode;
+                        moveList = sm!.HandlePathRequest(this.transform.position, currentGoalNode!);
+                        if (moveList.Count == 0) 
+                        {
+                            onWayToBude = true;
+                        }
+                        else
+                        {
+                            nextWayPoint = moveList.Dequeue();
+                            onWayToGoalNode = true;
+                        }
                         currentGoalNode!.UsingGoalnodeAdd(this);
-                        onWayToGoalNode = true;
                         onWayBackFromBude = true;
-                        nextWayPoint = null;
+
                         patienceLost = patience;
                     }
                 }
@@ -370,10 +371,6 @@ public class NPC : MonoBehaviour, INPC
                 onWayToGoalNode = true;
             }
         }
-        if (animated)
-        {
-            animator!.SetBool(walkingName, true);
-        }
     }
     private void MoveTo(Vector3 towards, float timeSinceLastMove, bool showMoved)
     {
@@ -393,11 +390,6 @@ public class NPC : MonoBehaviour, INPC
         sm!.removePlayer(this);
         stopped = true;
         this.transform.position = inactivePostion;
-        if (animated)
-        {
-            animator!.SetBool(waitingName, false);
-            animator!.SetBool(walkingName, false);
-        }
     }
     public void Stop()
     {

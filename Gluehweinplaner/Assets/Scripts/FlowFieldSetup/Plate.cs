@@ -262,7 +262,7 @@ public class Plate : IPlate
     }
     public Vector2Int GetPositionInArray(Vector3 positionVector3, bool safe)
     {
-        if (false)
+        if (safe)
         {
             return new Vector2Int(Math.Clamp(Mathf.FloorToInt((positionVector3.x - (Center.x - (Rows * GenerateMatrix.TileSizeX) / 2)) / GenerateMatrix.TileSizeX), 0, Rows - 1), Math.Clamp(Mathf.FloorToInt((positionVector3.z - (Center.z - (Columns * GenerateMatrix.TileSizeZ) / 2)) / GenerateMatrix.TileSizeZ), 0, Columns - 1));
         }
