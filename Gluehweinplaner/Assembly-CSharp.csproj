@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\GameLogik\BeendenSzene.cs" />
     <Compile Include="Assets\Scripts\Heatmap.cs" />
     <Compile Include="Assets\Scripts\Buden\DeleteBuilding.cs" />
+    <Compile Include="Assets\Scripts\GameLogik\NPC-navmesh.cs" />
     <Compile Include="Assets\Scripts\Movable.cs" />
     <Compile Include="Assets\Scripts\Audio\VolumeMenuCloser.cs" />
     <Compile Include="Assets\Scripts\Buden\Bude.cs" />

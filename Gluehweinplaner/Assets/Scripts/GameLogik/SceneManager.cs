@@ -42,7 +42,7 @@ public class SceneManager : MonoBehaviour
 
     private List<GoalNode> allGoalNodes = new List<GoalNode>();
     private List<Bounds> allFloorBounds = new List<Bounds>(); 
-    private List<NPC> alleCurrentAgents = new List<NPC>();
+    private List<NPC_navmesh> alleCurrentAgents = new List<NPC_navmesh>();
 
     public float normalPlateX = 0;
     public float normalPlateZ = 0;
@@ -121,7 +121,7 @@ public class SceneManager : MonoBehaviour
     {
         while (playerCount > maxPlayerCount && alleCurrentAgents.Count > 0)
         {
-            NPC ac = alleCurrentAgents[0];
+            NPC_navmesh ac = alleCurrentAgents[0];
             ac.SetInactive(iac!.GetWorldCoords());
             iac.AddAgent(ac);
             alleCurrentAgents.Remove(ac);
@@ -132,10 +132,10 @@ public class SceneManager : MonoBehaviour
     }
 
     public void StartSimulation() { simulating = true; }
-    public void ResumeSimulation() { simulating = true; foreach (NPC ac in alleCurrentAgents) { ac.Resume(); } CalcAllBudenWeight(); }
-    public void StopSimulation() { simulating = false; foreach (NPC ac in alleCurrentAgents) { ac.Stop(); } }
-    public void addPlayer(NPC npc) { if (!alleCurrentAgents.Contains(npc)) { alleCurrentAgents.Add(npc); playerCount++; } }
-    public void removePlayer(NPC npc) { playerCount--; alleCurrentAgents.Remove(npc); }
+    public void ResumeSimulation() { simulating = true; foreach (NPC_navmesh ac in alleCurrentAgents) { ac.Resume(); } CalcAllBudenWeight(); }
+    public void StopSimulation() { simulating = false; foreach (NPC_navmesh ac in alleCurrentAgents) { ac.Stop(); } }
+    public void addPlayer(NPC_navmesh npc) { if (!alleCurrentAgents.Contains(npc)) { alleCurrentAgents.Add(npc); playerCount++; } }
+    public void removePlayer(NPC_navmesh npc) { playerCount--; alleCurrentAgents.Remove(npc); }
     public bool CanAddPlayer() { return playerCount < maxPlayerCount; }
     public (Vector3,Vector3) GetNewSpawnPoint()
     {
@@ -148,7 +148,7 @@ public class SceneManager : MonoBehaviour
 
     public void ResetSimulation()
     {
-        foreach (NPC ac in alleCurrentAgents)
+        foreach (NPC_navmesh ac in alleCurrentAgents)
         {
             ac.SetInactive(iac!.GetWorldCoords());
             iac!.AddAgent(ac);
@@ -158,7 +158,7 @@ public class SceneManager : MonoBehaviour
         playerCount = 0;
         agentsLostPatience = 0;
         simulating = false;
-        alleCurrentAgents = new List<NPC>();
+        alleCurrentAgents = new List<NPC_navmesh>();
         hm!.Reset();
         CalcAllBudenWeight();
     }

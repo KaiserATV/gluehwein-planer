@@ -12,10 +12,9 @@ GameObject:
   - component: {fileID: 1631605989532335671}
   - component: {fileID: 8247384676624092078}
   - component: {fileID: 842965925367549581}
-  - component: {fileID: 6514479943286939686}
-  - component: {fileID: 8845387599984801223}
+  - component: {fileID: 2477414972986250003}
   m_Layer: 0
-  m_Name: NPC
+  m_Name: NPC_nn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,7 +106,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6514479943286939686
+--- !u!114 &2477414972986250003
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,39 +115,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 196369825999762129}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f817565a362fac54a9179435b5e38ee2, type: 3}
+  m_Script: {fileID: 11500000, guid: 32a1ad748be1bfb408be43248055f3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
   patienceLost: 0
   timeLeftWaiting: 0
   goalsBeforeExit: 0
+  checkForChangeIntervall: 1
   randomExitGoalNumber: 1
+  inactive: 0
+  stopped: 0
   waiting: 0
   exiting: 0
   onWayToBude: 0
+  onWayToStart: 1
   onWayToGoalNode: 0
+  onWayToExit: 0
   onWayBackFromBude: 0
   lostPatience: 0
---- !u!195 &8845387599984801223
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 196369825999762129}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.00001
-  m_Speed: 2
-  m_Acceleration: 8
-  avoidancePriority: 0
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0.5
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 0

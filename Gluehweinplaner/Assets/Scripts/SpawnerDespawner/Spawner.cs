@@ -46,7 +46,7 @@ public class Spawner : MonoBehaviour
                 Quaternion rotation = Quaternion.Euler(0, 0, 0);
                 if (iac.GetStoredCount()>0)
                 {
-                    NPC ac = iac.GetAgent();
+                    NPC_navmesh ac = iac.GetAgent();
                     ac.Respawn();
                     sm.inactivePlayerCount--;
                     sm!.addPlayer(ac);
@@ -54,6 +54,7 @@ public class Spawner : MonoBehaviour
                 else 
                 {
                     if (position != null) {
+                        Debug.Log(position);
                         GameObject agent = Instantiate(prop, position, rotation);
                         agent.transform.SetParent(transform, false);
                         sm.playerCount++;
@@ -76,7 +77,7 @@ public class Spawner : MonoBehaviour
         //    position.z = Random.Range(minWorldLimitZ, maxWorldLimitZ);
         //} while (Physics.CheckSphere(position, 1f));
         //position.y = 0;
-        return (transform.position, transform.position);
+        return (transform.position + new Vector3(0, 0.5f, 0), transform.position + new Vector3(0, 0.5f, 0));
     }
 
 

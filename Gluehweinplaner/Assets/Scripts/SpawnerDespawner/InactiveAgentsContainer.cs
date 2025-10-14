@@ -5,21 +5,21 @@ public class InactiveAgentsContainer : MonoBehaviour
 {
     private Vector3 WorldCoords;
     private int StoredPlayerCount;
-    private LinkedList<NPC> StoredAgents = new LinkedList<NPC>();
+    private LinkedList<NPC_navmesh> StoredAgents = new LinkedList<NPC_navmesh>();
     private void Start()
     {
         WorldCoords = this.transform.position;
         StoredPlayerCount = 0;
     }
 
-    public void AddAgent(NPC ac)
+    public void AddAgent(NPC_navmesh ac)
     {
         StoredAgents.AddFirst(ac);
         StoredPlayerCount++;
     }
-    public NPC GetAgent()
+    public NPC_navmesh GetAgent()
     {
-        NPC ac = null;
+        NPC_navmesh ac = null;
         if (StoredPlayerCount != 0)
         {
             ac = StoredAgents.First.Value;

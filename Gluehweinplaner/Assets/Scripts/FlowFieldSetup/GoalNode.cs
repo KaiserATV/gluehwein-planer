@@ -9,19 +9,19 @@ public class GoalNode
     public Vector3 Position;
     private SceneManager sm;
     public Plate OnPlate { get; set; }
-    private List<NPC> onWayToGoalNode = new List<NPC>();
-    private List<NPC> atGoal = new List<NPC>();
+    private List<NPC_navmesh> onWayToGoalNode = new List<NPC_navmesh>();
+    private List<NPC_navmesh> atGoal = new List<NPC_navmesh>();
 
     Vector3 maxValues;
     Vector3 minValues;
 
     public void AddGoal(Bude goal) { lineOfSightTo.Add(goal);goal.goalNode = this; }
     public void RemoveGoal(Bude goal) { lineOfSightTo.Remove(goal); goal.goalNode = null; }
-    public void AddOnWayToGoalNode(NPC npc) { onWayToGoalNode.Add(npc); }
-    public void RemoveOnWayToGoalNode(NPC npc) { onWayToGoalNode.Remove(npc); if (onWayToGoalNode.Count == 0 && lineOfSightTo.Count == 0) { sm.RemoveGoalNode(this); } }
-    public void OnWayToWait(NPC npc) { atGoal.Add(npc); onWayToGoalNode.Remove(npc); }
-    public void RemoveWaitingAtGoal(NPC npc) { atGoal.Remove(npc); onWayToGoalNode.Add(npc); }
-    public void RemoveSafe(NPC npc) { if (atGoal.Contains(npc)){ atGoal.Remove(npc); }else if(onWayToGoalNode.Contains(npc)){ onWayToGoalNode.Remove(npc); }}
+    public void AddOnWayToGoalNode(NPC_navmesh npc) { onWayToGoalNode.Add(npc); }
+    public void RemoveOnWayToGoalNode(NPC_navmesh npc) { onWayToGoalNode.Remove(npc); if (onWayToGoalNode.Count == 0 && lineOfSightTo.Count == 0) { sm.RemoveGoalNode(this); } }
+    public void OnWayToWait(NPC_navmesh npc) { atGoal.Add(npc); onWayToGoalNode.Remove(npc); }
+    public void RemoveWaitingAtGoal(NPC_navmesh npc) { atGoal.Remove(npc); onWayToGoalNode.Add(npc); }
+    public void RemoveSafe(NPC_navmesh npc) { if (atGoal.Contains(npc)){ atGoal.Remove(npc); }else if(onWayToGoalNode.Contains(npc)){ onWayToGoalNode.Remove(npc); }}
 
     public GoalNode(List<Bude> goals, Plate p, SceneManager sceneManager)
     {
@@ -83,11 +83,11 @@ public class GoalNode
     {
         if(sm.WorldPositionToPlate(bude.GetFarestPoint()) != OnPlate)
         {
-            foreach(NPC npc in onWayToGoalNode)
+            foreach(NPC_navmesh npc in onWayToGoalNode)
             {
                 npc.BudeMoved(bude);
             }
-            foreach (NPC npc in atGoal)
+            foreach (NPC_navmesh npc in atGoal)
             {
                 npc.BudeMoved(bude);
             }
@@ -98,11 +98,11 @@ public class GoalNode
 
     public void BudeDestroyed(Bude bude)
     {
-        foreach (NPC npc in onWayToGoalNode)
+        foreach (NPC_navmesh npc in onWayToGoalNode)
         {
             npc.BudeMoved(bude);
         }
-        foreach (NPC npc in atGoal)
+        foreach (NPC_navmesh npc in atGoal)
         {
             npc.BudeMoved(bude);
         }
