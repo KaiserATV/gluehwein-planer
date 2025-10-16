@@ -34,6 +34,8 @@ public class Bude : MonoBehaviour, IBude
         Bounds b = Agent!.GetComponentInChildren<MeshRenderer>().bounds;
         AgentWidthX = b.size.x;
         AgentWidthZ = b.size.z;
+        //AgentWidthX = 1;
+        //AgentWidthZ = 1;
 
         // !!!!IMPORTANT!!!! the number of the children specifies the position in the prefab, if changed, chang number here!!!!!!!
         // 1 - Wait_L, 2 - Wait_R, 3 - Ziel
